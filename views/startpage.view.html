@@ -1,0 +1,114 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-md-12 panel infobox infobox-specific-height">
+            <h3>{{'MARKET_CAP'|translate}}</h3>
+            <table>
+                <tr>
+                    <th>{{ 'NUMBER_OF_COINS' |translate }}</th>
+                    <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
+                    <td ng-hide="loading_circulation">{{circulation | number}}</td>
+                </tr>
+                <tr>
+                    <th>{{'PRICE'|translate}}</th>
+                    <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                    <td ng-hide="loading_pricing">{{pricing.ETPUSD | currency}}</td>
+                </tr>
+                <tr>
+                    <th>{{'MARKET_CAP'|translate}}</th>
+                    <td ng-show="loading_pricing"><img src="../images/spinner.gif"> </td>
+                    <td ng-hide="loading_pricing">{{pricing.ETPUSD*circulation | currency}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-12 panel infobox infobox-specific-height mining-box">
+            <h3>{{'MINING_POOL_INFO'|translate}}</h3>
+            <table>
+                <tr>
+                    <th>{{'HEIGHT'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td>{{mining_info.nodes[0].height | number}}</td>
+                </tr>
+                <tr>
+                    <th>{{'EXPLORER.DIFFICULTY'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td>{{mining_info.nodes[0].difficulty | number}}</td>
+                </tr>
+                <tr>
+                    <th>{{'HASHRATE'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td>{{mining_info.hashrate | number}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="col-md-12 panel infobox infobox-specific-height" ng-controller="ChartController">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>{{'MINING_POOL_INFORMATION'|translate}}</h3>
+                    <div ng-repeat="location in locationsmap">
+                        <b>{{location}}</b><br>
+                        <div ng-repeat="miner in locations[location]">
+                            <a href="{{miner.url}}">{{miner.url}}</a><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+
+                    <div>
+                        <!-- <nvd3 options="options" data="data"></nvd3> -->
+                        <div id="chart">
+                            <svg></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="content" ng-controller="TransactionListController">
+    <h2 class="headline"><em></em> {{"LATEST_TRANSACTIONS" | translate}}</h2>
+
+    <div ng-show="loading_txs">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_txs">
+        <div class="col-md-12 col-sm-12">
+            <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="tx in txList">
+                    <div class="col-md-7 col-sm-12"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}: </span><a href="#!/tx/{{tx.hash}}">{{tx.hash}}</a></div>
+                    <div class="col-md-2 col-sm-12"><span class="list-item-label">{{ 'TX.BLOCK' | translate }}: </span><a href="#!/blk/{{tx.height}}">{{tx.height}}</a></div>
+                    <div class="col-md-3 col-sm-12"><span class="list-item-label">{{ 'TIME' | translate }}: </span>{{tx.timestamp * 1000| date:"short"}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="content" ng-controller="BlockListController">
+    <h2 class="headline"><em></em> {{ 'EXPLORER.LATEST_BLOCKS' | translate }}</h2>
+
+    <div ng-show="loading_blocks">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_blocks">
+        <div class="col-md-12">
+            <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="block in blockList">
+                <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span><a href="#!/blk/{{block.number}}">{{block.number}}</a></div>
+                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}: </span>{{block.transaction_count}}</div>
+                <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.DIFFICULTY' | translate }}: </span>{{block.bits}}</div>
+                <div class="col-md-4 right"><span class="list-item-label">{{ 'EXPLORER.BLOCK_TIME' | translate }}: </span>{{block.time_stamp * 1000| date:( 'GENERAL.DATE_FORMAT' | translate )}}</div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- <div class="content">
+     <span class="headline"><em></em>{{ 'Node map' | translate }}</span>
+     <div class="row">
+     <div class="col-md-12">
+     <div id="map" style="height: 600px; width: 100%;" ng-controller="NodeMapController"> </div>
+     </div>
+     </div>
+     </div> -->

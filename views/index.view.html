@@ -1,0 +1,51 @@
+<div class="container">
+    <div class="clearfix">
+        <div class="pull-right">
+            <!-- <a href="http://mvs.live">{{'RETURN_TO_METAVERSE'|translate}}</a> <a href="http://test4.metaverse.live:8820">{{'TESTNET'|translate}}</a> -->
+
+                    <a href="http://mymvs.info" class="third-party-link">
+                        {{'THIRD_PARTY_EXPLORER'|translate}}
+                    </a>
+            <div lang="{{selectedLang}}" id="language_selector">
+                <nav>
+                    <ul>
+                        <li class="language"><a ng-click="changeLang('zh')" lang="zh">简体中文</a></li>
+                        <li class="language"><a ng-click="changeLang('en')" lang="en">English</a></li>
+                        <!-- <li class="language"><a ng-click="changeLang('de')" lang="de">Deutsche</a></li> -->
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <div>
+        <a class="center" href="#!/" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
+    </div>
+    <div ng-controller="SearchController">
+        <form>
+            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
+
+            <div class="">
+                <div class="input-group search-group">
+                    <input type="text" class="form-control searchbox" name="hash" ng-model="search_field" autocomplete="off" ng-enter="search()" required placeholder="{{'EXPLORER.SEARCH_LABEL' | translate}}">
+                    <a class="input-group-addon button" ng-click="search()">
+                        <i class="icon-search searchIcon" aria-hidden="true"></i></a>
+                </div>
+        </form>
+        </div>
+    </div>
+    <ui-view></ui-view>
+</div>
+
+<footer>
+    <div class="center-text footer-icons">
+        <a href="http://blog.mvs.live/"><i class=""><img src="../images/blog.svg"></i></a>
+        <a href="https://github.com/mvs-org"><i class=""><img src="../images/github.svg"></i></a>
+        <a href="https://twitter.com/mvs_org"><i class=""><img src="../images/twitter.svg"></i></a>
+        <a href="https://www.facebook.com/mvsofficial/"><i class=""><img src="../images/facebook.svg"></i></a>
+        <a href="https://mvslive.slack.com/team/metaverse"><i class=""><img src="../images/slack.svg"></i></a>
+        <a href="http://bbs.viewfin.com/" class="hideme"><i class=""><img src="../images/bbs.svg"></i></a>
+    </div>
+    <div class="center-text" id="copyright">
+        {{"COPYRIGHT_TEXT"|translate}}
+    </div>
+</footer>

@@ -1,0 +1,109 @@
+<div class="content">
+    <div class="row">
+        <h2 class="headline col-md-5 col-sm-12"><em></em>{{ 'ADDRESS.HEADLINE' | translate }}</h2>
+    </div>
+    <div class="row">
+        <div class="col-md-8 col-sm-12 address-padding">
+            <h4>{{ address }}</h4>
+        </div>
+        <div class="col-md-4 ">
+            <div class="qr-code">
+                <canvas id="qrcode"></canvas>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+
+        <h2 class="headline"><em></em>{{ 'BALANCES.HEADLINE' | translate }}</h2>
+        <div class="col-md-4 col-sm-12" ng-repeat="(name,asset) in assets">
+            <div class="col-md-12 panel infobox">
+                <h3>{{name}}</h3>
+                <div class="asset-icon">
+                    <img ng-src="../img/assets/{{name}}.png">
+                </div>
+                <table>
+                    <tr>
+                        <th>{{'TOTAL_RECEIVED'|translate}}</th>
+                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_pricing">{{( asset.received | numberFormat: asset.decimals| currency: '': asset.decimals)}}</td>
+                    </tr>
+                    <tr ng-if="name==='ETP'">
+                        <th>{{'FROZEN'|translate}}</th>
+                        <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_circulation">{{asset.locked | numberFormat: asset.decimals|currency:'': asset.decimals}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'BALANCE'|translate}}</th>
+                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_pricing">{{( asset.received - asset.locked - asset.sent | numberFormat: asset.decimals|currency:'':asset.decimals)}}</td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+
+    <div>
+        <div class="row">
+        </div>
+
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="address_pagination.page_change(newPageNumber)"></dir-pagination-controls>
+        <h2 class="headline"><em></em>{{ 'ADDRESS.TXS' | translate }}</h2>
+
+        <div ng-show="loading_address">
+            <div class="mini-loader">Loading...</div>
+        </div>
+
+        <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_address" dir-paginate="tx in transactions | itemsPerPage:address_pagination.items_per_page" total-items="address_pagination.total_count" currennt-page="address_pagination.current_page">
+
+
+
+
+            <div class="panel-body">
+                <div class="row tx-head">
+                    <div class="col-md-9 col-sm-12 break">
+                        <a href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
+                    </div>
+
+                    <div class="col-md-3 col-sm-12">
+                        <div class="right slide-left">{{tx.timestamp * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
+                        <div class="row" ng-repeat="input in tx.inputs">
+                            <div class="col-md-12 break">
+                                <span ng-if="!input.address">coinbase</span>
+                                <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <br>
+                                <span ng-if="input.address && $index < 5">{{input.quantity | numberFormat:input.asset.decimals | currency:'': input.asset.decimals}} {{input.asset.symbol}}</span>
+                            </div>
+                        </div>
+                        <div ng-if="tx.inputs.length>4">
+                            <a href="#!/tx/{{tx.hash}}">...</a>
+                        </div>
+                    </div>
+                    <div class="col-md-1 center-text">
+                        <i class="icon-arrow-right2"></i>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
+                        <div class="row" ng-repeat="output in tx.outputs">
+                            <div class="col-md-12 right break">
+                                <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                                <br>
+                                <div class="right">
+                                    {{output.quantity | numberFormat:output.asset.decimals|currency:'':output.asset.decimals}} {{output.asset.symbol}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="address_pagination.page_change(newPageNumber)"></dir-pagination-controls>
+    </div>
