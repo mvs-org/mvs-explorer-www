@@ -234,7 +234,10 @@
 
 
     // make sure to remove the api call for the $scope.blocks - deprecated
-    function BlockListController($scope, $wamp) {
+    function BlockListController($scope, $wamp, $interval) {
+
+        $scope.currentTimeStamp = Math.floor(Date.now());
+        $interval( () => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
 
         function AddBlocksToBlocks(blocks) {
@@ -263,7 +266,10 @@
 
 
 
-    function TransactionListController($scope, $wamp) {
+    function TransactionListController($scope, $wamp, $interval) {
+
+        $scope.currentTimeStamp = Math.floor(Date.now());
+        $interval( () => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
         function AddTxsToTxs(txs) {
             txs = txs.concat($scope.txList);
