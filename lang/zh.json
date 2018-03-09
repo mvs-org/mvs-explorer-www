@@ -65,5 +65,13 @@
     "LATEST_TRANSACTIONS": "最新交易",
     "MINUTES": "分",
     "SECONDS": "秒",
-    "AGO": "前"
+    "AGO": "前",
+    "ASSETS.HEADLINE": "全网资产",
+    "ASSETS.SYMBOL": "符号",
+    "ASSETS.ISSUER": "发布资产",
+    "ASSETS.MAX_SUPPLY": "总量",
+    "ASSETS.DESCRIPTION": "资产描述",
+    "TOP_MENU_ASSETS": "资产",
+    "TOP_MENU_API": "API",
+    "LANG_CODE": "zh"
 }

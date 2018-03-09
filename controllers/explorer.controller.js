@@ -105,7 +105,7 @@
         $scope.selectedLang = localStorageService.get('language');
 
         function changeLang(key) {
-            document.getElementById('language_selector').setAttribute("lang", key);
+            //document.getElementById('language_selector').setAttribute("lang", key);
             $translate.use(key)
                 .then((key) => localStorageService.set('language', key))
                 .catch((key) => console.log("Cannot change language."));
