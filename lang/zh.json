@@ -73,5 +73,6 @@
     "ASSETS.DESCRIPTION": "资产描述",
     "TOP_MENU_ASSETS": "资产",
     "TOP_MENU_API": "API",
-    "LANG_CODE": "zh"
+    "LANG_CODE": "zh",
+    "ASSETS.ASSETS_COUNT": "元界区块链资产数量"
 }

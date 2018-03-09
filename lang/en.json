@@ -73,5 +73,6 @@
     "ASSETS.DESCRIPTION": "Description",
     "TOP_MENU_ASSETS": "Assets",
     "TOP_MENU_API": "API",
-    "LANG_CODE": "en"
+    "LANG_CODE": "en",
+    "ASSETS.ASSETS_COUNT": "Number of Assets on the Metaverse blockchain"
 }

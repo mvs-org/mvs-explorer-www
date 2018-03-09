@@ -15,6 +15,7 @@
                 });
             };
         })
+        .controller('MenuController', MenuController)
         .controller('ExplorerController', ExplorerController)
         .controller('StartpageController', StartpageController)
         .controller('SearchController', SearchController)
@@ -24,7 +25,30 @@
         .controller('ChartController', ChartController)
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
-        .controller('TransactionController', TransactionController);
+        .controller('TransactionController', TransactionController)
+        .controller('AssetsController', AssetsController)
+        .directive('checkImage', function() {
+         return {
+            link: function(scope, element, attrs) {
+               element.bind('error', function() {
+                  element.attr('src', 'img/assets/default.png'); // set default image
+               });
+             }
+           }
+        });
+
+    function MenuController($location, $rootScope){
+
+      function setMenu(){
+        $rootScope.selectedMenu={
+          main: $location.path().split('/')[1]
+        }
+      }
+      setMenu();
+      $rootScope.$on("$locationChangeStart", function(event, next, current) {
+        setMenu();
+      });
+    }
 
     function ChartController($scope, MetaverseService) {
         var h = 600;
@@ -489,5 +513,25 @@
                     });
             }
         }
+    }
+
+    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+
+      $scope.loading_assets = true;
+
+      listAssets();
+
+      function listAssets() {
+          NProgress.start();
+          MetaverseService.ListAssets()
+              .then((response) => {
+                  //$scope.loading_assets = false;
+                  if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                      $scope.assets = response.data.result;
+                  }
+                  NProgress.done();
+              });
+      }
+
     }
 })();

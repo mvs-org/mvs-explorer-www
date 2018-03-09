@@ -24,7 +24,8 @@
             $translateProvider.preferredLanguage('zh_ZH');
         }).config(function($wampProvider) {
             $wampProvider.init({
-              //url: 'ws://explorer.mvs.live:8080/ws',
+              //url: 'wss://explorer.mvs.org/ws',
+              //url: 'ws://localhost:8820/ws',
               url: ((window.location.protocol == 'https:') ? 'wss:' : 'ws:') + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/ws",
                 realm: 'realm1'
                 //Any other AutobahnJS options
@@ -72,6 +73,11 @@
                 url: "/adr/:address",
                 templateUrl: "views/address.view.html",
                 controller: 'AddressController'
+            })
+            .state('explorer.assets', {
+                url: "/assets",
+                templateUrl: "views/assets.view.html",
+                controller: 'AssetsController'
             });
         $urlRouterProvider.otherwise("/");
     };

@@ -333,7 +333,7 @@ em{
     position: absolute;
     width: auto;
     height: 36px;
-    top: -10px;
+    top: 0;
 }
 
 .asset-row {
@@ -358,7 +358,6 @@ em{
 /*===========Header&Footer===========*/
 .a, a:visited, a:active, a:-webkit-any-link{
 	text-decoration: none;
-	/*color: #fff;*/
 }
 a:hover{
 	text-decoration: underline;
@@ -542,7 +541,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	text-transform: none;
 	/* margin-right: 40px; */
 }
-.menu ul li.active a{
+.menu ul li .selectedMenu{
 	color: #0099FF;
 }
 
@@ -1151,3 +1150,8 @@ ul, li{
 }
 
 /*===========End Header&Footer===========*/
+
+.assets-count {
+  margin-top: 30px;
+  margin-bottom: 20px;
+}

@@ -1,0 +1,56 @@
+<div class="content">
+
+    <h2 class="headline"><em></em>{{ 'ASSETS.HEADLINE' | translate }}</h2>
+    <div ng-if="loading_tx">
+        <div class="mini-loader">Loading...</div>
+    </div>
+
+    <h4 class="assets-count">
+      <span>{{ 'ASSETS.ASSETS_COUNT' | translate }}: </span>
+      <span ng-show="loading_pricing"><img src="../images/spinner.gif"></span>
+      <span ng-hide="loading_pricing">{{assets.length}}</span>
+    </h4>
+
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_tx">
+        <div class="col-md-12 hidden-xs hidden-sm">
+            <div class="row panel list-item nga-default nga-stagger nga-fade">
+                <div class="col-md-3">{{ 'ASSETS.SYMBOL' | translate }}</div>
+                <div class="col-md-2">{{ 'ASSETS.ISSUER' | translate }}</div>
+                <div class="col-md-2">{{ 'ASSETS.MAX_SUPPLY' | translate }}</div>
+                <div class="col-md-5">{{ 'ASSETS.DESCRIPTION' | translate }}</div>
+            </div>
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:'asset'">
+                <div class="col-md-3">
+                  <h4><a href="#!/tx/{{asset.hash}}">{{asset.asset}}</a></h4>
+                  <span class="asset-icon-list-assets">
+                      <img check-image ng-src="../img/assets/{{asset.asset}}.png">
+                  </span>
+                </div>
+                <div class="col-md-2">{{asset.issuer}}</div>
+                <div class="col-md-2">{{asset.value}}</div>
+                <div class="col-md-5">{{asset.description}}</div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in assets | orderBy:'asset'">
+            <h3>{{asset.asset}}</h3>
+            <div class="asset-icon">
+                <img check-image ng-src="../img/assets/{{asset.asset}}.png">
+            </div>
+            <table class="col-xs-12 col-sm-12">
+                <tr>
+                    <th>{{ 'ASSETS.ISSUER' | translate }}</th>
+                    <td>{{asset.issuer}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
+                    <td>{{asset.value}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>
+                    <td>{{asset.description}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+</div>

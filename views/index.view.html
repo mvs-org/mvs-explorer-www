@@ -1,10 +1,10 @@
 <!--header-->
-<header id="header" class="top-bar tb-large tb-transp" >
+<header id="header" class="top-bar tb-large tb-transp" ng-controller="MenuController">
 	<div class="headercontainer">
 		<div class="headerbox">
 			<div class="">
 				<div class="tb-logo fl">
-					<a href="./index.html">
+					<a href="#!/">
 						<h1 class="dis-tablecell height50">
 							<img src="./img/metaverselogo.png" alt="metaverse" title="metaverse">
 						</h1>
@@ -13,8 +13,8 @@
 
 				<nav class="menu cn-menu fl">
 					<ul class="dis-tablecell height50">
-            <!--<li><a href="#!/assets" class="cool-line">{{'TOP_MENU_ASSETS'|translate}}</a></li>-->
-            <li><a href="#!/api" class="cool-line">{{'TOP_MENU_API'|translate}}</a></li>
+            <li><a href="#!/assets" ng-class="{selectedMenu: selectedMenu.main==='assets'}" class="cool-line">{{'TOP_MENU_ASSETS'|translate}}</a></li>
+            <li><a href="#!/api" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='api'}">{{'TOP_MENU_API'|translate}}</a></li>
             <li><a href="http://mymvs.info" class="cool-line" target="_blank">{{'THIRD_PARTY_EXPLORER'|translate}}</a></li>
           </ul>
 					<div class="sl-language">
@@ -76,18 +76,6 @@
 
 
 <script>
-    /*＊ menu nav ＊*/
-    $('.menu ul li').click(function(){
-
-        if($(this).hasClass('active')){
-            $(this).removeClass('active');
-        }else{
-            $('.menu ul li').removeClass('active');
-            $(this).addClass('active');
-        }
-
-    });
-
     /* mini menu */
     var screenwidth=$(window).width();
 
