@@ -525,7 +525,7 @@
           NProgress.start();
           MetaverseService.ListAssets()
               .then((response) => {
-                  //$scope.loading_assets = false;
+                  $scope.loading_assets = false;
                   if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                       $scope.assets = response.data.result;
                   }
