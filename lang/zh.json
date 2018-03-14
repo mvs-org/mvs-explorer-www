@@ -50,8 +50,8 @@
     "market_data": "市场数据",
     "mining_data": "挖矿数据 ",
     "pricing": "定价",
-  	"blocks": "区块",
-  	"BLOCK.NUMBER": "区块序号",
+    "blocks": "区块",
+    "BLOCK.NUMBER": "区块序号",
     "PRICE": "价格",
     "TOTAL_RECEIVED": "总共接收",
     "FROZEN": "冻结",
@@ -65,5 +65,8 @@
     "LATEST_TRANSACTIONS": "最新交易",
     "MINUTES": "分",
     "SECONDS": "秒",
-    "AGO": "前"
+    "AGO": "前",
+    "TX": {
+        "FROZEN_UNTIL_BLOCK": "一直冻结到块高"
+    }
 }

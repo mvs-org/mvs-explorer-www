@@ -65,5 +65,8 @@
     "LATEST_TRANSACTIONS": "Latest Transactions",
     "MINUTES": " min ",
     "SECONDS": " sec ",
-    "AGO": "ago"
+    "AGO": "ago",
+    "TX": {
+      "FROZEN_UNTIL_BLOCK": "frozen until block"
+    }
 }
