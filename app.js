@@ -21,7 +21,12 @@
                 'zh-ZH': 'zh'
             });
             $translateProvider.useSanitizeValueStrategy('escapeParameters');
-            $translateProvider.preferredLanguage('zh_ZH');
+            var lang = (navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage));
+            if(lang.indexOf('zh') == 0) {
+              $translateProvider.preferredLanguage('zh-ZH');
+            } else {
+              $translateProvider.preferredLanguage('en-US');
+            }
         }).config(function($wampProvider) {
             $wampProvider.init({
               //url: 'wss://explorer.mvs.org/ws',
