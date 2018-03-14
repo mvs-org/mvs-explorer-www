@@ -15,6 +15,7 @@
                 });
             };
         })
+        .controller('MenuController', MenuController)
         .controller('ExplorerController', ExplorerController)
         .controller('StartpageController', StartpageController)
         .controller('SearchController', SearchController)
@@ -24,7 +25,30 @@
         .controller('ChartController', ChartController)
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
-        .controller('TransactionController', TransactionController);
+        .controller('TransactionController', TransactionController)
+        .controller('AssetsController', AssetsController)
+        .directive('checkImage', function() {
+         return {
+            link: function(scope, element, attrs) {
+               element.bind('error', function() {
+                  element.attr('src', 'img/assets/default.png'); // set default image
+               });
+             }
+           }
+        });
+
+    function MenuController($location, $rootScope){
+
+      function setMenu(){
+        $rootScope.selectedMenu={
+          main: $location.path().split('/')[1]
+        }
+      }
+      setMenu();
+      $rootScope.$on("$locationChangeStart", function(event, next, current) {
+        setMenu();
+      });
+    }
 
     function ChartController($scope, MetaverseService) {
         var h = 600;
@@ -105,7 +129,7 @@
         $scope.selectedLang = localStorageService.get('language');
 
         function changeLang(key) {
-            document.getElementById('language_selector').setAttribute("lang", key);
+            //document.getElementById('language_selector').setAttribute("lang", key);
             $translate.use(key)
                 .then((key) => localStorageService.set('language', key))
                 .catch((key) => console.log("Cannot change language."));
@@ -369,6 +393,11 @@
                     $scope.loading_tx = false;
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                         $scope.transaction = response.data.result;
+                        if ($scope.transaction.outputs.length) {
+                            $scope.transaction.outputs.forEach(function (output) {
+                                if (output.script.startsWith('[ 7062 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 25200;else if (output.script.startsWith('[ e0a501 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 108000;else if (output.script.startsWith('[ c00d05 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 331200;else if (output.script.startsWith('[ 60ff09 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 655200;else if (output.script.startsWith('[ d00c14 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 1314000;
+                            });
+                        }
                     } else {
                         $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
                             .then((data) => {
@@ -489,5 +518,25 @@
                     });
             }
         }
+    }
+
+    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+
+      $scope.loading_assets = true;
+
+      listAssets();
+
+      function listAssets() {
+          NProgress.start();
+          MetaverseService.ListAssets()
+              .then((response) => {
+                  $scope.loading_assets = false;
+                  if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                      $scope.assets = response.data.result;
+                  }
+                  NProgress.done();
+              });
+      }
+
     }
 })();

@@ -22,6 +22,10 @@
 
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
 
+      //var SERVER = "http://localhost:80";
+
+      //var SERVER = "https://explorer.mvs.org" + "/api";
+
       service.SERVER = SERVER;
         /**
          * @api {post} /rpc Get blockchain height
@@ -45,6 +49,9 @@
         service.FetchAddress = (address) => _send('address/info/' + address);
 
         service.Block = (number) => _send('block/' + number);
+
+        service.ListAssets = (number) => _send('assets');
+
         service.MiningInfo = () => _send('mining');
 
         service.Circulation = () => _send('circulation');

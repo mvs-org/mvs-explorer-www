@@ -21,10 +21,16 @@
                 'zh-ZH': 'zh'
             });
             $translateProvider.useSanitizeValueStrategy('escapeParameters');
-            $translateProvider.preferredLanguage('zh_ZH');
+            var lang = (navigator.languages ? navigator.languages[0] : (navigator.language || navigator.userLanguage));
+            if(lang.indexOf('zh') == 0) {
+              $translateProvider.preferredLanguage('zh-ZH');
+            } else {
+              $translateProvider.preferredLanguage('en-US');
+            }
         }).config(function($wampProvider) {
             $wampProvider.init({
-              //url: 'ws://explorer.mvs.live:8080/ws',
+              //url: 'wss://explorer.mvs.org/ws',
+              //url: 'ws://localhost:8820/ws',
               url: ((window.location.protocol == 'https:') ? 'wss:' : 'ws:') + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/ws",
                 realm: 'realm1'
                 //Any other AutobahnJS options
@@ -72,6 +78,11 @@
                 url: "/adr/:address",
                 templateUrl: "views/address.view.html",
                 controller: 'AddressController'
+            })
+            .state('explorer.assets', {
+                url: "/assets",
+                templateUrl: "views/assets.view.html",
+                controller: 'AssetsController'
             });
         $urlRouterProvider.otherwise("/");
     };

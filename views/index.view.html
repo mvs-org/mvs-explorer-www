@@ -1,22 +1,46 @@
-<div class="container">
-    <div class="clearfix">
-        <div class="pull-right">
-            <!-- <a href="http://mvs.live">{{'RETURN_TO_METAVERSE'|translate}}</a> <a href="http://test4.metaverse.live:8820">{{'TESTNET'|translate}}</a> -->
+<!--header-->
+<header id="header" class="top-bar tb-large tb-transp" ng-controller="MenuController">
+	<div class="headercontainer">
+		<div class="headerbox">
+			<div class="">
+				<div class="tb-logo fl">
+					<a href="#!/">
+						<h1 class="dis-tablecell height50">
+							<img src="./img/metaverselogo.png" alt="metaverse" title="metaverse">
+						</h1>
+					</a>
+				</div>
 
-                    <a href="http://mymvs.info" class="third-party-link">
-                        {{'THIRD_PARTY_EXPLORER'|translate}}
-                    </a>
-            <div lang="{{selectedLang}}" id="language_selector">
-                <nav>
-                    <ul>
-                        <li class="language"><a ng-click="changeLang('zh')" lang="zh">简体中文</a></li>
-                        <li class="language"><a ng-click="changeLang('en')" lang="en">English</a></li>
-                        <!-- <li class="language"><a ng-click="changeLang('de')" lang="de">Deutsche</a></li> -->
-                    </ul>
-                </nav>
-            </div>
-        </div>
-    </div>
+				<nav class="menu cn-menu fl">
+					<ul class="dis-tablecell height50">
+            <li><a href="#!/assets" ng-class="{selectedMenu: selectedMenu.main==='assets'}" class="cool-line">{{'TOP_MENU_ASSETS'|translate}}</a></li>
+            <li><a href="#!/api" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='api'}">{{'TOP_MENU_API'|translate}}</a></li>
+            <li><a href="http://mymvs.info" class="cool-line" target="_blank">{{'THIRD_PARTY_EXPLORER'|translate}}</a></li>
+          </ul>
+					<div class="sl-language">
+						<a ng-click="changeLang('zh')" ng-class="{active: ('LANG_CODE' | translate) == 'zh'}" class="cool-line" lang="zh">CN</a>
+            <span class="line-lg">/</span>
+						<a ng-click="changeLang('en')" ng-class="{active: ('LANG_CODE' | translate) == 'en'}" class="cool-line" lang="en">EN</a>
+					</div>
+				</nav>
+
+			</div>
+			<input type="checkbox" id="toggle" />
+
+			<span class="menu-trigger fr">
+				<div class="hamburger">
+					<div class="menui top-menu"></div>
+					<div class="menui mid-menu"></div>
+					<div class="menui bottom-menu"></div>
+				</div>
+				<!--<label for="toggle" class="toggle"></label>-->
+			</span>
+		</div>
+	</div>
+</header>
+<!--header end-->
+
+<div class="container">
     <div>
         <a class="center" href="#!/" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
     </div>
@@ -49,3 +73,36 @@
         {{"COPYRIGHT_TEXT"|translate}}
     </div>
 </footer>
+
+
+<script>
+    /* mini menu */
+    var screenwidth=$(window).width();
+
+    if(screenwidth<1100){
+
+        $('.menu-trigger').click(function () {
+            if($('.menu').hasClass('is-active')){
+                $('.menu').slideUp(300).removeClass('is-active');
+            }else{
+                $('.menu').removeClass('active');
+                $('.menu').slideDown(300).addClass('is-active');
+            }
+
+            $(".top-menu").toggleClass("top-animate");
+            $(".mid-menu").toggleClass("mid-animate");
+            $(".bottom-menu").toggleClass("bottom-animate");
+        });
+
+        $('.menu ul li').click(function(){
+            $('.menu').slideUp(300).removeClass('is-active');
+            $(".top-menu").removeClass("top-animate");
+            $(".mid-menu").removeClass("mid-animate");
+            $(".bottom-menu").removeClass("bottom-animate");
+        });
+
+    }
+    else{
+        $('.cn-menu.menu').css('display','block');
+    }
+</script>

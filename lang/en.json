@@ -65,5 +65,17 @@
     "LATEST_TRANSACTIONS": "Latest Transactions",
     "MINUTES": " min ",
     "SECONDS": " sec ",
-    "AGO": "ago"
+    "AGO": "ago",
+    "ASSETS.HEADLINE": "Assets List",
+    "ASSETS.SYMBOL": "Symbol",
+    "ASSETS.ISSUER": "Issuer",
+    "ASSETS.MAX_SUPPLY": "Max. supply",
+    "ASSETS.DESCRIPTION": "Description",
+    "TOP_MENU_ASSETS": "Assets",
+    "TOP_MENU_API": "API",
+    "LANG_CODE": "en",
+    "ASSETS.ASSETS_COUNT": "Number of Assets on the Metaverse blockchain",
+    "TX": {
+      "FROZEN_UNTIL_BLOCK": "frozen until block"
+    }
 }

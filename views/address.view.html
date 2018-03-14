@@ -1,8 +1,6 @@
 <div class="content">
     <div class="row">
-        <h2 class="headline col-md-5 col-sm-12"><em></em>{{ 'ADDRESS.HEADLINE' | translate }}</h2>
-    </div>
-    <div class="row">
+        <h2 class="headline col-sm-12"><em></em>{{ 'ADDRESS.HEADLINE' | translate }}</h2>
         <div class="col-md-8 col-sm-12 address-padding">
             <h4>{{ address }}</h4>
         </div>
@@ -12,14 +10,13 @@
             </div>
         </div>
     </div>
-    <div class="row ">
-
-        <h2 class="headline"><em></em>{{ 'BALANCES.HEADLINE' | translate }}</h2>
+    <div class="row">
+        <h2 class="headline col-sm-12"><em></em>{{ 'BALANCES.HEADLINE' | translate }}</h2>
         <div class="col-md-4 col-sm-12" ng-repeat="(name,asset) in assets">
             <div class="col-md-12 panel infobox">
                 <h3>{{name}}</h3>
                 <div class="asset-icon">
-                    <img ng-src="../img/assets/{{name}}.png">
+                    <img check-image ng-src="../img/assets/{{name}}.png">
                 </div>
                 <table>
                     <tr>
