@@ -46,6 +46,7 @@
                         </div>
                         <div class="col-md-5 right">
                             {{output.value | numberFormat:output.decimals|currency:'':output.decimals}} {{output.asset}}
+                            <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
                         </div>
                     </div>
                 </div>

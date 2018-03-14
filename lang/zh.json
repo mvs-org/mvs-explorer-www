@@ -50,8 +50,8 @@
     "market_data": "市场数据",
     "mining_data": "挖矿数据 ",
     "pricing": "定价",
-  	"blocks": "区块",
-  	"BLOCK.NUMBER": "区块序号",
+    "blocks": "区块",
+    "BLOCK.NUMBER": "区块序号",
     "PRICE": "价格",
     "TOTAL_RECEIVED": "总共接收",
     "FROZEN": "冻结",
@@ -74,5 +74,8 @@
     "TOP_MENU_ASSETS": "资产",
     "TOP_MENU_API": "API",
     "LANG_CODE": "zh",
-    "ASSETS.ASSETS_COUNT": "元界区块链资产数量"
+    "ASSETS.ASSETS_COUNT": "元界区块链资产数量",
+    "TX": {
+        "FROZEN_UNTIL_BLOCK": "一直冻结到块高"
+    }
 }
