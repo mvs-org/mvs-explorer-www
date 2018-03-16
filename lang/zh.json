@@ -77,5 +77,6 @@
     "ASSETS.ASSETS_COUNT": "元界区块链资产数量",
     "TX": {
         "FROZEN_UNTIL_BLOCK": "一直冻结到块高"
-    }
+    },
+    "HOUR": "小时"
 }

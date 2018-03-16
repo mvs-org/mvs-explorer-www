@@ -77,5 +77,6 @@
     "ASSETS.ASSETS_COUNT": "Number of Assets on the Metaverse blockchain",
     "TX": {
       "FROZEN_UNTIL_BLOCK": "frozen until block"
-    }
+    },
+    "HOUR": " hour "
 }
