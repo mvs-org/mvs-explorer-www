@@ -1155,3 +1155,7 @@ ul, li{
   margin-top: 30px;
   margin-bottom: 20px;
 }
+
+.footer-icons a:hover, .footer-icons a:focus {
+  color: white;
+}
