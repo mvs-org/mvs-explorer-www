@@ -45,7 +45,7 @@
     "LINKS": "第三方服务",
     "RETURN_TO_METAVERSE": "返回到Metaverse",
     "TESTNET": "测试网",
-    "COPYRIGHT_TEXT": "Copyright 2016-2017 Metaverse Foundation. All rights reserved.",
+    "COPYRIGHT_TEXT": "Copyright 2016-2018 Metaverse Foundation. All rights reserved.",
     "syncing": "同步中",
     "market_data": "市场数据",
     "mining_data": "挖矿数据 ",
@@ -77,5 +77,6 @@
     "ASSETS.ASSETS_COUNT": "元界区块链资产数量",
     "TX": {
         "FROZEN_UNTIL_BLOCK": "一直冻结到块高"
-    }
+    },
+    "HOUR": "小时"
 }

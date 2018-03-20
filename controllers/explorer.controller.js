@@ -534,6 +534,15 @@
                   if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                       $scope.assets = response.data.result;
                   }
+                  $scope.assets.forEach(function(asset) {
+                    if(asset.asset == 'MVS.ZGC') {
+                      asset.priority = 10;
+                    } else if(asset.asset == 'MVS.ZDC') {
+                      asset.priority = 20;
+                    } else {
+                      asset.priority = 1000;
+                    }
+                  });
                   NProgress.done();
               });
       }

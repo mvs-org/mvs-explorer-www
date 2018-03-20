@@ -20,7 +20,20 @@
                 <div class="col-md-2">{{ 'ASSETS.MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-5">{{ 'ASSETS.DESCRIPTION' | translate }}</div>
             </div>
-            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:'asset'">
+
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row">
+                <div class="col-md-3">
+                  <h4><a href="#!/tx/{{asset.hash}}">ETP</a></h4>
+                  <span class="asset-icon-list-assets">
+                      <img check-image ng-src="../img/assets/ETP.png">
+                  </span>
+                </div>
+                <div class="col-md-2">mvs.org</div>
+                <div class="col-md-2">100000000</div>
+                <div class="col-md-5">MVS Official Token</div>
+            </div>
+
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:['priority','asset'] ">
                 <div class="col-md-3">
                   <h4><a href="#!/tx/{{asset.hash}}">{{asset.asset}}</a></h4>
                   <span class="asset-icon-list-assets">
@@ -28,12 +41,12 @@
                   </span>
                 </div>
                 <div class="col-md-2">{{asset.issuer}}</div>
-                <div class="col-md-2">{{asset.value}}</div>
+                <div class="col-md-2">{{asset.value | assetformat : asset.asset_type}}</div>
                 <div class="col-md-5">{{asset.description}}</div>
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in assets | orderBy:'asset'">
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in assets | orderBy:['priority','asset'] ">
             <h3>{{asset.asset}}</h3>
             <div class="asset-icon">
                 <img check-image ng-src="../img/assets/{{asset.asset}}.png">

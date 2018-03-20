@@ -3,6 +3,13 @@
 
     angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate', 'nvd3', 'vxWamp','ngSanitize', 'swaggerUi'])
         .config(config)
+        .filter('assetformat',function(){
+            return function(input, asset_type){
+                if(typeof asset_type === 'undefined')
+                    asset_type=8;
+                return parseFloat(input)/Math.pow(10,asset_type);
+            };
+        })
         .config(['$compileProvider', function($compileProvider) {
             $compileProvider.debugInfoEnabled(false);
         }])

@@ -51,7 +51,8 @@ module.exports = function(grunt) {
                     './node_modules/leaflet/dist/leaflet.js',
                     './node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
                     './node_modules/leaflet-ajax/dist/leaflet.ajax.min.js',
-                    './node_modules/autobahn-js-built/autobahn.min.js'
+                    './node_modules/autobahn-js-built/autobahn.min.js',
+                    './js/fontawesome-all.min.js'
                 ],
                 dest: './min/libs.min.js'
             },
