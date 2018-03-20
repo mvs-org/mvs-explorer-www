@@ -187,5 +187,5 @@ module.exports = function(grunt) {
 
 
     //register grunt default task
-    grunt.registerTask('default', ['clean', 'ngAnnotate', 'concat', 'babel', 'uglify', 'cssmin', 'copy', 'revPackage', 'string-replace']);
+    grunt.registerTask('default', ['ngAnnotate', 'concat', 'babel', 'uglify', 'cssmin', 'copy', 'revPackage', 'string-replace']);
 };
