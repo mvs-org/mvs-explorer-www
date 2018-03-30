@@ -78,5 +78,6 @@
     "TX": {
       "FROZEN_UNTIL_BLOCK": "frozen until block"
     },
-    "HOUR": " hour "
+    "HOUR": " hour ",
+    "TOP_MENU_HOME": "Home"
 }
