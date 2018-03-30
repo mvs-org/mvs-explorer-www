@@ -395,7 +395,8 @@
                         $scope.transaction = response.data.result;
                         if ($scope.transaction.outputs.length) {
                             $scope.transaction.outputs.forEach(function (output) {
-                                if (output.script.startsWith('[ 7062 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 25200;else if (output.script.startsWith('[ e0a501 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 108000;else if (output.script.startsWith('[ c00d05 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 331200;else if (output.script.startsWith('[ 60ff09 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 655200;else if (output.script.startsWith('[ d00c14 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 1314000;
+                                if(output.locked_height_range)
+                                    output.unlock_block = $scope.transaction.height + output.locked_height_range;
                             });
                         }
                     } else {
@@ -411,7 +412,7 @@
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                         $scope.height = response.data.result;
-                        $scope.confirmations = $scope.height - $scope.transaction.block_height + 1;
+                        $scope.confirmations = $scope.height - $scope.transaction.height + 1;
                         $scope.loading_confirmation = false;
                     }
                 });
