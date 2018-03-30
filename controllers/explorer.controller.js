@@ -536,9 +536,9 @@
                       $scope.assets = response.data.result;
                   }
                   $scope.assets.forEach(function(asset) {
-                    if(asset.asset == 'MVS.ZGC') {
+                    if(asset.symbol == 'MVS.ZGC') {
                       asset.priority = 10;
-                    } else if(asset.asset == 'MVS.ZDC') {
+                    } else if(asset.symbol == 'MVS.ZDC') {
                       asset.priority = 20;
                     } else {
                       asset.priority = 1000;
