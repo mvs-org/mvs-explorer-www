@@ -424,6 +424,7 @@
         var number = $stateParams.number;
         $rootScope.nosplash = true;
         $scope.loading_block = true;
+        $scope.loading_confirmation = true;
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 
@@ -442,6 +443,14 @@
                             });
                     }
                     NProgress.done();
+                })
+                .then(() => MetaverseService.FetchHeight())
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
+                        $scope.height = response.data.result;
+                        $scope.confirmations = $scope.height - $scope.block.number + 1;
+                        $scope.loading_confirmation = false;
+                    }
                 });
         }
     }

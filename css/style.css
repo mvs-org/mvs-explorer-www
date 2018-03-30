@@ -62,6 +62,9 @@ a{
     overflow-wrap: break-word;
     padding-bottom: 10px;
 }
+.block-hash{
+    margin: 0;
+}
 .right{
     text-align: right;
 }
