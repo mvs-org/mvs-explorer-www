@@ -19,20 +19,20 @@
                     <img check-image ng-src="../img/assets/{{name}}.png">
                 </div>
                 <table>
-                    <tr>
+                    <!--<tr>
                         <th>{{'TOTAL_RECEIVED'|translate}}</th>
                         <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
                         <td ng-hide="loading_pricing">{{( asset.received | numberFormat: asset.decimals| currency: '': asset.decimals)}}</td>
+                    </tr>-->
+                    <tr>
+                        <th>{{'BALANCE'|translate}}</th>
+                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_pricing">{{( asset.received - asset.locked - asset.sent | numberFormat: asset.decimals|currency:'':asset.decimals)}}</td>
                     </tr>
                     <tr ng-if="name==='ETP'">
                         <th>{{'FROZEN'|translate}}</th>
                         <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
                         <td ng-hide="loading_circulation">{{asset.locked | numberFormat: asset.decimals|currency:'': asset.decimals}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'BALANCE'|translate}}</th>
-                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
-                        <td ng-hide="loading_pricing">{{( asset.received - asset.locked - asset.sent | numberFormat: asset.decimals|currency:'':asset.decimals)}}</td>
                     </tr>
                 </table>
             </div>
@@ -62,9 +62,8 @@
                     <div class="col-md-9 col-sm-12 break">
                         <a href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
                     </div>
-
                     <div class="col-md-3 col-sm-12">
-                        <div class="right slide-left">{{tx.timestamp * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                        <div class="right slide-left">{{tx.time_stamp * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
                     </div>
                 </div>
                 <div class="row">
