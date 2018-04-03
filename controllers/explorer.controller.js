@@ -461,6 +461,9 @@
         var address = $stateParams.address;
         $rootScope.nosplash = true;
         $scope.loading_address = true;
+        $scope.info = [];
+        $scope.tokens = [];
+        $scope.definitions = [];
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
             color: {
@@ -494,7 +497,11 @@
                 MetaverseService.FetchAddress(address)
                     .then((response) => {
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                            $scope.assets = response.data.result.assets;
+                            $scope.info = response.data.result.info;
+                            $scope.tokens = response.data.result.tokens;
+                            $scope.definitions = response.data.result.definitions;
+                            if(typeof $scope.info.FROZEN == 'undefined')
+                                $scope.info.FROZEN = 0;
                         } else {
                             $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
                                 .then((data) => {

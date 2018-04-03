@@ -12,7 +12,7 @@
     </div>
     <div class="row">
         <h2 class="headline col-sm-12"><em></em>{{ 'BALANCES.HEADLINE' | translate }}</h2>
-        <div class="col-md-4 col-sm-12" ng-repeat="(name,asset) in assets">
+        <div class="col-md-4 col-sm-12" ng-repeat="(name,balance) in tokens">
             <div class="col-md-12 panel infobox">
                 <h3>{{name}}</h3>
                 <div class="asset-icon">
@@ -21,18 +21,19 @@
                 <table>
                     <!--<tr>
                         <th>{{'TOTAL_RECEIVED'|translate}}</th>
-                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
-                        <td ng-hide="loading_pricing">{{( asset.received | numberFormat: asset.decimals| currency: '': asset.decimals)}}</td>
+                        <td ng-show="loading_address"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_address">{{( asset.received | numberFormat: asset.decimals| currency: '': asset.decimals)}}</td>
                     </tr>-->
                     <tr>
                         <th>{{'BALANCE'|translate}}</th>
-                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
-                        <td ng-hide="loading_pricing">{{( asset.received - asset.locked - asset.sent | numberFormat: asset.decimals|currency:'':asset.decimals)}}</td>
+                        <td ng-show="loading_address"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_address" ng-if="name==='ETP'">{{( balance | numberFormat:8|currency:'':8)}}</td>
+                        <td ng-hide="loading_address" ng-if="name!='ETP'">{{( balance | numberFormat:definitions[name].decimals|currency:'':definitions[name].decimals)}}</td>
                     </tr>
                     <tr ng-if="name==='ETP'">
                         <th>{{'FROZEN'|translate}}</th>
-                        <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_circulation">{{asset.locked | numberFormat: asset.decimals|currency:'': asset.decimals}}</td>
+                        <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_address">{{info.FROZEN | numberFormat: 8|currency:'': 8}}</td>
                     </tr>
                 </table>
             </div>
@@ -53,10 +54,6 @@
         </div>
 
         <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_address" dir-paginate="tx in transactions | itemsPerPage:address_pagination.items_per_page" total-items="address_pagination.total_count" currennt-page="address_pagination.current_page">
-
-
-
-
             <div class="panel-body">
                 <div class="row tx-head">
                     <div class="col-md-9 col-sm-12 break">
