@@ -34,7 +34,7 @@
             </div>
 
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:['priority','symbol'] ">
-                <div class="col-md-3">
+                <div class="col-md-3 asset-symbol">
                   <h4><a href="#!/tx/{{asset.hash}}">{{asset.symbol}}</a></h4>
                   <span class="asset-icon-list-assets">
                       <img check-image ng-src="../img/assets/{{asset.symbol}}.png">
