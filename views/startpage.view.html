@@ -15,8 +15,8 @@
                 </tr>
                 <tr>
                     <th>{{'MARKET_CAP'|translate}}</th>
-                    <td ng-show="loading_pricing"><img src="../images/spinner.gif"> </td>
-                    <td ng-hide="loading_pricing">{{pricing.ETPUSD*circulation | currency}}</td>
+                    <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
+                    <td ng-hide="loading_pricing||loading_circulation">{{pricing.ETPUSD*circulation | currency}}</td>
                 </tr>
             </table>
         </div>
