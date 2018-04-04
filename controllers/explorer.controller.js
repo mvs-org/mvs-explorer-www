@@ -85,6 +85,7 @@
                     url: "",
                     counter: rest_part
                 }].concat($scope.data);
+                $scope.data.sort((a,b)=>a.counter>b.counter);
                 $scope.locationsmap = Object.keys($scope.locations);
 
             }).then(() => {
