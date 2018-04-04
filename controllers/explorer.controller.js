@@ -124,10 +124,12 @@
 
     }
 
-    function ExplorerController($translate, localStorageService, $scope) {
+    function ExplorerController($translate, localStorageService, $scope, $rootScope) {
 
         $scope.changeLang = changeLang;
         $scope.selectedLang = localStorageService.get('language');
+
+        $scope.setPriority = setPriority;
 
         function changeLang(key) {
             //document.getElementById('language_selector').setAttribute("lang", key);
@@ -135,6 +137,15 @@
                 .then((key) => localStorageService.set('language', key))
                 .catch((key) => console.log("Cannot change language."));
         };
+
+        function setPriority() {
+            $rootScope.priority = [];
+            $rootScope.priority["ETP"] = 1;
+            $rootScope.priority["MVS.ZGC"] = 10;
+            $rootScope.priority["MVS.ZDC"] = 20;
+        };
+
+        setPriority();
 
     }
 
@@ -501,6 +512,24 @@
                             $scope.info = response.data.result.info;
                             $scope.tokens = response.data.result.tokens;
                             $scope.definitions = response.data.result.definitions;
+                            for (var symbol in $scope.definitions) {
+                                if(typeof $rootScope.priority[symbol] != 'undefined') {
+                                    $scope.definitions[symbol].priority = $rootScope.priority[symbol];
+                                } else {
+                                    $scope.definitions[symbol].priority = 1000;
+                                }
+                            }
+
+                            $scope.addressAssets = [];
+                            var assetETP = [];
+                            assetETP.symbol = "ETP";
+                            assetETP.priority = $rootScope.priority["ETP"];
+                            assetETP.decimals = 8;
+                            $scope.addressAssets.push(assetETP);
+
+                            for (var symbol in $scope.definitions) {
+                                $scope.addressAssets.push($scope.definitions[symbol]);
+                            }
                             if(typeof $scope.info.FROZEN == 'undefined')
                                 $scope.info.FROZEN = 0;
                         } else {
@@ -538,7 +567,7 @@
         }
     }
 
-    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
 
       $scope.loading_assets = true;
 
@@ -553,12 +582,10 @@
                       $scope.assets = response.data.result;
                   }
                   $scope.assets.forEach(function(asset) {
-                    if(asset.symbol == 'MVS.ZGC') {
-                      asset.priority = 10;
-                    } else if(asset.symbol == 'MVS.ZDC') {
-                      asset.priority = 20;
+                    if(typeof $rootScope.priority[asset.symbol] != 'undefined') {
+                        asset.priority = $rootScope.priority[asset.symbol];
                     } else {
-                      asset.priority = 1000;
+                        asset.priority = 1000;
                     }
                   });
                   NProgress.done();
