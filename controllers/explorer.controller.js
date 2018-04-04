@@ -85,6 +85,7 @@
                     url: "",
                     counter: rest_part
                 }].concat($scope.data);
+                $scope.data.sort((a,b)=>a.counter>b.counter);
                 $scope.locationsmap = Object.keys($scope.locations);
 
             }).then(() => {
@@ -123,10 +124,12 @@
 
     }
 
-    function ExplorerController($translate, localStorageService, $scope) {
+    function ExplorerController($translate, localStorageService, $scope, $rootScope) {
 
         $scope.changeLang = changeLang;
         $scope.selectedLang = localStorageService.get('language');
+
+        $scope.setPriority = setPriority;
 
         function changeLang(key) {
             //document.getElementById('language_selector').setAttribute("lang", key);
@@ -134,6 +137,15 @@
                 .then((key) => localStorageService.set('language', key))
                 .catch((key) => console.log("Cannot change language."));
         };
+
+        function setPriority() {
+            $rootScope.priority = [];
+            $rootScope.priority["ETP"] = 1;
+            $rootScope.priority["MVS.ZGC"] = 10;
+            $rootScope.priority["MVS.ZDC"] = 20;
+        };
+
+        setPriority();
 
     }
 
@@ -393,9 +405,14 @@
                     $scope.loading_tx = false;
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                         $scope.transaction = response.data.result;
+                        $scope.messages = [];
                         if ($scope.transaction.outputs.length) {
                             $scope.transaction.outputs.forEach(function (output) {
-                                if (output.script.startsWith('[ 7062 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 25200;else if (output.script.startsWith('[ e0a501 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 108000;else if (output.script.startsWith('[ c00d05 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 331200;else if (output.script.startsWith('[ 60ff09 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 655200;else if (output.script.startsWith('[ d00c14 ] numequalverify')) output.unlock_block = $scope.transaction.block_height + 1314000;
+                                if(output.attachment.type == "message") {
+                                    $scope.messages.push(output.attachment.content);
+                                }
+                                if(output.locked_height_range)
+                                    output.unlock_block = $scope.transaction.height + output.locked_height_range;
                             });
                         }
                     } else {
@@ -411,7 +428,7 @@
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                         $scope.height = response.data.result;
-                        $scope.confirmations = $scope.height - $scope.transaction.block_height + 1;
+                        $scope.confirmations = $scope.height - $scope.transaction.height + 1;
                         $scope.loading_confirmation = false;
                     }
                 });
@@ -423,6 +440,7 @@
         var number = $stateParams.number;
         $rootScope.nosplash = true;
         $scope.loading_block = true;
+        $scope.loading_confirmation = true;
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 
@@ -441,6 +459,14 @@
                             });
                     }
                     NProgress.done();
+                })
+                .then(() => MetaverseService.FetchHeight())
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
+                        $scope.height = response.data.result;
+                        $scope.confirmations = $scope.height - $scope.block.number + 1;
+                        $scope.loading_confirmation = false;
+                    }
                 });
         }
     }
@@ -451,6 +477,9 @@
         var address = $stateParams.address;
         $rootScope.nosplash = true;
         $scope.loading_address = true;
+        $scope.info = [];
+        $scope.tokens = [];
+        $scope.definitions = [];
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
             color: {
@@ -484,7 +513,29 @@
                 MetaverseService.FetchAddress(address)
                     .then((response) => {
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                            $scope.assets = response.data.result.assets;
+                            $scope.info = response.data.result.info;
+                            $scope.tokens = response.data.result.tokens;
+                            $scope.definitions = response.data.result.definitions;
+                            for (var symbol in $scope.definitions) {
+                                if(typeof $rootScope.priority[symbol] != 'undefined') {
+                                    $scope.definitions[symbol].priority = $rootScope.priority[symbol];
+                                } else {
+                                    $scope.definitions[symbol].priority = 1000;
+                                }
+                            }
+
+                            $scope.addressAssets = [];
+                            var assetETP = [];
+                            assetETP.symbol = "ETP";
+                            assetETP.priority = $rootScope.priority["ETP"];
+                            assetETP.decimals = 8;
+                            $scope.addressAssets.push(assetETP);
+
+                            for (var symbol in $scope.definitions) {
+                                $scope.addressAssets.push($scope.definitions[symbol]);
+                            }
+                            if(typeof $scope.info.FROZEN == 'undefined')
+                                $scope.info.FROZEN = 0;
                         } else {
                             $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
                                 .then((data) => {
@@ -520,7 +571,7 @@
         }
     }
 
-    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
 
       $scope.loading_assets = true;
 
@@ -535,12 +586,10 @@
                       $scope.assets = response.data.result;
                   }
                   $scope.assets.forEach(function(asset) {
-                    if(asset.asset == 'MVS.ZGC') {
-                      asset.priority = 10;
-                    } else if(asset.asset == 'MVS.ZDC') {
-                      asset.priority = 20;
+                    if(typeof $rootScope.priority[asset.symbol] != 'undefined') {
+                        asset.priority = $rootScope.priority[asset.symbol];
                     } else {
-                      asset.priority = 1000;
+                        asset.priority = 1000;
                     }
                   });
                   NProgress.done();

@@ -58,7 +58,7 @@
 
         service.Pricing = () => _send('pricing');
 
-        service.Chart = () => _send('part-of-cake');
+        service.Chart = () => _send('poolstats');
 
         return service;
 
