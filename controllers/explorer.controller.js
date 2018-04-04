@@ -405,8 +405,12 @@
                     $scope.loading_tx = false;
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                         $scope.transaction = response.data.result;
+                        $scope.messages = [];
                         if ($scope.transaction.outputs.length) {
                             $scope.transaction.outputs.forEach(function (output) {
+                                if(output.attachment.type == "message") {
+                                    $scope.messages.push(output.attachment.content);
+                                }
                                 if(output.locked_height_range)
                                     output.unlock_block = $scope.transaction.height + output.locked_height_range;
                             });

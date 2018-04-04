@@ -79,5 +79,6 @@
       "FROZEN_UNTIL_BLOCK": "frozen until block"
     },
     "HOUR": " hour ",
-    "TOP_MENU_HOME": "Home"
+    "TOP_MENU_HOME": "Home",
+    "TX.MEMO": "There is data attached to this transaction:"
 }

@@ -21,6 +21,12 @@
                 <div class="col-md-9 list-item-value"><a href="#!/blk/{{transaction.height}}">{{ transaction.height }}</a></div>
             </div>
 
+            <hr ng-show="messages.length > 0">
+            <div class="row" ng-show="messages.length > 0">
+                <div class="col-md-12 list-item-value">{{ 'TX.MEMO' | translate }}</div>
+                <div class="col-md-12 list-item-label" ng-repeat="message in messages">{{ message }}</div>
+            </div>
+
             <hr>
             <div class="row">
                 <div class="col-md-5">
@@ -52,16 +58,16 @@
                 </div>
                 <div class="col-md-6">
                     <div class="row" ng-repeat="output in transaction.outputs">
-                      <div ng-if="output.attachment.symbol != 'ETP'">
-                          <div class="col-md-7">
-                              <a href="#!/adr/{{output.address}}">{{output.address}}</a>
-                              <div class="io-script">{{output.script}}</div>
-                          </div>
-                          <div class="col-md-5 right">
-                              {{output.attachment.quantity | numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
-                          </div>
-                      </div>
-                      <div ng-if="output.value != 0">
+                        <div ng-if="output.attachment.symbol != 'ETP'">
+                            <div class="col-md-7">
+                                <a href="#!/adr/{{output.address}}">{{output.address}}</a>
+                                <div class="io-script">{{output.script}}</div>
+                            </div>
+                            <div class="col-md-5 right">
+                                {{output.attachment.quantity | numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
+                            </div>
+                        </div>
+                        <div ng-if="output.value != 0">
                             <div class="col-md-7">
                                 <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <div class="io-script">{{output.script}}</div>

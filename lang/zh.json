@@ -79,5 +79,6 @@
         "FROZEN_UNTIL_BLOCK": "一直冻结到块高"
     },
     "HOUR": "小时",
-    "TOP_MENU_HOME": "首页"
+    "TOP_MENU_HOME": "首页",
+    "TX.MEMO": "There is data attached to this transaction:"
 }
