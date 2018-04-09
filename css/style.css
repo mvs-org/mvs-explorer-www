@@ -1170,3 +1170,11 @@ ul, li{
 .searchedAddress {
   font-weight: bold;
 }
+
+.assetpage-icon img {
+    right: 15px;
+    top: 0px;
+    position: absolute;
+    width: auto;
+    height: 100px;
+}

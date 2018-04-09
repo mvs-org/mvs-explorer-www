@@ -26,7 +26,8 @@
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
         .controller('TransactionController', TransactionController)
-        .controller('AssetsController', AssetsController)
+        .controller('AssetsListController', AssetsListController)
+        .controller('AssetController', AssetController)
         .directive('checkImage', function() {
          return {
             link: function(scope, element, attrs) {
@@ -206,19 +207,30 @@
         map.addLayer(markers);
     }
 
-    function SearchController($scope, MetaverseService, $translate, $location, FlashService) {
+    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
         $scope.search = search;
+        $scope.search_field = "";
 
         function search() {
-            switch ($scope.search_field.length) {
-                case 64:
-                    show_transaction();
-                    break;
-                case 34:
-                    show_address();
-                    break;
-                default:
-                    show_block();
+            if($scope.search_field == "") {
+                $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                    .then((data) => FlashService.Error(data));
+            }else if ($filter('uppercase')($scope.search_field) == "ETP") {
+                $location.path('/asset/ETP');
+            } else {
+                switch ($scope.search_field.length) {
+                    case 64:
+                        show_transaction();
+                        break;
+                    case 34:
+                        show_address();
+                        break;
+                    default:
+                        if (!isNaN($scope.search_field))
+                            show_block();
+                        else
+                            show_asset($filter('uppercase')($scope.search_field));
+                }
             }
         }
 
@@ -259,6 +271,20 @@
                         $location.path('/tx/' + $scope.search_field);
                     } else {
                         $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function show_asset(symbol) {
+            NProgress.start();
+            MetaverseService.AssetInfo(symbol)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                        $location.path('/asset/' + symbol);
+                    } else {
+                        $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
                             .then((data) => FlashService.Error(data));
                     }
                     NProgress.done();
@@ -536,6 +562,8 @@
                             }
                             if(typeof $scope.info.FROZEN == 'undefined')
                                 $scope.info.FROZEN = 0;
+                            if(typeof $scope.tokens.ETP == 'undefined')
+                                $scope.tokens.ETP = 0;
                         } else {
                             $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
                                 .then((data) => {
@@ -571,7 +599,7 @@
         }
     }
 
-    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
+    function AssetsListController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
 
       $scope.loading_assets = true;
 
@@ -595,6 +623,40 @@
                   NProgress.done();
               });
       }
+
+    }
+
+
+    function AssetController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+
+        $scope.symbol = $stateParams.symbol;
+        $scope.loading_asset = true;
+
+        //assetInfo();
+
+        if ($scope.symbol != undefined && $scope.symbol != "ETP") {
+            NProgress.start();
+            MetaverseService.AssetInfo($scope.symbol)
+                .then((response) => {
+                    $scope.loading_asset = false;
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $scope.asset = response.data.result[0];
+                    }
+                    NProgress.done();
+                });
+        } else if ($scope.symbol == "ETP") {
+            NProgress.done();
+            $scope.loading_asset = false;
+            $scope.asset = [];
+            $scope.asset.symbol = "ETP";
+            $scope.asset.quantity = 10000000000000000;
+            $scope.asset.decimals = 8;
+            $scope.asset.issuer = "mvs.org";
+            $scope.asset.address = "MGqHvbaH9wzdr6oUDFz4S1HptjoKQcjRve";
+            $scope.asset.hash = "b81848ef9ae86e84c3da26564bc6ab3a79efc628239d11471ab5cd25c0684c2d";
+            $scope.asset.height = 0;
+            $scope.asset.description = "MVS Official Token";
+        }
 
     }
 })();

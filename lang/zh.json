@@ -80,5 +80,16 @@
     },
     "HOUR": "小时",
     "TOP_MENU_HOME": "首页",
-    "TX.MEMO": "交易数据信息:"
+    "TX.MEMO": "交易数据信息:",
+    "ASSET.HEADLINE": "Asset",
+    "MESSAGES.ERROR_SEARCH_NOT_FOUND": "There is no result for this search",
+    "ASSET.INFO": "Asset Info",
+    "ASSET.SYMBOL": "Symbol",
+    "ASSET.MAX_SUPPLY": "Max supply",
+    "ASSET.DECIMALS": "Decimals",
+    "ASSET.ADDRESS": "Issuance Address",
+    "ASSET.HASH": "Issuance Transaction",
+    "ASSET.DESCRIPTION": "Description",
+    "ASSET.ISSUER": "Issuer",
+    "ASSET.HEIGHT": "Issuance Block"
 }

@@ -23,6 +23,7 @@
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
 
       //var SERVER = "http://localhost:80";
+      //var SERVER = "http://explorer-dev.mvs.org" + "/api";
 
       //var SERVER = "https://explorer.mvs.org" + "/api";
 
@@ -52,13 +53,15 @@
 
         service.ListAssets = (number) => _send('assets');
 
+        service.AssetInfo = (symbol) => _send('asset/' + symbol);
+
         service.MiningInfo = () => _send('mining');
 
         service.Circulation = () => _send('circulation');
 
         service.Pricing = () => _send('pricing');
 
-        service.Chart = () => _send('part-of-cake');
+        service.Chart = () => _send('poolstats');
 
         return service;
 
