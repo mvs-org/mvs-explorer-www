@@ -1190,8 +1190,29 @@ ul, li{
 .autocomplete-custom-template .item-metadata {
   display: block;
   line-height: 2;
+  height: 30px;
 }
 .autocomplete-custom-template img {
   height: 18px;
   width: 18px;
+}
+
+.md-virtual-repeat-sizer {
+  height: auto;
+}
+
+.autocompleteSearch {
+  margin-top: 120px;
+}
+
+md-input-container.md-input-focused label {
+  color: #6dc6f9 !important;
+}
+
+md-input-container.md-input-focused .md-input {
+  border-color: #6dc6f9 !important;
+}
+
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+  background-color: #6dc6f9 !important;
 }

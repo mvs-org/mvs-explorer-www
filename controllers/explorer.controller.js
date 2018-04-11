@@ -28,7 +28,6 @@
         .controller('TransactionController', TransactionController)
         .controller('AssetsListController', AssetsListController)
         .controller('AssetController', AssetController)
-        //.controller('DemoCtrl', DemoCtrl)
         .directive('checkImage', function() {
             return {
                 link: function(scope, element, attrs) {
@@ -36,6 +35,18 @@
                         element.attr('src', 'img/assets/default.png'); // set default image
                     });
                 }
+            };
+        })
+        .directive('mdHideAutocompleteOnEnter', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if(event.which === 13) {
+                        scope.$apply(function (){
+                            scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
+                        });
+                        event.preventDefault();
+                    }
+                });
             };
         });
 
@@ -731,32 +742,116 @@
 
     }
 
-    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
+    function SearchController ($scope, MetaverseService, $translate, $location, FlashService, $filter) {
 
-        $scope.simulateQuery = false;
-        $scope.isDisabled = false;
+        $scope.presEnterSearch = presEnterSearch;
 
-        $scope.repos = [];
-        $scope.querySearch = querySearch;
+        $scope.querySearch   = querySearch;
         $scope.selectedItemChange = selectedItemChange;
-        $scope.searchTextChange = searchTextChange;
+        $scope.searchTextChange   = searchTextChange;
         $scope.search = search;
         $scope.setResults = setResults;
         $scope.setResultsTx = setResultsTx;
 
-        function querySearch(query) {
-            return query ? search(query) : [];
+        function querySearch (query) {
+          return query ? search(query) : [];
         }
 
-        function searchTextChange(text) {
-            console.log('Text changed to ' + text);
-            if (text.length >= 3) {
-                search(text);
+
+        function presEnterSearch(search_field) {
+            if(search_field == "") {
+                $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                    .then((data) => FlashService.Error(data));
+            }else if ($filter('uppercase')(search_field) == "ETP") {
+                $location.path('/asset/ETP');
+            } else {
+                switch (search_field.length) {
+                    case 64:
+                        show_transaction_or_block(search_field);
+                        break;
+                    case 34:
+                        show_address(search_field);
+                        break;
+                    default:
+                        if (!isNaN(search_field))
+                            show_block(search_field);
+                        else
+                            show_asset($filter('uppercase')(search_field));
+                }
             }
         }
 
+        function show_address(search_field) {
+            NProgress.start();
+            MetaverseService.FetchHistory(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/adr/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function show_block(search_field) {
+            NProgress.start();
+            MetaverseService.Block(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/blk/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_BLOCK_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+
+        function show_transaction_or_block(search_field) {
+            NProgress.start();
+            MetaverseService.FetchTx(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/tx/' + search_field);
+                    } else {
+                        MetaverseService.Block(search_field)
+                            .then((response) => {
+                                if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                                    $location.path('/blk/' + search_field);
+                                } else {
+                                    $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
+                                        .then((data) => FlashService.Error(data));
+                                }
+                                NProgress.done();
+                            });
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function show_asset(search_field) {
+            NProgress.start();
+            MetaverseService.AssetInfo(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                        $location.path('/asset/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function searchTextChange(text) {
+
+        }
+
         function selectedItemChange(item) {
-            console.log('Item changed to ' + JSON.stringify(item));
+
         }
 
         function search(text) {
@@ -764,36 +859,38 @@
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         return setResults(text, response.data.result);
-                    } else return [];
+                    }
+                    else return [];
                 })
         }
 
         function setResults(text, result) {
             return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
-                .then((results) => {
-                    var repos = [];
-                    repos.push.apply(repos, results[0]);
-                    repos.push.apply(repos, results[1]);
-                    repos.push.apply(repos, results[2]);
-                    repos.push.apply(repos, results[3]);
-                    repos.push.apply(repos, results[4]);
-                    return repos;
-                })
+            .then((results) => {
+                var repos = [];
+                repos.push.apply(repos, results[0]);
+                repos.push.apply(repos, results[1]);
+                repos.push.apply(repos, results[2]);
+                repos.push.apply(repos, results[3]);
+                repos.push.apply(repos, results[4]);
+                return repos;
+            })
         }
 
         function setResultsInit(text) {
             var repos = [];
             if (!isNaN(text)) {
                 repos.push({
-                    'name': text,
-                    'url': 'blk/' + text,
-                    'type': 'Block',
+                  'name' : text,
+                  'url' : 'blk/' + text,
+                  'type' : 'blockHeight',
                 });
-            } else if ($filter('uppercase')(text) == "ETP") {
+            }
+            else if ($filter('uppercase')(text) == "ETP") {
                 repos.push({
-                    'name': 'ETP',
-                    'url': 'asset/ETP',
-                    'type': 'Asset',
+                  'name' : 'ETP',
+                  'url' : 'asset/ETP',
+                  'type' : 'asset',
                 });
             }
             return repos;
@@ -802,39 +899,39 @@
         function setResultsAsset(assets) {
             var result = [];
             return Promise.all(assets.map((asset) => {
-                    var addasset = {};
-                    addasset.name = asset;
-                    addasset.url = "asset/" + asset;
-                    addasset.type = "Asset";
-                    result.push(addasset);
-                }))
-                .then(() => result);
+                var addasset = {};
+                addasset.name = asset;
+                addasset.url = "asset/" + asset;
+                addasset.type = "asset";
+                result.push(addasset);
+            }))
+            .then(() => result);
         }
 
         function setResultsAddress(addresses) {
             var result = [];
             return Promise.all(addresses.map((address) => {
-                    var addaddress = {};
-                    addaddress.name = address.a;
-                    addaddress.url = "address/" + address.a;
-                    addaddress.nbrtx = address.n;
-                    addaddress.type = "Address";
-                    result.push(addaddress);
-                }))
-                .then(() => result);
+                var addaddress = {};
+                addaddress.name = address.a;
+                addaddress.url = "adr/" + address.a;
+                addaddress.nbrtx = address.n;
+                addaddress.type = "address";
+                result.push(addaddress);
+            }))
+            .then(() => result);
         }
 
         function setResultsTx(txs) {
             var result = [];
             return Promise.all(txs.map((tx) => {
-                    var addtx = {};
-                    addtx.name = tx.h;
-                    addtx.url = "tx/" + tx.h;
-                    addtx.height = tx.b;
-                    addtx.type = "Transaction";
-                    result.push(addtx);
-                }))
-                .then(() => result);
+                var addtx = {};
+                addtx.name = tx.h;
+                addtx.url = "tx/" + tx.h;
+                addtx.height = tx.b;
+                addtx.type = "tx";
+                result.push(addtx);
+            }))
+            .then(() => result);
         }
 
 
@@ -842,15 +939,15 @@
         function setResultsBlockHash(blocks) {
             var result = [];
             return Promise.all(blocks.map((block) => {
-                    var addblock = {};
-                    addblock.name = block.h;
-                    addblock.url = "blk/" + block.h;
-                    addblock.height = block.n;
-                    addblock.type = "Block Hash";
-                    result.push(addblock);
-                }))
-                .then(() => result);
+                var addblock = {};
+                addblock.name = block.h;
+                addblock.url = "blk/" + block.h;
+                addblock.height = block.n;
+                addblock.type = "blockHash";
+                result.push(addblock);
+            }))
+            .then(() => result);
         }
 
-    }
+      }
 })();

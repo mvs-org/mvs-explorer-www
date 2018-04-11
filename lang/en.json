@@ -95,6 +95,10 @@
     "ADDRESS": "Address",
     "ASSET.STAKELIST": "Distribution overview",
     "STAKE": "Stake",
-    "SHARE": "Share"
-
+    "SHARE": "Share",
+    "SUGGESTION.TYPE_ASSET": "Asset",
+    "SUGGESTION.TYPE_TX": "Transaction",
+    "SUGGESTION.TYPE_BLOCK_HEIGHT": "Block Height",
+    "SUGGESTION.TYPE_BLOCK_HASH": "Block Hash",
+    "SUGGESTION.TYPE_ADDRESS": "Address"
 }

@@ -42,17 +42,19 @@
 <!--header end-->
 
 <div class="container">
-    <div>
+    <!--div>
         <a class="center" href="#!/" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
-    </div>
+    </div-->
 		<div ng-controller="SearchController as ctrl" layout="column" ng-cloak="" class="autocompleteSearch">
 				<md-content layout-padding="" layout="column">
 						<form ng-submit="$event.preventDefault()">
 								<md-autocomplete flex
+												md-hide-autocomplete-on-enter
 												md-no-cache="noCache"
 												md-selected-item="selectedItem"
 												md-search-text-change="searchTextChange(searchText)"
 												md-search-text="searchText"
+												ng-enter="presEnterSearch(searchText)"
 												md-selected-item-change="selectedItemChange(item)"
 												md-items="item in querySearch(searchText)"
 												md-item-text="item.name"
@@ -63,15 +65,21 @@
 											<md-item-template>
 													<a href="#!/{{item.url}}">
 															<span class="item-title">
-																	<img ng-if="item.type == 'Asset'" check-image ng-src="../img/assets/{{item.name}}.png">
-																	<span ng-if="item.type == 'Transaction'" ><i class="fas fa-exchange-alt"></i></span>
-																	<span ng-if="item.type == 'Block' || item.type == 'Block Hash'" ><i class="fas fa-cube"></i></span>
-																	<span ng-if="item.type == 'Address'" ><i class="far fa-address-card"></i></span>
+																	<img ng-if="item.type == 'asset'" check-image ng-src="../img/assets/{{item.name}}.png">
+																	<span ng-if="item.type == 'tx'" ><i class="fas fa-exchange-alt"></i></span>
+																	<span ng-if="item.type == 'blockHeight' || item.type == 'blockHash'" ><i class="fas fa-cube"></i></span>
+																	<span ng-if="item.type == 'address'" ><i class="far fa-address-card"></i></span>
 																	<span> {{item.name}} </span>
 															</span>
 															<span class="item-metadata">
 																	<span>
-																			<strong>{{item.type}}</strong>
+																			<strong>
+																				<span ng-if="item.type == 'asset'">{{'SUGGESTION.TYPE_ASSET' | translate}}</span>
+																				<span ng-if="item.type == 'tx'" >{{'SUGGESTION.TYPE_TX' | translate}}</span>
+																				<span ng-if="item.type == 'blockHeight'" >{{'SUGGESTION.TYPE_BLOCK_HEIGHT' | translate}}</span>
+																				<span ng-if="item.type == 'blockHash'" >{{'SUGGESTION.TYPE_BLOCK_HASH' | translate}}</span>
+																				<span ng-if="item.type == 'address'" >{{'SUGGESTION.TYPE_ADDRESS' | translate}}</span>
+																			</strong>
 																	</span>
 																	<span ng-if="item.nbrtx">
 																			({{item.nbrtx}} transactions)
