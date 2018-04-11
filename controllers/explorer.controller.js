@@ -679,7 +679,7 @@
 
                     $scope.stakelist.push(rest);
 
-                    var h = 600;
+                    var h = 800;
                     var r = h / 2;
                     var arc = d3.svg.arc().outerRadius(r);
 
