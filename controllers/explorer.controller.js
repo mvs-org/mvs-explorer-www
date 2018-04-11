@@ -28,6 +28,7 @@
         .controller('TransactionController', TransactionController)
         .controller('AssetsListController', AssetsListController)
         .controller('AssetController', AssetController)
+        //.controller('DemoCtrl', DemoCtrl)
         .directive('checkImage', function() {
          return {
             link: function(scope, element, attrs) {
@@ -207,7 +208,7 @@
         map.addLayer(markers);
     }
 
-    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
+    /*function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
         $scope.search = search;
         $scope.search_field = "";
 
@@ -290,7 +291,7 @@
                     NProgress.done();
                 });
         }
-    }
+    }*/
 
 
 
@@ -659,4 +660,130 @@
         }
 
     }
+
+    function SearchController ($scope, MetaverseService, $translate, $location, FlashService, $filter) {
+
+        $scope.simulateQuery = false;
+        $scope.isDisabled    = false;
+
+        $scope.repos = [];
+        $scope.querySearch   = querySearch;
+        $scope.query = "";
+        $scope.selectedItemChange = selectedItemChange;
+        $scope.searchTextChange   = searchTextChange;
+        $scope.search = search;
+        $scope.setResults = setResults;
+        $scope.setResultsTx = setResultsTx;
+
+        function querySearch (query) {
+          return query ? search(query) : $scope.repos;
+        }
+
+        function searchTextChange(text) {
+            if(text.length >= 3) {
+                search(text);
+            }
+        }
+
+        function selectedItemChange(item) {
+
+        }
+
+        function search(text) {
+            return MetaverseService.SearchAll(text, 10)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        return setResults(text, response.data.result)
+                            .then((organizedResult) => {
+                                return organizedResult.filter( createFilterFor(text) );
+                            })
+                    }
+                })
+        }
+
+        function setResults(text, result) {
+            return Promise.all([setResultsBlockHeight(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
+            .then((results) => {
+                var repos = [];
+                repos.push.apply(repos, results[0]);
+                repos.push.apply(repos, results[1]);
+                repos.push.apply(repos, results[2]);
+                repos.push.apply(repos, results[3]);
+                repos.push.apply(repos, results[4]);
+                return repos;
+            })
+        }
+
+        function setResultsBlockHeight(text) {
+            var repos = [];
+            if (!isNaN(text)) {
+                repos.push({
+                  'name' : text,
+                  'url' : 'blk/' + text,
+                  'type' : 'Block',
+                });
+            }
+            return repos;
+        }
+
+        function setResultsAsset(assets) {
+            var result = [];
+            return Promise.all(assets.map((asset) => {
+                var asset = [];
+                asset.name = asset;
+                asset.url = "asset/" + asset;
+                asset.type = "Asset";
+                result.push(asset);
+            }))
+            .then(() => result);
+        }
+
+        function setResultsAddress(addresses) {
+            var result = [];
+            return Promise.all(addresses.map((address) => {
+                var address = [];
+                address.name = address;
+                address.url = "address/" + address;
+                address.type = "Address";
+                result.push(address);
+            }))
+            .then(() => result);
+        }
+
+        function setResultsTx(txs) {
+            var result = [];
+            return Promise.all(txs.map((tx) => {
+                var transaction = [];
+                transaction.name = tx;
+                transaction.url = "tx/" + tx;
+                transaction.type = "Transaction";
+                result.push(transaction);
+            }))
+            .then(() => result);
+        }
+
+
+
+        function setResultsBlockHash(blocks) {
+            var result = [];
+            return Promise.all(blocks.map((block) => {
+                var block = [];
+                block.name = block;
+                block.url = "blk/" + block;
+                block.type = "Block";
+                result.push(block);
+            }))
+            .then(() => result);
+        }
+
+
+
+        function createFilterFor(query) {
+
+          return function filterFn(item) {
+            return (item.name.indexOf(query) === 0);
+          };
+
+        }
+      }
 })();

@@ -74,10 +74,10 @@ footer{
     margin-top: 50px;
     padding: 20px;
     position: absolute;
-    bottom: 0;
+    /*bottom: 0;*/
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 130px;
+    /*height: 130px;*/
 
 }
 footer a{
@@ -105,7 +105,7 @@ em{
     min-height: 130px;
 }
 .infobox a {
-    color: #4b606d;
+    /*color: #4b606d;*/
 }
 .infobox table{
     width: 100%;
@@ -1177,4 +1177,24 @@ ul, li{
     position: absolute;
     width: auto;
     height: 100px;
+}
+
+.autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  white-space: normal;
+}
+.autocomplete-custom-template li:last-child {
+  border-bottom-width: 0;
+}
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
+  display: block;
+  line-height: 2;
+}
+.autocomplete-custom-template img {
+  height: 18px;
+  width: 18px;
 }

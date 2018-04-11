@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate', 'nvd3', 'vxWamp','ngSanitize', 'swaggerUi'])
+    angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate','ngAria','ngMessages','ngMaterial', 'nvd3', 'vxWamp','ngSanitize','swaggerUi'])
         .config(config)
         .filter('assetformat',function(){
             return function(input, asset_type){

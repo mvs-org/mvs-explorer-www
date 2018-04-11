@@ -63,6 +63,8 @@
 
         service.Chart = () => _send('poolstats');
 
+        service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
+
         return service;
 
         function _send(query) {
