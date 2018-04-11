@@ -26,28 +26,41 @@
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
         .controller('TransactionController', TransactionController)
-        .controller('AssetsController', AssetsController)
+        .controller('AssetsListController', AssetsListController)
+        .controller('AssetController', AssetController)
         .directive('checkImage', function() {
-         return {
-            link: function(scope, element, attrs) {
-               element.bind('error', function() {
-                  element.attr('src', 'img/assets/default.png'); // set default image
-               });
-             }
-           }
+            return {
+                link: function(scope, element, attrs) {
+                    element.bind('error', function() {
+                        element.attr('src', 'img/assets/default.png'); // set default image
+                    });
+                }
+            };
+        })
+        .directive('mdHideAutocompleteOnEnter', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
+                    if(event.which === 13) {
+                        scope.$apply(function (){
+                            scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
+                        });
+                        event.preventDefault();
+                    }
+                });
+            };
         });
 
-    function MenuController($location, $rootScope){
+    function MenuController($location, $rootScope) {
 
-      function setMenu(){
-        $rootScope.selectedMenu={
-          main: $location.path().split('/')[1]
+        function setMenu() {
+            $rootScope.selectedMenu = {
+                main: $location.path().split('/')[1]
+            }
         }
-      }
-      setMenu();
-      $rootScope.$on("$locationChangeStart", function(event, next, current) {
         setMenu();
-      });
+        $rootScope.$on("$locationChangeStart", function(event, next, current) {
+            setMenu();
+        });
     }
 
     function ChartController($scope, MetaverseService) {
@@ -85,7 +98,7 @@
                     url: "",
                     counter: rest_part
                 }].concat($scope.data);
-                $scope.data.sort((a,b)=>a.counter>b.counter);
+                $scope.data.sort((a, b) => a.counter > b.counter);
                 $scope.locationsmap = Object.keys($scope.locations);
 
             }).then(() => {
@@ -194,7 +207,7 @@
             }
         });
 
-        var geojsonAjax = new L.GeoJSON.AJAX(MetaverseService.SERVER+"/locations");
+        var geojsonAjax = new L.GeoJSON.AJAX(MetaverseService.SERVER + "/locations");
         geojsonAjax.on('data:loaded', function() {
             // Clustering disabled for chen hao
             // markers.addLayer(geojsonAjax);
@@ -206,19 +219,30 @@
         map.addLayer(markers);
     }
 
-    function SearchController($scope, MetaverseService, $translate, $location, FlashService) {
+    /*function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
         $scope.search = search;
+        $scope.search_field = "";
 
         function search() {
-            switch ($scope.search_field.length) {
-                case 64:
-                    show_transaction();
-                    break;
-                case 34:
-                    show_address();
-                    break;
-                default:
-                    show_block();
+            if($scope.search_field == "") {
+                $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                    .then((data) => FlashService.Error(data));
+            }else if ($filter('uppercase')($scope.search_field) == "ETP") {
+                $location.path('/asset/ETP');
+            } else {
+                switch ($scope.search_field.length) {
+                    case 64:
+                        show_transaction();
+                        break;
+                    case 34:
+                        show_address();
+                        break;
+                    default:
+                        if (!isNaN($scope.search_field))
+                            show_block();
+                        else
+                            show_asset($filter('uppercase')($scope.search_field));
+                }
             }
         }
 
@@ -264,7 +288,21 @@
                     NProgress.done();
                 });
         }
-    }
+
+        function show_asset(symbol) {
+            NProgress.start();
+            MetaverseService.AssetInfo(symbol)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                        $location.path('/asset/' + symbol);
+                    } else {
+                        $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+    }*/
 
 
 
@@ -273,7 +311,7 @@
     function BlockListController($scope, $wamp, $interval) {
 
         $scope.currentTimeStamp = Math.floor(Date.now());
-        $interval( () => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
+        $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
 
         function AddBlocksToBlocks(blocks) {
@@ -305,7 +343,7 @@
     function TransactionListController($scope, $wamp, $interval) {
 
         $scope.currentTimeStamp = Math.floor(Date.now());
-        $interval( () => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
+        $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
         function AddTxsToTxs(txs) {
             txs = txs.concat($scope.txList);
@@ -407,11 +445,11 @@
                         $scope.transaction = response.data.result;
                         $scope.messages = [];
                         if ($scope.transaction.outputs.length) {
-                            $scope.transaction.outputs.forEach(function (output) {
-                                if(output.attachment.type == "message") {
+                            $scope.transaction.outputs.forEach(function(output) {
+                                if (output.attachment.type == "message") {
                                     $scope.messages.push(output.attachment.content);
                                 }
-                                if(output.locked_height_range)
+                                if (output.locked_height_range)
                                     output.unlock_block = $scope.transaction.height + output.locked_height_range;
                             });
                         }
@@ -517,7 +555,7 @@
                             $scope.tokens = response.data.result.tokens;
                             $scope.definitions = response.data.result.definitions;
                             for (var symbol in $scope.definitions) {
-                                if(typeof $rootScope.priority[symbol] != 'undefined') {
+                                if (typeof $rootScope.priority[symbol] != 'undefined') {
                                     $scope.definitions[symbol].priority = $rootScope.priority[symbol];
                                 } else {
                                     $scope.definitions[symbol].priority = 1000;
@@ -534,8 +572,10 @@
                             for (var symbol in $scope.definitions) {
                                 $scope.addressAssets.push($scope.definitions[symbol]);
                             }
-                            if(typeof $scope.info.FROZEN == 'undefined')
+                            if (typeof $scope.info.FROZEN == 'undefined')
                                 $scope.info.FROZEN = 0;
+                            if (typeof $scope.tokens.ETP == 'undefined')
+                                $scope.tokens.ETP = 0;
                         } else {
                             $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
                                 .then((data) => {
@@ -571,30 +611,343 @@
         }
     }
 
-    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
+    function AssetsListController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
 
-      $scope.loading_assets = true;
+        $scope.loading_assets = true;
 
-      listAssets();
+        listAssets();
 
-      function listAssets() {
-          NProgress.start();
-          MetaverseService.ListAssets()
-              .then((response) => {
-                  $scope.loading_assets = false;
-                  if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                      $scope.assets = response.data.result;
-                  }
-                  $scope.assets.forEach(function(asset) {
-                    if(typeof $rootScope.priority[asset.symbol] != 'undefined') {
-                        asset.priority = $rootScope.priority[asset.symbol];
-                    } else {
-                        asset.priority = 1000;
+        function listAssets() {
+            NProgress.start();
+            MetaverseService.ListAssets()
+                .then((response) => {
+                    $scope.loading_assets = false;
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $scope.assets = response.data.result;
                     }
-                  });
-                  NProgress.done();
-              });
-      }
+                    $scope.assets.forEach(function(asset) {
+                        if (typeof $rootScope.priority[asset.symbol] != 'undefined') {
+                            asset.priority = $rootScope.priority[asset.symbol];
+                        } else {
+                            asset.priority = 1000;
+                        }
+                    });
+                    NProgress.done();
+                });
+        }
 
     }
+
+
+    function AssetController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+
+        $scope.symbol = $stateParams.symbol;
+        $scope.loading_asset = true;
+
+        if ($scope.symbol != undefined && $scope.symbol != "ETP") {
+            NProgress.start();
+            MetaverseService.AssetInfo($scope.symbol)
+                .then((response) => {
+                    $scope.loading_asset = false;
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $scope.asset = response.data.result[0];
+                    }
+                })
+                .then(() => loadStakelist())
+                .then(() => NProgress.done());
+        } else if ($scope.symbol == "ETP") {
+            $scope.loading_asset = false;
+            $scope.asset = [];
+            $scope.asset.symbol = "ETP";
+            $scope.asset.quantity = 10000000000000000;
+            $scope.asset.decimals = 8;
+            $scope.asset.issuer = "mvs.org";
+            $scope.asset.address = "MGqHvbaH9wzdr6oUDFz4S1HptjoKQcjRve";
+            $scope.asset.hash = "b81848ef9ae86e84c3da26564bc6ab3a79efc628239d11471ab5cd25c0684c2d";
+            $scope.asset.height = 0;
+            $scope.asset.description = "MVS Official Token";
+            loadStakelist().then(() => {
+                NProgress.done();
+            });
+        }
+
+        function loadStakelist() {
+            return MetaverseService.AssetStakes($scope.symbol)
+                .then((stakes) => {
+                    $scope.stakelist = stakes.data.result.map((stake) => {
+                        return {
+                            address: stake.a,
+                            quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity>100?0:$scope.asset.decimals)),
+                            share: (stake.q / $scope.asset.quantity * 100).toFixed(3)
+                        };
+                    });
+
+                    let rest={share:100, quantity: $scope.asset.quantity/Math.pow(10,-$scope.asset.decimals)};
+                    $scope.stakelist.forEach((stake)=>{
+                        rest.share-=stake.share;
+                        rest.quantity-=stake.quantity;
+                    });
+
+                    $scope.stakelist.push(rest);
+
+                    var h = 800;
+                    var r = h / 2;
+                    var arc = d3.svg.arc().outerRadius(r);
+
+                    $scope.data = [];
+
+                    $scope.locations = {};
+
+                    $scope.colors = [
+                        "#006599", // dark blue
+                        "#0099CB", // blue
+                        '#fe6700', // orange
+                        '#ffd21c', // yellow
+                        "#fe0000", // red
+                        "#ED230D" // dark red
+                    ];
+
+                    nv.addGraph(function() {
+                        var chart = nv.models.pieChart()
+                            .x(function(d) {
+                                return "<b>" + ((d.address)?d.address:'others') + "</b>";
+                            })
+                            .y(function(d) {
+                                return d.share;
+                            })
+                            .color($scope.colors)
+                            .showLabels(true)
+                            .showLegend(false)
+                            .labelType("percent");
+
+                        d3.select("#chart svg")
+                            .datum($scope.stakelist)
+                            .transition().duration(1200)
+                            .call(chart);
+
+                        var positionX = 210;
+                        var positionY = 30;
+                        var verticalOffset = 25;
+
+                        d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                            positionY += verticalOffset;
+                            d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
+                        });
+
+                        return chart;
+                    });
+
+                });
+        }
+
+    }
+
+    function SearchController ($scope, MetaverseService, $translate, $location, FlashService, $filter) {
+
+        $scope.presEnterSearch = presEnterSearch;
+
+        $scope.querySearch   = querySearch;
+        $scope.selectedItemChange = selectedItemChange;
+        $scope.searchTextChange   = searchTextChange;
+        $scope.search = search;
+        $scope.setResults = setResults;
+        $scope.setResultsTx = setResultsTx;
+
+        function querySearch (query) {
+          return query ? search(query) : [];
+        }
+
+
+        function presEnterSearch(search_field) {
+            if(search_field == "") {
+                $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                    .then((data) => FlashService.Error(data));
+            }else if ($filter('uppercase')(search_field) == "ETP") {
+                $location.path('/asset/ETP');
+            } else {
+                switch (search_field.length) {
+                    case 64:
+                        show_transaction_or_block(search_field);
+                        break;
+                    case 34:
+                        show_address(search_field);
+                        break;
+                    default:
+                        if (!isNaN(search_field))
+                            show_block(search_field);
+                        else
+                            show_asset($filter('uppercase')(search_field));
+                }
+            }
+        }
+
+        function show_address(search_field) {
+            NProgress.start();
+            MetaverseService.FetchHistory(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/adr/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function show_block(search_field) {
+            NProgress.start();
+            MetaverseService.Block(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/blk/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_BLOCK_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+
+        function show_transaction_or_block(search_field) {
+            NProgress.start();
+            MetaverseService.FetchTx(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/tx/' + search_field);
+                    } else {
+                        MetaverseService.Block(search_field)
+                            .then((response) => {
+                                if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                                    $location.path('/blk/' + search_field);
+                                } else {
+                                    $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
+                                        .then((data) => FlashService.Error(data));
+                                }
+                                NProgress.done();
+                            });
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function show_asset(search_field) {
+            NProgress.start();
+            MetaverseService.AssetInfo(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                        $location.path('/asset/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function searchTextChange(text) {
+
+        }
+
+        function selectedItemChange(item) {
+
+        }
+
+        function search(text) {
+            return MetaverseService.SearchAll(text, 10)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        return setResults(text, response.data.result);
+                    }
+                    else return [];
+                })
+        }
+
+        function setResults(text, result) {
+            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
+            .then((results) => {
+                var repos = [];
+                repos.push.apply(repos, results[0]);
+                repos.push.apply(repos, results[1]);
+                repos.push.apply(repos, results[2]);
+                repos.push.apply(repos, results[3]);
+                repos.push.apply(repos, results[4]);
+                return repos;
+            })
+        }
+
+        function setResultsInit(text) {
+            var repos = [];
+            if (!isNaN(text)) {
+                repos.push({
+                  'name' : text,
+                  'url' : 'blk/' + text,
+                  'type' : 'blockHeight',
+                });
+            }
+            else if ($filter('uppercase')(text) == "ETP") {
+                repos.push({
+                  'name' : 'ETP',
+                  'url' : 'asset/ETP',
+                  'type' : 'asset',
+                });
+            }
+            return repos;
+        }
+
+        function setResultsAsset(assets) {
+            var result = [];
+            return Promise.all(assets.map((asset) => {
+                var addasset = {};
+                addasset.name = asset;
+                addasset.url = "asset/" + asset;
+                addasset.type = "asset";
+                result.push(addasset);
+            }))
+            .then(() => result);
+        }
+
+        function setResultsAddress(addresses) {
+            var result = [];
+            return Promise.all(addresses.map((address) => {
+                var addaddress = {};
+                addaddress.name = address.a;
+                addaddress.url = "adr/" + address.a;
+                addaddress.nbrtx = address.n;
+                addaddress.type = "address";
+                result.push(addaddress);
+            }))
+            .then(() => result);
+        }
+
+        function setResultsTx(txs) {
+            var result = [];
+            return Promise.all(txs.map((tx) => {
+                var addtx = {};
+                addtx.name = tx.h;
+                addtx.url = "tx/" + tx.h;
+                addtx.height = tx.b;
+                addtx.type = "tx";
+                result.push(addtx);
+            }))
+            .then(() => result);
+        }
+
+
+
+        function setResultsBlockHash(blocks) {
+            var result = [];
+            return Promise.all(blocks.map((block) => {
+                var addblock = {};
+                addblock.name = block.h;
+                addblock.url = "blk/" + block.h;
+                addblock.height = block.n;
+                addblock.type = "blockHash";
+                result.push(addblock);
+            }))
+            .then(() => result);
+        }
+
+      }
 })();

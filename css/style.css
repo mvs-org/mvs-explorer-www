@@ -74,10 +74,10 @@ footer{
     margin-top: 50px;
     padding: 20px;
     position: absolute;
-    bottom: 0;
+    /*bottom: 0;*/
     width: 100%;
     /* Set the fixed height of the footer here */
-    height: 130px;
+    /*height: 130px;*/
 
 }
 footer a{
@@ -105,7 +105,7 @@ em{
     min-height: 130px;
 }
 .infobox a {
-    color: #4b606d;
+    /*color: #4b606d;*/
 }
 .infobox table{
     width: 100%;
@@ -128,9 +128,6 @@ em{
 .panel .table>tbody>tr>td{
     border-top: 0px;
     overflow-wrap: break-word;
-}
-.panel .table>tbody>tr>td:nth-child(1){
-    color: #b6bcc3;
 }
 .panel{
     border-radius: 10px;
@@ -1165,4 +1162,57 @@ ul, li{
 
 .asset-symbol {
   padding-right: 50px;
+}
+
+.searchedAddress {
+  font-weight: bold;
+}
+
+.assetpage-icon img {
+    right: 15px;
+    top: 0px;
+    position: absolute;
+    width: auto;
+    height: 100px;
+}
+
+.autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  white-space: normal;
+}
+.autocomplete-custom-template li:last-child {
+  border-bottom-width: 0;
+}
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
+  display: block;
+  line-height: 2;
+  height: 30px;
+}
+.autocomplete-custom-template img {
+  height: 18px;
+  width: 18px;
+}
+
+.md-virtual-repeat-sizer {
+  height: auto;
+}
+
+.autocompleteSearch {
+  margin-top: 120px;
+}
+
+md-input-container.md-input-focused label {
+  color: #6dc6f9 !important;
+}
+
+md-input-container.md-input-focused .md-input {
+  border-color: #6dc6f9 !important;
+}
+
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+  background-color: #6dc6f9 !important;
 }

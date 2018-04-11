@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate', 'nvd3', 'vxWamp','ngSanitize', 'swaggerUi'])
+    angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate','ngAria','ngMessages','ngMaterial', 'nvd3', 'vxWamp','ngSanitize','swaggerUi'])
         .config(config)
         .filter('assetformat',function(){
             return function(input, asset_type){
@@ -37,7 +37,9 @@
         }).config(function($wampProvider) {
             $wampProvider.init({
               //url: 'wss://explorer.mvs.org/ws',
-              //url: 'ws://localhost:8820/ws',
+              //url: 'ws://explorer-dev.mvs.org/ws',
+              //url: 'wss://explorer-new.mvs.org/ws',
+              //url: 'ws://localhost:80/ws',
               url: ((window.location.protocol == 'https:') ? 'wss:' : 'ws:') + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/ws",
                 realm: 'realm1'
                 //Any other AutobahnJS options
@@ -86,10 +88,15 @@
                 templateUrl: "views/address.view.html",
                 controller: 'AddressController'
             })
-            .state('explorer.assets', {
+            .state('explorer.asset', {
+                url: "/asset/:symbol",
+                templateUrl: "views/asset.view.html",
+                controller: 'AssetController'
+            })
+            .state('explorer.assetslist', {
                 url: "/assets",
-                templateUrl: "views/assets.view.html",
-                controller: 'AssetsController'
+                templateUrl: "views/assetslist.view.html",
+                controller: 'AssetsListController'
             });
         $urlRouterProvider.otherwise("/");
     };
