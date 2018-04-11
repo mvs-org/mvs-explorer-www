@@ -57,15 +57,15 @@
                 <thead>
                     <tr>
                         <th>{{"ADDRESS"|translate}}</th>
-                        <th>{{"STAKE"|translate}}</th>
-                        <th>{{"SHARE"|translate}}</th>
+                        <th class="right">{{"STAKE"|translate}}</th>
+                        <th class="right">{{"SHARE"|translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="stake in stakelist" ng-if="stake.address">
                         <td><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></td>
                         <td class="right">{{stake.quantity}}</td>
-                        <td>{{stake.share}}%</td>
+                        <td class="right">{{stake.share}}%</td>
                     </tr>
                 </tbody>
             </table>
