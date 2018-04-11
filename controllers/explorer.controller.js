@@ -668,7 +668,6 @@
 
         $scope.repos = [];
         $scope.querySearch   = querySearch;
-        $scope.query = "";
         $scope.selectedItemChange = selectedItemChange;
         $scope.searchTextChange   = searchTextChange;
         $scope.search = search;
@@ -676,33 +675,32 @@
         $scope.setResultsTx = setResultsTx;
 
         function querySearch (query) {
-          return query ? search(query) : $scope.repos;
+          return query ? search(query) : [];
         }
 
         function searchTextChange(text) {
+            console.log('Text changed to ' + text);
             if(text.length >= 3) {
                 search(text);
             }
         }
 
         function selectedItemChange(item) {
-
+          console.log('Item changed to ' + JSON.stringify(item));
         }
 
         function search(text) {
             return MetaverseService.SearchAll(text, 10)
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        return setResults(text, response.data.result)
-                            .then((organizedResult) => {
-                                return organizedResult.filter( createFilterFor(text) );
-                            })
+                        return setResults(text, response.data.result);
                     }
+                    else return [];
                 })
         }
 
         function setResults(text, result) {
-            return Promise.all([setResultsBlockHeight(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
+            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
             .then((results) => {
                 var repos = [];
                 repos.push.apply(repos, results[0]);
@@ -714,7 +712,7 @@
             })
         }
 
-        function setResultsBlockHeight(text) {
+        function setResultsInit(text) {
             var repos = [];
             if (!isNaN(text)) {
                 repos.push({
@@ -723,17 +721,24 @@
                   'type' : 'Block',
                 });
             }
+            else if ($filter('uppercase')(text) == "ETP") {
+                repos.push({
+                  'name' : 'ETP',
+                  'url' : 'asset/ETP',
+                  'type' : 'Asset',
+                });
+            }
             return repos;
         }
 
         function setResultsAsset(assets) {
             var result = [];
             return Promise.all(assets.map((asset) => {
-                var asset = [];
-                asset.name = asset;
-                asset.url = "asset/" + asset;
-                asset.type = "Asset";
-                result.push(asset);
+                var addasset = {};
+                addasset.name = asset;
+                addasset.url = "asset/" + asset;
+                addasset.type = "Asset";
+                result.push(addasset);
             }))
             .then(() => result);
         }
@@ -741,11 +746,12 @@
         function setResultsAddress(addresses) {
             var result = [];
             return Promise.all(addresses.map((address) => {
-                var address = [];
-                address.name = address;
-                address.url = "address/" + address;
-                address.type = "Address";
-                result.push(address);
+                var addaddress = {};
+                addaddress.name = address.a;
+                addaddress.url = "address/" + address.a;
+                addaddress.nbrtx = address.n;
+                addaddress.type = "Address";
+                result.push(addaddress);
             }))
             .then(() => result);
         }
@@ -753,11 +759,12 @@
         function setResultsTx(txs) {
             var result = [];
             return Promise.all(txs.map((tx) => {
-                var transaction = [];
-                transaction.name = tx;
-                transaction.url = "tx/" + tx;
-                transaction.type = "Transaction";
-                result.push(transaction);
+                var addtx = {};
+                addtx.name = tx.h;
+                addtx.url = "tx/" + tx.h;
+                addtx.height = tx.b;
+                addtx.type = "Transaction";
+                result.push(addtx);
             }))
             .then(() => result);
         }
@@ -767,23 +774,15 @@
         function setResultsBlockHash(blocks) {
             var result = [];
             return Promise.all(blocks.map((block) => {
-                var block = [];
-                block.name = block;
-                block.url = "blk/" + block;
-                block.type = "Block";
-                result.push(block);
+                var addblock = {};
+                addblock.name = block.h;
+                addblock.url = "blk/" + block.h;
+                addblock.height = block.n;
+                addblock.type = "Block Hash";
+                result.push(addblock);
             }))
             .then(() => result);
         }
 
-
-
-        function createFilterFor(query) {
-
-          return function filterFn(item) {
-            return (item.name.indexOf(query) === 0);
-          };
-
-        }
       }
 })();

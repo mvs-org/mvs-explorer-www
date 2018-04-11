@@ -48,13 +48,6 @@
 		<div ng-controller="SearchController as ctrl" layout="column" ng-cloak="" class="autocompleteSearch">
 				<md-content layout-padding="" layout="column">
 						<form ng-submit="$event.preventDefault()">
-								<!--            md-selected-item="ctrl.selectedItem"
-            md-search-text="ctrl.searchText"
-            md-items="item in ctrl.querySearch(ctrl.searchText)"
-            md-item-text="item.login"
-					md-delay="300"-->
-
-
 								<md-autocomplete flex
 												md-no-cache="noCache"
 												md-selected-item="selectedItem"
@@ -70,18 +63,21 @@
 											<md-item-template>
 													<a href="#!/{{item.url}}">
 															<span class="item-title">
-																	<img ng-if="item.type === 'Asset'" check-image ng-src="../img/assets/{{item.name}}.png">
-																	<i ng-show="item.type === 'Transaction'" class="fas fa-exchange-alt"></i>
-																	<i ng-show="item.type === 'Block'" class="fas fa-cube"></i>
-																	<i ng-show="item.type === 'Address'" class="far fa-address-card"></i>
+																	<img ng-if="item.type == 'Asset'" check-image ng-src="../img/assets/{{item.name}}.png">
+																	<span ng-if="item.type == 'Transaction'" ><i class="fas fa-exchange-alt"></i></span>
+																	<span ng-if="item.type == 'Block' || item.type == 'Block Hash'" ><i class="fas fa-cube"></i></span>
+																	<span ng-if="item.type == 'Address'" ><i class="far fa-address-card"></i></span>
 																	<span> {{item.name}} </span>
 															</span>
 															<span class="item-metadata">
 																	<span>
 																			<strong>{{item.type}}</strong>
 																	</span>
-																	<span ng-if="item.transactions">
-																			({{item.transactions}} transactions)
+																	<span ng-if="item.nbrtx">
+																			({{item.nbrtx}} transactions)
+																	</span>
+																	<span ng-if="item.height">
+																			(Block {{item.height}})
 																	</span>
 															</span>
 													</a>
@@ -90,34 +86,9 @@
 													{{'MESSAGES.ERROR_SEARCH_NOT_FOUND' | translate}}
 											</md-not-found>
 									</md-autocomplete>
-								<!--md-autocomplete flex
-										md-selected-item="selectedItem"
-										md-search-text="searchText"
-										md-items="item in querySearch(searchText)"
-										md-item-text="item.login"
-										md-delay="300"
-										md-floating-label="Search Github Users">
-									<div layout="row" class="item" layout-align="start center">
-										<img ng-src="{{item.avatar_url}}" class="avatar" />
-										&nbsp;&nbsp;
-										<span md-highlight-text="searchText">{{item.login}}</span>
-									</div>
-								</md-autocomplete-->
 						</form>
 				</md-content>
 		</div>
-    <!--div ng-controller="SearchController as ctrl">
-        <form>
-            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-
-            <div class="input-group search-group">
-                <input type="text" class="form-control searchbox" name="hash" ng-model="search_field" autocomplete="off" ng-enter="search()" required placeholder="{{'EXPLORER.SEARCH_LABEL' | translate}}">
-                <a class="input-group-addon button" ng-click="search()">
-                    <i class="icon-search searchIcon" aria-hidden="true"></i>
-								</a>
-            </div>
-
-        </form-->
     <ui-view></ui-view>
 </div>
 
