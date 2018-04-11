@@ -3,7 +3,7 @@
     "EXPLORER.TRANSACTION_INPUTS": "Inputs",
     "EXPLORER.TRANSACTION_OUTPUTS": "Outputs",
     "EXPLORER.SEARCH_HEADLINE": "Search",
-    "EXPLORER.SEARCH_LABEL": "Block no / Tx Hash / Address",
+    "EXPLORER.SEARCH_LABEL": "Search here for transactions, blocks, addresses or assets",
     "EXPLORER.SEARCH": "Search",
     "EXPLORER.BLOCK_NUMBER": "Block no.",
     "EXPLORER.TRANSACTION_COUNT": "No of TXs",
