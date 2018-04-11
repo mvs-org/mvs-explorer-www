@@ -112,10 +112,8 @@
 
         $wamp.open();
 
-        // Page Refresh
-        $(document).ready(function() {
-            $(this).scrollTop(0);
-        });
+        $rootScope.$on('$stateChangeStart', ()=>$(this).scrollTop(0));
+
 
         if ($localStorageService.get('language') != undefined)
             $translate.use($localStorageService.get('language'));
