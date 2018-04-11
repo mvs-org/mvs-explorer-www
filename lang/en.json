@@ -91,5 +91,10 @@
     "ASSET.HASH": "Issuance Transaction",
     "ASSET.DESCRIPTION": "Description",
     "ASSET.ISSUER": "Issuer",
-    "ASSET.HEIGHT": "Issuance Block"
+    "ASSET.HEIGHT": "Issuance Block",
+    "ADDRESS": "Address",
+    "ASSET.STAKELIST": "Distribution overview",
+    "STAKE": "Stake",
+    "SHARE": "Share"
+
 }

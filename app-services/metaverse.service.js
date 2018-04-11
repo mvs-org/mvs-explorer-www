@@ -54,6 +54,8 @@
         service.ListAssets = (number) => _send('assets');
 
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
+        
+        service.AssetStakes = (symbol) => _send('stakes/' + symbol);
 
         service.MiningInfo = () => _send('mining');
 

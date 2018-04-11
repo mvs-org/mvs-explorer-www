@@ -49,4 +49,31 @@
             </div>
         </div>
     </div>
+
+    <h2 class="headline"><em></em>{{ 'ASSET.STAKELIST' | translate }}</h2>
+    <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_asset">
+        <div class="panel-body col-md-7 col-xs-12">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>{{"ADDRESS"|translate}}</th>
+                        <th>{{"STAKE"|translate}}</th>
+                        <th>{{"SHARE"|translate}}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="stake in stakelist" ng-if="stake.address">
+                        <td><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></td>
+                        <td class="right">{{stake.quantity}}</td>
+                        <td>{{stake.share}}%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="col-md-4 col-xs-12">
+            <div id="chart">
+                <svg></svg>
+            </div>
+        </div>
+    </div>
 </div>

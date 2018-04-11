@@ -129,9 +129,6 @@ em{
     border-top: 0px;
     overflow-wrap: break-word;
 }
-.panel .table>tbody>tr>td:nth-child(1){
-    color: #b6bcc3;
-}
 .panel{
     border-radius: 10px;
     box-shadow: 5px 5px 5px #f1f1f1;
