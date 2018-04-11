@@ -1205,6 +1205,14 @@ ul, li{
   margin-top: 120px;
 }
 
+md-input-container label {
+  color: #4b606d !important;
+}
+
+md-input-container .md-input {
+  border-color: #4b606d !important;
+}
+
 md-input-container.md-input-focused label {
   color: #6dc6f9 !important;
 }
