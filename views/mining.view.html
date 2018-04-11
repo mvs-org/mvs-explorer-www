@@ -1,0 +1,79 @@
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-md-12 panel infobox infobox-specific-height">
+            <h3>{{'MARKET_CAP'|translate}}</h3>
+            <table>
+                <tr>
+                    <th>{{ 'NUMBER_OF_COINS' |translate }}</th>
+                    <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
+                    <td ng-hide="loading_circulation">{{circulation | number}}</td>
+                </tr>
+                <tr>
+                    <th>{{'PRICE'|translate}}</th>
+                    <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                    <td ng-hide="loading_pricing">{{pricing.ETPUSD | currency}}</td>
+                </tr>
+                <tr>
+                    <th>{{'MARKET_CAP'|translate}}</th>
+                    <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
+                    <td ng-hide="loading_pricing||loading_circulation">{{pricing.ETPUSD*circulation | currency}}</td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-md-12 panel infobox infobox-specific-height mining-box">
+            <h3>{{'MINING_POOL_INFO'|translate}}</h3>
+            <table>
+                <tr>
+                    <th>{{'HEIGHT'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td>{{mining_info.height | number}}</td>
+                </tr>
+                <tr>
+                    <th>{{'EXPLORER.DIFFICULTY'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td>{{mining_info.difficulty*1e-12 | number}} T</td>
+                </tr>
+                <tr>
+                    <th>{{'HASHRATE'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td>{{mining_info.hashrate*1e-9 | number}} GH</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="col-md-12 panel infobox infobox-specific-height" ng-controller="ChartController">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>{{'MINING_POOL_INFORMATION'|translate}}</h3>
+                    <div ng-repeat="location in locationsmap">
+                        <b>{{location}}</b><br>
+                        <div ng-repeat="miner in locations[location]">
+                            <a href="{{miner.url}}">{{miner.url}}</a><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-8">
+
+                    <div>
+                        <!-- <nvd3 options="options" data="data"></nvd3> -->
+                        <div id="chart">
+                            <svg></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="col-md-12 panel infobox infobox-specific-height">
+    <h3>{{'BLOCKTIME'|translate}}</h3>
+    <nvd3 options="blocktimeChart.options" data="blocktimeChart.data" class="with-3d-shadow with-transitions"></nvd3>
+</div>
+
+<div class="col-md-12 panel infobox infobox-specific-height">
+    <h3>{{'Difficulty'|translate}}</h3>
+    <nvd3 options="difficultyChart.options" data="difficultyChart.data" class="with-3d-shadow with-transitions"></nvd3>
+</div>

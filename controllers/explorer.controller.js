@@ -18,6 +18,7 @@
         .controller('MenuController', MenuController)
         .controller('ExplorerController', ExplorerController)
         .controller('StartpageController', StartpageController)
+        .controller('MiningController', MiningController)
         .controller('SearchController', SearchController)
         .controller('AddressController', AddressController)
         .controller('BlockController', BlockController)
@@ -37,11 +38,11 @@
                 }
             };
         })
-        .directive('mdHideAutocompleteOnEnter', function () {
-            return function (scope, element, attrs) {
-                element.bind("keydown keypress", function (event) {
-                    if(event.which === 13) {
-                        scope.$apply(function (){
+        .directive('mdHideAutocompleteOnEnter', function() {
+            return function(scope, element, attrs) {
+                element.bind("keydown keypress", function(event) {
+                    if (event.which === 13) {
+                        scope.$apply(function() {
                             scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
                         });
                         event.preventDefault();
@@ -55,7 +56,7 @@
         function setMenu() {
             $rootScope.selectedMenu = {
                 main: $location.path().split('/')[1]
-            }
+            };
         }
         setMenu();
         $rootScope.$on("$locationChangeStart", function(event, next, current) {
@@ -368,27 +369,10 @@
     }
 
 
-
-
-
-
-
-
-    function StartpageController(MetaverseService, $scope, $location, localStorageService, FlashService, $translate, $interval, $rootScope, $wamp) {
-
-        $scope.startpage = startpage;
-        $scope.loading_blocks = true;
-        $scope.loading_txs = true;
+    function MiningController(MetaverseService, $scope) {
         $scope.loading_mining_info = true;
         $scope.loading_circulation = true;
         $scope.loading_pricing = true;
-
-
-        $scope.format = (value, decimals) => value / Math.pow(10, decimals);
-
-        function startpage() {
-            $location.path('/');
-        }
 
         function getMiningInfo() {
             return MetaverseService.MiningInfo().then((response) => {
@@ -415,14 +399,93 @@
             }, console.error);
         }
 
-        $rootScope.loading = {
-            market_data: true
-        };
+        function getStatistics() {
+            return MetaverseService.BlockStats()
+                .then((response) => {
+                    var blocktimes = [];
+                    var difficulties = [];
+                    response.data.result.forEach((point) => {
+                        blocktimes.push({
+                            x: point[0],
+                            y: point[1]
+                        });
+                        difficulties.push({
+                            x: point[0],
+                            y: point[2]
+                        });
+                    });
+                    drawBlocktimes(blocktimes);
+                    drawDifficulties(difficulties);
+                });
+        }
 
-        $rootScope.loaders = () => Object.keys($rootScope.loading);
+        function drawDifficulties(data) {
+            $scope.difficultyChart = {
+                options: {
+                    chart: {
+                        type: 'lineChart',
+                        height: 450,
+                        margin: {
+                            top: 20,
+                            right: 40,
+                            bottom: 40,
+                            left: 95
+                        },
+                        y: function (d){ return d.y; },
+                        showLegend: false,
+                        xAxis: {
+                            axisLabel: 'Height'
+                        },
+                        yAxis: {
+                            axisLabelDistance: -65,
+                            axisLabel: 'Difficulty (bits)'
+                        }
+                    }
+                },
+                data: [{
+                    values: data
+                }]
+            };
+        }
+        function drawBlocktimes(data) {
+            $scope.blocktimeChart = {
+                options: {
+                    chart: {
+                        type: 'lineChart',
+                        height: 450,
+                        margin: {
+                            top: 20,
+                            right: 40,
+                            bottom: 40,
+                            left: 95
+                        },
+                        showLegend: false,
+                        xAxis: {
+                            axisLabel: 'Height'
+                        },
+                        yAxis: {
+                            axisLabel: 'Time (s)'
+                        }
+                    }
+                },
+                data: [{
+                    values: data
+                }]
+            };
+        }
         getCirculation();
+        getStatistics();
         getPricing();
         getMiningInfo();
+    }
+
+    function StartpageController($scope, $location, localStorageService, FlashService, $translate, $interval, $wamp) {
+
+        $scope.startpage = () => $location.path('/');
+        $scope.loading_blocks = true;
+        $scope.loading_txs = true;
+
+        $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 
     }
 
@@ -677,15 +740,18 @@
                     $scope.stakelist = stakes.data.result.map((stake) => {
                         return {
                             address: stake.a,
-                            quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity>100?0:$scope.asset.decimals)),
+                            quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
                             share: (stake.q / $scope.asset.quantity * 100).toFixed(3)
                         };
                     });
 
-                    let rest={share:100, quantity: $scope.asset.quantity/Math.pow(10,-$scope.asset.decimals)};
-                    $scope.stakelist.forEach((stake)=>{
-                        rest.share-=stake.share;
-                        rest.quantity-=stake.quantity;
+                    let rest = {
+                        share: 100,
+                        quantity: $scope.asset.quantity / Math.pow(10, -$scope.asset.decimals)
+                    };
+                    $scope.stakelist.forEach((stake) => {
+                        rest.share -= stake.share;
+                        rest.quantity -= stake.quantity;
                     });
 
                     $scope.stakelist.push(rest);
@@ -710,7 +776,7 @@
                     nv.addGraph(function() {
                         var chart = nv.models.pieChart()
                             .x(function(d) {
-                                return "<b>" + ((d.address)?d.address:'others') + "</b>";
+                                return "<b>" + ((d.address) ? d.address : 'others') + "</b>";
                             })
                             .y(function(d) {
                                 return d.share;
@@ -742,27 +808,27 @@
 
     }
 
-    function SearchController ($scope, MetaverseService, $translate, $location, FlashService, $filter) {
+    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
 
         $scope.presEnterSearch = presEnterSearch;
 
-        $scope.querySearch   = querySearch;
+        $scope.querySearch = querySearch;
         $scope.selectedItemChange = selectedItemChange;
-        $scope.searchTextChange   = searchTextChange;
+        $scope.searchTextChange = searchTextChange;
         $scope.search = search;
         $scope.setResults = setResults;
         $scope.setResultsTx = setResultsTx;
 
-        function querySearch (query) {
-          return query ? search(query) : [];
+        function querySearch(query) {
+            return query ? search(query) : [];
         }
 
 
         function presEnterSearch(search_field) {
-            if(search_field == "") {
+            if (search_field == "") {
                 $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
                     .then((data) => FlashService.Error(data));
-            }else if ($filter('uppercase')(search_field) == "ETP") {
+            } else if ($filter('uppercase')(search_field) == "ETP") {
                 $location.path('/asset/ETP');
             } else {
                 switch (search_field.length) {
@@ -859,38 +925,36 @@
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         return setResults(text, response.data.result);
-                    }
-                    else return [];
+                    } else return [];
                 })
         }
 
         function setResults(text, result) {
             return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
-            .then((results) => {
-                var repos = [];
-                repos.push.apply(repos, results[0]);
-                repos.push.apply(repos, results[1]);
-                repos.push.apply(repos, results[2]);
-                repos.push.apply(repos, results[3]);
-                repos.push.apply(repos, results[4]);
-                return repos;
-            })
+                .then((results) => {
+                    var repos = [];
+                    repos.push.apply(repos, results[0]);
+                    repos.push.apply(repos, results[1]);
+                    repos.push.apply(repos, results[2]);
+                    repos.push.apply(repos, results[3]);
+                    repos.push.apply(repos, results[4]);
+                    return repos;
+                })
         }
 
         function setResultsInit(text) {
             var repos = [];
             if (!isNaN(text)) {
                 repos.push({
-                  'name' : text,
-                  'url' : 'blk/' + text,
-                  'type' : 'blockHeight',
+                    'name': text,
+                    'url': 'blk/' + text,
+                    'type': 'blockHeight',
                 });
-            }
-            else if ($filter('uppercase')(text) == "ETP") {
+            } else if ($filter('uppercase')(text) == "ETP") {
                 repos.push({
-                  'name' : 'ETP',
-                  'url' : 'asset/ETP',
-                  'type' : 'asset',
+                    'name': 'ETP',
+                    'url': 'asset/ETP',
+                    'type': 'asset',
                 });
             }
             return repos;
@@ -899,39 +963,39 @@
         function setResultsAsset(assets) {
             var result = [];
             return Promise.all(assets.map((asset) => {
-                var addasset = {};
-                addasset.name = asset;
-                addasset.url = "asset/" + asset;
-                addasset.type = "asset";
-                result.push(addasset);
-            }))
-            .then(() => result);
+                    var addasset = {};
+                    addasset.name = asset;
+                    addasset.url = "asset/" + asset;
+                    addasset.type = "asset";
+                    result.push(addasset);
+                }))
+                .then(() => result);
         }
 
         function setResultsAddress(addresses) {
             var result = [];
             return Promise.all(addresses.map((address) => {
-                var addaddress = {};
-                addaddress.name = address.a;
-                addaddress.url = "adr/" + address.a;
-                addaddress.nbrtx = address.n;
-                addaddress.type = "address";
-                result.push(addaddress);
-            }))
-            .then(() => result);
+                    var addaddress = {};
+                    addaddress.name = address.a;
+                    addaddress.url = "adr/" + address.a;
+                    addaddress.nbrtx = address.n;
+                    addaddress.type = "address";
+                    result.push(addaddress);
+                }))
+                .then(() => result);
         }
 
         function setResultsTx(txs) {
             var result = [];
             return Promise.all(txs.map((tx) => {
-                var addtx = {};
-                addtx.name = tx.h;
-                addtx.url = "tx/" + tx.h;
-                addtx.height = tx.b;
-                addtx.type = "tx";
-                result.push(addtx);
-            }))
-            .then(() => result);
+                    var addtx = {};
+                    addtx.name = tx.h;
+                    addtx.url = "tx/" + tx.h;
+                    addtx.height = tx.b;
+                    addtx.type = "tx";
+                    result.push(addtx);
+                }))
+                .then(() => result);
         }
 
 
@@ -939,15 +1003,15 @@
         function setResultsBlockHash(blocks) {
             var result = [];
             return Promise.all(blocks.map((block) => {
-                var addblock = {};
-                addblock.name = block.h;
-                addblock.url = "blk/" + block.h;
-                addblock.height = block.n;
-                addblock.type = "blockHash";
-                result.push(addblock);
-            }))
-            .then(() => result);
+                    var addblock = {};
+                    addblock.name = block.h;
+                    addblock.url = "blk/" + block.h;
+                    addblock.height = block.n;
+                    addblock.type = "blockHash";
+                    result.push(addblock);
+                }))
+                .then(() => result);
         }
 
-      }
+    }
 })();

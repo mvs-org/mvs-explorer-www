@@ -100,5 +100,7 @@
     "SUGGESTION.TYPE_TX": "Transaction",
     "SUGGESTION.TYPE_BLOCK_HEIGHT": "Block Height",
     "SUGGESTION.TYPE_BLOCK_HASH": "Block Hash",
-    "SUGGESTION.TYPE_ADDRESS": "Address"
+    "SUGGESTION.TYPE_ADDRESS": "Address",
+    "TOP_MENU_MINING" : "Mining Info",
+    "BLOCKTIME" : "Blocktime"
 }

@@ -44,6 +44,8 @@
         service.FetchTx = (hash) => _send('tx/' + hash);
 
         service.ListBlocks = (page) => _send('blocks/' + page);
+        
+        service.BlockStats = (page) => _send('stats/block');
 
         service.FetchHistory = (address, page) => _send('address/txs/' + address + '?page=' + page);
 
