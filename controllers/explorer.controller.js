@@ -373,6 +373,8 @@
         $scope.loading_mining_info = true;
         $scope.loading_circulation = true;
         $scope.loading_pricing = true;
+        $scope.loading_blocktimes = true;
+        $scope.loading_difficulty = true;
 
         function getMiningInfo() {
             return MetaverseService.MiningInfo().then((response) => {
@@ -416,6 +418,8 @@
                     });
                     drawBlocktimes(blocktimes);
                     drawDifficulties(difficulties);
+                    $scope.loading_blocktimes=false;
+                    $scope.loading_difficulty=false;
                 });
         }
 
