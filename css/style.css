@@ -70,6 +70,8 @@ a{
 }
 .right{
     text-align: right;
+}
+.right-overflow{
     direction: rtl;
 }
 footer{

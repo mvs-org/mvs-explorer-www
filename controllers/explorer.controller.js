@@ -836,9 +836,36 @@
         $scope.search = search;
         $scope.setResults = setResults;
         $scope.setResultsTx = setResultsTx;
+        $scope.initialSuggestion = [];
+        $scope.init = init;
+
+        function init() {
+            $scope.initialSuggestion.push({
+                'name': $translate('SUGGESTION.SHOW_ALL_TX'),
+                'url': 'tx/all',
+                'type': 'tx',
+            });
+            $scope.initialSuggestion.push({
+                'name': $translate('SUGGESTION.SHOW_ALL_BLOCKS'),
+                'url': 'blk/all',
+                'type': 'blockHeight',
+            });
+            $scope.initialSuggestion.push({
+                'name': $translate('SUGGESTION.SHOW_ALL_ASSETS'),
+                'url': 'assets',
+                'type': 'asset',
+            });
+            $scope.initialSuggestion.push({
+                'name': $translate('SUGGESTION.SHOW_ALL_ADDRESSES'),
+                'url': 'adr/all',
+                'type': 'address',
+            });
+        }
+
+        init();
 
         function querySearch(query) {
-            return query ? search(query) : [];
+            return (query && query.length >= 3) ? search(query) : $scope.initialSuggestion;
         }
 
 

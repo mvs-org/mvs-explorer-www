@@ -103,5 +103,9 @@
     "SUGGESTION.TYPE_ADDRESS": "Address",
     "TOP_MENU_MINING" : "Mining Info",
     "BLOCKTIME" : "Blocktime",
-    "MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND": "Could not find transactions for this block hash."
+    "MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND": "Could not find transactions for this block hash.",
+    "SUGGESTION.SHOW_ALL_BLOCKS": "Show all the blocks",
+    "SUGGESTION.SHOW_ALL_ASSETS": "Show all the assets",
+    "SUGGESTION.SHOW_ALL_TX": "Show all the Transactions",
+    "SUGGESTION.SHOW_ALL_ADDRESSES": "Show all the Addresses"
 }

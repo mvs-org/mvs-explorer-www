@@ -55,14 +55,14 @@
         <div class="panel-body col-md-7 col-xs-12 monospace">
             <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
                 <span class="col-xs-7 overflow">{{"ADDRESS"|translate}}</span>
-                <span class="col-xs-3 right">{{"STAKE"|translate}}</span>
-                <span class="col-xs-2 right">{{"SHARE"|translate}}</span>
+                <span class="col-xs-3 right right-overflow">{{"STAKE"|translate}}</span>
+                <span class="col-xs-2 right right-overflow">{{"SHARE"|translate}}</span>
             </div>
 
             <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="stake in stakelist" ng-if="stake.address">
                 <span class="col-xs-7 overflow "><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></span>
-                <span class="col-xs-3 right">{{stake.quantity | currency:'':0}}</span>
-                <span class="col-xs-2 right">{{stake.share}}%</span>
+                <span class="col-xs-3 right right-overflow">{{stake.quantity | currency:'':0}}</span>
+                <span class="col-xs-2 right right-overflow">{{stake.share}}%</span>
             </div>
         </div>
         <div class="col-md-5 col-xs-12 asset-chart">
