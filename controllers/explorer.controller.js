@@ -895,11 +895,10 @@
         $scope.init = init;
 
         function init() {
-            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS', 'SUGGESTION.SHOW_ALL_ADDRESSES'])
+            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS'])
                 .then((translations) => {
                     $scope.initialSuggestion.push({
                         'name': translations['SUGGESTION.SHOW_ALL_TX'],
-                        'selecttext': '',
                         'url': 'txs',
                         'type': 'tx',
                     });
@@ -912,11 +911,6 @@
                         'name': translations['SUGGESTION.SHOW_ALL_ASSETS'],
                         'url': 'assets',
                         'type': 'asset',
-                    });
-                    $scope.initialSuggestion.push({
-                        'name': translations['SUGGESTION.SHOW_ALL_ADDRESSES'],
-                        'url': 'addresses',
-                        'type': 'address',
                     });
                 });
         }
