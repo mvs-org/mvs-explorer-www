@@ -65,14 +65,14 @@
 												md-menu-class="autocomplete-custom-template">
 											<md-item-template>
 													<a href="#!/{{item.url}}">
-															<span class="item-title">
+															<div class="item-title overflow">
 																	<img ng-if="item.type == 'asset'" check-image ng-src="../img/assets/{{item.name}}.png">
 																	<span ng-if="item.type == 'tx'" ><i class="fas fa-exchange-alt"></i></span>
 																	<span ng-if="item.type == 'blockHeight' || item.type == 'blockHash'" ><i class="fas fa-cube"></i></span>
 																	<span ng-if="item.type == 'address'" ><i class="far fa-address-card"></i></span>
 																	<span> {{item.name}} </span>
-															</span>
-															<span class="item-metadata">
+															</div>
+															<div class="item-metadata overflow">
 																	<span>
 																			<strong>
 																				<span ng-if="item.type == 'asset'">{{'SUGGESTION.TYPE_ASSET' | translate}}</span>
@@ -88,7 +88,7 @@
 																	<span ng-if="item.height">
 																			(Block {{item.height}})
 																	</span>
-															</span>
+															</div>
 													</a>
 											</md-item-template>
 											<md-not-found>
