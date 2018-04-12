@@ -102,5 +102,6 @@
     "SUGGESTION.TYPE_BLOCK_HASH": "Block Hash",
     "SUGGESTION.TYPE_ADDRESS": "Address",
     "TOP_MENU_MINING" : "Mining Info",
-    "BLOCKTIME" : "Blocktime"
+    "BLOCKTIME" : "Blocktime",
+    "MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND": "Could not find transactions for this block hash."
 }

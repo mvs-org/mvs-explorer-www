@@ -44,7 +44,7 @@
         service.FetchTx = (hash) => _send('tx/' + hash);
 
         service.ListBlocks = (page) => _send('blocks/' + page);
-        
+
         service.BlockStats = (page) => _send('stats/block');
 
         service.FetchHistory = (address, page) => _send('address/txs/' + address + '?page=' + page);
@@ -53,10 +53,12 @@
 
         service.Block = (number) => _send('block/' + number);
 
+        service.BlockTxs = (blockhash) =>  _send('block/txs/' + blockhash);
+
         service.ListAssets = (number) => _send('assets');
 
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
-        
+
         service.AssetStakes = (symbol) => _send('stakes/' + symbol);
 
         service.MiningInfo = () => _send('mining');

@@ -541,6 +541,7 @@
         var number = $stateParams.number;
         $rootScope.nosplash = true;
         $scope.loading_block = true;
+        $scope.loading_txs = true;
         $scope.loading_confirmation = true;
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
@@ -560,6 +561,19 @@
                             });
                     }
                     NProgress.done();
+                })
+                .then(() => MetaverseService.BlockTxs($scope.block.hash))
+                .then((response) => {
+                    $scope.loading_txs = false;
+                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
+                        $scope.txs = response.data.result.result;
+                    } else {
+                        $translate('MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND')
+                            .then((data) => {
+                                $location.path('/');
+                                FlashService.Error(data, true);
+                            });
+                    }
                 })
                 .then(() => MetaverseService.FetchHeight())
                 .then((response) => {
