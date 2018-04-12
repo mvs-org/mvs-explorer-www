@@ -740,7 +740,7 @@
             $scope.asset.decimals = 8;
             $scope.asset.issuer = "mvs.org";
             $scope.asset.address = "MGqHvbaH9wzdr6oUDFz4S1HptjoKQcjRve";
-            $scope.asset.hash = "b81848ef9ae86e84c3da26564bc6ab3a79efc628239d11471ab5cd25c0684c2d";
+            $scope.asset.hash = "2a845dfa63a7c20d40dbc4b15c3e970ef36332b367500fd89307053cb4c1a2c1";
             $scope.asset.height = 0;
             $scope.asset.description = "MVS Official Token";
             loadStakelist().then(() => {

@@ -105,7 +105,7 @@ em{
     min-height: 130px;
 }
 .infobox a {
-    color: #4b606d;
+    /*color: #4b606d;*/
 }
 .infobox table{
     width: 100%;
@@ -128,9 +128,6 @@ em{
 .panel .table>tbody>tr>td{
     border-top: 0px;
     overflow-wrap: break-word;
-}
-.panel .table>tbody>tr>td:nth-child(1){
-    color: #b6bcc3;
 }
 .panel{
     border-radius: 10px;
@@ -1198,6 +1195,12 @@ ul, li{
 .autocomplete-custom-template img {
   height: 18px;
   width: 18px;
+}
+
+.overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .md-virtual-repeat-sizer {
