@@ -108,5 +108,6 @@
     "SUGGESTION.SHOW_ALL_ASSETS": "Show all the assets",
     "SUGGESTION.SHOW_ALL_TX": "Show all the Transactions",
     "SUGGESTION.SHOW_ALL_ADDRESSES": "Show all the Addresses",
-    "BLOCKS" : "Blocks"
+    "BLOCKS" : "Blocks",
+    "BLOCK.HASH" : "Hash"
 }
