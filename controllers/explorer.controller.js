@@ -22,6 +22,7 @@
         .controller('SearchController', SearchController)
         .controller('AddressController', AddressController)
         .controller('BlockController', BlockController)
+        .controller('BlocksController', BlocksController)
         .controller('NodeMapController', NodeMapController)
         .controller('ChartController', ChartController)
         .controller('BlockListController', BlockListController)
@@ -50,6 +51,66 @@
                 });
             };
         });
+
+    function BlocksController($scope, MetaverseService) {
+
+        $scope.items_per_page = 20;
+
+        $scope.switchPage = (page) => {
+            $scope.loading = true;
+            return MetaverseService.ListBlocks($scope.current_page-1)
+                .then((response) => {
+                    $scope.blocks = response.data.result.result;
+                    $scope.total_count = response.data.result.count;
+                    $scope.loading = false;
+                })
+                .catch((error) => {
+                    $scope.loading = false;
+                    console.error(error);
+                });
+        };
+
+        $scope.switchPage(0);
+
+    }
+
+    function TransactionsController($scope, MetaverseService) {
+
+        $scope.items_per_page = 10;
+
+        var loader = MetaverseService.Txs;
+        $scope.current_page = 0;
+
+        $scope.minDate = new Date(2017, 2 - 1, 11);
+        $scope.maxDate = new Date();
+
+        $scope.switchPage = (page) => {
+            $scope.current_page = page;
+            return load();
+        };
+
+        $scope.applyFilters = () => {
+            $scope.current_page = 1;
+            return load();
+        };
+
+        var load = () => {
+            $scope.loading_txs = true;
+            return loader($scope.current_page-1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
+                .then((response) => {
+                    $scope.txs = response.data.result.result;
+                    $scope.total_count = response.data.result.count;
+                    $scope.loading_txs = false;
+                })
+                .catch((error) => {
+                    $scope.loading_txs = false;
+                    console.error(error);
+                });
+        };
+
+        load();
+
+    }
 
     function MenuController($location, $rootScope) {
 
@@ -308,12 +369,10 @@
 
 
 
-    // make sure to remove the api call for the $scope.blocks - deprecated
     function BlockListController($scope, $wamp, $interval) {
 
         $scope.currentTimeStamp = Math.floor(Date.now());
         $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
-
 
         function AddBlocksToBlocks(blocks) {
             blocks = blocks.concat($scope.blockList);

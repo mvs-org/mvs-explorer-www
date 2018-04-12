@@ -107,5 +107,6 @@
     "SUGGESTION.SHOW_ALL_BLOCKS": "Show all the blocks",
     "SUGGESTION.SHOW_ALL_ASSETS": "Show all the assets",
     "SUGGESTION.SHOW_ALL_TX": "Show all the Transactions",
-    "SUGGESTION.SHOW_ALL_ADDRESSES": "Show all the Addresses"
+    "SUGGESTION.SHOW_ALL_ADDRESSES": "Show all the Addresses",
+    "BLOCKS" : "Blocks"
 }
