@@ -1,0 +1,69 @@
+<div class="content">
+    <h2 class="headline"><em></em>{{ 'EXPLORER.TXS' | translate }}</h2>
+    <md-datepicker ng-model="min_date" md-placeholder="From date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+    <md-datepicker ng-model="max_date" md-placeholder="To date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+    <md-button class="md-secondary" ng-click="applyFilters()">Filter</md-button>
+    <div class="row">
+    </div>
+    <div ng-show="loading_txs">
+        <div class="mini-loader">Loading...</div>
+    </div>
+
+    <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_txs" dir-paginate="tx in txs | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+        <div class="panel-body">
+            <div class="row tx-head">
+                <div class="col-md-9 col-sm-12 break">
+                    <a href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
+                </div>
+                <div class="col-md-3 col-sm-12">
+                    <div class="right slide-left">{{tx.confirmed_at * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-5">
+                    <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
+                    <div class="row" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
+                        <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
+                            <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                            <br>
+                            <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
+                        </div>
+                        <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
+                            <span ng-if="input.address == ''">coinbase</span>
+                            <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                            <br>
+                            <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'':8}} ETP</span>
+                        </div>
+                    </div>
+                    <div ng-if="tx.inputs.length>4">
+                        <a href="#!/tx/{{tx.hash}}">...</a>
+                    </div>
+                </div>
+                <div class="col-md-1 center-text">
+                    <i class="icon-arrow-right2"></i>
+                </div>
+                <div class="col-md-6">
+                    <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
+                    <div class="row" ng-repeat="output in tx.outputs" ng-class="{searchedAddress: output.address==address}">
+                        <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
+                            <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                            <br>
+                            <div class="right">
+                                {{output.attachment.quantity | numberFormat:output.attachment.decimals|currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
+                            </div>
+                        </div>
+                        <div ng-if="output.value != 0" class="col-md-12 right break">
+                            <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                            <br>
+                            <div class="right">
+                                {{output.value | numberFormat:8|currency:'':8}} ETP
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+
+</div>

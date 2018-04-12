@@ -28,6 +28,7 @@
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
         .controller('TransactionController', TransactionController)
+        .controller('TransactionsController', TransactionsController)
         .controller('AssetsListController', AssetsListController)
         .controller('AssetController', AssetController)
         .directive('checkImage', function() {
