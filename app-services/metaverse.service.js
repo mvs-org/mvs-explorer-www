@@ -55,6 +55,8 @@
 
         service.BlockTxs = (blockhash) =>  _send('block/txs/' + blockhash);
 
+        service.Txs = (page, min_time, max_time) =>  _send('txs?page='+page+((min_time)?'&min_time='+min_time:'')+((max_time)?'&max_time='+max_time:''));
+
         service.ListAssets = (number) => _send('assets');
 
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
