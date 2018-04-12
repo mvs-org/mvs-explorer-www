@@ -397,10 +397,6 @@
         })();
     }
 
-
-
-
-
     function TransactionListController($scope, $wamp, $interval) {
 
         $scope.currentTimeStamp = Math.floor(Date.now());
@@ -478,8 +474,8 @@
                     });
                     drawBlocktimes(blocktimes);
                     drawDifficulties(difficulties);
-                    $scope.loading_blocktimes=false;
-                    $scope.loading_difficulty=false;
+                    $scope.loading_blocktimes = false;
+                    $scope.loading_difficulty = false;
                 });
         }
 
@@ -495,7 +491,9 @@
                             bottom: 40,
                             left: 95
                         },
-                        y: function (d){ return d.y; },
+                        y: function(d) {
+                            return d.y;
+                        },
                         showLegend: false,
                         xAxis: {
                             axisLabel: 'Height'
@@ -511,6 +509,7 @@
                 }]
             };
         }
+
         function drawBlocktimes(data) {
             $scope.blocktimeChart = {
                 options: {
@@ -673,7 +672,6 @@
 
         $scope.address = address;
 
-
         $scope.address_pagination = {
             total_count: 0,
             current_page: 1,
@@ -683,9 +681,6 @@
 
         loadTransactions(1);
         fetchAddress(address);
-
-
-
 
         function fetchAddress(address) {
             if (typeof address !== 'undefined') {
@@ -900,26 +895,30 @@
         $scope.init = init;
 
         function init() {
-            $scope.initialSuggestion.push({
-                'name': $translate('SUGGESTION.SHOW_ALL_TX'),
-                'url': 'tx/all',
-                'type': 'tx',
-            });
-            $scope.initialSuggestion.push({
-                'name': $translate('SUGGESTION.SHOW_ALL_BLOCKS'),
-                'url': 'blk/all',
-                'type': 'blockHeight',
-            });
-            $scope.initialSuggestion.push({
-                'name': $translate('SUGGESTION.SHOW_ALL_ASSETS'),
-                'url': 'assets',
-                'type': 'asset',
-            });
-            $scope.initialSuggestion.push({
-                'name': $translate('SUGGESTION.SHOW_ALL_ADDRESSES'),
-                'url': 'adr/all',
-                'type': 'address',
-            });
+            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS', 'SUGGESTION.SHOW_ALL_ADDRESSES'])
+                .then((translations) => {
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_TX'],
+                        'selecttext': '',
+                        'url': 'txs',
+                        'type': 'tx',
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_BLOCKS'],
+                        'url': 'blocks',
+                        'type': 'blockHeight',
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_ASSETS'],
+                        'url': 'assets',
+                        'type': 'asset',
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_ADDRESSES'],
+                        'url': 'addresses',
+                        'type': 'address',
+                    });
+                });
         }
 
         init();
@@ -1031,7 +1030,7 @@
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         return setResults(text, response.data.result);
                     } else return [];
-                })
+                });
         }
 
         function setResults(text, result) {
