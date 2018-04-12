@@ -5,7 +5,10 @@ html{
 
 body{
     background-color: #faf9f9;
-    margin-bottom: 200px;
+    height: auto;
+}
+.container{
+    padding-bottom: 200px;
 }
 .center{
     margin-left: auto;
@@ -74,11 +77,8 @@ footer{
     margin-top: 50px;
     padding: 20px;
     position: absolute;
-    /*bottom: 0;*/
+    bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
-    /*height: 130px;*/
-
 }
 footer a{
     margin: 10px;
@@ -105,7 +105,7 @@ em{
     min-height: 130px;
 }
 .infobox a {
-    /*color: #4b606d;*/
+    color: #4b606d;
 }
 .infobox table{
     width: 100%;
@@ -128,6 +128,9 @@ em{
 .panel .table>tbody>tr>td{
     border-top: 0px;
     overflow-wrap: break-word;
+}
+.panel .table>tbody>tr>td:nth-child(1){
+    color: #b6bcc3;
 }
 .panel{
     border-radius: 10px;
