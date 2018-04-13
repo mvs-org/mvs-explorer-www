@@ -22,11 +22,13 @@
         .controller('SearchController', SearchController)
         .controller('AddressController', AddressController)
         .controller('BlockController', BlockController)
+        .controller('BlocksController', BlocksController)
         .controller('NodeMapController', NodeMapController)
         .controller('ChartController', ChartController)
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
         .controller('TransactionController', TransactionController)
+        .controller('TransactionsController', TransactionsController)
         .controller('AssetsListController', AssetsListController)
         .controller('AssetController', AssetController)
         .directive('checkImage', function() {
@@ -50,6 +52,62 @@
                 });
             };
         });
+
+    function BlocksController($scope, MetaverseService) {
+
+        $scope.items_per_page = 50;
+
+        $scope.switchPage = (page) => {
+            $scope.loading = true;
+            return MetaverseService.ListBlocks(page-1)
+                .then((response) => {
+                    $scope.blocks = response.data.result.result;
+                    $scope.total_count = response.data.result.count;
+                    $scope.loading = false;
+                })
+                .catch((error) => {
+                    $scope.loading = false;
+                    console.error(error);
+                });
+        };
+
+        $scope.switchPage(1);
+
+    }
+
+    function TransactionsController($scope, MetaverseService) {
+
+        $scope.items_per_page = 10;
+        $scope.minDate = new Date(2017, 2 - 1, 11);
+        $scope.maxDate = new Date();
+
+        $scope.switchPage = (page) => {
+            $scope.current_page = page;
+            return load();
+        };
+
+        $scope.applyFilters = () => {
+            $scope.current_page = 1;
+            return load();
+        };
+
+        var load = () => {
+            $scope.loading_txs = true;
+            return MetaverseService.Txs($scope.current_page-1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
+                .then((response) => {
+                    $scope.txs = response.data.result.result;
+                    $scope.total_count = response.data.result.count;
+                    $scope.loading_txs = false;
+                })
+                .catch((error) => {
+                    $scope.loading_txs = false;
+                    console.error(error);
+                });
+        };
+
+        $scope.switchPage(1);
+
+    }
 
     function MenuController($location, $rootScope) {
 
@@ -308,12 +366,10 @@
 
 
 
-    // make sure to remove the api call for the $scope.blocks - deprecated
     function BlockListController($scope, $wamp, $interval) {
 
         $scope.currentTimeStamp = Math.floor(Date.now());
         $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
-
 
         function AddBlocksToBlocks(blocks) {
             blocks = blocks.concat($scope.blockList);
@@ -336,10 +392,6 @@
             });
         })();
     }
-
-
-
-
 
     function TransactionListController($scope, $wamp, $interval) {
 
@@ -418,8 +470,8 @@
                     });
                     drawBlocktimes(blocktimes);
                     drawDifficulties(difficulties);
-                    $scope.loading_blocktimes=false;
-                    $scope.loading_difficulty=false;
+                    $scope.loading_blocktimes = false;
+                    $scope.loading_difficulty = false;
                 });
         }
 
@@ -435,7 +487,9 @@
                             bottom: 40,
                             left: 95
                         },
-                        y: function (d){ return d.y; },
+                        y: function(d) {
+                            return d.y;
+                        },
                         showLegend: false,
                         xAxis: {
                             axisLabel: 'Height'
@@ -451,6 +505,7 @@
                 }]
             };
         }
+
         function drawBlocktimes(data) {
             $scope.blocktimeChart = {
                 options: {
@@ -613,7 +668,6 @@
 
         $scope.address = address;
 
-
         $scope.address_pagination = {
             total_count: 0,
             current_page: 1,
@@ -623,9 +677,6 @@
 
         loadTransactions(1);
         fetchAddress(address);
-
-
-
 
         function fetchAddress(address) {
             if (typeof address !== 'undefined') {
@@ -836,9 +887,34 @@
         $scope.search = search;
         $scope.setResults = setResults;
         $scope.setResultsTx = setResultsTx;
+        $scope.initialSuggestion = [];
+        $scope.init = init;
+
+        function init() {
+            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS'])
+                .then((translations) => {
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_TX'],
+                        'url': 'txs',
+                        'type': 'tx',
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_BLOCKS'],
+                        'url': 'blocks',
+                        'type': 'blockHeight',
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_ASSETS'],
+                        'url': 'assets',
+                        'type': 'asset',
+                    });
+                });
+        }
+
+        init();
 
         function querySearch(query) {
-            return query ? search(query) : [];
+            return (query && query.length >= 3) ? search(query) : $scope.initialSuggestion;
         }
 
 
@@ -944,7 +1020,7 @@
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         return setResults(text, response.data.result);
                     } else return [];
-                })
+                });
         }
 
         function setResults(text, result) {

@@ -37,11 +37,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'ASSET.HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ asset.hash }}</div>
+                <div class="col-md-9 list-item-value"><a href="#!/tx/{{ asset.hash }}">{{ asset.hash }}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'ASSET.HEIGHT' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ asset.height }}</div>
+                <div class="col-md-9 list-item-value"><a href="#!/blk/{{ asset.height }}">{{ asset.height }}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'ASSET.DESCRIPTION' | translate }}</div>
@@ -51,26 +51,21 @@
     </div>
 
     <h2 class="headline"><em></em>{{ 'ASSET.STAKELIST' | translate }}</h2>
-    <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_asset">
-        <div class="panel-body col-md-7 col-xs-12">
-            <table class="table table-striped">
-                <thead>
-                    <tr>
-                        <th>{{"ADDRESS"|translate}}</th>
-                        <th class="right">{{"STAKE"|translate}}</th>
-                        <th class="right">{{"SHARE"|translate}}</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr ng-repeat="stake in stakelist" ng-if="stake.address">
-                        <td><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></td>
-                        <td class="right">{{stake.quantity | currency:'':0}}</td>
-                        <td class="right">{{stake.share}}%</td>
-                    </tr>
-                </tbody>
-            </table>
+    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-hide="loading_asset">
+        <div class="panel-body col-md-7 col-xs-12 monospace">
+            <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
+                <span class="col-xs-7 overflow">{{"ADDRESS"|translate}}</span>
+                <span class="col-xs-3 right right-overflow">{{"STAKE"|translate}}</span>
+                <span class="col-xs-2 right right-overflow">{{"SHARE"|translate}}</span>
+            </div>
+
+            <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="stake in stakelist" ng-if="stake.address">
+                <span class="col-xs-7 overflow "><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></span>
+                <span class="col-xs-3 right right-overflow">{{stake.quantity | currency:'':0}}</span>
+                <span class="col-xs-2 right right-overflow">{{stake.share}}%</span>
+            </div>
         </div>
-        <div class="col-md-5 col-xs-12">
+        <div class="col-md-5 col-xs-12 asset-chart">
             <div id="chart">
                 <svg></svg>
             </div>

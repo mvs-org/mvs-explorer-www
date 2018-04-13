@@ -73,6 +73,16 @@
                 templateUrl: "views/transaction.view.html",
                 controller: 'TransactionController'
             })
+            .state('explorer.blocks', {
+                url: "/blocks",
+                templateUrl: "views/blocks.view.html",
+                controller: 'BlocksController'
+            })
+            .state('explorer.txs', {
+                url: "/txs",
+                templateUrl: "views/txs.view.html",
+                controller: 'TransactionsController'
+            })
             .state('explorer.mining', {
                 url: "/mining",
                 templateUrl: "views/mining.view.html",
