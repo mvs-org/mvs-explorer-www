@@ -1264,3 +1264,15 @@ md-input-container.md-input-focused .md-input {
 md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   background-color: #6dc6f9 !important;
 }
+
+.block-orphan {
+  color: red;
+}
+
+.block-confirmed {
+  color: green;
+}
+
+.block-pending-confirmation {
+  
+}
