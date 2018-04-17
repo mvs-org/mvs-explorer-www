@@ -215,6 +215,7 @@
             $rootScope.priority["ETP"] = 1;
             $rootScope.priority["MVS.ZGC"] = 10;
             $rootScope.priority["MVS.ZDC"] = 20;
+            $rootScope.priority["CSD"] = 30;
         };
 
         setPriority();
@@ -277,94 +278,6 @@
         });
         map.addLayer(markers);
     }
-
-    /*function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
-        $scope.search = search;
-        $scope.search_field = "";
-
-        function search() {
-            if($scope.search_field == "") {
-                $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
-                    .then((data) => FlashService.Error(data));
-            }else if ($filter('uppercase')($scope.search_field) == "ETP") {
-                $location.path('/asset/ETP');
-            } else {
-                switch ($scope.search_field.length) {
-                    case 64:
-                        show_transaction();
-                        break;
-                    case 34:
-                        show_address();
-                        break;
-                    default:
-                        if (!isNaN($scope.search_field))
-                            show_block();
-                        else
-                            show_asset($filter('uppercase')($scope.search_field));
-                }
-            }
-        }
-
-        function show_address() {
-            NProgress.start();
-            MetaverseService.FetchHistory($scope.search_field)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $location.path('/adr/' + $scope.search_field);
-                    } else {
-                        $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
-        }
-
-        function show_block() {
-            NProgress.start();
-            MetaverseService.Block($scope.search_field)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $location.path('/blk/' + $scope.search_field);
-                    } else {
-                        $translate('MESSAGES.ERROR_BLOCK_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
-        }
-
-
-        function show_transaction() {
-            NProgress.start();
-            MetaverseService.FetchTx($scope.search_field)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $location.path('/tx/' + $scope.search_field);
-                    } else {
-                        $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
-        }
-
-        function show_asset(symbol) {
-            NProgress.start();
-            MetaverseService.AssetInfo(symbol)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
-                        $location.path('/asset/' + symbol);
-                    } else {
-                        $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
-        }
-    }*/
-
-
-
 
     function BlockListController($scope, $wamp, $interval) {
 
