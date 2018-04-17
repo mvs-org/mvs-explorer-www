@@ -6,31 +6,31 @@
     <div class="row nga-default nga-stagger nga-fade" ng-hide="loading">
         <div class="hidden-xs hidden-sm col-md-12">
             <div class="row panel list-item">
-                <div class="col-md-6"><span class="list-item-label">{{ 'BLOCK.HASH' | translate }}</span></div>
+                <div class="col-md-7"><span class="list-item-label">{{ 'BLOCK.HASH' | translate }}</span></div>
                 <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}</span></div>
                 <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}</span></div>
-                <div class="col-md-2 right"><span class="list-item-label">{{ 'TIME' | translate }}</span></div>
+                <div class="col-md-1 right"><span class="list-item-label">{{ 'TIME' | translate }}</span></div>
             </div>
         </div>
         <div class="col-md-12">
             <div class="row panel list-item nga-default nga-stagger nga-fade" ng-hide="loading" dir-paginate="block in blocks | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
-                <div class="col-md-6">
+                <div class="col-md-7 col-xs-12">
                     <span class="visible-xs visible-sm list-item-label">{{ 'BLOCK.HASH' | translate }}: </span>
                     <a href="#!/blk/{{block.hash}}">
                     {{block.hash}}
                     </a>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-xs-6">
                     <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span>
                     <a href="#!/blk/{{block.number}}">
                         {{block.number}}
                     </a>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-1 col-xs-6">
                     <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}: </span>
                     <span>{{block.transaction_count}}</span>
                 </div>
-                <div class="col-md-2">
+                <div class="col-md-2 col-xs-12">
                     <div class="hidden-xs hidden-sm right">
                         {{block.time_stamp*1000| date : 'short'}}
                     </div>

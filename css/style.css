@@ -1273,6 +1273,21 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   color: green;
 }
 
-.block-pending-confirmation {
-  
+.filter-button {
+  margin-left: 10px;
+}
+
+.search-button {
+  min-width: 36px;
+  min-height: 36px;
+  margin-left: 15px;
+}
+
+.date-input {
+  margin-bottom: 40px;
+}
+
+.md-datepicker-input-container {
+  min-width: 90px;
+  width: 20%;
 }
