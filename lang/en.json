@@ -109,5 +109,9 @@
     "SUGGESTION.SHOW_ALL_TX": "Show all the Transactions",
     "SUGGESTION.SHOW_ALL_ADDRESSES": "Show all the Addresses",
     "BLOCKS" : "Blocks",
-    "BLOCK.HASH" : "Hash"
+    "BLOCK.HASH" : "Hash",
+    "BLOCK.ORPHAN": "Orphan Block",
+    "BLOCK.CONFIRMED": "Confirmed",
+    "TX.ORPHAN": "Orphan Transaction",
+    "TX.CONFIRMED": "Confirmed"
 }
