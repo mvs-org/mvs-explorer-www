@@ -1,9 +1,11 @@
 <div class="content">
     <h2 class="headline"><em></em>{{ 'EXPLORER.TXS' | translate }}</h2>
-    <md-datepicker ng-model="min_date" md-placeholder="From date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
-    <md-datepicker ng-model="max_date" md-placeholder="To date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
-    <md-button class="md-secondary" ng-click="applyFilters()">Filter</md-button>
-    <div class="row">
+    <div class="date-input">
+        <md-datepicker ng-model="min_date" md-placeholder="From date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+        <md-datepicker ng-model="max_date" md-placeholder="To date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+        <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters()"><i class="fas fa-search"></i></md-button>
+    </div>
+    <div class="row ">
     </div>
     <div ng-show="loading_txs">
         <div class="mini-loader">Loading...</div>
