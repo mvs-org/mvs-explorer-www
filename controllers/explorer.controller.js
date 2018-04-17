@@ -215,6 +215,7 @@
             $rootScope.priority["ETP"] = 1;
             $rootScope.priority["MVS.ZGC"] = 10;
             $rootScope.priority["MVS.ZDC"] = 20;
+            $rootScope.priority["CSD"] = 30;
         };
 
         setPriority();
