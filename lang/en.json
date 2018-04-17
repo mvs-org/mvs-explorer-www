@@ -115,5 +115,6 @@
     "TX.ORPHAN": "Orphan Transaction",
     "TX.CONFIRMED": "Confirmed",
     "TOP_MENU_TXS": "Transactions",
-    "TOP_MENU_BLOCKS": "Blocks"
+    "TOP_MENU_BLOCKS": "Blocks",
+    "TX.TIMESTAMP": "Transaction time"
 }
