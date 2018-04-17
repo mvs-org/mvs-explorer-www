@@ -1291,3 +1291,8 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   min-width: 90px;
   width: 20%;
 }
+
+.asset-circulation {
+  text-align: center;
+  margin-bottom: 10px;
+}

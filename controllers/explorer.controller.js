@@ -688,6 +688,7 @@
 
         $scope.symbol = $stateParams.symbol;
         $scope.loading_asset = true;
+        $scope.getCirculation = getCirculation;
 
         if ($scope.symbol != undefined && $scope.symbol != "ETP") {
             NProgress.start();
@@ -711,9 +712,18 @@
             $scope.asset.hash = "2a845dfa63a7c20d40dbc4b15c3e970ef36332b367500fd89307053cb4c1a2c1";
             $scope.asset.height = 0;
             $scope.asset.description = "MVS Official Token";
-            loadStakelist().then(() => {
-                NProgress.done();
-            });
+            getCirculation()
+                .then(() => loadStakelist())
+                .then(() => NProgress.done());
+        }
+
+        function getCirculation() {
+            return MetaverseService.Circulation().then((response) => {
+                $scope.loading_circulation = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.circulation = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
         }
 
         function loadStakelist() {
@@ -723,7 +733,7 @@
                         return {
                             address: stake.a,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                            share: (stake.q / $scope.asset.quantity * 100).toFixed(3)
+                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation/100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
                         };
                     });
 
