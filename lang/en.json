@@ -34,7 +34,8 @@
     "MESSAGES.ERROR_BLOCK_NOT_FOUND": "Could not find a block for this number.",
     "MESSAGES.ERROR_TRANSACTION_NOT_FOUND": "Could not find a transaction for the given hash.",
     "MESSAGES.ERROR_ADDRESS_NOT_FOUND": "Could not find this address.",
-    "GENERAL.DATE_FORMAT": "MM/dd/yyyy HH:mm:ss Z",
+    "GENERAL.DATE_FORMAT_MEDIUM": "medium",
+    "GENERAL.DATE_FORMAT_SHORT": "short",
     "HASHRATE": "Hashrate",
     "MINING_POOL_INFO": "Mining Info",
     "CONFIRMATIONS": "Confirmations",
@@ -116,5 +117,8 @@
     "TX.CONFIRMED": "Confirmed",
     "TOP_MENU_TXS": "Transactions",
     "TOP_MENU_BLOCKS": "Blocks",
-    "TX.TIMESTAMP": "Transaction time"
+    "TX.TIMESTAMP": "Transaction time",
+    "FROM_DATE": "From date",
+    "TO_DATE": "To date",
+    "TX.INPUT_COINBASE": "coinbase"
 }

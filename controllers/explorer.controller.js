@@ -567,6 +567,9 @@
         $scope.info = [];
         $scope.tokens = [];
         $scope.definitions = [];
+        $scope.items_per_page = 10;
+        $scope.minDate = new Date(2017, 2 - 1, 11);
+        $scope.maxDate = new Date();
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
             color: {
@@ -581,14 +584,6 @@
 
         $scope.address = address;
 
-        $scope.address_pagination = {
-            total_count: 0,
-            current_page: 1,
-            items_per_page: 0,
-            page_change: loadTransactions
-        };
-
-        loadTransactions(1);
         fetchAddress(address);
 
         function fetchAddress(address) {
@@ -632,28 +627,38 @@
             }
         }
 
-        function loadTransactions(page) {
+        $scope.switchPage = (page) => {
+            $scope.current_page = page;
+            return loadTransactions();
+        };
+
+        $scope.applyFilters = () => {
+            $scope.current_page = 1;
+            return loadTransactions();
+        };
+
+        function loadTransactions() {
             if (typeof address !== 'undefined') {
                 NProgress.start();
-                MetaverseService.FetchHistory(address, page - 1)
+                MetaverseService.FetchHistory(address, $scope.current_page - 1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.loading_address = false;
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                             $scope.transactions = response.data.result.transactions;
-                            $scope.address_pagination.current_page = page;
-                            $scope.address_pagination.total_count = response.data.result.count;
-                            $scope.address_pagination.items_per_page = response.data.result.items_per_page;
+                            $scope.total_count = response.data.result.count;
+                            $scope.loading = false;
                         } else {
                             $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
                                 .then((data) => {
                                     FlashService.Error(data, true);
-                                    // $location.path('/');
                                 });
                         }
                         NProgress.done();
                     });
             }
         }
+
+        $scope.switchPage(1);
     }
 
     function AssetsListController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
@@ -688,6 +693,7 @@
 
         $scope.symbol = $stateParams.symbol;
         $scope.loading_asset = true;
+        $scope.getCirculation = getCirculation;
 
         if ($scope.symbol != undefined && $scope.symbol != "ETP") {
             NProgress.start();
@@ -711,9 +717,18 @@
             $scope.asset.hash = "2a845dfa63a7c20d40dbc4b15c3e970ef36332b367500fd89307053cb4c1a2c1";
             $scope.asset.height = 0;
             $scope.asset.description = "MVS Official Token";
-            loadStakelist().then(() => {
-                NProgress.done();
-            });
+            getCirculation()
+                .then(() => loadStakelist())
+                .then(() => NProgress.done());
+        }
+
+        function getCirculation() {
+            return MetaverseService.Circulation().then((response) => {
+                $scope.loading_circulation = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.circulation = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
         }
 
         function loadStakelist() {
@@ -723,7 +738,7 @@
                         return {
                             address: stake.a,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                            share: (stake.q / $scope.asset.quantity * 100).toFixed(3)
+                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation/100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
                         };
                     });
 

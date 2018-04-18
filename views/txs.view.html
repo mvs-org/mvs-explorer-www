@@ -1,8 +1,8 @@
 <div class="content">
     <h2 class="headline"><em></em>{{ 'EXPLORER.TXS' | translate }}</h2>
     <div class="date-input">
-        <md-datepicker ng-model="min_date" md-placeholder="From date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
-        <md-datepicker ng-model="max_date" md-placeholder="To date" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+        <md-datepicker ng-model="min_date" md-placeholder="{{'FROM_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+        <md-datepicker ng-model="max_date" md-placeholder="{{'TO_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
         <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters()"><i class="fas fa-search"></i></md-button>
     </div>
     <div class="row ">
@@ -18,7 +18,7 @@
                         <a href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
                     </div>
                     <div class="col-md-3 col-sm-12">
-                        <div class="right slide-left">{{tx.confirmed_at * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                        <div class="right">{{tx.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
                     </div>
                 </div>
                 <div class="row">
@@ -31,7 +31,7 @@
                                 <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
-                                <span ng-if="input.address == ''">coinbase</span>
+                                <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
                                 <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'':8}} ETP</span>
