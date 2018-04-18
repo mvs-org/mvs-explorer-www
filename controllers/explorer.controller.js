@@ -584,7 +584,6 @@
 
         $scope.address = address;
 
-        loadTransactions();
         fetchAddress(address);
 
         function fetchAddress(address) {
