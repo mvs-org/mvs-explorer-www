@@ -2,7 +2,7 @@
     <div class="row">
         <h2 class="headline col-sm-12"><em></em>{{ 'ADDRESS.HEADLINE' | translate }}</h2>
         <div class="col-md-8 col-sm-12 address-padding">
-            <h4>{{ address }}</h4>
+            <h4 class="address-mono">{{ address }}</h4>
         </div>
         <div class="col-md-4 ">
             <div class="qr-code">
@@ -67,7 +67,7 @@
             <div class="panel-body">
                 <div class="row tx-head">
                     <div class="col-md-9 col-sm-12 break">
-                        <a href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
+                        <a class="hash-mono" href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <div class="right slide-left">{{tx.confirmed_at * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
@@ -78,13 +78,13 @@
                         <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
                         <div class="row" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
                             <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
-                                <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
                                 <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
-                                <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
                                 <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'':8}} ETP</span>
                             </div>
@@ -100,14 +100,14 @@
                         <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
                         <div class="row" ng-repeat="output in tx.outputs" ng-class="{searchedAddress: output.address==address}">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
-                                <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
                                 <div class="right">
                                     {{output.attachment.quantity | numberFormat:output.attachment.decimals|currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
                                 </div>
                             </div>
                             <div ng-if="output.value != 0" class="col-md-12 right break">
-                                <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
                                 <div class="right">
                                     {{output.value | numberFormat:8|currency:'':8}} ETP

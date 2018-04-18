@@ -6,6 +6,7 @@ html{
 body{
     background-color: #faf9f9;
     height: auto;
+    font-family: 'Roboto', sans-serif;
 }
 .container{
     padding-bottom: 200px;
@@ -162,7 +163,6 @@ em{
     align-items: center;
     background-color: #faf9f9;
     color: #006599;
-    font-family: Consolas, Menlo, Monaco, monospace;
     font-weight: bold;
     font-size: 15vh;
     opacity: 0.8;
@@ -492,7 +492,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 .menu{
 	/*float:right;*/
 	text-align:left;
-	font-family: "Source Sans Pro","Segoe UI","Droid Sans",Tahoma,Arial,sans-serif;
+	/*font-family: "Source Sans Pro","Segoe UI","Droid Sans",Tahoma,Arial,sans-serif;*/
 	font-size: 16px;
 	/*font-weight:700;*/
 	letter-spacing:.08em;
@@ -1206,10 +1206,6 @@ ul, li{
   overflow: hidden;
 }
 
-.monospace {
-  font-family: monospace;
-}
-
 .noPaddingLeftRight {
   padding-left: 0;
   padding-right: 0;
@@ -1295,4 +1291,19 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 .asset-circulation {
   text-align: center;
   margin-bottom: 10px;
+}
+
+.address-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.hash-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+@media only screen and (max-width:475px){
+  .noPaddingLeftRightSmallScreen{
+    padding-left: 0;
+    padding-right: 0;
+  }
 }
