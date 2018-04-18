@@ -37,11 +37,11 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'ASSET.ADDRESS' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ asset.address }}</div>
+                <div class="col-md-9 list-item-value address-mono">{{ asset.address }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'ASSET.HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value"><a href="#!/tx/{{ asset.hash }}">{{ asset.hash }}</a></div>
+                <div class="col-md-9 list-item-value hash-mono"><a href="#!/tx/{{ asset.hash }}">{{ asset.hash }}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'ASSET.HEIGHT' | translate }}</div>
@@ -71,7 +71,7 @@
         </div>
         <div class="col-md-5 col-xs-12 asset-chart">
             <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{circulation | number}} {{asset.symbol}}</div>
-            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{asset.quantity | number}} {{asset.symbol}}</div>
+            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{asset.quantity | assetformat : asset.decimals | currency:'':0}} {{asset.symbol}}</div>
             <div id="chart">
                 <svg></svg>
             </div>
