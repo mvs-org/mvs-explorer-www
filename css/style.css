@@ -1300,3 +1300,10 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 .hash-mono {
   font-family: 'Roboto Mono', monospace;
 }
+
+@media only screen and (max-width:475px){
+  .noPaddingLeftRightSmallScreen{
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
