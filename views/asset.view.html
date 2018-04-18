@@ -23,6 +23,10 @@
                 <div class="col-md-3 list-item-label">{{ 'ASSET.MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-9 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
             </div>
+            <div class="row" ng-show="asset.symbol == 'ETP'">
+                <div class="col-md-3 list-item-label">{{ 'NUMBER_OF_COINS' | translate }}</div>
+                <div class="col-md-9 list-item-value">{{circulation | number}}</div>
+            </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'ASSET.DECIMALS' | translate }}</div>
                 <div class="col-md-9 list-item-value">{{ asset.decimals }}</div>
