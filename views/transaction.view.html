@@ -8,7 +8,7 @@
         <div class="col-md-12 panel-body">
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ transaction.hash }}</div>
+                <div class="col-md-9 list-item-value hash-mono">{{ transaction.hash }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.BLOCK' | translate }}</div>
@@ -42,7 +42,7 @@
                                 <span>{{input.attachment.quantity| numberFormat:input.attachment.decimals | currency:'':input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div class="col-md-7">
-                                <a ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a>
+                                <a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a>
                                 <div class="io-script">{{input.script}}</div>
                             </div>
                         </div>
@@ -52,7 +52,7 @@
                             </div>
                             <div class="col-md-7">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
-                                <a ng-if="input.address" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <div class="io-script">{{input.script}}</div>
                             </div>
                         </div>
@@ -65,7 +65,7 @@
                     <div class="row" ng-repeat="output in transaction.outputs">
                         <div ng-if="output.attachment.symbol != 'ETP'">
                             <div class="col-md-7">
-                                <a href="#!/adr/{{output.address}}">{{output.address}}</a>
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a>
                                 <div class="io-script">{{output.script}}</div>
                             </div>
                             <div class="col-md-5 right">
@@ -74,7 +74,7 @@
                         </div>
                         <div ng-if="output.value != 0">
                             <div class="col-md-7">
-                                <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <div class="io-script">{{output.script}}</div>
                             </div>
                             <div class="col-md-5 right">

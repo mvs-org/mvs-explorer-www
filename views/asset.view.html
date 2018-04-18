@@ -55,7 +55,7 @@
     </div>
 
     <h2 class="headline"><em></em>{{ 'ASSET.STAKELIST' | translate }}</h2>
-    <div class="row panel nga-default nga-stagger nga-fade distrib-overview monospace" ng-hide="loading_asset">
+    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-hide="loading_asset">
         <div class="panel-body col-md-7 col-xs-12">
             <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
                 <span class="col-xs-7 overflow">{{"ADDRESS"|translate}}</span>
@@ -64,7 +64,7 @@
             </div>
 
             <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="stake in stakelist" ng-if="stake.address">
-                <span class="col-xs-7 overflow "><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></span>
+                <span class="col-xs-7 overflow address-mono"><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></span>
                 <span class="col-xs-3 right right-overflow">{{stake.quantity | currency:'':0}}</span>
                 <span class="col-xs-2 right right-overflow">{{stake.share}}%</span>
             </div>

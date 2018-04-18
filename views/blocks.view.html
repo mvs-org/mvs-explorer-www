@@ -16,7 +16,7 @@
             <div class="row panel list-item nga-default nga-stagger nga-fade" ng-hide="loading" dir-paginate="block in blocks | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
                 <div class="col-md-7 col-xs-12">
                     <span class="visible-xs visible-sm list-item-label">{{ 'BLOCK.HASH' | translate }}: </span>
-                    <a href="#!/blk/{{block.hash}}">
+                    <a class="hash-mono" href="#!/blk/{{block.hash}}">
                     {{block.hash}}
                     </a>
                 </div>
