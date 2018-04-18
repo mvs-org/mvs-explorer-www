@@ -116,5 +116,7 @@
     "TX.CONFIRMED": "Confirmed",
     "TOP_MENU_TXS": "Transactions",
     "TOP_MENU_BLOCKS": "Blocks",
-    "TX.TIMESTAMP": "Transaction time"
+    "TX.TIMESTAMP": "Transaction time",
+    "FROM_DATE": "From date",
+    "TO_DATE": "To date"
 }

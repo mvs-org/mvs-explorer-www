@@ -23,7 +23,7 @@
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
 
       //var SERVER = "http://localhost:80";
-      //var SERVER = "http://explorer-dev.mvs.org" + "/api";
+      //var SERVER = "http://explorer-new.mvs.org" + "/api";
 
       //var SERVER = "https://explorer.mvs.org" + "/api";
 
@@ -47,7 +47,7 @@
 
         service.BlockStats = (page) => _send('stats/block');
 
-        service.FetchHistory = (address, page) => _send('address/txs/' + address + '?page=' + page);
+        service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.FetchAddress = (address) => _send('address/info/' + address);
 
@@ -55,7 +55,7 @@
 
         service.BlockTxs = (blockhash) =>  _send('block/txs/' + blockhash);
 
-        service.Txs = (page, min_time, max_time) =>  _send('txs?page='+page+((min_time)?'&min_time='+min_time:'')+((max_time)?'&max_time='+max_time:''));
+        service.Txs = (page, min_time, max_time) =>  _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time:'') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.ListAssets = (number) => _send('assets');
 

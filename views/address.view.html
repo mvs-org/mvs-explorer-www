@@ -45,14 +45,25 @@
         <div class="row">
         </div>
 
-        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="address_pagination.page_change(newPageNumber)"></dir-pagination-controls>
         <h2 class="headline"><em></em>{{ 'ADDRESS.TXS' | translate }}</h2>
+          <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+
+        <div class="date-input">
+            <md-datepicker ng-model="min_date" md-placeholder="{{'FROM_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+            <md-datepicker ng-model="max_date" md-placeholder="{{'TO_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
+            <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters()"><i class="fas fa-search"></i></md-button>
+        </div>
+
+
+        <div class="row">
+        </div>
+
 
         <div ng-show="loading_address">
             <div class="mini-loader">Loading...</div>
         </div>
 
-        <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_address" dir-paginate="tx in transactions | itemsPerPage:address_pagination.items_per_page" total-items="address_pagination.total_count" currennt-page="address_pagination.current_page">
+        <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_address" dir-paginate="tx in transactions | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
             <div class="panel-body">
                 <div class="row tx-head">
                     <div class="col-md-9 col-sm-12 break">
@@ -109,5 +120,5 @@
 
 
         </div>
-        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="address_pagination.page_change(newPageNumber)"></dir-pagination-controls>
+          <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
     </div>
