@@ -83,7 +83,7 @@
                                 <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
-                                <span ng-if="input.address == ''">coinbase</span>
+                                <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
                                 <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'':8}} ETP</span>

@@ -46,7 +46,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'EXPLORER.BLOCK_TIME' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ block.time_stamp * 1000 | date: ( 'GENERAL.DATE_FORMAT' | translate ) }}</div>
+                <div class="col-md-9 list-item-value">{{ block.time_stamp * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
@@ -70,7 +70,7 @@
                     </div>
 
                     <div class="col-md-3 col-sm-12">
-                        <div class="right slide-left">{{tx.confirmed_at * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                        <div class="right">{{tx.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
                     </div>
                 </div>
                 <div class="row">
@@ -83,7 +83,7 @@
                                 <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
-                                <span ng-if="!input.address">coinbase</span>
+                                <span ng-if="!input.address">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
                                 <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'': 8}} ETP</span>

@@ -16,7 +16,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.TIMESTAMP' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{transaction.confirmed_at * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                <div class="col-md-9 list-item-value">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
@@ -51,7 +51,7 @@
                                 <span ng-if="input.address">{{input.value| numberFormat:8|currency:'':8}} ETP</span>
                             </div>
                             <div class="col-md-7">
-                                <span ng-if="input.address == ''">coinbase</span>
+                                <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a ng-if="input.address" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <div class="io-script">{{input.script}}</div>
                             </div>

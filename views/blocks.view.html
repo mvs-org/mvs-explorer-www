@@ -32,11 +32,11 @@
                 </div>
                 <div class="col-md-2 col-xs-12">
                     <div class="hidden-xs hidden-sm right">
-                        {{block.time_stamp*1000| date : 'short'}}
+                        {{block.time_stamp*1000 | date: ( 'GENERAL.DATE_FORMAT_SHORT' | translate ) }}
                     </div>
                     <span class="visible-xs visible-sm list-item-label">{{ 'TIME' | translate }}: </span>
                     <span class="visible-xs visible-sm">
-                        {{block.time_stamp*1000| date : 'medium'}}
+                        {{block.time_stamp*1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}
                     </span>
                 </div>
             </div>
