@@ -334,7 +334,7 @@
     }
 
 
-    function MiningController(MetaverseService, $scope) {
+    function MiningController(MetaverseService, $scope, $translate) {
         $scope.loading_mining_info = true;
         $scope.loading_circulation = true;
         $scope.loading_pricing = true;
@@ -389,61 +389,67 @@
         }
 
         function drawDifficulties(data) {
-            $scope.difficultyChart = {
-                options: {
-                    chart: {
-                        type: 'lineChart',
-                        height: 450,
-                        margin: {
-                            top: 20,
-                            right: 40,
-                            bottom: 40,
-                            left: 95
+            $translate(['HEIGHT', 'GRAPH.DIFFICULTY'])
+                .then((translations) => {
+                    $scope.difficultyChart = {
+                        options: {
+                            chart: {
+                                type: 'lineChart',
+                                height: 450,
+                                margin: {
+                                    top: 20,
+                                    right: 40,
+                                    bottom: 40,
+                                    left: 95
+                                },
+                                y: function(d) {
+                                    return d.y;
+                                },
+                                showLegend: false,
+                                xAxis: {
+                                    axisLabel: translations['HEIGHT']
+                                },
+                                yAxis: {
+                                    axisLabelDistance: -65,
+                                    axisLabel: translations['GRAPH.DIFFICULTY']
+                                }
+                            }
                         },
-                        y: function(d) {
-                            return d.y;
-                        },
-                        showLegend: false,
-                        xAxis: {
-                            axisLabel: 'Height'
-                        },
-                        yAxis: {
-                            axisLabelDistance: -65,
-                            axisLabel: 'Difficulty (bits)'
-                        }
-                    }
-                },
-                data: [{
-                    values: data
-                }]
-            };
+                        data: [{
+                            values: data
+                        }]
+                    };
+                });
         }
 
         function drawBlocktimes(data) {
-            $scope.blocktimeChart = {
-                options: {
-                    chart: {
-                        type: 'lineChart',
-                        height: 450,
-                        margin: {
-                            top: 20,
-                            right: 40,
-                            bottom: 40,
-                            left: 95
+            $translate(['HEIGHT', 'GRAPH.TIME'])
+                .then((translations) => {
+                    $scope.blocktimeChart = {
+                        options: {
+                            chart: {
+                                type: 'lineChart',
+                                height: 450,
+                                margin: {
+                                    top: 20,
+                                    right: 40,
+                                    bottom: 40,
+                                    left: 95
+                                },
+                                showLegend: false,
+                                xAxis: {
+                                    axisLabel: translations['HEIGHT']
+                                },
+                                yAxis: {
+                                    axisLabel: translations['GRAPH.TIME']
+                                }
+                            }
                         },
-                        showLegend: false,
-                        xAxis: {
-                            axisLabel: 'Height'
-                        },
-                        yAxis: {
-                            axisLabel: 'Time (s)'
-                        }
-                    }
-                },
-                data: [{
-                    values: data
-                }]
-            };
+                        data: [{
+                            values: data
+                        }]
+                    };
+                });
         }
         getCirculation();
         getStatistics();
