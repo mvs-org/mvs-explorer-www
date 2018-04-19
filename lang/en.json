@@ -120,5 +120,8 @@
     "TX.TIMESTAMP": "Transaction time",
     "FROM_DATE": "From date",
     "TO_DATE": "To date",
-    "TX.INPUT_COINBASE": "coinbase"
+    "TX.INPUT_COINBASE": "coinbase",
+    "ASSET.DEPOSIT_SUM": "Total currently frozen",
+    "ASSET.DEPOSIT_REWARDS_LOCKED": "Total rewards from Deposit (locked)",
+    "ASSET.DEPOSIT_REWARDS_UNLOCKED": "Total rewards from Deposit (unlocked)"
 }
