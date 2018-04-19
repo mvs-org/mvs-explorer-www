@@ -693,7 +693,12 @@
 
         $scope.symbol = $stateParams.symbol;
         $scope.loading_asset = true;
+        $scope.loading_depositsum = true;
+        $scope.loading_circulation = true;
+        $scope.loading_depositrewards = true;
         $scope.getCirculation = getCirculation;
+        $scope.getDepositSum = getDepositSum;
+        $scope.getDepositRewards = getDepositRewards;
 
         if ($scope.symbol != undefined && $scope.symbol != "ETP") {
             NProgress.start();
@@ -707,6 +712,7 @@
                 .then(() => loadStakelist())
                 .then(() => NProgress.done());
         } else if ($scope.symbol == "ETP") {
+            NProgress.start();
             $scope.loading_asset = false;
             $scope.asset = [];
             $scope.asset.symbol = "ETP";
@@ -719,7 +725,10 @@
             $scope.asset.description = "MVS Official Token";
             getCirculation()
                 .then(() => loadStakelist())
-                .then(() => NProgress.done());
+                .then(() => NProgress.done())
+                .then(() => getDepositSum())
+                .then(() => getDepositRewards());
+
         }
 
         function getCirculation() {
@@ -727,6 +736,25 @@
                 $scope.loading_circulation = false;
                 if (response.data.status && response.data.status.success) {
                     $scope.circulation = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function getDepositSum() {
+            return MetaverseService.DepositSum().then((response) => {
+                $scope.loading_depositsum = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.depositsum = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function getDepositRewards() {
+            return MetaverseService.DepositRewards().then((response) => {
+                $scope.loading_depositrewards = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.deposit_rewards_locked = parseFloat(response.data.result.locked).toFixed(0);
+                    $scope.deposit_rewards_unlocked = parseFloat(response.data.result.unlocked).toFixed(0);
                 }
             }, console.error);
         }

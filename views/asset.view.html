@@ -16,47 +16,66 @@
     <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_asset">
         <div class="col-md-12 panel-body">
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.SYMBOL' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ asset.symbol }}</div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.SYMBOL' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ asset.symbol }}</div>
             </div>
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.MAX_SUPPLY' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.MAX_SUPPLY' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
             </div>
             <div class="row" ng-show="asset.symbol == 'ETP'">
-                <div class="col-md-3 list-item-label">{{ 'NUMBER_OF_COINS' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{circulation | number}}</div>
+                <div class="col-md-4 list-item-label">{{ 'NUMBER_OF_COINS' | translate }}</div>
+                <div ng-show="loading_circulation" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_circulation" class="col-md-8 list-item-value">{{circulation | currency:'':0}}</div>
+            </div>
+            <div class="row" ng-show="asset.symbol == 'ETP'">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.DEPOSIT_SUM' | translate }}</div>
+                <div ng-show="loading_depositsum" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_depositsum" class="col-md-8 list-item-value">{{depositsum | assetformat : 8 | currency:'':0}}</div>
+            </div>
+            <div class="row" ng-show="asset.symbol == 'ETP'">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.DEPOSIT_REWARDS_LOCKED' | translate }}</div>
+                <div ng-show="loading_depositrewards" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_depositrewards" class="col-md-8 list-item-value">{{deposit_rewards_locked | assetformat : 8 | currency:'':0}}</div>
+            </div>
+            <div class="row" ng-show="asset.symbol == 'ETP'">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.DEPOSIT_REWARDS_UNLOCKED' | translate }}</div>
+                <div ng-show="loading_depositrewards" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_depositrewards" class="col-md-8 list-item-value">{{deposit_rewards_unlocked | assetformat : 8 | currency:'':0}}</div>
             </div>
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.DECIMALS' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ asset.decimals }}</div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.DECIMALS' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ asset.decimals }}</div>
             </div>
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.ISSUER' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ asset.issuer }}</div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.ISSUER' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ asset.issuer }}</div>
             </div>
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.ADDRESS' | translate }}</div>
-                <div class="col-md-9 list-item-value address-mono">{{ asset.address }}</div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.ADDRESS' | translate }}</div>
+                <div class="col-md-8 list-item-value address-mono">{{ asset.address }}</div>
             </div>
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value hash-mono"><a href="#!/tx/{{ asset.hash }}">{{ asset.hash }}</a></div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.HASH' | translate }}</div>
+                <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{ asset.hash }}">{{ asset.hash }}</a></div>
             </div>
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.HEIGHT' | translate }}</div>
-                <div class="col-md-9 list-item-value"><a href="#!/blk/{{ asset.height }}">{{ asset.height }}</a></div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.HEIGHT' | translate }}</div>
+                <div class="col-md-8 list-item-value"><a href="#!/blk/{{ asset.height }}">{{ asset.height }}</a></div>
             </div>
             <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'ASSET.DESCRIPTION' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ asset.description }}</div>
+                <div class="col-md-4 list-item-label">{{ 'ASSET.DESCRIPTION' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ asset.description }}</div>
             </div>
         </div>
     </div>
 
     <h2 class="headline"><em></em>{{ 'ASSET.STAKELIST' | translate }}</h2>
-    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-hide="loading_asset">
-        <div class="panel-body col-md-7 col-xs-12 noPaddingLeftRightSmallScreen">
+    <div ng-show="loading_asset || (loading_circulation && asset.symbol == 'ETP')">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-hide="loading_asset || (loading_circulation && asset.symbol == 'ETP')">
+        <div class="panel-body col-md-7 col-xs-12 distrib-overview-panel-smallscreen">
             <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
                 <span class="col-xs-7 overflow">{{"ADDRESS"|translate}}</span>
                 <span class="col-xs-3 right right-overflow">{{"STAKE"|translate}}</span>

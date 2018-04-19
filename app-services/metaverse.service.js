@@ -69,6 +69,10 @@
 
         service.Pricing = () => _send('pricing');
 
+        service.DepositSum = () => _send('depositsum');
+
+        service.DepositRewards = () => _send('rewards');
+
         service.Chart = () => _send('poolstats');
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
