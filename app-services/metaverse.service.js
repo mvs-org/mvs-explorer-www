@@ -13,19 +13,7 @@
     function MetaverseService($http, localStorageService) {
         var service = {};
 
-      //   var SERVER = 'http://explorer.mvs.live:8080';
-      // // SERVER = 'http://mvs.blocktrack.de';
-      // SERVER = 'https://explorer.mvs.org';
-
-      //   service.debug = false;
-
-
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-
-      //var SERVER = "http://localhost:80";
-      //var SERVER = "http://explorer-new.mvs.org" + "/api";
-
-      //var SERVER = "https://explorer.mvs.org" + "/api";
 
       service.SERVER = SERVER;
         /**
