@@ -18,36 +18,108 @@
         .controller('MenuController', MenuController)
         .controller('ExplorerController', ExplorerController)
         .controller('StartpageController', StartpageController)
+        .controller('MiningController', MiningController)
         .controller('SearchController', SearchController)
         .controller('AddressController', AddressController)
         .controller('BlockController', BlockController)
+        .controller('BlocksController', BlocksController)
         .controller('NodeMapController', NodeMapController)
         .controller('ChartController', ChartController)
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
         .controller('TransactionController', TransactionController)
-        .controller('AssetsController', AssetsController)
+        .controller('TransactionsController', TransactionsController)
+        .controller('AssetsListController', AssetsListController)
+        .controller('AssetController', AssetController)
         .directive('checkImage', function() {
-         return {
-            link: function(scope, element, attrs) {
-               element.bind('error', function() {
-                  element.attr('src', 'img/assets/default.png'); // set default image
-               });
-             }
-           }
+            return {
+                link: function(scope, element, attrs) {
+                    element.bind('error', function() {
+                        element.attr('src', 'img/assets/default.png'); // set default image
+                    });
+                }
+            };
+        })
+        .directive('mdHideAutocompleteOnEnter', function() {
+            return function(scope, element, attrs) {
+                element.bind("keydown keypress", function(event) {
+                    if (event.which === 13) {
+                        scope.$apply(function() {
+                            scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
+                        });
+                        event.preventDefault();
+                    }
+                });
+            };
         });
 
-    function MenuController($location, $rootScope){
+    function BlocksController($scope, MetaverseService) {
 
-      function setMenu(){
-        $rootScope.selectedMenu={
-          main: $location.path().split('/')[1]
+        $scope.items_per_page = 50;
+
+        $scope.switchPage = (page) => {
+            $scope.loading = true;
+            return MetaverseService.ListBlocks(page-1)
+                .then((response) => {
+                    $scope.blocks = response.data.result.result;
+                    $scope.total_count = response.data.result.count;
+                    $scope.loading = false;
+                })
+                .catch((error) => {
+                    $scope.loading = false;
+                    console.error(error);
+                });
+        };
+
+        $scope.switchPage(1);
+
+    }
+
+    function TransactionsController($scope, MetaverseService) {
+
+        $scope.items_per_page = 10;
+        $scope.minDate = new Date(2017, 2 - 1, 11);
+        $scope.maxDate = new Date();
+
+        $scope.switchPage = (page) => {
+            $scope.current_page = page;
+            return load();
+        };
+
+        $scope.applyFilters = () => {
+            $scope.current_page = 1;
+            return load();
+        };
+
+        var load = () => {
+            $scope.loading_txs = true;
+            return MetaverseService.Txs($scope.current_page-1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
+                .then((response) => {
+                    $scope.txs = response.data.result.result;
+                    $scope.total_count = response.data.result.count;
+                    $scope.loading_txs = false;
+                })
+                .catch((error) => {
+                    $scope.loading_txs = false;
+                    console.error(error);
+                });
+        };
+
+        $scope.switchPage(1);
+
+    }
+
+    function MenuController($location, $rootScope) {
+
+        function setMenu() {
+            $rootScope.selectedMenu = {
+                main: $location.path().split('/')[1]
+            };
         }
-      }
-      setMenu();
-      $rootScope.$on("$locationChangeStart", function(event, next, current) {
         setMenu();
-      });
+        $rootScope.$on("$locationChangeStart", function(event, next, current) {
+            setMenu();
+        });
     }
 
     function ChartController($scope, MetaverseService) {
@@ -85,7 +157,7 @@
                     url: "",
                     counter: rest_part
                 }].concat($scope.data);
-                $scope.data.sort((a,b)=>a.counter>b.counter);
+                $scope.data.sort((a, b) => a.counter > b.counter);
                 $scope.locationsmap = Object.keys($scope.locations);
 
             }).then(() => {
@@ -143,6 +215,7 @@
             $rootScope.priority["ETP"] = 1;
             $rootScope.priority["MVS.ZGC"] = 10;
             $rootScope.priority["MVS.ZDC"] = 20;
+            $rootScope.priority["CSD"] = 30;
         };
 
         setPriority();
@@ -194,7 +267,7 @@
             }
         });
 
-        var geojsonAjax = new L.GeoJSON.AJAX(MetaverseService.SERVER+"/locations");
+        var geojsonAjax = new L.GeoJSON.AJAX(MetaverseService.SERVER + "/locations");
         geojsonAjax.on('data:loaded', function() {
             // Clustering disabled for chen hao
             // markers.addLayer(geojsonAjax);
@@ -206,75 +279,10 @@
         map.addLayer(markers);
     }
 
-    function SearchController($scope, MetaverseService, $translate, $location, FlashService) {
-        $scope.search = search;
-
-        function search() {
-            switch ($scope.search_field.length) {
-                case 64:
-                    show_transaction();
-                    break;
-                case 34:
-                    show_address();
-                    break;
-                default:
-                    show_block();
-            }
-        }
-
-        function show_address() {
-            NProgress.start();
-            MetaverseService.FetchHistory($scope.search_field)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $location.path('/adr/' + $scope.search_field);
-                    } else {
-                        $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
-        }
-
-        function show_block() {
-            NProgress.start();
-            MetaverseService.Block($scope.search_field)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $location.path('/blk/' + $scope.search_field);
-                    } else {
-                        $translate('MESSAGES.ERROR_BLOCK_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
-        }
-
-
-        function show_transaction() {
-            NProgress.start();
-            MetaverseService.FetchTx($scope.search_field)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $location.path('/tx/' + $scope.search_field);
-                    } else {
-                        $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
-        }
-    }
-
-
-
-
-    // make sure to remove the api call for the $scope.blocks - deprecated
     function BlockListController($scope, $wamp, $interval) {
 
         $scope.currentTimeStamp = Math.floor(Date.now());
-        $interval( () => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
-
+        $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
         function AddBlocksToBlocks(blocks) {
             blocks = blocks.concat($scope.blockList);
@@ -298,14 +306,10 @@
         })();
     }
 
-
-
-
-
     function TransactionListController($scope, $wamp, $interval) {
 
         $scope.currentTimeStamp = Math.floor(Date.now());
-        $interval( () => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
+        $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
         function AddTxsToTxs(txs) {
             txs = txs.concat($scope.txList);
@@ -330,27 +334,12 @@
     }
 
 
-
-
-
-
-
-
-    function StartpageController(MetaverseService, $scope, $location, localStorageService, FlashService, $translate, $interval, $rootScope, $wamp) {
-
-        $scope.startpage = startpage;
-        $scope.loading_blocks = true;
-        $scope.loading_txs = true;
+    function MiningController(MetaverseService, $scope, $translate) {
         $scope.loading_mining_info = true;
         $scope.loading_circulation = true;
         $scope.loading_pricing = true;
-
-
-        $scope.format = (value, decimals) => value / Math.pow(10, decimals);
-
-        function startpage() {
-            $location.path('/');
-        }
+        $scope.loading_blocktimes = true;
+        $scope.loading_difficulty = true;
 
         function getMiningInfo() {
             return MetaverseService.MiningInfo().then((response) => {
@@ -377,14 +366,104 @@
             }, console.error);
         }
 
-        $rootScope.loading = {
-            market_data: true
-        };
+        function getStatistics() {
+            return MetaverseService.BlockStats()
+                .then((response) => {
+                    var blocktimes = [];
+                    var difficulties = [];
+                    response.data.result.forEach((point) => {
+                        blocktimes.push({
+                            x: point[0],
+                            y: point[1]
+                        });
+                        difficulties.push({
+                            x: point[0],
+                            y: point[2]
+                        });
+                    });
+                    drawBlocktimes(blocktimes);
+                    drawDifficulties(difficulties);
+                    $scope.loading_blocktimes = false;
+                    $scope.loading_difficulty = false;
+                });
+        }
 
-        $rootScope.loaders = () => Object.keys($rootScope.loading);
+        function drawDifficulties(data) {
+            $translate(['HEIGHT', 'GRAPH.DIFFICULTY'])
+                .then((translations) => {
+                    $scope.difficultyChart = {
+                        options: {
+                            chart: {
+                                type: 'lineChart',
+                                height: 450,
+                                margin: {
+                                    top: 20,
+                                    right: 40,
+                                    bottom: 40,
+                                    left: 95
+                                },
+                                y: function(d) {
+                                    return d.y;
+                                },
+                                showLegend: false,
+                                xAxis: {
+                                    axisLabel: translations['HEIGHT']
+                                },
+                                yAxis: {
+                                    axisLabelDistance: -65,
+                                    axisLabel: translations['GRAPH.DIFFICULTY']
+                                }
+                            }
+                        },
+                        data: [{
+                            values: data
+                        }]
+                    };
+                });
+        }
+
+        function drawBlocktimes(data) {
+            $translate(['HEIGHT', 'GRAPH.TIME'])
+                .then((translations) => {
+                    $scope.blocktimeChart = {
+                        options: {
+                            chart: {
+                                type: 'lineChart',
+                                height: 450,
+                                margin: {
+                                    top: 20,
+                                    right: 40,
+                                    bottom: 40,
+                                    left: 95
+                                },
+                                showLegend: false,
+                                xAxis: {
+                                    axisLabel: translations['HEIGHT']
+                                },
+                                yAxis: {
+                                    axisLabel: translations['GRAPH.TIME']
+                                }
+                            }
+                        },
+                        data: [{
+                            values: data
+                        }]
+                    };
+                });
+        }
         getCirculation();
+        getStatistics();
         getPricing();
         getMiningInfo();
+    }
+
+    function StartpageController($scope, $location, localStorageService, FlashService, $translate, $interval, $wamp) {
+
+        $scope.startpage = () => $location.path('/');
+        $scope.loading_blocks = true;
+        $scope.loading_txs = true;
+
+        $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 
     }
 
@@ -407,11 +486,11 @@
                         $scope.transaction = response.data.result;
                         $scope.messages = [];
                         if ($scope.transaction.outputs.length) {
-                            $scope.transaction.outputs.forEach(function (output) {
-                                if(output.attachment.type == "message") {
+                            $scope.transaction.outputs.forEach(function(output) {
+                                if (output.attachment.type == "message") {
                                     $scope.messages.push(output.attachment.content);
                                 }
-                                if(output.locked_height_range)
+                                if (output.locked_height_range)
                                     output.unlock_block = $scope.transaction.height + output.locked_height_range;
                             });
                         }
@@ -440,6 +519,7 @@
         var number = $stateParams.number;
         $rootScope.nosplash = true;
         $scope.loading_block = true;
+        $scope.loading_txs = true;
         $scope.loading_confirmation = true;
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
@@ -459,6 +539,19 @@
                             });
                     }
                     NProgress.done();
+                })
+                .then(() => MetaverseService.BlockTxs($scope.block.hash))
+                .then((response) => {
+                    $scope.loading_txs = false;
+                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
+                        $scope.txs = response.data.result.result;
+                    } else {
+                        $translate('MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND')
+                            .then((data) => {
+                                $location.path('/');
+                                FlashService.Error(data, true);
+                            });
+                    }
                 })
                 .then(() => MetaverseService.FetchHeight())
                 .then((response) => {
@@ -480,6 +573,9 @@
         $scope.info = [];
         $scope.tokens = [];
         $scope.definitions = [];
+        $scope.items_per_page = 10;
+        $scope.minDate = new Date(2017, 2 - 1, 11);
+        $scope.maxDate = new Date();
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
             color: {
@@ -494,19 +590,7 @@
 
         $scope.address = address;
 
-
-        $scope.address_pagination = {
-            total_count: 0,
-            current_page: 1,
-            items_per_page: 0,
-            page_change: loadTransactions
-        };
-
-        loadTransactions(1);
         fetchAddress(address);
-
-
-
 
         function fetchAddress(address) {
             if (typeof address !== 'undefined') {
@@ -517,7 +601,7 @@
                             $scope.tokens = response.data.result.tokens;
                             $scope.definitions = response.data.result.definitions;
                             for (var symbol in $scope.definitions) {
-                                if(typeof $rootScope.priority[symbol] != 'undefined') {
+                                if (typeof $rootScope.priority[symbol] != 'undefined') {
                                     $scope.definitions[symbol].priority = $rootScope.priority[symbol];
                                 } else {
                                     $scope.definitions[symbol].priority = 1000;
@@ -534,8 +618,10 @@
                             for (var symbol in $scope.definitions) {
                                 $scope.addressAssets.push($scope.definitions[symbol]);
                             }
-                            if(typeof $scope.info.FROZEN == 'undefined')
+                            if (typeof $scope.info.FROZEN == 'undefined')
                                 $scope.info.FROZEN = 0;
+                            if (typeof $scope.tokens.ETP == 'undefined')
+                                $scope.tokens.ETP = 0;
                         } else {
                             $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
                                 .then((data) => {
@@ -547,54 +633,441 @@
             }
         }
 
-        function loadTransactions(page) {
+        $scope.switchPage = (page) => {
+            $scope.current_page = page;
+            return loadTransactions();
+        };
+
+        $scope.applyFilters = () => {
+            $scope.current_page = 1;
+            return loadTransactions();
+        };
+
+        function loadTransactions() {
             if (typeof address !== 'undefined') {
                 NProgress.start();
-                MetaverseService.FetchHistory(address, page - 1)
+                MetaverseService.FetchHistory(address, $scope.current_page - 1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.loading_address = false;
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                             $scope.transactions = response.data.result.transactions;
-                            $scope.address_pagination.current_page = page;
-                            $scope.address_pagination.total_count = response.data.result.count;
-                            $scope.address_pagination.items_per_page = response.data.result.items_per_page;
+                            $scope.total_count = response.data.result.count;
+                            $scope.loading = false;
                         } else {
                             $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
                                 .then((data) => {
                                     FlashService.Error(data, true);
-                                    // $location.path('/');
                                 });
                         }
                         NProgress.done();
                     });
             }
         }
+
+        $scope.switchPage(1);
     }
 
-    function AssetsController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
+    function AssetsListController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
 
-      $scope.loading_assets = true;
+        $scope.loading_assets = true;
 
-      listAssets();
+        listAssets();
 
-      function listAssets() {
-          NProgress.start();
-          MetaverseService.ListAssets()
-              .then((response) => {
-                  $scope.loading_assets = false;
-                  if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                      $scope.assets = response.data.result;
-                  }
-                  $scope.assets.forEach(function(asset) {
-                    if(typeof $rootScope.priority[asset.symbol] != 'undefined') {
-                        asset.priority = $rootScope.priority[asset.symbol];
-                    } else {
-                        asset.priority = 1000;
+        function listAssets() {
+            NProgress.start();
+            MetaverseService.ListAssets()
+                .then((response) => {
+                    $scope.loading_assets = false;
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $scope.assets = response.data.result;
                     }
-                  });
-                  NProgress.done();
-              });
-      }
+                    $scope.assets.forEach(function(asset) {
+                        if (typeof $rootScope.priority[asset.symbol] != 'undefined') {
+                            asset.priority = $rootScope.priority[asset.symbol];
+                        } else {
+                            asset.priority = 1000;
+                        }
+                    });
+                    NProgress.done();
+                });
+        }
+
+    }
+
+
+    function AssetController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+
+        $scope.symbol = $stateParams.symbol;
+        $scope.loading_asset = true;
+        $scope.loading_depositsum = true;
+        $scope.loading_circulation = true;
+        $scope.loading_depositrewards = true;
+        $scope.getCirculation = getCirculation;
+        $scope.getDepositSum = getDepositSum;
+        $scope.getDepositRewards = getDepositRewards;
+
+        if ($scope.symbol != undefined && $scope.symbol != "ETP") {
+            NProgress.start();
+            MetaverseService.AssetInfo($scope.symbol)
+                .then((response) => {
+                    $scope.loading_asset = false;
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $scope.asset = response.data.result[0];
+                    }
+                })
+                .then(() => loadStakelist())
+                .then(() => NProgress.done());
+        } else if ($scope.symbol == "ETP") {
+            NProgress.start();
+            $scope.loading_asset = false;
+            $scope.asset = [];
+            $scope.asset.symbol = "ETP";
+            $scope.asset.quantity = 10000000000000000;
+            $scope.asset.decimals = 8;
+            $scope.asset.issuer = "mvs.org";
+            $scope.asset.address = "MGqHvbaH9wzdr6oUDFz4S1HptjoKQcjRve";
+            $scope.asset.hash = "2a845dfa63a7c20d40dbc4b15c3e970ef36332b367500fd89307053cb4c1a2c1";
+            $scope.asset.height = 0;
+            $scope.asset.description = "MVS Official Token";
+            getCirculation()
+                .then(() => loadStakelist())
+                .then(() => NProgress.done())
+                .then(() => getDepositSum())
+                .then(() => getDepositRewards());
+
+        }
+
+        function getCirculation() {
+            return MetaverseService.Circulation().then((response) => {
+                $scope.loading_circulation = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.circulation = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function getDepositSum() {
+            return MetaverseService.DepositSum().then((response) => {
+                $scope.loading_depositsum = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.depositsum = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function getDepositRewards() {
+            return MetaverseService.DepositRewards().then((response) => {
+                $scope.loading_depositrewards = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.deposit_rewards_locked = parseFloat(response.data.result.locked).toFixed(0);
+                    $scope.deposit_rewards_unlocked = parseFloat(response.data.result.unlocked).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function loadStakelist() {
+            return MetaverseService.AssetStakes($scope.symbol)
+                .then((stakes) => {
+                    $scope.stakelist = stakes.data.result.map((stake) => {
+                        return {
+                            address: stake.a,
+                            quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
+                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation/100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
+                        };
+                    });
+
+                    let rest = {
+                        share: 100,
+                        quantity: $scope.asset.quantity / Math.pow(10, -$scope.asset.decimals)
+                    };
+                    $scope.stakelist.forEach((stake) => {
+                        rest.share -= stake.share;
+                        rest.quantity -= stake.quantity;
+                    });
+
+                    $scope.stakelist.push(rest);
+
+                    var h = 800;
+                    var r = h / 2;
+                    var arc = d3.svg.arc().outerRadius(r);
+
+                    $scope.data = [];
+
+                    $scope.locations = {};
+
+                    $scope.colors = [
+                        "#006599", // dark blue
+                        "#0099CB", // blue
+                        '#fe6700', // orange
+                        '#ffd21c', // yellow
+                        "#fe0000", // red
+                        "#ED230D" // dark red
+                    ];
+
+                    nv.addGraph(function() {
+                        var chart = nv.models.pieChart()
+                            .x(function(d) {
+                                return "<b>" + ((d.address) ? d.address : 'others') + "</b>";
+                            })
+                            .y(function(d) {
+                                return d.share;
+                            })
+                            .color($scope.colors)
+                            .showLabels(true)
+                            .showLegend(false)
+                            .labelType("percent");
+
+                        d3.select("#chart svg")
+                            .datum($scope.stakelist)
+                            .transition().duration(1200)
+                            .call(chart);
+
+                        var positionX = 210;
+                        var positionY = 30;
+                        var verticalOffset = 25;
+
+                        d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                            positionY += verticalOffset;
+                            d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
+                        });
+
+                        return chart;
+                    });
+
+                });
+        }
+
+    }
+
+    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
+
+        $scope.presEnterSearch = presEnterSearch;
+
+        $scope.querySearch = querySearch;
+        $scope.selectedItemChange = selectedItemChange;
+        $scope.searchTextChange = searchTextChange;
+        $scope.search = search;
+        $scope.setResults = setResults;
+        $scope.setResultsTx = setResultsTx;
+        $scope.initialSuggestion = [];
+        $scope.init = init;
+
+        function init() {
+            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS'])
+                .then((translations) => {
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_TX'],
+                        'url': 'txs',
+                        'type': 'tx',
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_BLOCKS'],
+                        'url': 'blocks',
+                        'type': 'blockHeight',
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_ASSETS'],
+                        'url': 'assets',
+                        'type': 'asset',
+                    });
+                });
+        }
+
+        init();
+
+        function querySearch(query) {
+            return (query && query.length >= 3) ? search(query) : $scope.initialSuggestion;
+        }
+
+
+        function presEnterSearch(search_field) {
+            if (search_field == "") {
+                $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                    .then((data) => FlashService.Error(data));
+            } else if ($filter('uppercase')(search_field) == "ETP") {
+                $location.path('/asset/ETP');
+            } else {
+                switch (search_field.length) {
+                    case 64:
+                        show_transaction_or_block(search_field);
+                        break;
+                    case 34:
+                        show_address(search_field);
+                        break;
+                    default:
+                        if (!isNaN(search_field))
+                            show_block(search_field);
+                        else
+                            show_asset($filter('uppercase')(search_field));
+                }
+            }
+        }
+
+        function show_address(search_field) {
+            NProgress.start();
+            MetaverseService.FetchHistory(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/adr/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function show_block(search_field) {
+            NProgress.start();
+            MetaverseService.Block(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/blk/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_BLOCK_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+
+        function show_transaction_or_block(search_field) {
+            NProgress.start();
+            MetaverseService.FetchTx(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        $location.path('/tx/' + search_field);
+                    } else {
+                        MetaverseService.Block(search_field)
+                            .then((response) => {
+                                if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                                    $location.path('/blk/' + search_field);
+                                } else {
+                                    $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
+                                        .then((data) => FlashService.Error(data));
+                                }
+                                NProgress.done();
+                            });
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function show_asset(search_field) {
+            NProgress.start();
+            MetaverseService.AssetInfo(search_field)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                        $location.path('/asset/' + search_field);
+                    } else {
+                        $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                            .then((data) => FlashService.Error(data));
+                    }
+                    NProgress.done();
+                });
+        }
+
+        function searchTextChange(text) {
+
+        }
+
+        function selectedItemChange(item) {
+
+        }
+
+        function search(text) {
+            return MetaverseService.SearchAll(text, 10)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
+                        return setResults(text, response.data.result);
+                    } else return [];
+                });
+        }
+
+        function setResults(text, result) {
+            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
+                .then((results) => {
+                    var repos = [];
+                    repos.push.apply(repos, results[0]);
+                    repos.push.apply(repos, results[1]);
+                    repos.push.apply(repos, results[2]);
+                    repos.push.apply(repos, results[3]);
+                    repos.push.apply(repos, results[4]);
+                    return repos;
+                })
+        }
+
+        function setResultsInit(text) {
+            var repos = [];
+            if (!isNaN(text)) {
+                repos.push({
+                    'name': text,
+                    'url': 'blk/' + text,
+                    'type': 'blockHeight',
+                });
+            } else if ($filter('uppercase')(text) == "ETP") {
+                repos.push({
+                    'name': 'ETP',
+                    'url': 'asset/ETP',
+                    'type': 'asset',
+                });
+            }
+            return repos;
+        }
+
+        function setResultsAsset(assets) {
+            var result = [];
+            return Promise.all(assets.map((asset) => {
+                    var addasset = {};
+                    addasset.name = asset;
+                    addasset.url = "asset/" + asset;
+                    addasset.type = "asset";
+                    result.push(addasset);
+                }))
+                .then(() => result);
+        }
+
+        function setResultsAddress(addresses) {
+            var result = [];
+            return Promise.all(addresses.map((address) => {
+                    var addaddress = {};
+                    addaddress.name = address.a;
+                    addaddress.url = "adr/" + address.a;
+                    addaddress.nbrtx = address.n;
+                    addaddress.type = "address";
+                    result.push(addaddress);
+                }))
+                .then(() => result);
+        }
+
+        function setResultsTx(txs) {
+            var result = [];
+            return Promise.all(txs.map((tx) => {
+                    var addtx = {};
+                    addtx.name = tx.h;
+                    addtx.url = "tx/" + tx.h;
+                    addtx.height = tx.b;
+                    addtx.type = "tx";
+                    result.push(addtx);
+                }))
+                .then(() => result);
+        }
+
+
+
+        function setResultsBlockHash(blocks) {
+            var result = [];
+            return Promise.all(blocks.map((block) => {
+                    var addblock = {};
+                    addblock.name = block.h;
+                    addblock.url = "blk/" + block.h;
+                    addblock.height = block.n;
+                    addblock.type = "blockHash";
+                    result.push(addblock);
+                }))
+                .then(() => result);
+        }
 
     }
 })();

@@ -1,7 +1,7 @@
 (function() {
     'use strict';
 
-    angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate', 'nvd3', 'vxWamp','ngSanitize', 'swaggerUi'])
+    angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate','ngAria','ngMessages','ngMaterial', 'nvd3', 'vxWamp','ngSanitize','swaggerUi'])
         .config(config)
         .filter('assetformat',function(){
             return function(input, asset_type){
@@ -37,7 +37,9 @@
         }).config(function($wampProvider) {
             $wampProvider.init({
               //url: 'wss://explorer.mvs.org/ws',
-              //url: 'ws://localhost:8820/ws',
+              //url: 'ws://explorer-dev.mvs.org/ws',
+              //url: 'wss://explorer-new.mvs.org/ws',
+              //url: 'ws://localhost:80/ws',
               url: ((window.location.protocol == 'https:') ? 'wss:' : 'ws:') + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/ws",
                 realm: 'realm1'
                 //Any other AutobahnJS options
@@ -71,6 +73,21 @@
                 templateUrl: "views/transaction.view.html",
                 controller: 'TransactionController'
             })
+            .state('explorer.blocks', {
+                url: "/blocks",
+                templateUrl: "views/blocks.view.html",
+                controller: 'BlocksController'
+            })
+            .state('explorer.txs', {
+                url: "/txs",
+                templateUrl: "views/txs.view.html",
+                controller: 'TransactionsController'
+            })
+            .state('explorer.mining', {
+                url: "/mining",
+                templateUrl: "views/mining.view.html",
+                controller: 'MiningController'
+            })
             .state('explorer.nodemap', {
                 url: "/nodemap",
                 templateUrl: "views/nodemap.view.html",
@@ -86,10 +103,15 @@
                 templateUrl: "views/address.view.html",
                 controller: 'AddressController'
             })
-            .state('explorer.assets', {
+            .state('explorer.asset', {
+                url: "/asset/:symbol",
+                templateUrl: "views/asset.view.html",
+                controller: 'AssetController'
+            })
+            .state('explorer.assetslist', {
                 url: "/assets",
-                templateUrl: "views/assets.view.html",
-                controller: 'AssetsController'
+                templateUrl: "views/assetslist.view.html",
+                controller: 'AssetsListController'
             });
         $urlRouterProvider.otherwise("/");
     };
@@ -100,10 +122,8 @@
 
         $wamp.open();
 
-        // Page Refresh
-        $(document).ready(function() {
-            $(this).scrollTop(0);
-        });
+        $rootScope.$on('$stateChangeStart', ()=>$(this).scrollTop(0));
+
 
         if ($localStorageService.get('language') != undefined)
             $translate.use($localStorageService.get('language'));

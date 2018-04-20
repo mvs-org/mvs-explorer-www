@@ -12,7 +12,6 @@ module.exports = function(grunt) {
                 files: { // if not work add rest of css
                     './min/app.css': [
                         './node_modules/bootstrap/dist/css/bootstrap.min.css',
-                        './css/style.css',
                         './css/nga.css',
                         './node_modules/angular-toastr/dist/angular-toastr.min.css',
                         './node_modules/nprogress/nprogress.css',
@@ -22,7 +21,9 @@ module.exports = function(grunt) {
                         './node_modules/leaflet/dist/leaflet.css',
                         './node_modules/leaflet.markercluster/example/screen.css',
                         './node_modules/leaflet.markercluster/dist/MarkerCluster.css',
-                        './node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css'
+                        './node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css',
+                        './node_modules/angular-material/angular-material.css',
+                        './css/style.css'
                     ]
                 }
             }
@@ -63,6 +64,9 @@ module.exports = function(grunt) {
                     './node_modules/angular-cookies/angular-cookies.min.js',
                     './node_modules/angular-local-storage/dist/angular-local-storage.min.js',
                     './node_modules/angular-animate/angular-animate.min.js',
+                    './node_modules/angular-aria/angular-aria.min.js',
+                    './node_modules/angular-messages/angular-messages.min.js',
+                    './node_modules/angular-material/angular-material.min.js',
                     './node_modules/angular-translate/dist/angular-translate.min.js',
                     './node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
                     './node_modules/angular-utils-pagination/dirPagination.js',
