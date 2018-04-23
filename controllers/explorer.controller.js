@@ -215,7 +215,8 @@
             $rootScope.priority["ETP"] = 1;
             $rootScope.priority["MVS.ZGC"] = 10;
             $rootScope.priority["MVS.ZDC"] = 20;
-            $rootScope.priority["CSD"] = 30;
+            $rootScope.priority["CSD"] = 100;
+            $rootScope.priority["PARCELX.GPX"] = 100;
         };
 
         setPriority();
@@ -667,9 +668,10 @@
         $scope.switchPage(1);
     }
 
-    function AssetsListController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
+    function AssetsListController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope, Assets) {
 
         $scope.loading_assets = true;
+        $scope.icons = Assets.hasIcon;
 
         listAssets();
 
@@ -687,6 +689,11 @@
                         } else {
                             asset.priority = 1000;
                         }
+                        if($scope.icons.indexOf(asset.symbol) > -1) {
+                            asset.icon = asset.symbol;
+                        } else {
+                            asset.icon = 'default';
+                        }
                     });
                     NProgress.done();
                 });
@@ -695,7 +702,7 @@
     }
 
 
-    function AssetController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate) {
+    function AssetController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, Assets) {
 
         $scope.symbol = $stateParams.symbol;
         $scope.loading_asset = true;
@@ -705,6 +712,7 @@
         $scope.getCirculation = getCirculation;
         $scope.getDepositSum = getDepositSum;
         $scope.getDepositRewards = getDepositRewards;
+        $scope.icons = Assets.hasIcon;
 
         if ($scope.symbol != undefined && $scope.symbol != "ETP") {
             NProgress.start();
@@ -713,6 +721,11 @@
                     $scope.loading_asset = false;
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         $scope.asset = response.data.result[0];
+                        if($scope.icons.indexOf($scope.symbol) > -1) {
+                            $scope.asset.icon = $scope.symbol;
+                        } else {
+                            $scope.asset.icon = 'default';
+                        }
                     }
                 })
                 .then(() => loadStakelist())
@@ -729,6 +742,7 @@
             $scope.asset.hash = "2a845dfa63a7c20d40dbc4b15c3e970ef36332b367500fd89307053cb4c1a2c1";
             $scope.asset.height = 0;
             $scope.asset.description = "MVS Official Token";
+            $scope.asset.icon = "ETP";
             getCirculation()
                 .then(() => loadStakelist())
                 .then(() => NProgress.done())
