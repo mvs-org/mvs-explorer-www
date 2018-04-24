@@ -36,6 +36,7 @@ module.exports = function(grunt) {
                 files: {
                     './min-safe/js/flash.service.js': ['./app-services/flash.service.js'],
                     './min-safe/js/metaverse.service.js': ['./app-services/metaverse.service.js'],
+                    './min-safe/js/assets.service.js': ['./app-services/assets.service.js'],
                     './min-safe/js/explorer.controller.js': ['./controllers/explorer.controller.js'],
                     './min-safe/app.js': ['./app.js']
                 }
