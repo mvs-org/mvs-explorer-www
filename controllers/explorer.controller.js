@@ -196,12 +196,10 @@
 
     }
 
-    function ExplorerController($translate, localStorageService, $scope, $rootScope) {
+    function ExplorerController($translate, localStorageService, $scope) {
 
         $scope.changeLang = changeLang;
         $scope.selectedLang = localStorageService.get('language');
-
-        $scope.setPriority = setPriority;
 
         function changeLang(key) {
             //document.getElementById('language_selector').setAttribute("lang", key);
@@ -209,17 +207,6 @@
                 .then((key) => localStorageService.set('language', key))
                 .catch((key) => console.log("Cannot change language."));
         };
-
-        function setPriority() {
-            $rootScope.priority = [];
-            $rootScope.priority["ETP"] = 1;
-            $rootScope.priority["MVS.ZGC"] = 10;
-            $rootScope.priority["MVS.ZDC"] = 20;
-            $rootScope.priority["CSD"] = 100;
-            $rootScope.priority["PARCELX.GPX"] = 100;
-        };
-
-        setPriority();
 
     }
 
@@ -566,7 +553,7 @@
     }
 
 
-    function AddressController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
+    function AddressController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope, Assets) {
 
         var address = $stateParams.address;
         $rootScope.nosplash = true;
@@ -577,6 +564,7 @@
         $scope.items_per_page = 10;
         $scope.minDate = new Date(2017, 2 - 1, 11);
         $scope.maxDate = new Date();
+        $scope.priority = Assets.priority;
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
             color: {
@@ -602,17 +590,13 @@
                             $scope.tokens = response.data.result.tokens;
                             $scope.definitions = response.data.result.definitions;
                             for (var symbol in $scope.definitions) {
-                                if (typeof $rootScope.priority[symbol] != 'undefined') {
-                                    $scope.definitions[symbol].priority = $rootScope.priority[symbol];
-                                } else {
-                                    $scope.definitions[symbol].priority = 1000;
-                                }
+                                $scope.definitions[symbol].priority = (typeof $scope.priority[symbol] != 'undefined') ? $scope.priority[symbol] : 1000;
                             }
 
                             $scope.addressAssets = [];
                             var assetETP = [];
                             assetETP.symbol = "ETP";
-                            assetETP.priority = $rootScope.priority["ETP"];
+                            assetETP.priority = $scope.priority["ETP"];
                             assetETP.decimals = 8;
                             $scope.addressAssets.push(assetETP);
 
@@ -672,6 +656,7 @@
 
         $scope.loading_assets = true;
         $scope.icons = Assets.hasIcon;
+        $scope.priority = Assets.priority;
 
         listAssets();
 
@@ -684,16 +669,8 @@
                         $scope.assets = response.data.result;
                     }
                     $scope.assets.forEach(function(asset) {
-                        if (typeof $rootScope.priority[asset.symbol] != 'undefined') {
-                            asset.priority = $rootScope.priority[asset.symbol];
-                        } else {
-                            asset.priority = 1000;
-                        }
-                        if($scope.icons.indexOf(asset.symbol) > -1) {
-                            asset.icon = asset.symbol;
-                        } else {
-                            asset.icon = 'default';
-                        }
+                        asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
+                        asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default';
                     });
                     NProgress.done();
                 });
@@ -721,11 +698,7 @@
                     $scope.loading_asset = false;
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         $scope.asset = response.data.result[0];
-                        if($scope.icons.indexOf($scope.symbol) > -1) {
-                            $scope.asset.icon = $scope.symbol;
-                        } else {
-                            $scope.asset.icon = 'default';
-                        }
+                        $scope.asset.icon = ($scope.icons.indexOf($scope.symbol) > -1) ? $scope.symbol : 'default';
                     }
                 })
                 .then(() => loadStakelist())
