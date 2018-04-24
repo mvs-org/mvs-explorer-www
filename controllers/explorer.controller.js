@@ -853,7 +853,7 @@
 
     }
 
-    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter) {
+    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter, Assets) {
 
         $scope.presEnterSearch = presEnterSearch;
 
@@ -865,6 +865,7 @@
         $scope.setResultsTx = setResultsTx;
         $scope.initialSuggestion = [];
         $scope.init = init;
+        $scope.icons = Assets.hasIcon;
 
         function init() {
             $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS'])
@@ -883,6 +884,7 @@
                         'name': translations['SUGGESTION.SHOW_ALL_ASSETS'],
                         'url': 'assets',
                         'type': 'asset',
+                        'icon': 'default'
                     });
                 });
         }
@@ -1025,6 +1027,7 @@
                     'name': 'ETP',
                     'url': 'asset/ETP',
                     'type': 'asset',
+                    'icon': 'ETP'
                 });
             }
             return repos;
@@ -1037,6 +1040,7 @@
                     addasset.name = asset;
                     addasset.url = "asset/" + asset;
                     addasset.type = "asset";
+                    addasset.icon = $scope.icons.indexOf(asset) > -1 ? asset : 'default';
                     result.push(addasset);
                 }))
                 .then(() => result);
