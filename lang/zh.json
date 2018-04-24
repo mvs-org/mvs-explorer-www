@@ -125,5 +125,6 @@
     "ASSET.DEPOSIT_REWARDS_LOCKED": "未解锁的利息",
     "ASSET.DEPOSIT_REWARDS_UNLOCKED": "目前已解锁的利息",
     "GRAPH.TIME": "时间",
-    "GRAPH.DIFFICULTY": "难度"
+    "GRAPH.DIFFICULTY": "难度",
+    "DONATION_TEXT": "Metaverse元界是开源项目，我们鼓励开发者贡献更多的代码，同时如果你们觉得元界开发团队的成果帮助到各位，也可以捐赠ETP到MVS地址 {{address}} 来支持整个生态发展"
 }

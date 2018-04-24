@@ -46,7 +46,7 @@
     "LINKS": "Resources",
     "RETURN_TO_METAVERSE": "Return to Metaverse",
     "TESTNET": "Testnet",
-    "COPYRIGHT_TEXT": "Copyright 2016-2018 Metaverse Foundation. All rights reserved.",
+    "COPYRIGHT_TEXT": "Copyright 2016-2018 Metaverse Foundation.",
     "syncing": "syncing",
     "market_data": "market data",
     "mining_data": "mining pool stats",
@@ -125,5 +125,6 @@
     "ASSET.DEPOSIT_REWARDS_LOCKED": "Locked Deposit interest",
     "ASSET.DEPOSIT_REWARDS_UNLOCKED": "Unlocked Deposit interest",
     "GRAPH.TIME": "Time (s)",
-    "GRAPH.DIFFICULTY": "Difficulty (bits)"
+    "GRAPH.DIFFICULTY": "Difficulty (bits)",
+    "DONATION_TEXT": "This is an opensource project. You can support us with your contributions or donation to MVS address {{address}}"
 }
