@@ -17,7 +17,6 @@
         })
         .controller('MenuController', MenuController)
         .controller('ExplorerController', ExplorerController)
-        .controller('MiningController', MiningController)
         .controller('SearchController', SearchController)
         .controller('NodeMapController', NodeMapController)
         .controller('ChartController', ChartController)
@@ -46,39 +45,6 @@
         });
 
 
-    function TransactionsController($scope, MetaverseService) {
-
-        $scope.items_per_page = 10;
-        $scope.minDate = new Date(2017, 2 - 1, 11);
-        $scope.maxDate = new Date();
-
-        $scope.switchPage = (page) => {
-            $scope.current_page = page;
-            return load();
-        };
-
-        $scope.applyFilters = () => {
-            $scope.current_page = 1;
-            return load();
-        };
-
-        var load = () => {
-            $scope.loading_txs = true;
-            return MetaverseService.Txs($scope.current_page - 1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
-                .then((response) => {
-                    $scope.txs = response.data.result.result;
-                    $scope.total_count = response.data.result.count;
-                    $scope.loading_txs = false;
-                })
-                .catch((error) => {
-                    $scope.loading_txs = false;
-                    console.error(error);
-                });
-        };
-
-        $scope.switchPage(1);
-
-    }
 
     function MenuController($location, $rootScope) {
 
