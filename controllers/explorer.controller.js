@@ -20,8 +20,6 @@
         .controller('MiningController', MiningController)
         .controller('SearchController', SearchController)
         .controller('AddressController', AddressController)
-        .controller('BlockController', BlockController)
-        .controller('BlocksController', BlocksController)
         .controller('NodeMapController', NodeMapController)
         .controller('ChartController', ChartController)
         .controller('TransactionController', TransactionController)
@@ -50,27 +48,6 @@
             };
         });
 
-    function BlocksController($scope, MetaverseService) {
-
-        $scope.items_per_page = 50;
-
-        $scope.switchPage = (page) => {
-            $scope.loading = true;
-            return MetaverseService.ListBlocks(page - 1)
-                .then((response) => {
-                    $scope.blocks = response.data.result.result;
-                    $scope.total_count = response.data.result.count;
-                    $scope.loading = false;
-                })
-                .catch((error) => {
-                    $scope.loading = false;
-                    console.error(error);
-                });
-        };
-
-        $scope.switchPage(1);
-
-    }
 
     function TransactionsController($scope, MetaverseService) {
 
@@ -433,57 +410,6 @@
                 });
         }
     }
-
-    function BlockController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope) {
-
-        var number = $stateParams.number;
-        $rootScope.nosplash = true;
-        $scope.loading_block = true;
-        $scope.loading_txs = true;
-        $scope.loading_confirmation = true;
-
-        $scope.format = (value, decimals) => value / Math.pow(10, decimals);
-
-        if (number != undefined) {
-            NProgress.start();
-            MetaverseService.Block(number)
-                .then((response) => {
-                    $scope.loading_block = false;
-                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                        $scope.block = response.data.result;
-                    } else {
-                        $translate('MESSAGES.ERROR_BLOCK_NOT_FOUND')
-                            .then((data) => {
-                                $location.path('/');
-                                FlashService.Error(data, true);
-                            });
-                    }
-                    NProgress.done();
-                })
-                .then(() => MetaverseService.BlockTxs($scope.block.hash))
-                .then((response) => {
-                    $scope.loading_txs = false;
-                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                        $scope.txs = response.data.result.result;
-                    } else {
-                        $translate('MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND')
-                            .then((data) => {
-                                $location.path('/');
-                                FlashService.Error(data, true);
-                            });
-                    }
-                })
-                .then(() => MetaverseService.FetchHeight())
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                        $scope.height = response.data.result;
-                        $scope.confirmations = $scope.height - $scope.block.number + 1;
-                        $scope.loading_confirmation = false;
-                    }
-                });
-        }
-    }
-
 
     function AddressController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope, Assets) {
 
