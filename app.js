@@ -108,6 +108,11 @@
                 templateUrl: "views/asset.view.html",
                 controller: 'AssetController'
             })
+            .state('explorer.avatars', {
+                url: "/avatars",
+                templateUrl: "views/avatars.view.html",
+                controller: 'AvatarsController'
+            })
             .state('explorer.assetslist', {
                 url: "/assets",
                 templateUrl: "views/assetslist.view.html",

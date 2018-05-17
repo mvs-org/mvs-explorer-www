@@ -126,5 +126,11 @@
     "ASSET.DEPOSIT_REWARDS_UNLOCKED": "Unlocked Deposit interest",
     "GRAPH.TIME": "Time (s)",
     "GRAPH.DIFFICULTY": "Difficulty (bits)",
-    "DONATION_TEXT": "This is an opensource project. You can support us with your contributions or donation to MVS address {{address}}"
+    "DONATION_TEXT": "This is an opensource project. You can support us with your contributions or donation to MVS address {{address}}",
+    "AVATAR.SYMBOL": "Symbol",
+    "AVATAR.ADDRESS": "Address",
+    "AVATAR.CREATED_AT": "Created at",
+    "AVATAR.CREATION_BLOCK": "Creation block",
+    "AVATARS.COUNT": "Number of avatars registered on Metaverse",
+    "AVATARS.HEADLINE": "Avatars register"
 }
