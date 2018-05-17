@@ -59,7 +59,7 @@
 
         $scope.switchPage = (page) => {
             $scope.loading = true;
-            return MetaverseService.ListBlocks(page-1)
+            return MetaverseService.ListBlocks(page - 1)
                 .then((response) => {
                     $scope.blocks = response.data.result.result;
                     $scope.total_count = response.data.result.count;
@@ -93,7 +93,7 @@
 
         var load = () => {
             $scope.loading_txs = true;
-            return MetaverseService.Txs($scope.current_page-1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
+            return MetaverseService.Txs($scope.current_page - 1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
                 .then((response) => {
                     $scope.txs = response.data.result.result;
                     $scope.total_count = response.data.result.count;
@@ -759,7 +759,7 @@
                         return {
                             address: stake.a,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation/100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
+                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
                         };
                     });
 
@@ -980,17 +980,8 @@
         }
 
         function setResults(text, result) {
-            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address),setResultsAvatar(result.avatar), setResultsTx(result.tx), setResultsBlockHash(result.block)])
-                .then((results) => {
-                    var repos = [];
-                    repos.push.apply(repos, results[0]);
-                    repos.push.apply(repos, results[1]);
-                    repos.push.apply(repos, results[2]);
-                    repos.push.apply(repos, results[3]);
-                    repos.push.apply(repos, results[4]);
-                    repos.push.apply(repos, results[5]);
-                    return repos;
-                });
+            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsAvatar(result.avatar), setResultsTx(result.tx), setResultsBlockHash(result.block)])
+                .then((results) => results.reduce((acc, val) => acc.concat(val)));
         }
 
         function setResultsInit(text) {
@@ -1013,67 +1004,57 @@
         }
 
         function setResultsAsset(assets) {
-            var result = [];
-            return Promise.all(assets.map((asset) => {
-                    var addasset = {};
-                    addasset.name = asset;
-                    addasset.url = "asset/" + asset;
-                    addasset.type = "asset";
-                    addasset.icon = $scope.icons.indexOf(asset) > -1 ? asset : 'default';
-                    result.push(addasset);
-                }))
-                .then(() => result);
+            return assets.map((asset) => {
+                return {
+                    name: asset,
+                    url: "asset/" + asset,
+                    type: "asset",
+                    icon: $scope.icons.indexOf(asset) > -1 ? asset : 'default'
+                };
+            });
         }
 
         function setResultsAvatar(avatars) {
             return avatars.map((avatar) => {
                 return {
                     name: avatar,
-                    url: 'avatar/'+avatar,
+                    url: 'avatar/' + avatar,
                     type: 'avatar'
                 };
             });
         }
 
         function setResultsAddress(addresses) {
-            var result = [];
-            return Promise.all(addresses.map((address) => {
-                    var addaddress = {};
-                    addaddress.name = address.a;
-                    addaddress.url = "adr/" + address.a;
-                    addaddress.nbrtx = address.n;
-                    addaddress.type = "address";
-                    result.push(addaddress);
-                }))
-                .then(() => result);
+            return addresses.map((address) => {
+                return {
+                    name: address.a,
+                    url: "adr/" + address.a,
+                    nbrtx: address.n,
+                    type: "address"
+                };
+            });
         }
 
         function setResultsTx(txs) {
-            var result = [];
-            return Promise.all(txs.map((tx) => {
-                    var addtx = {};
-                    addtx.name = tx.h;
-                    addtx.url = "tx/" + tx.h;
-                    addtx.height = tx.b;
-                    addtx.type = "tx";
-                    result.push(addtx);
-                }))
-                .then(() => result);
+            return txs.map((tx) => {
+                return {
+                    name: tx.h,
+                    url: "tx/" + tx.h,
+                    height: tx.b,
+                    type: "tx"
+                };
+            });
         }
 
-
-
         function setResultsBlockHash(blocks) {
-            var result = [];
-            return Promise.all(blocks.map((block) => {
-                    var addblock = {};
-                    addblock.name = block.h;
-                    addblock.url = "blk/" + block.h;
-                    addblock.height = block.n;
-                    addblock.type = "blockHash";
-                    result.push(addblock);
-                }))
-                .then(() => result);
+            return blocks.map((block) => {
+                return {
+                    name: block.h,
+                    url: "blk/" + block.h,
+                    height: block.n,
+                    type: "blockHash"
+                };
+            });
         }
 
     }
