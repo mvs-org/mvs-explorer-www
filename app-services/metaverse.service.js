@@ -49,6 +49,10 @@
 
         service.ListAvatars = () => _send('avatars');
 
+        service.FetchAvatar = (symbol) => _send('avatar/'+symbol);
+
+        service.FetchCerts = (symbol) => _send('certs/'+symbol);
+
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
 
         service.AssetStakes = (symbol) => _send('stakes/' + symbol);

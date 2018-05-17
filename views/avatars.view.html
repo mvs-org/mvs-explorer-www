@@ -21,7 +21,7 @@
                 <div class="col-md-5">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
             </div>
 
-            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="avatar in avatars | orderBy:['priority','symbol'] ">
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="avatar in avatars | orderBy:['height'] ">
                 <div class="col-md-3">
                   <h4><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h4>
                 </div>

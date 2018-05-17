@@ -113,6 +113,11 @@
                 templateUrl: "views/avatars.view.html",
                 controller: 'AvatarsController'
             })
+            .state('explorer.avatar', {
+                url: "/avatar/:symbol",
+                templateUrl: "views/avatar.view.html",
+                controller: 'AvatarController'
+            })
             .state('explorer.assetslist', {
                 url: "/assets",
                 templateUrl: "views/assetslist.view.html",

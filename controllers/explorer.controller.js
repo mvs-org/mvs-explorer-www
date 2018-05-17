@@ -859,6 +859,11 @@
                         'type': 'asset',
                         'icon': 'default'
                     });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_AVATARS'],
+                        'url': 'avatars',
+                        'type': 'avatar'
+                    });
                 });
         }
 
@@ -975,7 +980,7 @@
         }
 
         function setResults(text, result) {
-            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsTx(result.tx), setResultsBlockHash(result.block)])
+            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address),setResultsAvatar(result.avatar), setResultsTx(result.tx), setResultsBlockHash(result.block)])
                 .then((results) => {
                     var repos = [];
                     repos.push.apply(repos, results[0]);
@@ -983,8 +988,9 @@
                     repos.push.apply(repos, results[2]);
                     repos.push.apply(repos, results[3]);
                     repos.push.apply(repos, results[4]);
+                    repos.push.apply(repos, results[5]);
                     return repos;
-                })
+                });
         }
 
         function setResultsInit(text) {
@@ -1017,6 +1023,16 @@
                     result.push(addasset);
                 }))
                 .then(() => result);
+        }
+
+        function setResultsAvatar(avatars) {
+            return avatars.map((avatar) => {
+                return {
+                    name: avatar,
+                    url: 'avatar/'+avatar,
+                    type: 'avatar'
+                };
+            });
         }
 
         function setResultsAddress(addresses) {
