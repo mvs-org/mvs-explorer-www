@@ -1,0 +1,46 @@
+<div class="content">
+    <h2 class="headline"><em></em> {{ 'BLOCKS' | translate }}</h2>
+    <div ng-show="loading">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading">
+        <div class="hidden-xs hidden-sm col-md-12">
+            <div class="row panel list-item">
+                <div class="col-md-7"><span class="list-item-label">{{ 'BLOCK.HASH' | translate }}</span></div>
+                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}</span></div>
+                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}</span></div>
+                <div class="col-md-1 right"><span class="list-item-label">{{ 'TIME' | translate }}</span></div>
+            </div>
+        </div>
+        <div class="col-md-12">
+            <div class="row panel list-item nga-default nga-stagger nga-fade" ng-hide="loading" dir-paginate="block in blocks | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+                <div class="col-md-7 col-xs-12">
+                    <span class="visible-xs visible-sm list-item-label">{{ 'BLOCK.HASH' | translate }}: </span>
+                    <a class="hash-mono" href="#!/blk/{{block.hash}}">
+                    {{block.hash}}
+                    </a>
+                </div>
+                <div class="col-md-2 col-xs-6">
+                    <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span>
+                    <a href="#!/blk/{{block.number}}">
+                        {{block.number}}
+                    </a>
+                </div>
+                <div class="col-md-1 col-xs-6">
+                    <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}: </span>
+                    <span>{{block.transaction_count}}</span>
+                </div>
+                <div class="col-md-2 col-xs-12">
+                    <div class="hidden-xs hidden-sm right">
+                        {{block.time_stamp*1000 | date: ( 'GENERAL.DATE_FORMAT_SHORT' | translate ) }}
+                    </div>
+                    <span class="visible-xs visible-sm list-item-label">{{ 'TIME' | translate }}: </span>
+                    <span class="visible-xs visible-sm">
+                        {{block.time_stamp*1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}
+                    </span>
+                </div>
+            </div>
+        </div>
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+    </div>
+</div>

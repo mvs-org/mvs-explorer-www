@@ -5,7 +5,11 @@ html{
 
 body{
     background-color: #faf9f9;
-    margin-bottom: 200px;
+    height: auto;
+    font-family: 'Roboto', sans-serif;
+}
+.container{
+    padding-bottom: 200px;
 }
 .center{
     margin-left: auto;
@@ -62,8 +66,14 @@ a{
     overflow-wrap: break-word;
     padding-bottom: 10px;
 }
+.block-hash{
+    margin: 0;
+}
 .right{
     text-align: right;
+}
+.right-overflow{
+    direction: rtl;
 }
 footer{
     background-color: #232323;
@@ -73,9 +83,6 @@ footer{
     position: absolute;
     bottom: 0;
     width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 130px;
-
 }
 footer a{
     margin: 10px;
@@ -99,10 +106,10 @@ em{
     margin-top: 50px;
     padding: 20px;
     color: #4b606d;
-    min-height: 158px;
+    min-height: 130px;
 }
 .infobox a {
-    color: #4b606d;
+    /*color: #4b606d;*/
 }
 .infobox table{
     width: 100%;
@@ -125,9 +132,6 @@ em{
 .panel .table>tbody>tr>td{
     border-top: 0px;
     overflow-wrap: break-word;
-}
-.panel .table>tbody>tr>td:nth-child(1){
-    color: #b6bcc3;
 }
 .panel{
     border-radius: 10px;
@@ -159,7 +163,6 @@ em{
     align-items: center;
     background-color: #faf9f9;
     color: #006599;
-    font-family: Consolas, Menlo, Monaco, monospace;
     font-weight: bold;
     font-size: 15vh;
     opacity: 0.8;
@@ -489,7 +492,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 .menu{
 	/*float:right;*/
 	text-align:left;
-	font-family: "Source Sans Pro","Segoe UI","Droid Sans",Tahoma,Arial,sans-serif;
+	/*font-family: "Source Sans Pro","Segoe UI","Droid Sans",Tahoma,Arial,sans-serif;*/
 	font-size: 16px;
 	/*font-weight:700;*/
 	letter-spacing:.08em;
@@ -1167,4 +1170,152 @@ ul, li{
   text-align: center;
   font-size: 48px;
 
+.asset-symbol {
+  padding-right: 50px;
+}
+
+.searchedAddress {
+  font-weight: bold;
+}
+
+.assetpage-icon img {
+    right: 15px;
+    top: 0px;
+    position: absolute;
+    width: auto;
+    height: 100px;
+}
+
+.autocomplete-custom-template li {
+  border-bottom: 1px solid #ccc;
+  height: auto;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  white-space: normal;
+}
+.autocomplete-custom-template li:last-child {
+  border-bottom-width: 0;
+}
+.autocomplete-custom-template .item-title,
+.autocomplete-custom-template .item-metadata {
+  display: block;
+  line-height: 2;
+  height: 30px;
+}
+.autocomplete-custom-template img {
+  height: 18px;
+  width: 18px;
+}
+
+.overflow {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.noPaddingLeftRight {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.assetAddressTitle {
+  height: 34px;
+  line-height: 34px;
+  background-color: #f4f4f4;
+}
+
+.assetAddressLine {
+  height: 34px;
+  line-height: 34px;
+  border-bottom: solid 1px;
+  border-color: #ddd;
+}
+
+.distrib-overview {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
+.asset-chart {
+  padding-top: 20px;
+}
+
+.md-virtual-repeat-sizer {
+  height: auto;
+}
+
+.autocompleteSearch {
+  margin-top: 120px;
+}
+
+md-input-container label {
+  color: #4b606d !important;
+}
+
+md-input-container .md-input {
+  border-color: #4b606d !important;
+}
+
+md-input-container.md-input-focused label {
+  color: #6dc6f9 !important;
+}
+
+md-input-container.md-input-focused .md-input {
+  border-color: #6dc6f9 !important;
+}
+
+md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
+  background-color: #6dc6f9 !important;
+}
+
+.block-orphan {
+  color: red;
+}
+
+.block-confirmed {
+  color: green;
+}
+
+.filter-button {
+  margin-left: 10px;
+}
+
+.search-button {
+  min-width: 36px;
+  min-height: 36px;
+  margin-left: 15px;
+}
+
+.date-input {
+  margin-bottom: 40px;
+}
+
+.md-datepicker-input-container {
+  min-width: 90px;
+  width: 20%;
+}
+
+.asset-circulation {
+  text-align: center;
+  margin-bottom: 10px;
+}
+
+.address-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+.hash-mono {
+  font-family: 'Roboto Mono', monospace;
+}
+
+@media only screen and (max-width:475px){
+  .distrib-overview-panel-smallscreen {
+    padding-left: 0;
+    padding-right: 0;
+    padding-top: 0;
+  }
+
+  .distrib-overview {
+    padding-top: 0;
+  }
 }

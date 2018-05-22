@@ -12,7 +12,6 @@ module.exports = function(grunt) {
                 files: { // if not work add rest of css
                     './min/app.css': [
                         './node_modules/bootstrap/dist/css/bootstrap.min.css',
-                        './css/style.css',
                         './css/nga.css',
                         './node_modules/angular-toastr/dist/angular-toastr.min.css',
                         './node_modules/nprogress/nprogress.css',
@@ -22,7 +21,9 @@ module.exports = function(grunt) {
                         './node_modules/leaflet/dist/leaflet.css',
                         './node_modules/leaflet.markercluster/example/screen.css',
                         './node_modules/leaflet.markercluster/dist/MarkerCluster.css',
-                        './node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css'
+                        './node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css',
+                        './node_modules/angular-material/angular-material.css',
+                        './css/style.css'
                     ]
                 }
             }
@@ -35,7 +36,15 @@ module.exports = function(grunt) {
                 files: {
                     './min-safe/js/flash.service.js': ['./app-services/flash.service.js'],
                     './min-safe/js/metaverse.service.js': ['./app-services/metaverse.service.js'],
+                    './min-safe/js/assets.service.js': ['./app-services/assets.service.js'],
                     './min-safe/js/explorer.controller.js': ['./controllers/explorer.controller.js'],
+                    './min-safe/js/blocks.controller.js': ['./controllers/blocks.controller.js'],
+                    './min-safe/js/startpage.controller.js': ['./controllers/startpage.controller.js'],
+                    './min-safe/js/avatars.controller.js': ['./controllers/avatars.controller.js'],
+                    './min-safe/js/asset.controller.js': ['./controllers/asset.controller.js'],
+                    './min-safe/js/address.controller.js': ['./controllers/address.controller.js'],
+                    './min-safe/js/transactions.controller.js': ['./controllers/transactions.controller.js'],
+                    './min-safe/js/mining.controller.js': ['./controllers/mining.controller.js'],
                     './min-safe/app.js': ['./app.js']
                 }
             }
@@ -63,6 +72,9 @@ module.exports = function(grunt) {
                     './node_modules/angular-cookies/angular-cookies.min.js',
                     './node_modules/angular-local-storage/dist/angular-local-storage.min.js',
                     './node_modules/angular-animate/angular-animate.min.js',
+                    './node_modules/angular-aria/angular-aria.min.js',
+                    './node_modules/angular-messages/angular-messages.min.js',
+                    './node_modules/angular-material/angular-material.min.js',
                     './node_modules/angular-translate/dist/angular-translate.min.js',
                     './node_modules/angular-translate-loader-static-files/angular-translate-loader-static-files.min.js',
                     './node_modules/angular-utils-pagination/dirPagination.js',
@@ -187,5 +199,5 @@ module.exports = function(grunt) {
 
 
     //register grunt default task
-    grunt.registerTask('default', ['clean', 'ngAnnotate', 'concat', 'babel', 'uglify', 'cssmin', 'copy', 'revPackage', 'string-replace']);
+    grunt.registerTask('default', ['ngAnnotate', 'concat', 'babel', 'uglify', 'cssmin', 'copy', 'revPackage', 'string-replace']);
 };

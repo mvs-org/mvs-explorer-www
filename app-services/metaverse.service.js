@@ -13,18 +13,7 @@
     function MetaverseService($http, localStorageService) {
         var service = {};
 
-      //   var SERVER = 'http://explorer.mvs.live:8080';
-      // // SERVER = 'http://mvs.blocktrack.de';
-      // SERVER = 'https://explorer.mvs.org';
-
-      //   service.debug = false;
-
-
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-
-      //var SERVER = "http://localhost:80";
-
-      //var SERVER = "https://explorer.mvs.org" + "/api";
 
       service.SERVER = SERVER;
         /**
@@ -44,13 +33,29 @@
 
         service.ListBlocks = (page) => _send('blocks/' + page);
 
-        service.FetchHistory = (address, page) => _send('address/txs/' + address + '?page=' + page);
+        service.BlockStats = (page) => _send('stats/block');
+
+        service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.FetchAddress = (address) => _send('address/info/' + address);
 
         service.Block = (number) => _send('block/' + number);
 
+        service.BlockTxs = (blockhash) =>  _send('block/txs/' + blockhash);
+
+        service.Txs = (page, min_time, max_time) =>  _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time:'') + ((max_time) ? '&max_time=' + max_time : ''));
+
         service.ListAssets = (number) => _send('assets');
+
+        service.ListAvatars = () => _send('avatars');
+
+        service.FetchAvatar = (symbol) => _send('avatar/'+symbol);
+
+        service.FetchCerts = (symbol) => _send('certs/'+symbol);
+
+        service.AssetInfo = (symbol) => _send('asset/' + symbol);
+
+        service.AssetStakes = (symbol) => _send('stakes/' + symbol);
 
         service.MiningInfo = () => _send('mining');
 
@@ -58,7 +63,13 @@
 
         service.Pricing = () => _send('pricing');
 
-        service.Chart = () => _send('part-of-cake');
+        service.DepositSum = () => _send('depositsum');
+
+        service.DepositRewards = () => _send('rewards');
+
+        service.Chart = () => _send('poolstats');
+
+        service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 
         return service;
 

@@ -13,7 +13,12 @@
 
 				<nav class="menu cn-menu fl">
 					<ul class="dis-tablecell height50">
-            <li><a href="#!/assets" ng-class="{selectedMenu: selectedMenu.main==='assets'}" class="cool-line">{{'TOP_MENU_ASSETS'|translate}}</a></li>
+						<li><a href="#!/" ng-class="{selectedMenu: selectedMenu.main===''}" class="cool-line">{{'TOP_MENU_HOME'|translate}}</a></li>
+						<li><a href="#!/assets" ng-class="{selectedMenu: selectedMenu.main==='assets'}" class="cool-line">{{'TOP_MENU_ASSETS'|translate}}</a></li>
+						<li><a href="#!/avatars" ng-class="{selectedMenu: selectedMenu.main==='avatars'}" class="cool-line">{{'TOP_MENU_AVATARS'|translate}}</a></li>
+						<li><a href="#!/txs" ng-class="{selectedMenu: selectedMenu.main==='txs'}" class="cool-line">{{'TOP_MENU_TXS'|translate}}</a></li>
+						<li><a href="#!/blocks" ng-class="{selectedMenu: selectedMenu.main==='blocks'}" class="cool-line">{{'TOP_MENU_BLOCKS'|translate}}</a></li>
+						<li><a href="#!/mining" ng-class="{selectedMenu: selectedMenu.main==='mining'}" class="cool-line">{{'TOP_MENU_MINING'|translate}}</a></li>
             <li><a href="#!/api" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='api'}">{{'TOP_MENU_API'|translate}}</a></li>
             <li><a href="http://mymvs.info" class="cool-line" target="_blank">{{'THIRD_PARTY_EXPLORER'|translate}}</a></li>
           </ul>
@@ -41,23 +46,62 @@
 <!--header end-->
 
 <div class="container">
-    <div>
-        <a class="center" href="#!/" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
-    </div>
-		<div class="testnet">Testnet</div>
-    <div ng-controller="SearchController">
-        <form>
-            <div ng-class="{ 'alert': flash, 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error' }" ng-if="flash" ng-bind="flash.message"></div>
-
-            <div class="">
-                <div class="input-group search-group">
-                    <input type="text" class="form-control searchbox" name="hash" ng-model="search_field" autocomplete="off" ng-enter="search()" required placeholder="{{'EXPLORER.SEARCH_LABEL' | translate}}">
-                    <a class="input-group-addon button" ng-click="search()">
-                        <i class="icon-search searchIcon" aria-hidden="true"></i></a>
-                </div>
-        </form>
-        </div>
-    </div>
+		<div ng-controller="SearchController as ctrl" layout="column" ng-cloak="" class="autocompleteSearch">
+				<md-content layout-padding="" layout="column">
+						<form ng-submit="$event.preventDefault()">
+								<md-autocomplete flex
+												md-hide-autocomplete-on-enter
+												md-no-cache="noCache"
+												md-selected-item="selectedItem"
+												md-search-text-change="searchTextChange(searchText)"
+												md-search-text="searchText"
+												ng-enter="presEnterSearch(searchText)"
+												md-selected-item-change="selectedItemChange(item)"
+												md-items="item in querySearch(searchText)"
+												md-item-text="item.name"
+												md-min-length="0"
+												md-delay="1000"
+												placeholder="{{'EXPLORER.SEARCH_LABEL' | translate}}"
+												md-clear-button="true"
+												md-menu-class="autocomplete-custom-template">
+											<md-item-template>
+													<a href="#!/{{item.url}}">
+															<div class="item-title overflow">
+																	<img ng-if="item.type == 'asset'" check-image ng-src="../img/assets/{{item.icon}}.png">
+																	<span ng-if="item.type == 'tx'" ><i class="fas fa-exchange-alt"></i></span>
+																	<span ng-if="item.type == 'blockHeight' || item.type == 'blockHash'" ><i class="fas fa-cube"></i></span>
+																	<span ng-if="item.type == 'address'" ><i class="far fa-address-card"></i></span>
+																	<span ng-if="item.type == 'avatar'" ><i class="far fa-address-card"></i></span>
+																	<span> {{item.name}} </span>
+															</div>
+															<div class="item-metadata overflow">
+																	<span>
+																			<strong>
+																				<span ng-if="item.type == 'asset'">{{'SUGGESTION.TYPE_ASSET' | translate}}</span>
+																				<span ng-if="item.type == 'avatar'">{{'SUGGESTION.TYPE_AVATAR' | translate}}</span>
+																				<span ng-if="item.type == 'tx'" >{{'SUGGESTION.TYPE_TX' | translate}}</span>
+																				<span ng-if="item.type == 'blockHeight'" >{{'SUGGESTION.TYPE_BLOCK_HEIGHT' | translate}}</span>
+																				<span ng-if="item.type == 'blockHash'" >{{'SUGGESTION.TYPE_BLOCK_HASH' | translate}}</span>
+																				<span ng-if="item.type == 'address'" >{{'SUGGESTION.TYPE_ADDRESS' | translate}}</span>
+																			</strong>
+																	</span>
+																	<span ng-if="item.nbrtx">
+																			({{item.nbrtx}} transactions)
+																	</span>
+																	<span ng-if="item.height">
+																			(Block {{item.height}})
+																	</span>
+															</div>
+													</a>
+											</md-item-template>
+											<md-not-found>
+													{{'MESSAGES.ERROR_SEARCH_NOT_FOUND' | translate}}
+											</md-not-found>
+									</md-autocomplete>
+						</form>
+				</md-content>
+		</div>
+>>>>>>> dev
     <ui-view></ui-view>
 </div>
 
@@ -75,7 +119,7 @@
 				<a href="http://blog.mvs.org/" target="_blank"><i class="fas fa-bold fa-2x"></i></a>
     </div>
     <div class="center-text" id="copyright">
-        {{"COPYRIGHT_TEXT"|translate}}
+        {{"COPYRIGHT_TEXT"|translate}} {{"DONATION_TEXT"|translate:'{address: "MDZREnssXgg67hVjzVPu8QKrGgCEKZrwaK"}'}}
     </div>
 </footer>
 

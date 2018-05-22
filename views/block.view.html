@@ -12,8 +12,8 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value">
-                    <p>{{ block.hash }}</p>
+                <div class="col-md-9 list-item-value hash-mono">
+                    <p class="block-hash">{{ block.hash }}</p>
                 </div>
             </div>
             <div class="row">
@@ -26,7 +26,7 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.MIX_HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ block.mixhash }}</div>
+                <div class="col-md-9 list-item-value hash-mono">{{ block.mixhash }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.VERSION' | translate }}</div>
@@ -38,60 +38,79 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.MERKLE_TREE_HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ block.merkle_tree_hash }}</div>
+                <div class="col-md-9 list-item-value hash-mono">{{ block.merkle_tree_hash }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.PREVIOUS_BLOCK_HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ block.previous_block_hash }}</div>
+                <div class="col-md-9 list-item-value hash-mono">{{ block.previous_block_hash }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'EXPLORER.BLOCK_TIME' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ block.time_stamp * 1000 | date: ( 'GENERAL.DATE_FORMAT' | translate ) }}</div>
+                <div class="col-md-9 list-item-value">{{ block.time_stamp * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
+                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (block.orphan != 0)">{{ 'BLOCK.ORPHAN' | translate}}</div>
+                <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (block.orphan == 0) && confirmations > 100">{{ 'BLOCK.CONFIRMED' | translate}}</div>
+                <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (block.orphan == 0) && confirmations <= 100">{{ confirmations }}</div>
+                <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>
             </div>
         </div>
     </div>
-    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_block">
-        <h2 class="headline"><em></em>{{ 'EXPLORER.TXS' | translate }}</h2>
-        <div class="col-md-12">
-            <div class="panel" ng-repeat="tx in block.transactions">
+    <h2 class="headline"><em></em>{{ 'EXPLORER.TXS' | translate }}</h2>
+    <div ng-show="loading_txs">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_txs">
+        <div class="col-md-12 panel" ng-repeat="tx in txs">
+            <div class="panel-body">
+                <div class="row tx-head">
+                    <div class="col-md-9 col-sm-12 break">
+                        <a class="hash-mono" href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
+                    </div>
 
-                <div class="panel-body">
-                    <div class="row tx-head">
-                        <div class="col-md-9 col-sm-12 break">
-                            <a href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a>
+                    <div class="col-md-3 col-sm-12">
+                        <div class="right">{{tx.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
+                        <div class="row" ng-repeat="input in tx.inputs">
+                            <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
+                                <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <br>
+                                <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
+                            </div>
+                            <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
+                                <span ng-if="!input.address">{{'TX.INPUT_COINBASE'|translate}}</span>
+                                <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <br>
+                                <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'': 8}} ETP</span>
+                            </div>
                         </div>
-
-                        <div class="col-md-3 col-sm-12">
-                            <div class="right slide-left">{{tx.timestamp * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>
+                        <div ng-if="tx.inputs.length>4">
+                            <a href="#!/tx/{{tx.hash}}">...</a>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-5">
-                            <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
-                            <div class="row" ng-repeat="input in tx.inputs">
-                                <div class="col-md-12 break">
-                                    <span ng-if="!input.address">coinbase</span>
-                                    <a ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
-                                    <br>
-                                    <span ng-if="input.address && $index < 5">{{input.quantity | numberFormat:input.asset.decimals | currency:'': input.asset.decimals}} {{input.asset.symbol}}</span>
+                    <div class="col-md-1 center-text">
+                        <i class="icon-arrow-right2"></i>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
+                        <div class="row" ng-repeat="output in tx.outputs">
+                            <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                                <br>
+                                <div class="right">
+                                    {{output.attachment.quantity | numberFormat:output.attachment.decimals|currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
                                 </div>
                             </div>
-                            <div ng-if="tx.inputs.length>4">
-                                <a href="#!/tx/{{tx.hash}}">...</a>
-                            </div>
-                        </div>
-                        <div class="col-md-1 center-text">
-                            <i class="icon-arrow-right2"></i>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
-                            <div class="row" ng-repeat="output in tx.outputs">
-                                <div class="col-md-12 right break">
-                                    <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
-                                    <br>
-                                    <div class="right">
-                                        {{output.quantity | numberFormat:output.asset.decimals|currency:'':output.asset.decimals}} {{output.asset.symbol}}
-                                    </div>
+                            <div ng-if="output.value != 0" class="col-md-12 right break">
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                                <br>
+                                <div class="right">
+                                    {{output.value | numberFormat:8|currency:'':8}} ETP
                                 </div>
                             </div>
                         </div>

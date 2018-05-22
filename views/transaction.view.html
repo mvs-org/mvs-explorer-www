@@ -6,47 +6,81 @@
     </div>
     <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_tx">
         <div class="col-md-12 panel-body">
-
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ transaction.hash }}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
-                <div class="col-md-9 list-item-value" ng-hide="loading_confirmation">{{confirmations}}</div>
-                <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>
+                <div class="col-md-9 list-item-value hash-mono">{{ transaction.hash }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.BLOCK' | translate }}</div>
-                <div class="col-md-9 list-item-value"><a href="#!/blk/{{transaction.block_height}}">{{ transaction.block_height }}</a></div>
+                <div class="col-md-9 list-item-value"><a href="#!/blk/{{transaction.block}}">{{ transaction.height }}</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 list-item-label">{{ 'TX.TIMESTAMP' | translate }}</div>
+                <div class="col-md-9 list-item-value">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
+                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan != 0)">{{ 'TX.ORPHAN' | translate}}</div>
+                <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations > 100">{{ 'TX.CONFIRMED' | translate}}</div>
+                <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations <= 100">{{ confirmations }}</div>
+                <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>
+            </div>
+
+            <hr ng-show="messages.length > 0">
+            <div class="row" ng-show="messages.length > 0">
+                <div class="col-md-12 list-item-value">{{ 'TX.MEMO' | translate }}</div>
+                <div class="col-md-12 list-item-label" ng-repeat="message in messages">{{ message }}</div>
             </div>
 
             <hr>
             <div class="row">
                 <div class="col-md-5">
                     <div class="row" ng-repeat="input in transaction.inputs">
-                        <div class="col-md-5">
-                            <span ng-if="input.address">{{input.value| numberFormat:input.decimals|currency:'':input.decimals}} {{input.asset}}</span>
+
+                        <div ng-if="input.attachment.symbol != 'ETP'">
+                            <div class="col-md-5">
+                                <span>{{input.attachment.quantity| numberFormat:input.attachment.decimals | currency:'':input.attachment.decimals}} {{input.attachment.symbol}}</span>
+                            </div>
+                            <div class="col-md-7">
+                                <a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a>
+                                <div class="io-script">{{input.script}}</div>
+                            </div>
                         </div>
-                        <div class="col-md-7">
-                            <span ng-if="!input.address">coinbase</span>
-                            <a ng-if="input.address" href="#!/adr/{{input.address}}">{{ input.address }}</a>
-                            <div class="io-script">{{input.script}}</div>
+                        <div ng-if="input.value != 0 || input.address == ''">
+                            <div class="col-md-5">
+                                <span ng-if="input.address">{{input.value| numberFormat:8|currency:'':8}} ETP</span>
+                            </div>
+                            <div class="col-md-7">
+                                <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
+                                <a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <div class="io-script">{{input.script}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-1 transaction-arrow">
                     <i class="icon-arrow-right2"></i>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 right">
                     <div class="row" ng-repeat="output in transaction.outputs">
-                        <div class="col-md-7">
-                            <a href="#!/adr/{{output.address}}">{{ output.address }}</a>
-                            <div class="io-script">{{output.script}}</div>
+                        <div ng-if="output.attachment.symbol != 'ETP'">
+                            <div class="col-md-7">
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a>
+                                <div class="io-script">{{output.script}}</div>
+                            </div>
+                            <div class="col-md-5 right">
+                                {{output.attachment.quantity | numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
+                            </div>
                         </div>
-                        <div class="col-md-5 right">
-                            {{output.value | numberFormat:output.decimals|currency:'':output.decimals}} {{output.asset}}
-                            <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
+                        <div ng-if="output.value != 0">
+                            <div class="col-md-7">
+                                <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
+                                <div class="io-script">{{output.script}}</div>
+                            </div>
+                            <div class="col-md-5 right">
+                                {{output.value | numberFormat:8|currency:'':8}} ETP
+                                <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
+                            </div>
                         </div>
                     </div>
                 </div>
