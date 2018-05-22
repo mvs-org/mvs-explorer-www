@@ -15,31 +15,31 @@
     <div class="row nga-default nga-stagger nga-fade" ng-hide="loading">
         <div class="col-md-12 hidden-xs hidden-sm">
             <div class="row panel list-item nga-default nga-stagger nga-fade">
-                <div class="col-md-3">{{ 'AVATAR.SYMBOL' | translate }}</div>
-                <div class="col-md-2">{{ 'AVATAR.ADDRESS' | translate }}</div>
-                <div class="col-md-2">{{ 'AVATAR.CREATED_AT' | translate }}</div>
-                <div class="col-md-5">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
+                <div class="col-md-4">{{ 'AVATAR.SYMBOL' | translate }}</div>
+                <div class="col-md-4">{{ 'AVATAR.ADDRESS' | translate }}</div>
+                <div class="col-md-2">{{ 'AVATAR.CREATION_DATE' | translate }}</div>
+                <div class="col-md-2">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
             </div>
 
-            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="avatar in avatars | orderBy:['height'] ">
-                <div class="col-md-3">
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="avatar in avatars | orderBy:'height':true">
+                <div class="col-md-4">
                   <h4><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h4>
                 </div>
-                <div class="col-md-2">{{avatar.address}}</div>
+                <div class="col-md-4 address-mono"><a href="#!/adr/{{avatar.address}}">{{avatar.address}}</a></div>
                 <div class="col-md-2">{{avatar.confirmed_at * 1000| date}}</div>
-                <div class="col-md-5">{{avatar.height}}</div>
+                <div class="col-md-2">{{avatar.height}}</div>
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in assets | orderBy:['height'] ">
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="avatar in avatars | orderBy:'height':true">
             <h3><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h3>
             <table class="col-xs-12 col-sm-12">
                 <tr>
                     <th>{{ 'AVATAR.ADDRESS' | translate }}</th>
-                    <td>{{avatar.address}}</td>
+                    <td class="address-mono"><a href="#!/adr/{{avatar.address}}">{{avatar.address}}</a></td>
                 </tr>
                 <tr>
-                    <th>{{ 'AVATAR.CREATED_AT' | translate }}</th>
+                    <th>{{ 'AVATAR.CREATION_DATE' | translate }}</th>
                     <td>{{avatar.confirmed_at*1000|date}}</td>
                 </tr>
                 <tr>

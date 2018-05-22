@@ -217,7 +217,7 @@
         $scope.icons = Assets.hasIcon;
 
         function init() {
-            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS'])
+            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS', 'SUGGESTION.SHOW_ALL_AVATARS'])
                 .then((translations) => {
                     $scope.initialSuggestion.push({
                         'name': translations['SUGGESTION.SHOW_ALL_TX'],
