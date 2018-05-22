@@ -8,7 +8,4 @@ RUN apt-get update \
     && apt-get install -y nodejs \
     && npm install -g grunt-cli
 
-COPY . /usr/share/nginx/html
-WORKDIR /usr/share/nginx/html
-
-RUN npm install && grunt
+COPY ./dist /usr/share/nginx/html
