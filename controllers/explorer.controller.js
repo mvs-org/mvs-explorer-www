@@ -590,7 +590,7 @@
                             $scope.tokens = response.data.result.tokens;
                             $scope.definitions = response.data.result.definitions;
                             for (var symbol in $scope.definitions) {
-                                $scope.definitions[symbol].priority = (typeof $scope.priority[symbol] != 'undefined') ? $scope.priority[symbol] : 1000;
+                                $scope.definitions[symbol].priority = (typeof $scope.priority[symbol] != 'undefined' && symbol != 'ETP') ? $scope.priority[symbol] : 1000;
                             }
 
                             $scope.addressAssets = [];
@@ -665,13 +665,14 @@
             MetaverseService.ListAssets()
                 .then((response) => {
                     $scope.loading_assets = false;
+                    $scope.assets = [];
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $scope.assets = response.data.result;
+                        response.data.result.forEach(function(asset) {
+                            asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined' && asset.symbol != 'ETP') ? $scope.priority[asset.symbol] : 1000;
+                            asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) && asset.symbol != 'ETP' ? asset.symbol : 'default';
+                            $scope.assets.push(asset);
+                        });
                     }
-                    $scope.assets.forEach(function(asset) {
-                        asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
-                        asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default';
-                    });
                     NProgress.done();
                 });
         }
@@ -1013,8 +1014,10 @@
                     addasset.name = asset;
                     addasset.url = "asset/" + asset;
                     addasset.type = "asset";
-                    addasset.icon = $scope.icons.indexOf(asset) > -1 ? asset : 'default';
-                    result.push(addasset);
+                    addasset.icon = $scope.icons.indexOf(asset) > -1 && asset != 'ETP' ? asset : 'default';
+                    if (asset != 'ETP') {
+                        result.push(addasset);
+                    }
                 }))
                 .then(() => result);
         }
