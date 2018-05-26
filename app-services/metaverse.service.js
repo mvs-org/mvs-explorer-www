@@ -13,7 +13,8 @@
     function MetaverseService($http, localStorageService) {
         var service = {};
 
-      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      //var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      var SERVER = "http://localhost";
 
       service.SERVER = SERVER;
         /**
@@ -31,7 +32,7 @@
 
         service.FetchTx = (hash) => _send('tx/' + hash);
 
-        service.ListBlocks = (page) => _send('blocks/' + page);
+        service.ListBlocks = (page, items_per_page) => _send('blocks?page=' + page + '&items_per_page=' + items_per_page);
 
         service.BlockStats = (page) => _send('stats/block');
 
@@ -41,17 +42,19 @@
 
         service.Block = (number) => _send('block/' + number);
 
-        service.BlockTxs = (blockhash) =>  _send('block/txs/' + blockhash);
+        service.BlockTxs = (blockhash) => _send('block/txs/' + blockhash);
 
-        service.Txs = (page, min_time, max_time) =>  _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time:'') + ((max_time) ? '&max_time=' + max_time : ''));
+        service.Txs = (page, min_time, max_time) => _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.ListAssets = (number) => _send('assets');
 
-        service.ListAvatars = () => _send('avatars');
+        service.ListAvatars = (page, items_per_page) => _send('avatars?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+
+        service.ListCerts = (page, items_per_page) => _send('certs?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
 
         service.FetchAvatar = (symbol) => _send('avatar/'+symbol);
 
-        service.FetchCerts = (symbol) => _send('certs/'+symbol);
+        service.FetchCerts = (symbol, show_invalidated) => _send('certs/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
 
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
 

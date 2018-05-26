@@ -23,6 +23,20 @@
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
             </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.SECONDARY_ISSUE' | translate }}</div>
+                <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold == 0">{{ 'ASSET.SECONDARY_ISSUE_DISABLED' | translate }}</div>
+                <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold == 127">{{ 'ASSET.SECONDARY_ISSUE_UNLIMITED' | translate }}</div>
+                <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold != 0 && asset.secondaryissue_threshold != 127">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.INITIAL_MAX_SUPPLY' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.ADDED_VIA_SECONDARY_ISSUE' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+            </div>
             <div class="row" ng-show="asset.symbol == 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'NUMBER_OF_COINS' | translate }}</div>
                 <div ng-show="loading_circulation" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
