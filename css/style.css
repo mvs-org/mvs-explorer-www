@@ -441,7 +441,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	display:block;
 	width:100%;
 	height:50px;
-  background: red;
+  background: rgba(249,249,249,.9);
 	z-index:99;
 	-webkit-transition:all .2s;
 	-moz-transition:all .2s;
@@ -1167,13 +1167,6 @@ ul, li{
 .footer-icons a:hover, .footer-icons a:focus {
   color: white;
 }
-
-.testnet {
-  width: 100%;
-  color: black;
-  margin-bottom: 50px;
-  text-align: center;
-  font-size: 48px;
 
 .asset-symbol {
   padding-right: 50px;
