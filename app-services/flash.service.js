@@ -11,6 +11,7 @@
 
         service.Success = Success;
         service.Error = Error;
+        service.CloseFlashMessage = CloseFlashMessage;
 
         initService();
 
@@ -48,6 +49,10 @@
                 type: 'error',
                 keepAfterLocationChange: keepAfterLocationChange
             };
+        }
+
+        function CloseFlashMessage() {
+            delete $rootScope.flash;
         }
     }
 

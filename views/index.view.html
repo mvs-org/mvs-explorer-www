@@ -16,6 +16,7 @@
 						<li><a href="#!/" ng-class="{selectedMenu: selectedMenu.main===''}" class="cool-line">{{'TOP_MENU_HOME'|translate}}</a></li>
 						<li><a href="#!/assets" ng-class="{selectedMenu: selectedMenu.main==='assets'}" class="cool-line">{{'TOP_MENU_ASSETS'|translate}}</a></li>
 						<li><a href="#!/avatars" ng-class="{selectedMenu: selectedMenu.main==='avatars'}" class="cool-line">{{'TOP_MENU_AVATARS'|translate}}</a></li>
+						<li><a href="#!/certs" ng-class="{selectedMenu: selectedMenu.main==='certs'}" class="cool-line">{{'TOP_MENU_CERTS'|translate}}</a></li>
 						<li><a href="#!/txs" ng-class="{selectedMenu: selectedMenu.main==='txs'}" class="cool-line">{{'TOP_MENU_TXS'|translate}}</a></li>
 						<li><a href="#!/blocks" ng-class="{selectedMenu: selectedMenu.main==='blocks'}" class="cool-line">{{'TOP_MENU_BLOCKS'|translate}}</a></li>
 						<li><a href="#!/mining" ng-class="{selectedMenu: selectedMenu.main==='mining'}" class="cool-line">{{'TOP_MENU_MINING'|translate}}</a></li>
@@ -46,6 +47,17 @@
 <!--header end-->
 
 <div class="container">
+
+		<div class="alert" ng-class="{ 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error', 'alert-info': flash.type === 'info', 'alert-warning': flash.type === 'warning' }" ng-if="flash" >
+				<button type="button" class="close" ng-click="ClickCloseFlashMessage()">X</button>
+				<div class="flashMessage" ng-bind="flash.message">
+				</div>
+		</div>
+
+    <!--div>
+        <a class="center" href="#!/" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
+    </div-->
+
 		<div ng-controller="SearchController as ctrl" layout="column" ng-cloak="" class="autocompleteSearch">
 				<md-content layout-padding="" layout="column">
 						<form ng-submit="$event.preventDefault()">

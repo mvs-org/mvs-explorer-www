@@ -4,15 +4,16 @@
 
     <h4 class="assets-count">
       <span>{{ 'AVATARS.COUNT' | translate }}: </span>
-      <span ng-show="loading_assets"><img src="../images/spinner.gif"></span>
-      <span ng-hide="loading_assets">{{avatars.length}}</span>
+      <span ng-show="loading_avatars"><img src="../images/spinner.gif"></span>
+      <span ng-hide="loading_avatars">{{total_count}}</span>
     </h4>
 
-    <div ng-if="loading_assets">
+    <div ng-show="loading_avatars">
         <div class="mini-loader">Loading...</div>
     </div>
 
-    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading">
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_avatars">
+
         <div class="col-md-12 hidden-xs hidden-sm">
             <div class="row panel list-item nga-default nga-stagger nga-fade">
                 <div class="col-md-4">{{ 'AVATAR.SYMBOL' | translate }}</div>
@@ -21,7 +22,8 @@
                 <div class="col-md-2">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
             </div>
 
-            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="avatar in avatars | orderBy:'height':true">
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" dir-paginate="avatar in avatars | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+
                 <div class="col-md-4">
                   <h4><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h4>
                 </div>
@@ -31,7 +33,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="avatar in avatars | orderBy:'height':true">
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="avatar in avatars | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
             <h3><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h3>
             <table class="col-xs-12 col-sm-12">
                 <tr>
@@ -48,5 +50,6 @@
                 </tr>
             </table>
         </div>
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
     </div>
 </div>

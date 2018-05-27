@@ -12,7 +12,7 @@
 
         $scope.switchPage = (page) => {
             $scope.loading = true;
-            return MetaverseService.ListBlocks(page - 1)
+            return MetaverseService.ListBlocks(page - 1, $scope.items_per_page)
                 .then((response) => {
                     $scope.blocks = response.data.result.result;
                     $scope.total_count = response.data.result.count;
