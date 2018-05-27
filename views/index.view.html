@@ -47,6 +47,13 @@
 <!--header end-->
 
 <div class="container">
+
+		<div class="alert" ng-class="{ 'alert-success': flash.type === 'success', 'alert-danger': flash.type === 'error', 'alert-info': flash.type === 'info', 'alert-warning': flash.type === 'warning' }" ng-if="flash" >
+				<button type="button" class="close" ng-click="ClickCloseFlashMessage()">X</button>
+				<div class="flashMessage" ng-bind="flash.message">
+				</div>
+		</div>
+
     <!--div>
         <a class="center" href="#!/" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
     </div-->

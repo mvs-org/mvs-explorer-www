@@ -163,6 +163,9 @@
     "CERT.OWNER": "Owner",
     "CERT.CREATION_DATE": "Creation date",
     "CERT.CREATION_BLOCK": "Creation block",
-    "BROADCAST.HEADLINE": "Broadcast",
-    "BROADCAST.BUTTON": "Broadcast"
+    "BROADCAST.HEADLINE": "Broadcast transaction",
+    "BROADCAST.BUTTON": "Broadcast",
+    "MESSAGES.SUCCESS_BROADCAST_TX": "Transaction successfully broadcast! Your transaction hash is: ",
+    "MESSAGES.ERROR_BROADCAST_TX": "Error during the broadcast of the transaction",
+    "TX.BROADCAST_BTN": "Broadcast raw tx"
 }

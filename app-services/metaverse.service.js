@@ -13,8 +13,9 @@
     function MetaverseService($http, localStorageService) {
         var service = {};
 
-      //var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-      var SERVER = "http://localhost";
+      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      //var SERVER = "http://localhost";
+      //var SERVER = "https://explorer-testnet.mvs.org/api";
 
       service.SERVER = SERVER;
         /**
@@ -74,10 +75,20 @@
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 
+        service.Broadcast = (raw_transaction) => _post('tx', '{"tx":"' + raw_transaction + '"}');
+
         return service;
 
         function _send(query) {
             return $http.get(SERVER + "/" + query, {
+                    headers: {}
+                })
+                .then((res) => handleSuccess(res))
+                .catch((res) => handleError(res));
+        }
+
+        function _post(query, data) {
+            return $http.post(SERVER + "/" + query, data, {
                     headers: {}
                 })
                 .then((res) => handleSuccess(res))

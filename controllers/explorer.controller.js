@@ -131,7 +131,7 @@
 
     }
 
-    function ExplorerController($translate, localStorageService, $scope) {
+    function ExplorerController($translate, localStorageService, $scope, FlashService) {
 
         $scope.changeLang = changeLang;
         $scope.selectedLang = localStorageService.get('language');
@@ -142,6 +142,10 @@
                 .then((key) => localStorageService.set('language', key))
                 .catch((key) => console.log("Cannot change language."));
         };
+
+        $scope.ClickCloseFlashMessage = () => {
+          FlashService.CloseFlashMessage();
+        }
 
     }
 

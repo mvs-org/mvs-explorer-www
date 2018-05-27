@@ -500,8 +500,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	line-height:25px
 }
 .cn-menu.menu{
-	margin-left: 90px;
-	/*height: 70px;*/
+	margin-left: 20px;
 }
 .mbmenu-hide{
 	display: none;
@@ -1085,6 +1084,12 @@ a:hover{
 	}
 }
 
+@media only screen and (min-width: 1400px){
+  .cn-menu.menu{
+    margin-left: 90px;
+  }
+}
+
 
 
 @media only screen and (min-width: 1100px){
@@ -1280,7 +1285,7 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 
 .date-input {
-  margin-bottom: 40px;
+  margin-bottom: 10px;
 }
 
 .md-datepicker-input-container {
@@ -1311,4 +1316,36 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   .distrib-overview {
     padding-top: 0;
   }
+}
+
+.alert {
+  position: fixed;
+  z-index: 1000;
+  margin-top: 60px;
+  width: inherit;
+}
+
+.alert-wrapper {
+  width: 100%;
+}
+
+@media (max-width: 768px) {
+  .container {
+    width: calc(100% - 30px);
+  }
+}
+
+.container {
+  padding-right: 0;
+  padding-left: 0;
+}
+
+.md-button {
+  text-transform: none;
+}
+
+.broadcast-btn {
+  align: right;
+  margin-left: 0px;
+  margin-right: 0px;
 }

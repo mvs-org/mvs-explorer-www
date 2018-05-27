@@ -127,6 +127,11 @@
                 url: "/certs",
                 templateUrl: "views/certs.view.html",
                 controller: 'CertsController'
+            })
+            .state('explorer.broadcast', {
+                url: "/broadcast",
+                templateUrl: "views/broadcast.view.html",
+                controller: 'BroadcastTransactionController'
             });
         $urlRouterProvider.otherwise("/");
     };

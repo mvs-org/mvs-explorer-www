@@ -4,7 +4,8 @@
     angular
         .module('app')
         .controller('TransactionController', TransactionController)
-        .controller('TransactionsController', TransactionsController);
+        .controller('TransactionsController', TransactionsController)
+        .controller('BroadcastTransactionController', BroadcastTransactionController);
 
     function TransactionsController($scope, MetaverseService) {
 
@@ -84,6 +85,32 @@
                     }
                 });
         }
+    }
+
+    function BroadcastTransactionController($scope, MetaverseService, FlashService, $translate) {
+
+        $scope.raw_transaction = '';
+
+        $scope.broadcast = function() {
+            return MetaverseService.Broadcast($scope.raw_transaction)
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined' && typeof response.data.result.hash !== 'undefined') {
+                        $translate('MESSAGES.SUCCESS_BROADCAST_TX').then((data) => FlashService.Success(data + response.data.result.hash, true));
+                    } else {
+                        if (typeof response.data.result.code !== 'undefined' && typeof response.data.result.error !== 'undefined') {
+                            $translate('MESSAGES.ERROR_BROADCAST_TX').then((data) => FlashService.Error(data + ": " + response.data.result.code + ", " + response.data.result.error, true));
+                        } else {
+                            $translate('MESSAGES.ERROR_BROADCAST_TX').then((data) => FlashService.Error(data, true));
+                        }
+
+                    }
+                })
+                .catch((error) => {
+                    $translate('MESSAGES.ERROR_BROADCAST_TX').then((data) => FlashService.Error(data, true));
+                    console.error(error);
+                });
+        }
+
     }
 
 })();
