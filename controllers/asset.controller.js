@@ -44,6 +44,7 @@
         $scope.getDepositSum = getDepositSum;
         $scope.getDepositRewards = getDepositRewards;
         $scope.icons = Assets.hasIcon;
+        $scope.showSecondaryHistory = false;
 
         if ($scope.symbol != undefined && $scope.symbol != "ETP") {
             NProgress.start();
@@ -62,11 +63,13 @@
             $scope.loading_asset = false;
             $scope.asset = [];
             $scope.asset.symbol = "ETP";
+            $scope.asset.original_quantity = 10000000000000000;
             $scope.asset.quantity = 10000000000000000;
+            $scope.asset.secondaryissue_threshold = 0;
             $scope.asset.decimals = 8;
             $scope.asset.issuer = "mvs.org";
             $scope.asset.address = "MGqHvbaH9wzdr6oUDFz4S1HptjoKQcjRve";
-            $scope.asset.hash = "2a845dfa63a7c20d40dbc4b15c3e970ef36332b367500fd89307053cb4c1a2c1";
+            $scope.asset.issue_tx = "2a845dfa63a7c20d40dbc4b15c3e970ef36332b367500fd89307053cb4c1a2c1";
             $scope.asset.height = 0;
             $scope.asset.description = "MVS Official Token";
             $scope.asset.icon = "ETP";

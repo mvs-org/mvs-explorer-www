@@ -24,17 +24,17 @@
                 <div ng-show="update.address == avatar.address" class="col-md-4 list-item-label">{{ 'AVATAR.CURRENT_ADDRESS' | translate }}</div>
                 <div ng-show="update.address != avatar.address" class="col-md-4 list-item-label">{{ 'AVATAR.PREVIOUS_ADDRESS' | translate }}</div>
                 <div class="col-md-8 list-item-value">
-                  <a class="address-mono" href="#!/adr/{{avatar.original_address}}">{{update.address}}<a>
-                  <a href="#!/blk/{{update.height}}"> - {{ 'AVATAR.ADDRESS_FROM_HEIGHT' | translate }}{{update.height}} - {{update.confirmed_at * 1000| date}}<a>
+                    <a class="address-mono" href="#!/adr/{{avatar.original_address}}">{{update.address}}<a>
+                    <a href="#!/tx/{{update.issue_tx}}"> - {{ 'AVATAR.ADDRESS_FROM_HEIGHT' | translate }}{{update.height}} - {{update.confirmed_at * 1000| date}}<a>
                 </div>
             </div>
             <div class="row" ng-show="avatar.address!=avatar.original_address">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR.ORIGINAL_ADDRESS' | translate }}</div>
                 <div class="col-md-8 list-item-value">
-                  <a href="#!/adr/{{avatar.original_address}}" class="address-mono">{{avatar.original_address}}<a>
-                  <a href="#!/blk/{{avatar.height}}" ng-show="showAddressesHistory"> - {{ 'AVATAR.ADDRESS_FROM_HEIGHT' | translate }}{{avatar.height}} - {{avatar.confirmed_at * 1000| date}}<a>
-                  <a ng-show="!showAddressesHistory" ng-click="showAddressesHistory = true"><i class="fas fa-plus-circle"></i></a>
-                  <a ng-show="showAddressesHistory" ng-click="showAddressesHistory = false"><i class="fas fa-minus-circle"></i></a>
+                    <a href="#!/adr/{{avatar.original_address}}" class="address-mono">{{avatar.original_address}}<a>
+                    <a href="#!/tx/{{update.issue_tx}}" ng-show="showAddressesHistory"> - {{ 'AVATAR.ADDRESS_FROM_HEIGHT' | translate }}{{avatar.height}} - {{avatar.confirmed_at * 1000| date}}<a>
+                    <a ng-show="!showAddressesHistory" ng-click="showAddressesHistory = true"><i class="fas fa-plus-circle"></i></a>
+                    <a ng-show="showAddressesHistory" ng-click="showAddressesHistory = false"><i class="fas fa-minus-circle"></i></a>
                 </div>
             </div>
             <div class="row">
