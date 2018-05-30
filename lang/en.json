@@ -168,5 +168,12 @@
     "MESSAGES.SUCCESS_BROADCAST_TX": "Transaction successfully broadcast! Your transaction hash is: ",
     "MESSAGES.ERROR_BROADCAST_TX": "Error during the broadcast of the transaction",
     "TX.BROADCAST_BTN": "Broadcast raw tx",
-    "ASSET.SECONDARY_ISSUE_PAST": "Secondary Issue"
+    "ASSET.SECONDARY_ISSUE_PAST": "Secondary Issue",
+    "TX.TYPE_DID_ISSUE": "New Avatar: ",
+    "TX.TYPE_DID_TRANSFER": "Avatar transfer: ",
+    "TX.TYPE_ASSET_ISSUE": "Asset issue: ",
+    "TX.TYPE_ASSET_SECONDARY_ISSUE": "Asset Secondary Issue: ",
+    "TX.TYPE_ASSET_CERT_ISSUE": "Secondary Issue certificate: ",
+    "TX.TYPE_ASSET_CERT_DOMAIN": "Domain certificate: ",
+    "TX.TYPE_ASSET_CERT_NAMING": "Naming certificate: "
 }
