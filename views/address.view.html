@@ -27,7 +27,8 @@
                     <tr ng-if="asset.symbol==='ETP'">
                         <th>{{'BALANCE'|translate}}</th>
                         <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_address">{{info.ETP | numberFormat: 8|currency:'': 8}}</td>
+                        <td ng-show="!loading_address && info.ETP">{{info.ETP | numberFormat: 8|currency:'': 8}}</td>
+                        <td ng-show="!loading_address && !info.ETP">{{0 | numberFormat: 8|currency:'': 8}}</td>
                     </tr>
                     <tr ng-if="asset.symbol==='ETP'">
                         <th>{{'FROZEN'|translate}}</th>
