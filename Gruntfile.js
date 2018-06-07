@@ -46,6 +46,7 @@ module.exports = function(grunt) {
                     './min-safe/js/address.controller.js': ['./controllers/address.controller.js'],
                     './min-safe/js/transactions.controller.js': ['./controllers/transactions.controller.js'],
                     './min-safe/js/mining.controller.js': ['./controllers/mining.controller.js'],
+                    './min-safe/js/mits.controller.js': ['./controllers/mits.controller.js'],
                     './min-safe/app.js': ['./app.js']
                 }
             }

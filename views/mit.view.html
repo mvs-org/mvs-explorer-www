@@ -1,0 +1,68 @@
+<div class="content">
+    <div class="row">
+        <h2 class="headline col-sm-12"><em></em>{{ 'MIT.HEADLINE' | translate }}</h2>
+        <div class="headline col-md-8 col-xs-8 address-padding">
+            <h1>{{ initial_mit.attachment.symbol }}</h1>
+        </div>
+    </div>
+
+    <h2 class="headline"><em></em>{{ 'MIT.INFO' | translate }}</h2>
+    <div ng-show="loading_mit">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_mit">
+        <div class="col-md-12 panel-body">
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'MIT.SYMBOL' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ initial_mit.attachment.symbol }}</div>
+            </div>
+            <div class="row" ng-hide="showAddressesHistory">
+                <div class="col-md-4 list-item-label">{{ 'MIT.INITIAL_OWNER' | translate }}</div>
+                <div class="col-md-8 list-item-value"><a href="#!/avatar/{{initial_mit.attachment.to_did}}">{{initial_mit.attachment.to_did}}<a></div>
+            </div>
+            <div class="row" ng-hide="showAddressesHistory">
+                <div class="col-md-4 list-item-label">{{ 'MIT.CURRENT_OWNER' | translate }}</div>
+                <div class="col-md-8 list-item-value"><a href="#!/avatar/{{last_transfer.attachment.to_did}}">{{last_transfer.attachment.to_did}}<a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATED_AT' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{initial_mit.confirmed_at*1000|date:'medium'}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{initial_mit.height}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_TRANSACTION' | translate }}</div>
+                <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{initial_mit.tx}}">{{initial_mit.tx}}</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'MIT.CONTENT' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{initial_mit.attachment.content}}</div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="headline"><em></em>{{ 'MIT.TX_HISTORY' | translate }}</h2>
+    <div ng-show="loading_mit">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-hide="loading_mit">
+        <div class="panel-body">
+            <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
+                <span class="col-xs-4 overflow">{{ 'MIT.FROM_AVATAR' | translate }}</span>
+                <span class="col-xs-4 overflow">{{ 'MIT.TO_AVATAR' | translate }}</span>
+                <span class="col-xs-2 right right-overflow">{{ 'MIT.TX_TIME' | translate }}</span>
+                <span class="col-xs-2 right right-overflow">{{ 'MIT.TX_BLOCK' | translate }}</span>
+            </div>
+
+            <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="mit in mits | orderBy:'height':true">
+                <span ng-show="mit.attachment.status == 'registered'" class="col-xs-4 overflow"><i>{{ 'MIT.FIRST_TX' | translate }}</i></span>
+                <span ng-show="mit.attachment.status != 'registered'" class="col-xs-4 overflow"><a href="#!/avatar/{{previous_tx[mit.tx].attachment.to_did}}">{{previous_tx[mit.tx].attachment.to_did}}</a></span>
+                <span class="col-xs-4 overflow"><a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></span>
+                <span class="col-xs-2 right right-overflow"><a href="#!/tx/{{mit.tx}}">{{initial_mit.confirmed_at*1000|date:'medium'}}</a></span>
+                <span class="col-xs-2 right right-overflow"><a href="#!/blk/{{mit.height}}">{{mit.height}}</a></span>
+            </div>
+        </div>
+    </div>
+</div>

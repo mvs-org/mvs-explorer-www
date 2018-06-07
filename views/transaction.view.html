@@ -36,9 +36,14 @@
             <div class="row">
                 <div class="col-md-5">
                     <div class="row" ng-repeat="input in transaction.inputs">
-
                         <div ng-if="input.attachment.symbol != 'ETP'">
                             <div class="col-md-5">
+                                <div ng-show="input.attachment.type == 'did-transfer'">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div>
+                                <div ng-show="input.attachment.cert == 'issue'">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div>
+                                <div ng-show="input.attachment.cert == 'domain'">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>
+                                <div ng-show="input.attachment.cert == 'naming'">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>
+                                <div ng-show="input.attachment.type == 'mit' && input.attachment.status == 'registered'">{{'TX.TYPE_MIT_CREATION'|translate}}: </div>
+                                <div ng-show="input.attachment.type == 'mit' && input.attachment.status == 'transfered'">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div>
                                 <span>{{input.attachment.quantity| numberFormat:input.attachment.decimals | currency:'':input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div class="col-md-7">
@@ -69,6 +74,15 @@
                                 <div class="io-script">{{output.script}}</div>
                             </div>
                             <div class="col-md-5 right">
+                                <div ng-show="output.attachment.type == 'did-issue'">{{'TX.TYPE_DID_ISSUE'|translate}}: </div>
+                                <div ng-show="output.attachment.type == 'did-transfer'">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue">{{'TX.TYPE_ASSET_ISSUE'|translate}}: </div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && output.attachment.is_secondaryissue">{{'TX.TYPE_ASSET_SECONDARY_ISSUE'|translate}}: </div>
+                                <div ng-show="output.attachment.cert == 'issue'">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div>
+                                <div ng-show="output.attachment.cert == 'domain'">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>
+                                <div ng-show="output.attachment.cert == 'naming'">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>
+                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'">{{'TX.TYPE_MIT_CREATION'|translate}}: </div>
+                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div>
                                 {{output.attachment.quantity | numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
                             </div>
                         </div>

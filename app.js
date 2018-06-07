@@ -123,6 +123,11 @@
                 templateUrl: "views/assetslist.view.html",
                 controller: 'AssetsListController'
             })
+            .state('explorer.mstlist', {
+                url: "/msts",
+                templateUrl: "views/assetslist.view.html",
+                controller: 'AssetsListController'
+            })
             .state('explorer.certs', {
                 url: "/certs",
                 templateUrl: "views/certs.view.html",
@@ -132,6 +137,16 @@
                 url: "/broadcast",
                 templateUrl: "views/broadcast.view.html",
                 controller: 'BroadcastTransactionController'
+            })
+            .state('explorer.mits', {
+                url: "/mits",
+                templateUrl: "views/mits.view.html",
+                controller: 'MitsController'
+            })
+            .state('explorer.mit', {
+                url: "/mit/:symbol",
+                templateUrl: "views/mit.view.html",
+                controller: 'MitController'
             });
         $urlRouterProvider.otherwise("/");
     };

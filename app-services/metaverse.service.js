@@ -53,9 +53,13 @@
 
         service.ListCerts = (page, items_per_page) => _send('certs?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
 
+        service.ListMits = (page, items_per_page) => _send('mits?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+
         service.FetchAvatar = (symbol) => _send('avatar/'+symbol);
 
         service.FetchCerts = (symbol, show_invalidated) => _send('certs/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
+
+        service.FetchMit = (symbol, show_invalidated) => _send('mits/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
 
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
 
