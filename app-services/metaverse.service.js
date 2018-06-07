@@ -43,7 +43,7 @@
 
         service.Block = (number) => _send('block/' + number);
 
-        service.BlockTxs = (blockhash) => _send('block/txs/' + blockhash);
+        service.BlockTxs = (blockhash, page, items_per_page) => _send('block/txs/' + blockhash + ((page) ? '?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : '') : ''));
 
         service.Txs = (page, min_time, max_time) => _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 

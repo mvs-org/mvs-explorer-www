@@ -62,7 +62,7 @@
         <div class="mini-loader">Loading...</div>
     </div>
     <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_txs">
-        <div class="col-md-12 panel" ng-repeat="tx in txs">
+        <div class="col-md-12 panel" dir-paginate="tx in txs | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
             <div class="panel-body">
                 <div class="row tx-head">
                     <div class="col-md-9 col-sm-12 break">
@@ -118,6 +118,7 @@
                 </div>
             </div>
         </div>
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
     </div>
 
 </div>

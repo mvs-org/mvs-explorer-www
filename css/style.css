@@ -1349,3 +1349,11 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   margin-left: 0px;
   margin-right: 0px;
 }
+
+.ng-hide.ng-hide-animate {
+  display: none !important;
+}
+
+.inline {
+  display: inline-block;;
+}
