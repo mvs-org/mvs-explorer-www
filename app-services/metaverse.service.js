@@ -11,7 +11,7 @@
     MetaverseService.$inject = ['$http', 'localStorageService'];
 
     function MetaverseService($http, localStorageService) {
-        var service = {};
+      var service = {};
 
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
       //var SERVER = "http://localhost";
