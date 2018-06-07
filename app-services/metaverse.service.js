@@ -13,8 +13,8 @@
     function MetaverseService($http, localStorageService) {
         var service = {};
 
-      //var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-      var SERVER = "http://localhost";
+      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      //var SERVER = "http://localhost";
       //var SERVER = "https://explorer-testnet.mvs.org/api";
 
       service.SERVER = SERVER;
