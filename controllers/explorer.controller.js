@@ -221,7 +221,7 @@
         $scope.icons = Assets.hasIcon;
 
         function init() {
-            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS', 'SUGGESTION.SHOW_ALL_AVATARS'])
+            $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS', 'SUGGESTION.SHOW_ALL_AVATARS', 'SUGGESTION.SHOW_ALL_MITS'])
                 .then((translations) => {
                     $scope.initialSuggestion.push({
                         'name': translations['SUGGESTION.SHOW_ALL_TX'],
@@ -243,6 +243,11 @@
                         'name': translations['SUGGESTION.SHOW_ALL_AVATARS'],
                         'url': 'avatars',
                         'type': 'avatar'
+                    });
+                    $scope.initialSuggestion.push({
+                        'name': translations['SUGGESTION.SHOW_ALL_MITS'],
+                        'url': 'mits',
+                        'type': 'mit'
                     });
                 });
         }
@@ -272,7 +277,7 @@
                         if (!isNaN(search_field))
                             show_block(search_field);
                         else
-                            show_asset($filter('uppercase')(search_field));
+                            show_asset(search_field);
                 }
             }
         }
@@ -330,13 +335,21 @@
 
         function show_asset(search_field) {
             NProgress.start();
-            MetaverseService.AssetInfo(search_field)
+            MetaverseService.AssetInfo($filter('uppercase')(search_field))
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
                         $location.path('/asset/' + search_field);
                     } else {
-                        $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
+                        MetaverseService.MitInfo(search_field)
+                            .then((response) => {
+                                if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                                    $location.path('/mit/' + search_field);
+                                } else {
+                                    $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                                        .then((data) => FlashService.Error(data));
+                                }
+                                NProgress.done();
+                            });
                     }
                     NProgress.done();
                 });
@@ -360,7 +373,7 @@
         }
 
         function setResults(text, result) {
-            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsAvatar(result.avatar), setResultsTx(result.tx), setResultsBlockHash(result.block)])
+            return Promise.all([setResultsInit(text), setResultsAsset(result.asset), setResultsAddress(result.address), setResultsAvatar(result.avatar), setResultsMit(result.mit), setResultsTx(result.tx), setResultsBlockHash(result.block)])
                 .then((results) => results.reduce((acc, val) => acc.concat(val)));
         }
 
@@ -433,6 +446,16 @@
                     url: "blk/" + block.h,
                     height: block.n,
                     type: "blockHash"
+                };
+            });
+        }
+
+        function setResultsMit(mits) {
+            return mits.map((mit) => {
+                return {
+                    name: mit,
+                    url: 'mit/' + mit,
+                    type: 'mit'
                 };
             });
         }

@@ -82,9 +82,10 @@
 															<div class="item-title overflow">
 																	<img ng-if="item.type == 'asset'" check-image ng-src="../img/assets/{{item.icon}}.png">
 																	<span ng-if="item.type == 'tx'" ><i class="fas fa-exchange-alt"></i></span>
-																	<span ng-if="item.type == 'blockHeight' || item.type == 'blockHash'" ><i class="fas fa-cube"></i></span>
-																	<span ng-if="item.type == 'address'" ><i class="far fa-address-card"></i></span>
-																	<span ng-if="item.type == 'avatar'" ><i class="far fa-address-card"></i></span>
+																	<span ng-if="item.type == 'blockHeight' || item.type == 'blockHash'"><i class="fas fa-cube"></i></span>
+																	<span ng-if="item.type == 'address'"><i class="far fa-address-card"></i></span>
+																	<span ng-if="item.type == 'avatar'"><i class="fa fa-user"></i></span>
+																	<img ng-if="item.type == 'mit'" check-image ng-src="../img/assets/ETP_blue.png">
 																	<span> {{item.name}} </span>
 															</div>
 															<div class="item-metadata overflow">
@@ -96,6 +97,7 @@
 																				<span ng-if="item.type == 'blockHeight'" >{{'SUGGESTION.TYPE_BLOCK_HEIGHT' | translate}}</span>
 																				<span ng-if="item.type == 'blockHash'" >{{'SUGGESTION.TYPE_BLOCK_HASH' | translate}}</span>
 																				<span ng-if="item.type == 'address'" >{{'SUGGESTION.TYPE_ADDRESS' | translate}}</span>
+																				<span ng-if="item.type == 'mit'" >{{'SUGGESTION.TYPE_MIT' | translate}}</span>
 																			</strong>
 																	</span>
 																	<span ng-if="item.nbrtx">

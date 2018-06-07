@@ -135,7 +135,7 @@
     "AVATARS.COUNT": "Number of avatars on the Metaverse blockchain",
     "SUGGESTION.TYPE_AVATAR": "Avatar",
     "AVATARS.HEADLINE": "Avatars register",
-    "SUGGESTION.SHOW_ALL_AVATARS": "Avatars",
+    "SUGGESTION.SHOW_ALL_AVATARS": "Show all the avatars",
     "TOP_MENU_AVATARS": "Avatars",
     "AVATAR.ORIGINAL_ADDRESS": "Original address",
     "AVATAR.CREATION_TRANSACTION": "Issuance Transaction",
@@ -188,5 +188,7 @@
     "MIT.TX_BLOCK": "Transaction Block",
     "MIT.FIRST_TX": "MIT Creation",
     "TX.TYPE_MIT_CREATION": "MIT Creation",
-    "TX.TYPE_MIT_TRANSFER": "MIT Transfer"
+    "TX.TYPE_MIT_TRANSFER": "MIT Transfer",
+    "SUGGESTION.SHOW_ALL_MITS": "Show all the MITs",
+    "SUGGESTION.TYPE_MIT": "Metaverse Identifiable Token"
 }

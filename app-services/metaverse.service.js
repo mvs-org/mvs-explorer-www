@@ -13,8 +13,8 @@
     function MetaverseService($http, localStorageService) {
         var service = {};
 
-      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-      //var SERVER = "http://localhost";
+      //var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      var SERVER = "http://localhost";
       //var SERVER = "https://explorer-testnet.mvs.org/api";
 
       service.SERVER = SERVER;
@@ -62,6 +62,8 @@
         service.FetchMit = (symbol, show_invalidated) => _send('mits/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
 
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
+
+        service.MitInfo = (symbol) => _send('mits/' + symbol);
 
         service.AssetStakes = (symbol) => _send('stakes/' + symbol);
 
