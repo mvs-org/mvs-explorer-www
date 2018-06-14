@@ -9,7 +9,7 @@ before_install:
         - npm i
 script:
         - grunt
-        - docker build -t mvs-explorer-www
+        - docker build -t mvs-explorer-www .
 after_success:
         - docker login -u $DOCKER_USER -p $DOCKER_PASS
         - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]]; then
