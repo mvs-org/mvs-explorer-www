@@ -5,7 +5,8 @@ node_js:
 services:
         - docker
 cache:
-        - node_modules
+        directories:
+                - node_modules
 before_install:
         - npm i
 script:
