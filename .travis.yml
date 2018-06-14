@@ -1,25 +1,21 @@
 sudo: required
-
 language: node_js
-
 node_js:
-        - 7
-
+- 8
 services:
-        - docker
-
+- docker
 before_install:
-        - npm install -g grunt
-
+- npm install -g grunt
 script:
-        - npm i
-        - grunt
-        - ls dist
-
-          #after_success:
-          #- docker login -u $DOCKER_USER -p $DOCKER_PASS
-          #- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]]; then
-          #docker tag $REPO:testnet;
-          #docker push $REPO:testnet;
-          #fi
-          #- docker push $REPO:$TAG
+- npm i
+- grunt
+- ls dist
+after_success:
+  matrix:
+  - docker login -u $DOCKER_USER -p $DOCKER_PASS
+  - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]];
+    then docker tag $REPO:testnet; docker push $REPO:testnet; fi
+  DOCKER_USER:
+    secure: qHn6cEQVdTGATd4BY1+LI98M8XEgZR9fkdNItZCgsYY241Xc7QSBv5DKvgqTjb1VhBF+g9nJgGotqWZ8ojPzNWZjE1HSBgxfpP2UOsMzy/C7Yg1MlQVHJlE77sBf7LRp1CepxW06zzEXTWGqLOMWMPR5GKOTzU569t1FScAQLyjJ93+XrWFk3E7jD/Hz8rZUOBti7h2rgh3cRfBCwRn3lcRGiy6qsYHRw8zypWzOMwGK1nKlSWs/pBtbSC03eNJ4dzM9jA3vOt9vVx1b38CF+ptoB+wUUC6wV1lb6h65uge42N86hSpXgffgJC7qUZ+DazzNXUDnfQrPcOiwAmu9UKB4rdDaH3x2sJDlFmtwjj5EF3/MHuJn0J5HTo0+KVGSkFf/nI/LJntakdrGhDySNZwOFyj4VgOnJV7aMTf76YmBMjJ0IzHWJvtlCQOh8HxfDP7xQDjnsB5yurBhXpV97V++UdrteOH/XNO/eEu7Cer8RlDeDux6ETUaYhdGd2xmNpAt3nIGrpHbMk74/RrxWUcLqJwohrufhTCj+POorLWYMeg69KWJAC0G3Mpsr/6Syxzro8Wvv1Q84ty0B7mZCS9EFjcepVF5LHOmoFUGM7WcNkxH3vZLA5rNNa8ClDF7v4gqJ3w25WoK204lGJFF+v+11mEOXhNcnhndBO7+ndo=
+  DOCKER_PASS:
+    secure: wlsEeehVFCiiCU/Sh2tds1gxAUmwqxfohzg4yQmVmUKLWgPrwPxw15ZgGf8e2Tv5X7x9zlycf218ZYeercxXIpGr8VHbZD2JVFPZah590g+TXk41BCSyCIwdrjV+1vNcsVq7VVv/nnVW8TmsKNz4J5+O8+kmbOKNb9LsZgpZechvydK1peEGD3lhcbVTLtU4XTjzJ3OdcNsLVodQsJW5LhvCc7efGnVNSAXn+wuXfjQcsx0itny4njPW2sPZXCNPHNxO+0IYlzNGfvPYjOwSc39KpRi9D9oqgxQQJzcWvX90HTGMmeLHkb+y9eCgfMNJ7gUr8sZPFQzuTGXauTPV8CSzAH84mRWP+mvsIODgkcXmOXT6ULJqdA7HwYGDszd3E+2gmUiBxZ+ya5gdkElomK9BEaxPVI0nZ5lIlpYedtOr9aQX1QibLeO66rnPwtBRRwSK9M3MlB34raZ22RmGUsRWsstf/HwG4vh7NBcg35inBjKbMf2qTT3peyyoQf9x+eh/zQkW+WnJT+dWM3hwfD7eCaWZrvnM/9MtEvkUiIyEHirodRnu2T6dViR1kODM7+83+LZ5zQcZy189privOnZWo7Dar+pGZ1ZpyVhq4TbfI4WD/DFLNYyw2oDf+r7xFnB48U94cHlrCtQo4o1TRygOjqkUa0+ExdbQZvj/v30=
