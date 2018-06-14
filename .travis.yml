@@ -1,0 +1,25 @@
+sudo: required
+
+language: node_js
+
+node_js:
+        - 7
+
+services:
+        - docker
+
+before_install:
+        - npm install -g grunt
+
+script:
+        - npm i
+        - grunt
+        - ls dist
+
+          #after_success:
+          #- docker login -u $DOCKER_USER -p $DOCKER_PASS
+          #- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]]; then
+          #docker tag $REPO:testnet;
+          #docker push $REPO:testnet;
+          #fi
+          #- docker push $REPO:$TAG
