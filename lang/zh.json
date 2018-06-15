@@ -176,7 +176,7 @@
     "MIT.LAST_RECIPIENT": "最后接受者",
     "MIT.LAST_TX_DATE": "拥有",
     "MIT.LAST_TX_BLOCK": "块高度拥有",
-    "MIT.HEADLINE": "Metaverse Identifiable Token",
+    "MIT.HEADLINE": "MIT 资产",
     "MIT.INFO": "MIT 资产信息",
     "MIT.INITIAL_OWNER": "创建者",
     "MIT.CURRENT_OWNER": "当前拥有者",
@@ -208,5 +208,6 @@
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_BLOCKS": "区块",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_1": "第",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2": "期解锁之后的解锁数量",
-    "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2": "第几期的持续时间"
+    "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2": "第几期的持续时间",
+    "AVATAR.NO_CERTIFICATES": "此数字身份当前无任何证书"
 }

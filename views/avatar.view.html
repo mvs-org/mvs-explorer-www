@@ -56,7 +56,8 @@
     <div ng-show="loading_certs">
         <div class="mini-loader">Loading...</div>
     </div>
-    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-hide="loading_certs">
+    <div ng-show="!loading_certs && certs.length == 0">{{ 'AVATAR.NO_CERTIFICATES' | translate }}</div>
+    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-show="!loading_certs && certs.length != 0">
         <div class="panel-body">
             <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
                 <span class="col-xs-7 overflow">{{ 'CERT.SYMBOL' | translate }}</span>
