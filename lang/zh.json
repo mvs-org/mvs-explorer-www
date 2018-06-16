@@ -210,5 +210,6 @@
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2": "期解锁之后的解锁数量",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2": "第几期的持续时间",
     "AVATAR.NO_CERTIFICATES": "此数字身份当前无任何证书",
-    "MIT.NUMBER_OF": "元界MIT资产的数量"
+    "MIT.NUMBER_OF": "元界MIT资产的数量",
+    "DONATION_TEXT": "Metaverse元界是开源项目，我们鼓励开发者贡献更多的代码，同时如果你们觉得元界开发团队的成果帮助到各位，也可以捐赠ETP到MVS地址 {{address}} 来支持整个生态发展"
 }

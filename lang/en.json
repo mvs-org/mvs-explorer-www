@@ -210,5 +210,6 @@
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2": "",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2": "Duration of period No.",
     "AVATAR.NO_CERTIFICATES": "This Avatar does not have any certificates",
-    "MIT.NUMBER_OF": "Number of MITs on the Metaverse blockchain"
+    "MIT.NUMBER_OF": "Number of MITs on the Metaverse blockchain",
+    "DONATION_TEXT": "This is an opensource project. You can support us with your contributions or donation to MVS address {{address}}"
 }
