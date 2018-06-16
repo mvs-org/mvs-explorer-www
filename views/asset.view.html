@@ -2,7 +2,7 @@
     <div class="row">
         <h2 class="headline col-sm-12"><em></em>{{ 'ASSET.HEADLINE' | translate }}</h2>
         <div class="headline col-md-8 col-xs-8 address-padding">
-            <h1>{{ symbol }}</h1>
+            <h1>{{ asset.symbol }}</h1>
         </div>
         <div class="headline col-md-4 col-xs-4 assetpage-icon">
             <img check-image ng-src="../img/assets/{{asset.icon}}.png">
@@ -22,6 +22,64 @@
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+            </div>
+
+
+            <div class="row" ng-show="asset.original_quantity != asset.quantity">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.INITIAL_MAX_SUPPLY' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{asset.original_quantity | assetformat : asset.decimals | currency:'':0}}</div>
+            </div>
+            <div class="row" ng-show="asset.original_quantity != asset.quantity">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.ADDED_VIA_SECONDARY_ISSUE' | translate }}</div>
+                <div class="col-md-8 list-item-value">
+                    {{asset.quantity - asset.original_quantity | assetformat : asset.decimals | currency:'':0}}
+                    <div class="inline">
+                        <a ng-show="asset.original_quantity != asset.quantity && !showSecondaryHistory" ng-click="showSecondaryHistory = true"><i class="fas fa-plus-circle"></i></a>
+                        <a ng-show="asset.original_quantity != asset.quantity && showSecondaryHistory" ng-click="showSecondaryHistory = false"><i class="fas fa-minus-circle"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="showSecondaryHistory && update.is_secondaryissue" ng-repeat="update in asset.updates">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.SECONDARY_ISSUE_PAST' | translate }}{{$index+1}}</div>
+                <div class="col-md-8 list-item-value">
+                    <a href="#!/tx/{{update.issue_tx}}">{{update.quantity | assetformat : asset.decimals | currency:'':0}} - {{ 'TX.BLOCK' | translate }} {{update.height}} - {{update.confirmed_at * 1000| date}}</a>
+                    <span ng-show="update.attenuation_model_param"> - {{ 'ASSET.SECONDARY_ISSUE_PAST_FROZEN' | translate }}</span>
+                    <div class="inline">
+                        <a ng-show="update.attenuation_model_param && !this.showModel" ng-click="this.showModel = true"><i class="fas fa-plus-circle"></i></a>
+                        <a ng-show="update.attenuation_model_param && this.showModel" ng-click="this.showModel = false"><i class="fas fa-minus-circle"></i></a>
+                    </div>
+                    <div ng-show="this.showModel">
+                        <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_TYPE' | translate }}:</div>
+                        <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_TYPE' | translate }} {{update.attenuation_model_param.type}}</div>
+
+                        <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY' | translate }}:</div>
+                        <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{update.attenuation_model_param.lock_quantity | assetformat : asset.decimals | currency:'':0}}</div>
+
+                        <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_NBR' | translate }}:</div>
+                        <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{update.attenuation_model_param.total_period_nbr}} {{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD' | translate }}</div>
+                        <div ng-show="update.attenuation_model_param.type == 1">
+                            <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_TIME' | translate }}:</div>
+                            <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{update.attenuation_model_param.lock_period}} {{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_BLOCKS' | translate }}</div>
+                        </div>
+
+                        <div ng-show="update.attenuation_model_param.type == 2" ng-repeat="period in update.attenuation_model_param.locked">
+                            <div class="col-xs-12 noPaddingLeftRight">
+                                <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_1' | translate }}{{$index+1}}{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2' | translate }}</div>
+                                <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{period.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+                            </div>
+                            <div class="col-xs-12 noPaddingLeftRight">
+                                <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2' | translate }}{{$index+1}}</div>
+                                <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{period.number}} {{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_BLOCKS' | translate }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" ng-show="asset.symbol != 'ETP'">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.SECONDARY_ISSUE' | translate }}</div>
+                <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold == 0">{{ 'ASSET.SECONDARY_ISSUE_DISABLED' | translate }}</div>
+                <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold == 127">{{ 'ASSET.SECONDARY_ISSUE_UNLIMITED' | translate }}</div>
+                <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold != 0 && asset.secondaryissue_threshold != 127">{{asset.secondaryissue_threshold}}%</div>
             </div>
             <div class="row" ng-show="asset.symbol == 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'NUMBER_OF_COINS' | translate }}</div>
@@ -57,7 +115,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.HASH' | translate }}</div>
-                <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{ asset.hash }}">{{ asset.hash }}</a></div>
+                <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{ asset.issue_tx }}">{{ asset.issue_tx }}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.HEIGHT' | translate }}</div>

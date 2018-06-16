@@ -11,9 +11,11 @@
     MetaverseService.$inject = ['$http', 'localStorageService'];
 
     function MetaverseService($http, localStorageService) {
-        var service = {};
+      var service = {};
 
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      //var SERVER = "http://localhost";
+      //var SERVER = "https://explorer-testnet.mvs.org/api";
 
       service.SERVER = SERVER;
         /**
@@ -31,7 +33,7 @@
 
         service.FetchTx = (hash) => _send('tx/' + hash);
 
-        service.ListBlocks = (page) => _send('blocks/' + page);
+        service.ListBlocks = (page, items_per_page) => _send('blocks?page=' + page + '&items_per_page=' + items_per_page);
 
         service.BlockStats = (page) => _send('stats/block');
 
@@ -41,13 +43,27 @@
 
         service.Block = (number) => _send('block/' + number);
 
-        service.BlockTxs = (blockhash) =>  _send('block/txs/' + blockhash);
+        service.BlockTxs = (blockhash, page, items_per_page) => _send('block/txs/' + blockhash + ((page) ? '?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : '') : ''));
 
-        service.Txs = (page, min_time, max_time) =>  _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time:'') + ((max_time) ? '&max_time=' + max_time : ''));
+        service.Txs = (page, min_time, max_time) => _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.ListAssets = (number) => _send('assets');
 
+        service.ListAvatars = (page, items_per_page) => _send('avatars?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+
+        service.ListCerts = (page, items_per_page) => _send('certs?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+
+        service.ListMits = (page, items_per_page) => _send('mits?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+
+        service.FetchAvatar = (symbol) => _send('avatar/'+symbol);
+
+        service.FetchCerts = (symbol, show_invalidated) => _send('certs/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
+
+        service.FetchMit = (symbol, show_invalidated) => _send('mits/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
+
         service.AssetInfo = (symbol) => _send('asset/' + symbol);
+
+        service.MitInfo = (symbol) => _send('mits/' + symbol);
 
         service.AssetStakes = (symbol) => _send('stakes/' + symbol);
 
@@ -65,10 +81,20 @@
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 
+        service.Broadcast = (raw_transaction) => _post('tx', '{"tx":"' + raw_transaction + '"}');
+
         return service;
 
         function _send(query) {
             return $http.get(SERVER + "/" + query, {
+                    headers: {}
+                })
+                .then((res) => handleSuccess(res))
+                .catch((res) => handleError(res));
+        }
+
+        function _post(query, data) {
+            return $http.post(SERVER + "/" + query, data, {
                     headers: {}
                 })
                 .then((res) => handleSuccess(res))

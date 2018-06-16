@@ -1,0 +1,55 @@
+<div class="content">
+
+    <h2 class="headline"><em></em>{{ 'MIT.HEADLINE' | translate }}</h2>
+
+    <h4 class="assets-count">
+      <span>{{ 'MITS.NUMBER_OF' | translate }}: </span>
+      <span ng-show="loading_mits"><img src="../images/spinner.gif"></span>
+      <span ng-hide="loading_mits">{{total_count}}</span>
+    </h4>
+
+    <div ng-show="loading_mits">
+        <div class="mini-loader">Loading...</div>
+    </div>
+
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_mits">
+
+        <div class="col-md-12 hidden-xs hidden-sm">
+            <div class="row panel list-item nga-default nga-stagger nga-fade">
+                <div class="col-md-4">{{ 'MIT.SYMBOL' | translate }}</div>
+                <div class="col-md-4">{{ 'MIT.LAST_RECIPIENT' | translate }}</div>
+                <div class="col-md-2">{{ 'MIT.LAST_TX_DATE' | translate }}</div>
+                <div class="col-md-2">{{ 'MIT.LAST_TX_BLOCK' | translate }}</div>
+            </div>
+
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" dir-paginate="mit in mits | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+
+                <div class="col-md-4">
+                  <h4><a href="#!/mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h4>
+                </div>
+                <div class="col-md-4"><a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></div>
+                <div class="col-md-2"><a href="#!/tx/{{mit.tx}}">{{mit.confirmed_at * 1000| date}}</a></div>
+                <div class="col-md-2"><a href="#!/blk/{{mit.height}}">{{mit.height}}</a></div>
+            </div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="avatar in avatars | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+            <h3><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h3>
+            <table class="col-xs-12 col-sm-12">
+                <tr>
+                    <th>{{ 'AVATAR.ADDRESS' | translate }}</th>
+                    <td class="address-mono"><a href="#!/adr/{{avatar.address}}">{{avatar.address}}</a></td>
+                </tr>
+                <tr>
+                    <th>{{ 'AVATAR.CREATION_DATE' | translate }}</th>
+                    <td>{{avatar.confirmed_at*1000|date}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'AVATAR.CREATION_BLOCK' | translate }}</th>
+                    <td>{{avatar.height}}</td>
+                </tr>
+            </table>
+        </div>
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+    </div>
+</div>

@@ -1,0 +1,76 @@
+<div class="content">
+    <div class="row">
+        <h2 class="headline col-sm-12"><em></em>{{ 'AVATAR.HEADLINE' | translate }}</h2>
+        <div class="headline col-md-8 col-xs-8 address-padding">
+            <h1>{{ avatar.symbol }}</h1>
+        </div>
+    </div>
+
+    <h2 class="headline"><em></em>{{ 'AVATAR.INFO' | translate }}</h2>
+    <div ng-show="loading_avatar">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row panel nga-default nga-stagger nga-fade" ng-hide="loading_avatar">
+        <div class="col-md-12 panel-body">
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.SYMBOL' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ avatar.symbol }}</div>
+            </div>
+            <div class="row" ng-hide="showAddressesHistory">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.CURRENT_ADDRESS' | translate }}</div>
+                <div class="col-md-8 list-item-value address-mono"><a href="#!/adr/{{avatar.address}}">{{avatar.address}}<a></div>
+            </div>
+            <div class="row" ng-show="showAddressesHistory" ng-repeat="update in avatar.updates | orderBy:'height':true">
+                <div ng-show="update.address == avatar.address" class="col-md-4 list-item-label">{{ 'AVATAR.CURRENT_ADDRESS' | translate }}</div>
+                <div ng-show="update.address != avatar.address" class="col-md-4 list-item-label">{{ 'AVATAR.PREVIOUS_ADDRESS' | translate }}</div>
+                <div class="col-md-8 list-item-value">
+                    <a class="address-mono" href="#!/adr/{{avatar.original_address}}">{{update.address}}<a>
+                    <a href="#!/tx/{{update.issue_tx}}"> - {{ 'AVATAR.ADDRESS_FROM_HEIGHT' | translate }}{{update.height}} - {{update.confirmed_at * 1000| date}}<a>
+                </div>
+            </div>
+            <div class="row" ng-show="avatar.address!=avatar.original_address">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.ORIGINAL_ADDRESS' | translate }}</div>
+                <div class="col-md-8 list-item-value">
+                    <a href="#!/adr/{{avatar.original_address}}" class="address-mono">{{avatar.original_address}}<a>
+                    <a href="#!/tx/{{update.issue_tx}}" ng-show="showAddressesHistory"> - {{ 'AVATAR.ADDRESS_FROM_HEIGHT' | translate }}{{avatar.height}} - {{avatar.confirmed_at * 1000| date}}<a>
+                    <a ng-show="!showAddressesHistory" ng-click="showAddressesHistory = true"><i class="fas fa-plus-circle"></i></a>
+                    <a ng-show="showAddressesHistory" ng-click="showAddressesHistory = false"><i class="fas fa-minus-circle"></i></a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATED_AT' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{avatar.confirmed_at*1000|date:'medium'}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{avatar.height}}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_TRANSACTION' | translate }}</div>
+                <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{avatar.issue_tx}}">{{avatar.issue_tx}}</a></div>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="headline"><em></em>{{ 'AVATAR.CERTIFICATES' | translate }}</h2>
+    <div ng-show="loading_certs">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div ng-show="!loading_certs && certs.length == 0">{{ 'AVATAR.NO_CERTIFICATES' | translate }}</div>
+    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-show="!loading_certs && certs.length != 0">
+        <div class="panel-body">
+            <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
+                <span class="col-xs-7 overflow">{{ 'CERT.SYMBOL' | translate }}</span>
+                <span class="col-xs-3 right right-overflow">{{ 'CERT.TYPE' | translate }}</span>
+                <span class="col-xs-2 right right-overflow">{{ 'CERT.STATUS' | translate }}</span>
+            </div>
+
+            <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="cert in certs | orderBy:'height':true">
+                <span class="col-xs-7 overflow">{{cert.attachment.symbol}}</span>
+                <span class="col-xs-3 right right-overflow">{{cert.attachment.cert}}</span>
+                <span class="col-xs-2 right right-overflow" ng-if="cert.spent_tx==0">{{ 'CERT.VALID' | translate }}</span>
+                <span class="col-xs-2 right right-overflow" ng-if="cert.spent_tx!=0"><a href="#!/tx/{{cert.spent_tx}}">{{ 'CERT.INVALIDATED' | translate }}</a></span>
+            </div>
+        </div>
+    </div>
+</div>

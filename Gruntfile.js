@@ -38,6 +38,15 @@ module.exports = function(grunt) {
                     './min-safe/js/metaverse.service.js': ['./app-services/metaverse.service.js'],
                     './min-safe/js/assets.service.js': ['./app-services/assets.service.js'],
                     './min-safe/js/explorer.controller.js': ['./controllers/explorer.controller.js'],
+                    './min-safe/js/blocks.controller.js': ['./controllers/blocks.controller.js'],
+                    './min-safe/js/certs.controller.js': ['./controllers/certs.controller.js'],
+                    './min-safe/js/startpage.controller.js': ['./controllers/startpage.controller.js'],
+                    './min-safe/js/avatars.controller.js': ['./controllers/avatars.controller.js'],
+                    './min-safe/js/asset.controller.js': ['./controllers/asset.controller.js'],
+                    './min-safe/js/address.controller.js': ['./controllers/address.controller.js'],
+                    './min-safe/js/transactions.controller.js': ['./controllers/transactions.controller.js'],
+                    './min-safe/js/mining.controller.js': ['./controllers/mining.controller.js'],
+                    './min-safe/js/mits.controller.js': ['./controllers/mits.controller.js'],
                     './min-safe/app.js': ['./app.js']
                 }
             }
