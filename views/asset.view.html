@@ -64,7 +64,7 @@
 
                         <div ng-show="update.attenuation_model_param.type == 2" ng-repeat="period in update.attenuation_model_param.locked">
                             <div class="col-xs-12 noPaddingLeftRight">
-                                <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2' | translate }}{{$index+1}}</div>
+                                <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_1' | translate }}{{$index+1}}{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2' | translate }}</div>
                                 <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{period.quantity | assetformat : asset.decimals | currency:'':0}}</div>
                             </div>
                             <div class="col-xs-12 noPaddingLeftRight">

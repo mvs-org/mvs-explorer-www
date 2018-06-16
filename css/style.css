@@ -441,7 +441,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	display:block;
 	width:100%;
 	height:50px;
-  background: rgba(249,249,249,.9);
+  background: red;
 	z-index:99;
 	-webkit-transition:all .2s;
 	-moz-transition:all .2s;
@@ -449,6 +449,15 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	-o-transition:all .2s;
 	transition:all .2s;
 }
+
+.testnet {
+  width: 100%;
+  color: black;
+  margin-bottom: 50px;
+  text-align: center;
+  font-size: 48px;
+}
+
 
 .tb-logo{
 	font-size: 0;

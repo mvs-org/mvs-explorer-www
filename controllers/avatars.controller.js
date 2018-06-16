@@ -10,6 +10,7 @@
 
         $scope.loading_avatars = true;
         $scope.showAddressesHistory = false;
+        $scope.certs = [];
         MetaverseService.FetchAvatar($stateParams.symbol)
             .then((response) => {
                 $scope.avatar = response.data.result;
@@ -32,7 +33,7 @@
             });
 
     }
-    
+
     function AvatarsController($scope, MetaverseService) {
 
         $scope.loading_avatars = true;

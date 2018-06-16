@@ -206,7 +206,8 @@
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_TIME": "Each period duration",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD": "periods",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_BLOCKS": "blocks",
-    "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2": "Quantity unlocked after period No.",
+    "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_1": "Quantity unlocked after period No.",
+    "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2": "",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2": "Duration of period No.",
-    "MITS.COUNT": "Number of MITs on the Metaverse blockchain"
+    "AVATAR.NO_CERTIFICATES": "This Avatar does not have any certificates"
 }

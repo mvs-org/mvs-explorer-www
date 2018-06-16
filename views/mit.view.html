@@ -61,7 +61,7 @@
                 <span ng-show="mit.attachment.status == 'registered'" class="col-xs-3 overflow"><i>{{ 'MIT.FIRST_TX' | translate }}</i></span>
                 <span ng-show="mit.attachment.status != 'registered'" class="col-xs-3 overflow"><a href="#!/avatar/{{previous_tx[mit.tx].attachment.to_did}}">{{previous_tx[mit.tx].attachment.to_did}}</a></span>
                 <span class="col-xs-3 overflow"><a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></span>
-                <span class="col-xs-4 right right-overflow"><a href="#!/tx/{{mit.tx}}">{{initial_mit.confirmed_at*1000|date:'medium'}}</a></span>
+                <span class="col-xs-4 right right-overflow"><a href="#!/tx/{{mit.tx}}">{{mit.confirmed_at*1000|date:'medium'}}</a></span>
                 <span class="col-xs-2 right right-overflow"><a href="#!/blk/{{mit.height}}">{{mit.height}}</a></span>
             </div>
         </div>
