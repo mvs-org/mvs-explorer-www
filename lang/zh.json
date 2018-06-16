@@ -146,7 +146,7 @@
     "CERT.TYPE": "类型",
     "CERT.STATUS": "状态",
     "CERT.VALID": "有效",
-    "CERT.INVALIDATED": "花费",
+    "CERT.INVALIDATED": "无效",
     "AVATAR.SHOW_HISTORY_ADDRESSES": "显示地址记录",
     "AVATAR.HIDE_HISTORY_ADDRESSES": "隐藏地址记录",
     "AVATAR.CURRENT_ADDRESS": "当前地址",
@@ -209,5 +209,6 @@
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_1": "第",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2": "期解锁之后的解锁数量",
     "ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2": "第几期的持续时间",
-    "AVATAR.NO_CERTIFICATES": "此数字身份当前无任何证书"
+    "AVATAR.NO_CERTIFICATES": "此数字身份当前无任何证书",
+    "MIT.NUMBER_OF": "Number of MITs on the Metaverse blockchain"
 }
