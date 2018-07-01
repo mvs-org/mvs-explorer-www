@@ -1,21 +1,29 @@
 sudo: required
 language: node_js
 node_js:
-        - 8
+- 8
 services:
-        - docker
+- docker
 cache:
-        directories:
-                - node_modules
+  directories:
+  - node_modules
 before_install:
-        - npm i
+- npm i
 script:
-        - grunt
+- grunt
 after_success:
-        - docker login -u $DOCKER_USER -p $DOCKER_PASS
-        - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]]; then
-          docker build -t cangr/mvs-explorer-www:testnet .; docker push cangr/mvs-explorer-www:testnet; fi
-        - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
-          docker build -t cangr/mvs-explorer-www:latest .; docker push cangr/mvs-explorer-www:latest; fi
+- docker login -u $DOCKER_USER -p $DOCKER_PASS
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]]; then
+  docker build -t cangr/mvs-explorer-www:testnet .; docker push cangr/mvs-explorer-www:testnet;
+  fi
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
+  docker build -t cangr/mvs-explorer-www:latest .; docker push cangr/mvs-explorer-www:latest;
+  fi
 env:
-        secure: qtaZxvljW1r2ZjJRJR15rYsUBmQZ5/BPMDSF6Z9gDWpKuzqsbA0IWRx4KvU6sHhWw1TGNb2m5ghBXBY7U3gYaV4zZP8TTa0XVOl2QQUQBKEtp5vhDb9O3M7m3D0ONyzJjbuer8FWKBpDfNeSGeSv8mjcVzm+Zokw3SflcEACaucOXrwCxzUVWqHY6LbTQn8JZ69epZFaodLa7XEDTFY4v4TmwaVSpU8ByhLjIOjyluOVwSB01YVuIeo35Eumd+eX6ekrnat6PKoDVUHWEO9RUHfWWwDwprPJzwylYupkfdehJYpQyzHQfLoSSvHfZct938j+Y3yxg7NHyaHfmZwITWifNHOzK4bnOkFHI8ZxS8ydpAdnY3USU3r/BGjffnxT1jB8UGc2rUOZkzuc9dTxWwHbzBLch6NOqsX/5H7byMoHCbcE8UILoBno7cTx9dvvAJCBpoll0j2v5YY8MHrcuegEJEtboTSJxfuPzPl7ovLEZyWshDUa1rZch/nFnt+1twrQDXACtpVF1gLK6QsMjVZPTFARZ458RFRI9QLPMhU+kBKepEXxOQlkcFWeNiCvpXu48qgf90NFH69xw7I+8/REXloeRCjUIvZBR7hjWSaHqmJLCO4ENFFFHD2vjaOhV9kjBE5vJtNh6y/c2IB/k7/+ICd9CVcmAf3GiGuRSoY=
+  secure: qtaZxvljW1r2ZjJRJR15rYsUBmQZ5/BPMDSF6Z9gDWpKuzqsbA0IWRx4KvU6sHhWw1TGNb2m5ghBXBY7U3gYaV4zZP8TTa0XVOl2QQUQBKEtp5vhDb9O3M7m3D0ONyzJjbuer8FWKBpDfNeSGeSv8mjcVzm+Zokw3SflcEACaucOXrwCxzUVWqHY6LbTQn8JZ69epZFaodLa7XEDTFY4v4TmwaVSpU8ByhLjIOjyluOVwSB01YVuIeo35Eumd+eX6ekrnat6PKoDVUHWEO9RUHfWWwDwprPJzwylYupkfdehJYpQyzHQfLoSSvHfZct938j+Y3yxg7NHyaHfmZwITWifNHOzK4bnOkFHI8ZxS8ydpAdnY3USU3r/BGjffnxT1jB8UGc2rUOZkzuc9dTxWwHbzBLch6NOqsX/5H7byMoHCbcE8UILoBno7cTx9dvvAJCBpoll0j2v5YY8MHrcuegEJEtboTSJxfuPzPl7ovLEZyWshDUa1rZch/nFnt+1twrQDXACtpVF1gLK6QsMjVZPTFARZ458RFRI9QLPMhU+kBKepEXxOQlkcFWeNiCvpXu48qgf90NFH69xw7I+8/REXloeRCjUIvZBR7hjWSaHqmJLCO4ENFFFHD2vjaOhV9kjBE5vJtNh6y/c2IB/k7/+ICd9CVcmAf3GiGuRSoY=
+notifications:
+  pushover:
+    api_key:
+      secure: m5Wonpc/i+g9TrUYtd31y04+23hOKFe+fzy1JzWCysalQt9AaBEmlBtcq9hs+GlIA6Tc8TaBe7ybs5AX+2w2UVokrjKOPEqIXXxNla+suc20EjB6W61EcWsytvAzwb/nzc5vXWW6R7RwXqtF/9Kvw0qCwPK2AWXuRdW8h/goY/ReaPlcDDKDH8clOCdcS3OWbybxrZUbwK7Y4iP+SI+L4TA+F9pMKiuKNvgMHEcjrzkhSq3ApHcqtBSelwd+L+z8eYXNEf5wEt5bAxgg9JLF8ebTnB3UC/UPn3kKUVWwcF40zRoUTUybfSnelbgZ0VlbEfcOz4LtKuCjfpipLnDsNHq50DGlLvmXY/G4x/5Rj6BjcYnVzS8jZvQCIVXxOSwOt8XNYy7/6uURsFeTQXnRyOE3rpdYoSbx8JIdx+XidptQsKqgzFjZNJt2MvYsSYAthNSQmktLl+P0vYsrV83L/bv/44xZwTVA53VW65CWdGklSLofPexsqU6ln1Cm8RRlEE293BXG0+EmDppcXSN7hqvRQLKC/ySllp6ZxoiPAGHlziV59u9Dx1CU7/wJGDUQGwGH8ZTU81PUY0p1PF3N6OCd7oTbHWB9ecu92GAxbgggSD+NHuqhVKHFi2BAHlk2Ocm/ATZl5sXIuL/v6fNA9dQrL5gVp6HwNbYU2F4/E/c=
+    users:
+      secure: Y7WK0BBi8jrkRg6uCmo1MlQcrmi0N0874kmEajYqmXzjodzFcoSIIL9MnMpn26i4vbiRfYcqDMgVDz2f7nAwKx52rzUQTW5K+zb2sNGkExcooLKFpNVRdDKZ037QrEOw+t7rkoop+j6D6xiUY2FVODbe9xCGncRjfP9F4nmNJOvTaV8sqGxmx79UrClyyBDpdrAmf3INnNPP6Wz1PfeTPP7L2C5crxkgBTvQVJJvQeAfFL26OrAQ2fKwPsDxpeotgKOwqA94Z8JkWwYNYcNPC0L/FzPMg33gF+x3Y9uI5i2TExapxa/ISe0W3UvxFHbO/bnpGL6DR0fmgwEl3QSABnFeFKw/ey0g2LDPBYzJN9sOVMvkxqdAbg6kGV1oiw/qpBdj32n3BdB6itVyHPTIhoHzEaWchb6RAbNTToSwyc2FelmpGSPIO0YkKpdIqoH+yrb6+Ru9P7NQu74Vbbrvx5oLBbZro6bVUmhL3TN3fFPCJaTOLbx8vdlfMZz6NxwqFDonuK+NHQSx/NIE3m14Wr5cT2au7opbe7xz05Eglgv9h8ZqfvW9NcRliRLYGJxckvJ5/V9Yh/19suyrVSoly3RQ6NM0NGy6qE4qiUhfeKGzZQX11kAMwsagrKt0tzgmRlF0SK/LyaQ0leU8qD2zAZPoNLK4rVMkVfIjVc4XLTQ=
