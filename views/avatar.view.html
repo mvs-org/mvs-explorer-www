@@ -12,7 +12,7 @@
             <div class="col-md-12 panel infobox">
                 <h3 class="assetSymbol break">{{asset.symbol}}</h3>
                 <div class="asset-icon">
-                    <img check-image ng-src="../img/assets/{{asset.symbol}}.png">
+                    <img check-image ng-src="../img/assets/{{asset.icon}}.png">
                 </div>
                 <table>
                     <tr ng-show="asset.symbol!=='ETP'">
@@ -46,7 +46,7 @@
             <div class"">
                 <h4 class="text-center cert-title">{{cert.attachment.symbol}}</h4>
                 <div>{{ 'CERT.TYPE' | translate }}: <span class="align-right">{{cert.attachment.cert}}</span></div>
-                <div>{{ 'CERT.CURRENT_OWNER' | translate }}: <span class="align-right">{{cert.attachment.owner}}</span></div>
+                <div>{{ 'CERT.CURRENT_OWNER' | translate }}: <span class="break-all align-right">{{cert.attachment.owner}}</span></div>
                 <div>{{ 'TX.BLOCK' | translate }}: <a class="align-right" href="#!/blk/{{cert.height}}">{{cert.height}}</a></div>
                 <div>{{ 'CERT.CREATION' | translate }}: <span class="align-right">{{cert.confirmed_at * 1000| date}}</span></div>
                 <br/>

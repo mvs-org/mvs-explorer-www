@@ -16,6 +16,7 @@
         $scope.items_per_page = 10;
         $scope.minDate = new Date(2017, 2 - 1, 11);
         $scope.maxDate = new Date();
+        $scope.icons = Assets.hasIcon;
         $scope.priority = Assets.priority;
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
@@ -43,6 +44,7 @@
                             $scope.definitions = response.data.result.definitions;
                             for (var symbol in $scope.definitions) {
                                 $scope.definitions[symbol].priority = (typeof $scope.priority[symbol] != 'undefined') ? $scope.priority[symbol] : 1000;
+                                $scope.definitions[symbol].icon = ($scope.icons.indexOf(symbol) > -1) ? symbol : 'default';
                             }
 
                             $scope.addressAssets = [];
@@ -50,6 +52,7 @@
                             assetETP.symbol = "ETP";
                             assetETP.priority = $scope.priority["ETP"];
                             assetETP.decimals = 8;
+                            assetETP.icon = "ETP";
                             $scope.addressAssets.push(assetETP);
 
                             for (var symbol in $scope.definitions) {

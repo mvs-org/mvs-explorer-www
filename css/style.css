@@ -1415,3 +1415,7 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 .assetSymbol {
   width: calc(100% - 30px);
 }
+
+.break-all {
+  word-break: break-all;
+}
