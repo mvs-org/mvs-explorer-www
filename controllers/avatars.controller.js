@@ -8,7 +8,8 @@
 
     function AvatarController($scope, MetaverseService, $stateParams, Assets) {
 
-        $scope.loading_avatars = true;
+        $scope.loading_balances = true;
+        $scope.loading_avatar = true;
         $scope.showAddressesHistory = false;
         $scope.certs = [];
         $scope.icons = Assets.hasIcon;
@@ -16,11 +17,11 @@
         MetaverseService.FetchAvatar($stateParams.symbol)
             .then((response) => {
                 $scope.avatar = response.data.result;
-                $scope.loading_avatars = false;
+                $scope.loading_avatar = false;
                 fetchAddress($scope.avatar.address)
             })
             .catch((error) => {
-                $scope.loading_avatars = false;
+                $scope.loading_avatar = false;
                 console.error(error);
             });
 
@@ -40,6 +41,7 @@
             if (typeof address !== 'undefined') {
                 MetaverseService.FetchAddress(address)
                     .then((response) => {
+                        $scope.loading_balances = false;
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                             $scope.info = response.data.result.info;
                             $scope.tokens = response.data.result.tokens;

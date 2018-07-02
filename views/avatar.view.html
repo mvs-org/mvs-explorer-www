@@ -8,7 +8,10 @@
 
     <div class="row">
         <h2 class="headline col-sm-12"><em></em>{{ 'BALANCES.HEADLINE' | translate }}</h2>
-        <div class="col-md-4 col-sm-12" ng-repeat="asset in addressAssets | orderBy:['priority','symbol'] ">
+        <div ng-show="loading_balances">
+            <div class="mini-loader">Loading...</div>
+        </div>
+        <div class="col-md-4 col-sm-12" ng-hide="loading_balances" ng-repeat="asset in addressAssets | orderBy:['priority','symbol'] ">
             <div class="col-md-12 panel infobox">
                 <h3 class="assetSymbol break">{{asset.symbol}}</h3>
                 <div class="asset-icon">

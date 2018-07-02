@@ -9,6 +9,7 @@
 
         var address = $stateParams.address;
         $rootScope.nosplash = true;
+        $scope.loading_balances = true;
         $scope.loading_address = true;
         $scope.info = [];
         $scope.tokens = [];
@@ -38,6 +39,7 @@
             if (typeof address !== 'undefined') {
                 MetaverseService.FetchAddress(address)
                     .then((response) => {
+                        $scope.loading_balances = false;
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                             $scope.info = response.data.result.info;
                             $scope.tokens = response.data.result.tokens;
