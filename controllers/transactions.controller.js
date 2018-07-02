@@ -79,10 +79,7 @@
                 .then(() => MetaverseService.FetchHeight())
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                        console.log(response.data)
                         $scope.height = Math.max(response.data.result, $scope.transaction.height);
-                        console.log("height: " + $scope.height)
-                        console.log("tx height: " + $scope.transaction.height)
                         $scope.confirmations = $scope.height - $scope.transaction.height + 1;
                         $scope.loading_confirmation = false;
                     }

@@ -1376,15 +1376,15 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 
 .certDomain {
-  box-shadow: 2px 2px 10px 2px #488aff;
+  box-shadow: 2px 2px 10px 2px red;
 }
 
 .certIssue {
-  box-shadow: 2px 2px 10px 2px #f53d3d;
+  box-shadow: 2px 2px 10px 2px blue;
 }
 
 .certNaming {
-  box-shadow: 2px 2px 10px 2px #3ab750;
+  box-shadow: 2px 2px 10px 2px green;
 }
 
 .certExpired {
@@ -1418,4 +1418,16 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 
 .break-all {
   word-break: break-all;
+}
+
+.inputColor {
+  color: red;
+}
+
+.ouputColor {
+  color: green;
+}
+
+.valueColor {
+  color: blue;
 }

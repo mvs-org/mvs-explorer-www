@@ -46,19 +46,23 @@
                                 <div ng-show="input.attachment.type == 'mit' && input.attachment.status == 'transfered'">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div>
                                 <span>{{input.attachment.quantity| numberFormat:input.attachment.decimals | currency:'':input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
-                            <div class="col-md-7">
-                                <a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a>
-                                <div class="io-script">{{input.script}}</div>
+                            <div class="col-md-7 inputColor">
+                                <div><a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a></div>
+                                <a ng-show="!input.showScript" ng-click="input.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
+                                <a ng-show="input.showScript" ng-click="input.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
+                                <div ng-show="input.showScript" class="io-script">{{input.script}}</div>
                             </div>
                         </div>
                         <div ng-if="input.value != 0 || input.address == ''">
                             <div class="col-md-5">
                                 <span ng-if="input.address">{{input.value| numberFormat:8|currency:'':8}} ETP</span>
                             </div>
-                            <div class="col-md-7">
+                            <div class="col-md-7 inputColor">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
-                                <a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{ input.address }}</a>
-                                <div class="io-script">{{input.script}}</div>
+                                <div><a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a></div>
+                                <a ng-show="!input.showScript" ng-click="input.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
+                                <a ng-show="input.showScript" ng-click="input.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
+                                <div ng-show="input.showScript" class="io-script">{{input.script}}</div>
                             </div>
                         </div>
                     </div>
@@ -69,11 +73,13 @@
                 <div class="col-md-6 right">
                     <div class="row" ng-repeat="output in transaction.outputs">
                         <div ng-if="output.attachment.symbol != 'ETP'">
-                            <div class="col-md-7">
-                                <a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a>
-                                <div class="io-script">{{output.script}}</div>
+                            <div class="col-md-7 ouputColor">
+                                <div><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
+                                <a ng-show="!output.showScript" ng-click="output.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
+                                <a ng-show="output.showScript" ng-click="output.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
+                                <div ng-show="output.showScript" class="io-script">{{output.script}}</div>
                             </div>
-                            <div class="col-md-5 right">
+                            <div class="col-md-5 right valueColor">
                                 <div ng-show="output.attachment.type == 'did-issue'">{{'TX.TYPE_DID_ISSUE'|translate}}: </div>
                                 <div ng-show="output.attachment.type == 'did-transfer'">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div>
                                 <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue">{{'TX.TYPE_ASSET_ISSUE'|translate}}: </div>
@@ -87,11 +93,13 @@
                             </div>
                         </div>
                         <div ng-if="output.value != 0">
-                            <div class="col-md-7">
-                                <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
-                                <div class="io-script">{{output.script}}</div>
+                            <div class="col-md-7 ouputColor">
+                                <div><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
+                                <a ng-show="!output.showScript" ng-click="output.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
+                                <a ng-show="output.showScript" ng-click="output.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
+                                <div ng-show="output.showScript" class="io-script">{{output.script}}</div>
                             </div>
-                            <div class="col-md-5 right">
+                            <div class="col-md-5 right valueColor">
                                 {{output.value | numberFormat:8|currency:'':8}} ETP
                                 <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
                             </div>
