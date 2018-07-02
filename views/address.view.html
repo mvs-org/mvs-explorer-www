@@ -14,7 +14,7 @@
         <h2 class="headline col-sm-12"><em></em>{{ 'BALANCES.HEADLINE' | translate }}</h2>
         <div class="col-md-4 col-sm-12" ng-repeat="asset in addressAssets | orderBy:['priority','symbol'] ">
             <div class="col-md-12 panel infobox">
-                <h3>{{asset.symbol}}</h3>
+                <h3 class="assetSymbol break">{{asset.symbol}}</h3>
                 <div class="asset-icon">
                     <img check-image ng-src="../img/assets/{{asset.symbol}}.png">
                 </div>
@@ -37,7 +37,6 @@
                     </tr>
                 </table>
             </div>
-
         </div>
     </div>
 
