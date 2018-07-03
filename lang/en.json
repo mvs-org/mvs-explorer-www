@@ -213,5 +213,8 @@
     "MIT.NUMBER_OF": "Number of MITs on the Metaverse blockchain",
     "DONATION_TEXT": "This is an opensource project. You can support us with your contributions or donation to MVS address {{address}}",
     "CERT.CURRENT_OWNER": "Owner",
-    "CERT.CREATION": "Creation"
+    "CERT.CREATION": "Creation",
+    "TX.SCRIPT": "Script",
+    "TX.SHOW_HASH": "Show scripts",
+    "TX.HIDE_HASH": "Hide scripts"
 }
