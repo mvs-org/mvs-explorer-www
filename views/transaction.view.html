@@ -34,8 +34,11 @@
 
             <hr>
             <div class="row">
-                <div class="col-sm-12 col-md-6">
+                <div class="col-xs-12 col-sm-12 col-md-6">
                     <div class="row txLine" ng-repeat="input in transaction.inputs">
+                        <div class="transaction-arrow-left">
+                            <a href="#!/tx/{{input.previous_output.hash}}"><i class="fas fa-arrow-circle-left"></i></a>
+                        </div>
                         <div class="row" ng-if="input.attachment.symbol != 'ETP'">
                             <div class="col-md-5 break">
                                 <div ng-show="input.attachment.type == 'did-register' || input.attachment.type == 'did-transfer'">{{'TX.TYPE_DID_TRANSFER'|translate}}: <a href="#!/avatar/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
@@ -69,12 +72,15 @@
                         <i class="icon-arrow-right2"></i>
                     </div>
                 </div>
-                <div class="col-sm-6 col-sm-offset-6 visible-xs visible-sm">
+                <div class="col-xs-6 col-xs-offset-6 col-sm-6 col-sm-offset-6 visible-xs visible-sm">
                     <i class="icon-arrow-right2"></i>
                 </div>
 
-                <div class="col-sm-12 col-md-6 right">
+                <div class="col-xs-12 col-sm-12 col-md-6 right">
                     <div class="row break txLine" ng-repeat="output in transaction.outputs">
+                        <div ng-show="output.spent_tx != 0" class="transaction-arrow-right">
+                            <a href="#!/tx/{{output.spent_tx}}"><i class="fas fa-arrow-circle-right"></i></a>
+                        </div>
                         <div class="row" ng-if="output.attachment.symbol != 'ETP'">
                             <div class="col-md-7 ouputColor">
                                 <div ng-if="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>

@@ -1441,3 +1441,13 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   margin-right: 15px;
   margin-left: 15px;
 }
+
+.transaction-arrow-left {
+  position: absolute;
+  left: -5px;
+}
+
+.transaction-arrow-right {
+  position: absolute;
+  right: -3px;
+}
