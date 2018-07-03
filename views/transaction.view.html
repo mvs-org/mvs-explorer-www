@@ -25,6 +25,13 @@
                 <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations <= 100">{{ confirmations }}</div>
                 <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>
             </div>
+            <div class="row">
+                <div class="col-md-3 list-item-label">{{ 'TX.SCRIPT' | translate }}</div>
+                <div class="col-md-9 list-item-value">
+                    <a ng-show="!showScript" ng-click="showScript = true">{{ 'TX.SHOW_HASH' | translate }}</a>
+                    <a ng-show="showScript" ng-click="showScript = false">{{ 'TX.HIDE_HASH' | translate }}</a>
+                </div>
+            </div>
 
             <hr ng-show="messages.length > 0">
             <div class="row" ng-show="messages.length > 0">
@@ -35,24 +42,22 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <div class="row txLine" ng-repeat="input in transaction.inputs">
-                        <div class="transaction-arrow-left">
+                    <div class="row break txLine" ng-repeat="input in transaction.inputs">
+                        <div ng-show="input.address != ''" class="transaction-arrow-left">
                             <a href="#!/tx/{{input.previous_output.hash}}"><i class="fas fa-arrow-circle-left"></i></a>
                         </div>
                         <div class="row" ng-if="input.attachment.symbol != 'ETP'">
                             <div class="col-md-5 break">
-                                <div ng-show="input.attachment.type == 'did-register' || input.attachment.type == 'did-transfer'">{{'TX.TYPE_DID_TRANSFER'|translate}}: <a href="#!/avatar/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
-                                <div ng-show="input.attachment.cert == 'issue'">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: <a href="#!/asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
-                                <div ng-show="input.attachment.cert == 'domain'">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: {{input.attachment.symbol}}</div>
-                                <div ng-show="input.attachment.cert == 'naming'">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: {{input.attachment.symbol}}</div>
-                                <div ng-show="input.attachment.type == 'mit'">{{'TX.TYPE_MIT_TRANSFER'|translate}}: <a href="#!/mit/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
-                                <div ng-show="input.attachment.type == 'asset-transfer' || input.attachment.type == 'asset-issue'">{{input.attachment.quantity| numberFormat:input.attachment.decimals | currency:'':input.attachment.decimals}} <a href="#!/asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                <div ng-show="input.attachment.type == 'did-register' || input.attachment.type == 'did-transfer'"><div class="txType">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div><a href="#!/avatar/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                <div ng-show="input.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="#!/asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                <div ng-show="input.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{input.attachment.symbol}}</div>
+                                <div ng-show="input.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{input.attachment.symbol}}</div>
+                                <div ng-show="input.attachment.type == 'mit'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="#!/mit/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                <div ng-show="input.attachment.type != 'did-register' && input.attachment.type != 'did-transfer' && input.attachment.type != 'mit' && !input.attachment.cert">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'':input.attachment.decimals}} <a href="#!/asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                             </div>
                             <div class="col-md-7 inputColor">
                                 <div><a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a></div>
-                                <a ng-show="!input.showScript" ng-click="input.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
-                                <a ng-show="input.showScript" ng-click="input.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
-                                <div ng-show="input.showScript" class="io-script">{{input.script}}</div>
+                                <div ng-show="showScript" class="io-script">{{input.script}}</div>
                             </div>
                         </div>
                         <div class="row" ng-if="input.value != 0 || input.address == ''">
@@ -62,18 +67,16 @@
                             <div class="col-md-7 inputColor">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <div><a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a></div>
-                                <a ng-show="!input.showScript" ng-click="input.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
-                                <a ng-show="input.showScript" ng-click="input.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
-                                <div ng-show="input.showScript" class="io-script">{{input.script}}</div>
+                                <div ng-show="showScript" class="io-script">{{input.script}}</div>
                             </div>
                         </div>
                     </div>
                     <div class="transaction-arrow visible-md visible-lg visible-xl">
-                        <i class="icon-arrow-right2"></i>
+                        <i class="fa fa-arrow-right fa-2x"></i>
                     </div>
                 </div>
                 <div class="col-xs-6 col-xs-offset-6 col-sm-6 col-sm-offset-6 visible-xs visible-sm">
-                    <i class="icon-arrow-right2"></i>
+                    <i class="fa fa-arrow-right fa-2x"></i>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-6 right">
@@ -83,32 +86,28 @@
                         </div>
                         <div class="row" ng-if="output.attachment.symbol != 'ETP'">
                             <div class="col-md-7 ouputColor">
-                                <div ng-if="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
-                                <div><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
-                                <a ng-show="!output.showScript" ng-click="output.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
-                                <a ng-show="output.showScript" ng-click="output.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
-                                <div ng-show="output.showScript" class="io-script">{{output.script}}</div>
+                                <div ng-show="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
+                                <div ng-hide="output.attachment.to_did"><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
+                                <div ng-show="showScript" class="io-script">{{output.script}}</div>
                             </div>
                             <div class="col-md-5 right valueColor">
-                                <div ng-show="output.attachment.type == 'did-register'">{{'TX.TYPE_DID_ISSUE'|translate}}: <a href="#!/avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.type == 'did-transfer'">{{'TX.TYPE_DID_TRANSFER'|translate}}: <a href="#!/avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue">{{'TX.TYPE_ASSET_ISSUE'|translate}}: {{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.type == 'asset-issue' && output.attachment.is_secondaryissue">{{'TX.TYPE_ASSET_SECONDARY_ISSUE'|translate}}: {{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.cert == 'issue'">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.cert == 'domain'">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: {{output.attachment.symbol}}</div>
-                                <div ng-show="output.attachment.cert == 'naming'">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: {{output.attachment.symbol}}</div>
-                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'">{{'TX.TYPE_MIT_CREATION'|translate}}: <a href="#!/mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'">{{'TX.TYPE_MIT_TRANSFER'|translate}}: <a href="#!/mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'did-register'"><div class="txType">{{'TX.TYPE_DID_ISSUE'|translate}}: </div><a href="#!/avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'did-transfer'"><div class="txType">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div><a href="#!/avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_SECONDARY_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                <div ng-show="output.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="#!/mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="#!/mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                             </div>
                         </div>
                         <div class="row" ng-if="output.value != 0">
                             <div class="col-md-7 ouputColor">
-                                <div ng-if="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
-                                <div><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
-                                <a ng-show="!output.showScript" ng-click="output.showScript = true" class="io-script"><i class="fas fa-plus-circle"></i></a>
-                                <a ng-show="output.showScript" ng-click="output.showScript = false" class="io-script"><i class="fas fa-minus-circle"></i></a>
-                                <div ng-show="output.showScript" class="io-script">{{output.script}}</div>
+                                <div ng-show="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
+                                <div ng-hide="output.attachment.to_did"><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
+                                <div ng-show="showScript" class="io-script">{{output.script}}</div>
                             </div>
                             <div class="col-md-5 right valueColor">
                                 {{output.value | numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a>
