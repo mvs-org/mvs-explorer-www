@@ -35,7 +35,7 @@
             <hr>
             <div class="row">
                 <div class="col-xs-12 col-sm-12 col-md-6">
-                    <div class="row txLine" ng-repeat="input in transaction.inputs">
+                    <div class="row break txLine" ng-repeat="input in transaction.inputs">
                         <div ng-show="input.address != ''" class="transaction-arrow-left">
                             <a href="#!/tx/{{input.previous_output.hash}}"><i class="fas fa-arrow-circle-left"></i></a>
                         </div>
