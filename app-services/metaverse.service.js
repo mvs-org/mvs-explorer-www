@@ -33,6 +33,8 @@
 
         service.FetchTx = (hash) => _send('tx/' + hash);
 
+        service.FetchTxOutputs = (hash) => _send('tx/outputs/' + hash);
+
         service.ListBlocks = (page, items_per_page) => _send('blocks?page=' + page + '&items_per_page=' + items_per_page);
 
         service.BlockStats = (page) => _send('stats/block');

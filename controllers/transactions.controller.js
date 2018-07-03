@@ -83,6 +83,13 @@
                         $scope.confirmations = $scope.height - $scope.transaction.height + 1;
                         $scope.loading_confirmation = false;
                     }
+                })
+                .then(() => MetaverseService.FetchTxOutputs(transaction_hash))
+                .then((response) => {
+                    var outputs = response.data.result;
+                    $scope.transaction.outputs.forEach((output, index) => {
+                        $scope.transaction.outputs[index].spent_tx = outputs[index].spent_tx;
+                    });
                 });
         }
     }
