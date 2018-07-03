@@ -257,7 +257,9 @@ em{
 }
 
 .transaction-arrow {
-    text-align: right;
+    position: absolute;
+    right: -12px;
+    top: 0;
 }
 
 .asset-icon img {
@@ -1430,4 +1432,12 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 
 .valueColor {
   color: blue;
+}
+
+.txLine {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: solid 1px #eee;
+  margin-right: 15px;
+  margin-left: 15px;
 }

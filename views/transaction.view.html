@@ -34,9 +34,9 @@
 
             <hr>
             <div class="row">
-                <div class="col-md-5">
-                    <div class="row" ng-repeat="input in transaction.inputs">
-                        <div ng-if="input.attachment.symbol != 'ETP'">
+                <div class="col-sm-12 col-md-6">
+                    <div class="row txLine" ng-repeat="input in transaction.inputs">
+                        <div class="row" ng-if="input.attachment.symbol != 'ETP'">
                             <div class="col-md-5 break">
                                 <div ng-show="input.attachment.type == 'did-register' || input.attachment.type == 'did-transfer'">{{'TX.TYPE_DID_TRANSFER'|translate}}: <a href="#!/avatar/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                                 <div ng-show="input.attachment.cert == 'issue'">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: <a href="#!/asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
@@ -52,7 +52,7 @@
                                 <div ng-show="input.showScript" class="io-script">{{input.script}}</div>
                             </div>
                         </div>
-                        <div ng-if="input.value != 0 || input.address == ''">
+                        <div class="row" ng-if="input.value != 0 || input.address == ''">
                             <div class="col-md-5">
                                 <span ng-if="input.address">{{input.value| numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a></span>
                             </div>
@@ -65,13 +65,17 @@
                             </div>
                         </div>
                     </div>
+                    <div class="transaction-arrow visible-md visible-lg visible-xl">
+                        <i class="icon-arrow-right2"></i>
+                    </div>
                 </div>
-                <div class="col-md-1 transaction-arrow">
+                <div class="col-sm-6 col-sm-offset-6 visible-xs visible-sm">
                     <i class="icon-arrow-right2"></i>
                 </div>
-                <div class="col-md-6 right">
-                    <div class="row break" ng-repeat="output in transaction.outputs">
-                        <div ng-if="output.attachment.symbol != 'ETP'">
+
+                <div class="col-sm-12 col-md-6 right">
+                    <div class="row break txLine" ng-repeat="output in transaction.outputs">
+                        <div class="row" ng-if="output.attachment.symbol != 'ETP'">
                             <div class="col-md-7 ouputColor">
                                 <div ng-if="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
                                 <div><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
@@ -92,7 +96,7 @@
                                 <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                             </div>
                         </div>
-                        <div ng-if="output.value != 0">
+                        <div class="row" ng-if="output.value != 0">
                             <div class="col-md-7 ouputColor">
                                 <div ng-if="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
                                 <div><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
