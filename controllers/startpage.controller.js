@@ -56,16 +56,47 @@
         (() => {
             $wamp.subscribe('public.transactions', (args) => {
                 $scope.loading_txs = false;
-                if (args[1] == 'i')
+                if (args[1] == 'i') {
                     $scope.txList = args[0];
-                else
+                    if($scope.lastestBlockUpdate) {
+                        $scope.lastestBlockUpdate.forEach(function(block) {
+                            if(block.txs.length > 1)
+                                CheckMemPool(block);
+                        });
+                    }
+                } else {
                     AddTxsToTxs(args[0]);
+                }
             }).then((subscription) => {
                 $scope.$on('$destroy', () => {
                     $wamp.unsubscribe(subscription);
                 });
             });
         })();
+
+        (() => {
+            $wamp.subscribe('public.blocks', (args) => {
+                $scope.lastestBlockUpdate = args[0];
+                $scope.lastestBlockUpdate.forEach(function(block) {
+                    if(block.txs.length > 1)
+                        CheckMemPool(block);
+                });
+            }).then((subscription) => {
+                $scope.$on('$destroy', () => {
+                    // console.log('unsubscribe block')
+                    $wamp.unsubscribe(subscription);
+                });
+            });
+        })();
+
+        function CheckMemPool(block) {
+            $scope.txList.forEach(function(tx, index) {
+                if (tx.block == undefined && block.txs.indexOf(tx.hash) > -1) {
+                    $scope.txList[index].height = block.number;
+                    $scope.txList[index].confirmed_at = block.time_stamp;
+                }
+            });
+        }
 
     }
 
