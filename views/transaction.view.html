@@ -19,6 +19,10 @@
                 <div class="col-md-9 list-item-value">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
             </div>
             <div class="row">
+                <div class="col-md-3 list-item-label">{{ 'TX.FEE' | translate }}</div>
+                <div class="col-md-9 list-item-value">{{total_inputs - total_outputs | numberFormat:8|currency:'':8}} ETP</div>
+            </div>
+            <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
                 <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan != 0)">{{ 'TX.ORPHAN' | translate}}</div>
                 <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations > 100">{{ 'TX.CONFIRMED' | translate}}</div>
@@ -103,7 +107,7 @@
                                 <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                             </div>
                         </div>
-                        <div class="row" ng-if="output.value != 0">
+                        <div class="row" ng-if="output.value != 0 || output.attachment.symbol == 'ETP'">
                             <div class="col-md-7 ouputColor">
                                 <div ng-show="output.attachment.to_did" class="break"><a href="#!/avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
                                 <div ng-hide="output.attachment.to_did"><a class="address-mono" href="#!/adr/{{output.address}}">{{output.address}}</a></div>
@@ -117,6 +121,8 @@
                     </div>
                 </div>
             </div>
+            <div class="col-md-6">{{'TX.TOTAL_ETP_INPUT'|translate}}: {{total_inputs | numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a></div>
+            <div class="col-md-6 right">{{'TX.TOTAL_ETP_OUTPUT'|translate}}: {{total_outputs | numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a></div>
         </div>
     </div>
 </div>

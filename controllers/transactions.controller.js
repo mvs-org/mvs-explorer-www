@@ -47,6 +47,8 @@
         $scope.loading_tx = true;
         $rootScope.nosplash = true;
         $scope.loading_confirmation = true;
+        $scope.total_inputs = 0;
+        $scope.total_outputs = 0;
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 
@@ -60,11 +62,17 @@
                         $scope.messages = [];
                         if ($scope.transaction.outputs.length) {
                             $scope.transaction.outputs.forEach(function(output) {
+                                $scope.total_outputs += output.value;
                                 if (output.attachment.type == "message") {
                                     $scope.messages.push(output.attachment.content);
                                 }
                                 if (output.locked_height_range)
                                     output.unlock_block = $scope.transaction.height + output.locked_height_range;
+                            });
+                        }
+                        if ($scope.transaction.inputs.length) {
+                            $scope.transaction.inputs.forEach(function(input) {
+                                $scope.total_inputs += input.value;
                             });
                         }
                     } else {
