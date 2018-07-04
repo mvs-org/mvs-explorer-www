@@ -256,7 +256,11 @@ em{
     font-size: 15px;
 }
 
-.transaction-arrow {
+.glyphicon.transaction-arrow {
+    font-size: 20px;
+}
+
+.transaction-arrow-big-screen {
     position: absolute;
     right: -12px;
     top: 0;
@@ -1423,7 +1427,7 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 
 .panel .panel-body a {
-  color: #10ADE4;
+  color: #347DED;
 }
 
 .valueColor {
