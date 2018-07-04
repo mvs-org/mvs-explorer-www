@@ -217,7 +217,7 @@
     "TX.SCRIPT": "Script",
     "TX.SHOW_HASH": "Show scripts",
     "TX.HIDE_HASH": "Hide scripts",
-    "EXPLORER.UNCONFIRMED": "Unconfirmed",
+    "EXPLORER.UNCONFIRMED": "Pending confirmation",
     "TX.TOTAL_ETP_INPUT": "Total ETP Inputs",
     "TX.TOTAL_ETP_OUTPUT": "Total ETP Outputs",
     "TX.FEE": "Transaction fee"

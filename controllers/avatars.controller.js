@@ -48,7 +48,7 @@
                             $scope.definitions = response.data.result.definitions;
                             for (var symbol in $scope.definitions) {
                                 $scope.definitions[symbol].priority = (typeof $scope.priority[symbol] != 'undefined') ? $scope.priority[symbol] : 1000;
-                                $scope.definitions[symbol].icon = ($scope.icons.indexOf(symbol) > -1) ? symbol : 'default';
+                                $scope.definitions[symbol].icon = ($scope.icons.indexOf(symbol) > -1) ? symbol : 'default_mst';
                             }
 
                             $scope.addressAssets = [];

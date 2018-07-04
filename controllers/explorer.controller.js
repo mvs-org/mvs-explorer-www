@@ -24,7 +24,7 @@
             return {
                 link: function(scope, element, attrs) {
                     element.bind('error', function() {
-                        element.attr('src', 'img/assets/default.png'); // set default image
+                        element.attr('src', 'img/assets/default_mst.png'); // set default image
                     });
                 }
             };
@@ -237,17 +237,19 @@
                         'name': translations['SUGGESTION.SHOW_ALL_ASSETS'],
                         'url': 'assets',
                         'type': 'asset',
-                        'icon': 'default'
+                        'icon': 'default_mst'
                     });
                     $scope.initialSuggestion.push({
                         'name': translations['SUGGESTION.SHOW_ALL_AVATARS'],
                         'url': 'avatars',
-                        'type': 'avatar'
+                        'type': 'avatar',
+                        'icon': 'default_avatar'
                     });
                     $scope.initialSuggestion.push({
                         'name': translations['SUGGESTION.SHOW_ALL_MITS'],
                         'url': 'mits',
-                        'type': 'mit'
+                        'type': 'mit',
+                        'icon': 'default_mit'
                     });
                 });
         }

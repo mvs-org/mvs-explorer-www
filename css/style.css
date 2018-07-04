@@ -338,15 +338,12 @@ em{
 }
 
 .asset-icon-list-assets img {
-    right: 15px;
-    position: absolute;
     width: auto;
     height: 36px;
-    top: 0;
 }
 
 .asset-row {
-    height: 62px;
+    min-height: 62px;
     display: flex;
     align-items: center
 }
@@ -1181,10 +1178,6 @@ ul, li{
 
 .footer-icons a:hover, .footer-icons a:focus {
   color: white;
-}
-
-.asset-symbol {
-  padding-right: 50px;
 }
 
 .searchedAddress {
