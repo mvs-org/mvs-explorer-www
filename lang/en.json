@@ -216,5 +216,6 @@
     "CERT.CREATION": "Creation",
     "TX.SCRIPT": "Script",
     "TX.SHOW_HASH": "Show scripts",
-    "TX.HIDE_HASH": "Hide scripts"
+    "TX.HIDE_HASH": "Hide scripts",
+    "EXPLORER.IN_MEM_POOL": "In Memory Pool"
 }
