@@ -19,6 +19,7 @@
         $scope.maxDate = new Date();
         $scope.icons = Assets.hasIcon;
         $scope.priority = Assets.priority;
+        $scope.buttonCopyToClipboard = new ClipboardJS('.btn');
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
             color: {

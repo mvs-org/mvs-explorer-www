@@ -49,6 +49,7 @@
         $scope.loading_confirmation = true;
         $scope.total_inputs = 0;
         $scope.total_outputs = 0;
+        $scope.buttonCopyToClipboard = new ClipboardJS('.btn');
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 

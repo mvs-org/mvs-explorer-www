@@ -16,7 +16,7 @@
         </div>
         <div class="col-md-4 col-sm-12" ng-hide="loading_balances" ng-repeat="asset in addressAssets | orderBy:['priority','symbol'] ">
             <div class="col-md-12 panel infobox">
-                <h3 class="assetSymbol break">{{asset.symbol}}</h3>
+                <h3 class="assetSymbol break"><a href="#!/asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
                 <div class="asset-icon">
                     <img check-image ng-src="../img/assets/{{asset.icon}}.png">
                 </div>

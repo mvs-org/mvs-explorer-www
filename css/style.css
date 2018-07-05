@@ -1419,8 +1419,18 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   word-break: break-all;
 }
 
-.panel .panel-body a {
+.panel .panel-body a, a.link {
   color: #347DED;
+}
+
+.panel .panel-body a:hover, a.link:hover {
+  color: #347DED;
+  opacity: 0.8;
+}
+
+.panel .panel-body a:active, a.link:active {
+  color: #347DED;
+  opacity: 0.5;
 }
 
 .valueColor {
@@ -1447,4 +1457,14 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 
 .txType {
   font-style: oblique;
+}
+
+a.btn {
+  padding: 0;
+}
+
+a.btn:active {
+  border-radius: 0;
+  outline: none;
+  box-shadow: none;
 }

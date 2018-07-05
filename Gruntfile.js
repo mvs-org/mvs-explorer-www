@@ -63,6 +63,8 @@ module.exports = function(grunt) {
                     './node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
                     './node_modules/leaflet-ajax/dist/leaflet.ajax.min.js',
                     './node_modules/autobahn-js-built/autobahn.min.js',
+                    './node_modules/clipboard/dist/clipboard.min.js',
+                    './node_modules/bootstrap/dist/js/bootstrap.min.js',
                     './js/fontawesome-all.min.js'
                 ],
                 dest: './min/libs.min.js'
@@ -157,6 +159,12 @@ module.exports = function(grunt) {
                 expand: true,
                 src: 'fonts/**',
                 dest: 'dist'
+            },
+            bootstrap_fonts: {
+                expand: true,
+                cwd: 'node_modules/bootstrap/fonts/',
+                src: '**',
+                dest: 'dist/fonts/'
             },
             index: {
                 src: 'production_index.html',

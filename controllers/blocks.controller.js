@@ -36,6 +36,7 @@
         $scope.loading_txs = true;
         $scope.loading_confirmation = true;
         $scope.items_per_page = 10;
+        $scope.buttonCopyToClipboard = new ClipboardJS('.btn');
 
         $scope.switchPage = (page) => {
             $scope.current_page = page;
