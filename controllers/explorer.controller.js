@@ -404,7 +404,7 @@
                     name: asset,
                     url: "asset/" + asset,
                     type: "asset",
-                    icon: $scope.icons.indexOf(asset) > -1 ? asset : 'default'
+                    icon: $scope.icons.indexOf(asset) > -1 ? asset : 'default_mst'
                 };
             });
         }
@@ -414,7 +414,8 @@
                 return {
                     name: avatar,
                     url: 'avatar/' + avatar,
-                    type: 'avatar'
+                    type: 'avatar',
+                    icon: 'default_avatar'
                 };
             });
         }
@@ -457,7 +458,8 @@
                 return {
                     name: mit,
                     url: 'mit/' + mit,
-                    type: 'mit'
+                    type: 'mit',
+                    icon: 'default_mit'
                 };
             });
         }
