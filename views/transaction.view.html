@@ -18,7 +18,7 @@
                 <div class="col-md-3 list-item-label">{{ 'TX.TIMESTAMP' | translate }}</div>
                 <div class="col-md-9 list-item-value">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="total_inputs - total_outputs >= 0">
                 <div class="col-md-3 list-item-label">{{ 'TX.FEE' | translate }}</div>
                 <div class="col-md-9 list-item-value">{{total_inputs - total_outputs | numberFormat:8|currency:'':8}} ETP</div>
             </div>
