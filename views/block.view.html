@@ -8,12 +8,12 @@
 
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.NUMBER' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ block.number }} <a class="btn" data-clipboard-text="{{ block.number }}"><span class="glyphicon glyphicon-copy"></span></a></div>
+                <div class="col-md-9 list-item-value">{{ block.number }} <a class="btn" data-clipboard-text="{{ block.number }}"><i class="far fa-copy"></i></a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.HASH' | translate }}</div>
                 <div class="col-md-9 list-item-value hash-mono">
-                    <p class="block-hash">{{ block.hash }} <a class="btn" data-clipboard-text="{{ block.hash }}"><span class="glyphicon glyphicon-copy"></span></a></p>
+                    <p class="block-hash">{{ block.hash }} <a class="btn" data-clipboard-text="{{ block.hash }}"><i class="far fa-copy"></i></a></p>
                 </div>
             </div>
             <div class="row">
@@ -66,7 +66,7 @@
             <div class="panel-body">
                 <div class="row tx-head">
                     <div class="col-md-9 col-sm-12 break">
-                        <a class="hash-mono" href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a> <a class="btn" data-clipboard-text="{{ tx.hash }}"><span class="glyphicon glyphicon-copy"></span></a>
+                        <a class="hash-mono" href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a> <a class="btn" data-clipboard-text="{{ tx.hash }}"><i class="far fa-copy"></i></a>
                     </div>
 
                     <div class="col-md-3 col-sm-12">
@@ -94,7 +94,7 @@
                         </div>
                     </div>
                     <div class="col-md-1 center-text">
-                        <span class="transaction-arrow glyphicon glyphicon-arrow-right"></span>
+                        <i class="fas fa-arrow-right fa-2x"></i>
                     </div>
                     <div class="col-md-6">
                         <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
