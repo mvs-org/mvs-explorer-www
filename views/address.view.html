@@ -2,7 +2,7 @@
     <div class="row">
         <h2 class="headline col-sm-12"><em></em>{{ 'ADDRESS.HEADLINE' | translate }}</h2>
         <div class="col-md-8 col-sm-12 address-padding">
-            <h4 class="address-mono">{{ address }} <a class="btn link" data-clipboard-text="{{ address }}"><i class="far fa-copy"></i></a></h4>
+            <h4 class="address-mono">{{ address }} <a class="btn link" data-clipboard-text="{{ address }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a></h4>
         </div>
         <div class="col-md-4 ">
             <div class="qr-code">
@@ -70,7 +70,7 @@
             <div class="panel-body">
                 <div class="row tx-head">
                     <div class="col-md-9 col-sm-12 break">
-                        <a class="hash-mono" href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a> <a class="btn link" data-clipboard-text="{{ tx.hash }}"><i class="far fa-copy"></i></a>
+                        <a class="hash-mono" href="#!/tx/{{tx.hash}}">{{ tx.hash }}</a> <a class="btn link" data-clipboard-text="{{ tx.hash }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a>
                     </div>
                     <div class="col-md-3 col-sm-12">
                         <div class="right slide-left">{{'TX.BLOCK'|translate}} <a href="#!/blk/{{tx.block}}">{{tx.height}}<a>, {{tx.confirmed_at * 1000 | date: 'yyyy-MM-dd HH:mm:ss'}}</div>

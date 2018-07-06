@@ -227,5 +227,7 @@
     "CERT_DOMAIN": "Domain",
     "HELP.CERT_TYPE_NAMING": "This certificate gives the permission to create an asset for this name",
     "CERT_NAMING": "Naming",
-    "HELP.CERT_SPENT": "This certificate has been spent"
+    "HELP.CERT_SPENT": "This certificate has been spent",
+    "HELP.TX_UNSPENT_OUTPUT": "This output has not been spent yet",
+    "COPY": "Copy"
 }

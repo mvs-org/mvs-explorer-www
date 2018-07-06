@@ -38,12 +38,26 @@
             $wampProvider.init({
               //url: 'wss://explorer.mvs.org/ws',
               //url: 'ws://explorer-dev.mvs.org/ws',
-              //url: 'wss://explorer-new.mvs.org/ws',
+              //url: 'wss://explorer-testnet.mvs.org/ws',
               //url: 'ws://localhost:80/ws',
               url: ((window.location.protocol == 'https:') ? 'wss:' : 'ws:') + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/ws",
                 realm: 'realm1'
                 //Any other AutobahnJS options
             });
+        })
+        .directive('bsTooltip', function() {
+          return {
+            restrict: 'A',
+            link: function(scope, element, attrs){
+                $(element).hover(function(){
+                    // on mouseenter
+                    $(element).tooltip('show');
+                }, function(){
+                    // on mouseleave
+                    $(element).tooltip('hide');
+                });
+            }
+          };
         })
         .filter('numberFormat', () => function(number, decimals) {
             return (number / Math.pow(10, decimals)).toFixed(decimals);

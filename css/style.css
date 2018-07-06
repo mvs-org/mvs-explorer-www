@@ -1480,3 +1480,9 @@ a.btn:active {
   opacity: 1;
   z-index: 1000;
 }
+
+.disabled {
+  -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
