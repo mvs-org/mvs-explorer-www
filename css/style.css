@@ -256,10 +256,6 @@ em{
     font-size: 15px;
 }
 
-.glyphicon.transaction-arrow {
-    font-size: 20px;
-}
-
 .transaction-arrow-big-screen {
     position: absolute;
     right: -12px;

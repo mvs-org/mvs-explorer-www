@@ -8,11 +8,11 @@
         <div class="col-md-12 panel-body">
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.HASH' | translate }}</div>
-                <div class="col-md-9 list-item-value hash-mono">{{ transaction.hash }} <a class="btn" data-clipboard-text="{{ transaction.hash }}"><span class="glyphicon glyphicon-copy"></span></a></div>
+                <div class="col-md-9 list-item-value hash-mono">{{ transaction.hash }} <a class="btn" data-clipboard-text="{{ transaction.hash }}"><i class="far fa-copy"></i></a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.BLOCK' | translate }}</div>
-                <div class="col-md-9 list-item-value"><a href="#!/blk/{{transaction.block}}">{{ transaction.height }}</a>  <a class="btn" data-clipboard-text="{{ transaction.height }}"><span class="glyphicon glyphicon-copy"></span></a></div>
+                <div class="col-md-9 list-item-value"><a href="#!/blk/{{transaction.block}}">{{ transaction.height }}</a>  <a class="btn" data-clipboard-text="{{ transaction.height }}"><i class="far fa-copy"></i></a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.TIMESTAMP' | translate }}</div>
@@ -76,11 +76,11 @@
                         </div>
                     </div>
                     <div class="transaction-arrow-big-screen visible-md visible-lg visible-xl">
-                        <span class="transaction-arrow glyphicon glyphicon-arrow-right"></span>
+                        <i class="fas fa-arrow-right fa-2x"></i>
                     </div>
                 </div>
                 <div class="col-xs-6 col-xs-offset-6 col-sm-6 col-sm-offset-6 visible-xs visible-sm">
-                    <span class="transaction-arrow glyphicon glyphicon-arrow-right"></span>
+                    <i class="fas fa-arrow-right fa-2x"></i>
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-6 right">
