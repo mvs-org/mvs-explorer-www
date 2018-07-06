@@ -1365,9 +1365,14 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 .certificate {
   margin-left: 10px;
   margin-right: 10px;
+  padding: 0;
   width: 200px;
   height: 250px;
   box-shadow: 2px 2px 10px 2px #f1f1f1;
+}
+
+.certificate .panel-link {
+  margin: 15px;
 }
 
 .certDomain {
@@ -1385,6 +1390,9 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 .certExpired {
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
+}
+
+.certExpiredOpacity {
   opacity:0.5;
 }
 
@@ -1463,4 +1471,12 @@ a.btn:active {
   border-radius: 0;
   outline: none;
   box-shadow: none;
+}
+
+.conditionnal-tooltip {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 1;
+  z-index: 1000;
 }
