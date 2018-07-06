@@ -103,7 +103,7 @@ em{
     margin-right: 10px;
 }
 .infobox{
-    margin-top: 50px;
+    margin-top: 20px;
     padding: 20px;
     color: #4b606d;
     min-height: 130px;
@@ -1419,16 +1419,16 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   word-break: break-all;
 }
 
-.panel .panel-body a, a.link {
+.panel .panel-body a, .panel .panel-link a, a.link {
   color: #347DED;
 }
 
-.panel .panel-body a:hover, a.link:hover {
+.panel .panel-body a:hover, .panel .panel-link a:hover, a.link:hover {
   color: #347DED;
   opacity: 0.8;
 }
 
-.panel .panel-body a:active, a.link:active {
+.panel .panel-body a:active, .panel .panel-link a:hover, a.link:active {
   color: #347DED;
   opacity: 0.5;
 }

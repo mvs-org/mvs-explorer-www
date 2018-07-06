@@ -49,12 +49,12 @@
     <div ng-show="!loading_certs && certs.length == 0">{{ 'AVATAR.NO_CERTIFICATES' | translate }}</div>
     <div class="row" ng-show="!loading_certs && certs.length != 0">
         <div class="certificate panel nga-default nga-stagger nga-fade distrib-overview col-xs-12 col-sm-6 col-md-3 col-lg-2" ng-class="{certDomain: cert.attachment.cert == 'domain', certIssue: cert.attachment.cert == 'issue', certNaming: cert.attachment.cert == 'naming', certExpired: cert.spent_tx != 0}" ng-repeat="cert in certs | orderBy:['spent_tx','height']">
-            <div class"">
+            <div class="panel-link">
                 <h4 class="text-center cert-title">{{cert.attachment.symbol}}</h4>
                 <div>{{ 'CERT.TYPE' | translate }}: <span class="align-right">{{cert.attachment.cert}}</span></div>
                 <div>{{ 'CERT.CURRENT_OWNER' | translate }}: <span class="break-all align-right">{{cert.attachment.owner}}</span></div>
                 <div>{{ 'TX.BLOCK' | translate }}: <a class="align-right" href="#!/blk/{{cert.height}}">{{cert.height}}</a></div>
-                <div>{{ 'CERT.CREATION' | translate }}: <span class="align-right">{{cert.confirmed_at * 1000| date}}</span></div>
+                <div>{{ 'CERT.CREATION' | translate }}: <a class="align-right" href="#!/tx/{{cert.tx}}">{{cert.confirmed_at * 1000| date}}</a></div>
                 <br/>
                 <h4 class="text-center" ng-if="cert.spent_tx!=0">
                     <a href="#!/tx/{{cert.spent_tx}}">{{ 'CERT.INVALIDATED' | translate }}</a>
@@ -102,7 +102,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
-                <div class="col-md-8 list-item-value">{{avatar.height}}</div>
+                <div class="col-md-8 list-item-value"><a href="#!/blk/{{avatar.height}}">{{avatar.height}}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_TRANSACTION' | translate }}</div>

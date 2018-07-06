@@ -79,17 +79,17 @@
                 <div class="row">
                     <div class="col-md-5">
                         <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
-                        <div class="row" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
+                        <div class="row" ng-if="$index < 5" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
                             <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
-                                <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
+                                <a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
-                                <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
+                                <span ng-if="input.address">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
-                                <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'':8}} ETP</span>
+                                <span ng-if="input.address">{{input.value | numberFormat:8 | currency:'':8}} ETP</span>
                             </div>
                         </div>
                         <div ng-if="tx.inputs.length>4">
@@ -99,23 +99,26 @@
                     <div class="col-md-1 center-text">
                         <span class="transaction-arrow glyphicon glyphicon-arrow-right"></span>
                     </div>
-                    <div class="col-md-6">
-                        <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row" ng-repeat="output in tx.outputs" ng-class="{searchedAddress: output.address==address}">
+                    <div class="col-md-6 right">
+                        <div class="subhead"><b>{{'OUTPUTS'|translate}}:</b></div>
+                        <div class="row" ng-if="$index < 5" ng-repeat="output in tx.outputs" ng-class="{searchedAddress: output.address==address}">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
                                 <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
-                                <div class="right">
+                                <div>
                                     {{output.attachment.quantity | numberFormat:output.attachment.decimals|currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
                                 </div>
                             </div>
                             <div ng-if="output.value != 0" class="col-md-12 right break">
                                 <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
-                                <div class="right">
+                                <div>
                                     {{output.value | numberFormat:8|currency:'':8}} ETP
                                 </div>
                             </div>
+                        </div>
+                        <div ng-if="tx.outputs.length>4">
+                            <a href="#!/tx/{{tx.hash}}">...</a>
                         </div>
                     </div>
                 </div>
