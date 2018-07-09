@@ -85,10 +85,10 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-6 right">
                     <div class="row break txLine" ng-repeat="output in transaction.outputs">
-                        <div ng-show="output.spent_tx != 0" class="transaction-arrow-right">
+                        <div ng-show="!loading_outputs && output.spent_tx != 0" class="transaction-arrow-right">
                             <a href="#!/tx/{{output.spent_tx}}"><i class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <div ng-show="output.spent_tx == 0" class="transaction-arrow-right" bs-tooltip data-placement="left" title="{{ 'HELP.TX_UNSPENT_OUTPUT' | translate }}">
+                        <div ng-show="!loading_outputs && output.spent_tx == 0" class="transaction-arrow-right" bs-tooltip data-placement="left" title="{{ 'HELP.TX_UNSPENT_OUTPUT' | translate }}">
                             <i class="fas fa-arrow-circle-right disabled"></i>
                         </div>
                         <div class="row" ng-if="output.attachment.symbol != 'ETP'">
