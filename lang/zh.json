@@ -159,7 +159,7 @@
     "AVATAR.ADDRESS_FROM_HEIGHT": "起始高度",
     "CERTS.HEADLINE": "证书",
     "TOP_MENU_CERTS": "证书",
-    "CERTS.COUNT": "元界区块链上的数字身份数量",
+    "CERTS.COUNT": "元界区块链上的证书数量",
     "CERT.OWNER": "拥有者",
     "CERT.CREATION_DATE": "创建日期",
     "CERT.CREATION_BLOCK": "创建区块",

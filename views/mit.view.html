@@ -50,23 +50,41 @@
     <div ng-show="loading_mit">
         <div class="mini-loader">Loading...</div>
     </div>
-    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-hide="loading_mit">
-        <div class="panel-body">
-            <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
-                <span class="col-xs-3 overflow">{{ 'MIT.FROM_AVATAR' | translate }}</span>
-                <span class="col-xs-3 overflow">{{ 'MIT.TO_AVATAR' | translate }}</span>
-                <span class="col-xs-4 right right-overflow">{{ 'MIT.TX_TIME' | translate }}</span>
-                <span  class="col-xs-2 right right-overflow hidden-xs hidden-sm">{{ 'MIT.TX_BLOCK' | translate }}</span>
-                <span  class="col-xs-2 right right-overflow visible-xs visible-sm">{{ 'TX.BLOCK' | translate }}</span>
-            </div>
 
-            <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="mit in mits | orderBy:'height':true">
-                <span ng-show="mit.attachment.status == 'registered'" class="col-xs-3 overflow"><i>{{ 'MIT.FIRST_TX' | translate }}</i></span>
-                <span ng-show="mit.attachment.status != 'registered'" class="col-xs-3 overflow"><a href="#!/avatar/{{previous_tx[mit.tx].attachment.to_did}}">{{previous_tx[mit.tx].attachment.to_did}}</a></span>
-                <span class="col-xs-3 overflow"><a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></span>
-                <span class="col-xs-4 right right-overflow"><a href="#!/tx/{{mit.tx}}">{{mit.confirmed_at*1000|date:'medium'}}</a></span>
-                <span class="col-xs-2 right right-overflow"><a href="#!/blk/{{mit.height}}">{{mit.height}}</a></span>
+    <div id="cd-timeline" class="cd-container" ng-hide="loading_mit">
+        <div class="cd-timeline-block" ng-repeat="mit in mits | orderBy:'height':true">
+            <div class="cd-timeline-img" ng-class="{square: mit.attachment.status == 'registered'}">
             </div>
-        </div>
-    </div>
+            <div class="cd-timeline-content">
+                <h4 class="break" ng-show="mit.attachment.status == 'registered'">{{ 'TX.MIT_CREATED' | translate }}<a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></h4>
+                <h4 class="break" ng-show="mit.attachment.status != 'registered'">{{ 'TX.MIT_TRANSFERED' | translate }}<a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></h4>
+
+                <div class="timeline-content-info">
+                    <div class="col-xs-5 break">
+                        <a ng-show="previous_tx[mit.tx].attachment.to_did" href="#!/avatar/{{previous_tx[mit.tx].attachment.to_did}}"><i class="fa fa-user" aria-hidden="true"></i> {{previous_tx[mit.tx].attachment.to_did}}</a>
+                    </div>
+                    <div class="col-xs-2">
+                        <i class="fas fa-arrow-right"></i>
+                    </div>
+                    <div class="col-xs-5 right break">
+                        <a href="#!/avatar/{{mit.attachment.to_did}}"><i class="fa fa-user" aria-hidden="true"></i> {{mit.attachment.to_did}}</a>
+                    </div>
+                </div>
+                <br/>
+                <div class="overflow">
+                    <a href="#!/tx/{{mit.tx}}"><i class="fas fa-exchange-alt"></i> {{mit.tx}}</a>
+                </div>
+                <div>
+                    <a href="#!/blk/{{mit.height}}"><i class="fa fa-cube" aria-hidden="true"></i> {{mit.height}}</a>
+                </div>
+                <!--p>Comment.</p-->
+                <div class="cd-date">
+                    <i class="far fa-calendar" aria-hidden="true"></i> {{mit.confirmed_at*1000|date:'shortDate'}}
+                </div>
+                <div>
+                    <i class="far fa-clock" aria-hidden="true"></i> {{mit.confirmed_at*1000|date:'shortTime'}}
+                </div>
+            </div> <!-- cd-timeline-content -->
+        </div> <!-- cd-timeline-block -->
+    </div> <!-- cd-timeline -->
 </div>
