@@ -52,8 +52,8 @@
     </div>
 
     <div id="cd-timeline" class="cd-container" ng-hide="loading_mit">
-        <div class="cd-timeline-block" ng-repeat="mit in mits | orderBy:'height':true">
-            <div class="cd-timeline-img" ng-class="{square: mit.attachment.status == 'registered'}">
+        <div class="cd-timeline-block" ng-repeat="mit in mits | orderBy:'height':true" ng-class="{mitCreation: mit.attachment.status == 'registered'}">
+            <div class="cd-timeline-img">
             </div>
             <div class="cd-timeline-content">
                 <h4 class="break" ng-show="mit.attachment.status == 'registered'">{{ 'TX.MIT_CREATED' | translate }}<a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></h4>

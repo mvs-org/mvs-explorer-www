@@ -1,7 +1,7 @@
 {
   "name": "MVS_explorer",
   "description": "Explorer for Metavserse.",
-  "version": "0.4.2s1",
+  "version": "0.4.2s2",
   "repository": {
     "type": "git",
     "url": "https://github.com/ViewBTC/mvs-explorer.git"

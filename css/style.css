@@ -1490,7 +1490,7 @@ a.btn:active {
 /*Start timeline*/
 
 .cd-container {
-  width: 90%;
+  width: 100%;
   margin: 0 auto;
   padding: 0 10%;
 }
@@ -1518,14 +1518,14 @@ Main components
   position: absolute;
   top: 0;
   left: 25px;
-  height: 100%;
+  height: calc(100% - 200px);
   width: 4px;
   background: #6dc6f9;
 }
 #cd-timeline a {
   color: #347DED;
 }
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 1200px) {
   #cd-timeline {
     margin-top: 3em;
     margin-bottom: 3em;
@@ -1551,7 +1551,7 @@ Main components
 .cd-timeline-block:last-child {
   margin-bottom: 0;
 }
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 1200px) {
   .cd-timeline-block {
     margin: 4em 0;
   }
@@ -1565,7 +1565,7 @@ Main components
 
 .cd-timeline-img {
   position: absolute;
-  top: 8px;
+  margin-top: 8px;
   left: 12px;
   width: 30px;
   height: 30px;
@@ -1574,11 +1574,11 @@ Main components
   background: #347DED;
 }
 
-.square {
+.mitCreation .cd-timeline-img {
   border-radius: 0;
 }
 
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 1200px) {
   .cd-timeline-img {
     width: 30px;
     height: 30px;
@@ -1599,7 +1599,6 @@ Main components
 .cd-timeline-content {
   position: relative;
   margin-left: 60px;
-  margin-right: 30px;
   background: white;
   border-radius: 10px;
   padding: 1em;
@@ -1629,23 +1628,14 @@ Main components
   border-right: 7px solid white;
 }
 
-@media only screen and (min-width: 768px) {
-  .cd-timeline-content h2 {
-    font-size: 20px;
-    font-size: 1.25rem;
-  }
-  .cd-timeline-content p {
-    font-size: 16px;
-    font-size: 1rem;
-  }
-}
-@media only screen and (min-width: 1170px) {
+@media only screen and (min-width: 1200px) {
   .cd-timeline-content {
     margin-left: 0;
     padding: 1.6em;
-    width: 36%;
+    width: calc(50% - 30px);
     margin: 0 5%
     overflow: hidden;
+    margin-left: 0;
   }
   .cd-timeline-content::before {
     top: 24px;
@@ -1656,8 +1646,8 @@ Main components
   .cd-timeline-content .cd-date {
     position: absolute;
     width: 100%;
-    left: 150%;
-    top: 28px;
+    left: 111%;
+    top: 20px;
     color: black;
   }
   .cd-timeline-block:nth-child(even) .cd-timeline-content {
@@ -1675,7 +1665,7 @@ Main components
   }
   .cd-timeline-block:nth-child(even) .cd-timeline-content .cd-date {
     left: auto;
-    right: 144%;
+    right: 111%;
     text-align: right;
   }
 }
