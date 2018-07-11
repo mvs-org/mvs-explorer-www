@@ -340,18 +340,26 @@
             MetaverseService.AssetInfo($filter('uppercase')(search_field))
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
-                        $location.path('/asset/' + search_field);
+                        $location.path('/asset/' + $filter('uppercase')(search_field));
                     } else {
-                        MetaverseService.MitInfo(search_field)
-                            .then((response) => {
-                                if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
-                                    $location.path('/mit/' + search_field);
-                                } else {
-                                    $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
-                                        .then((data) => FlashService.Error(data));
-                                }
-                                NProgress.done();
-                            });
+                      MetaverseService.FetchAvatar(search_field)
+                          .then((response) => {
+                              if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                                  $location.path('/avatar/' + search_field);
+                              } else {
+                                  MetaverseService.MitInfo(search_field)
+                                      .then((response) => {
+                                          if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                                              $location.path('/mit/' + search_field);
+                                          } else {
+                                              $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                                                  .then((data) => FlashService.Error(data));
+                                          }
+                                          NProgress.done();
+                                      });
+                              }
+                              NProgress.done();
+                          });
                     }
                     NProgress.done();
                 });
