@@ -10,13 +10,16 @@
                 <div class="col-md-3 list-item-label">{{ 'TX.HASH' | translate }}</div>
                 <div class="col-md-9 list-item-value hash-mono">{{ transaction.hash }} <a class="btn" data-clipboard-text="{{ transaction.hash }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a></div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="transaction.height">
                 <div class="col-md-3 list-item-label">{{ 'TX.BLOCK' | translate }}</div>
                 <div class="col-md-9 list-item-value"><a href="#!/blk/{{transaction.block}}">{{ transaction.height }}</a>  <a class="btn" data-clipboard-text="{{ transaction.height }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.TIMESTAMP' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
+                <div class="col-md-9 list-item-value">
+                    <span ng-show="transaction.confirmed_at != undefined">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</span>
+                    <span ng-show="transaction.confirmed_at == undefined">{{transaction.received_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</span>
+                </div>
             </div>
             <div class="row" ng-show="total_inputs - total_outputs >= 0">
                 <div class="col-md-3 list-item-label">{{ 'TX.FEE' | translate }}</div>
@@ -24,7 +27,8 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
-                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan != 0)">{{ 'TX.ORPHAN' | translate}}</div>
+                <div class="col-md-9 list-item-value block-mem-pool" ng-show="!loading_confirmation && (transaction.orphan == -1)">{{ 'EXPLORER.UNCONFIRMED' | translate}}</div>
+                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan > 0)">{{ 'TX.ORPHAN' | translate}}</div>
                 <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations > 100">{{ 'TX.CONFIRMED' | translate}}</div>
                 <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations <= 100">{{ confirmations }}</div>
                 <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>

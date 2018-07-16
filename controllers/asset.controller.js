@@ -144,8 +144,7 @@
                         "#0099CB", // blue
                         '#fe6700', // orange
                         '#ffd21c', // yellow
-                        "#fe0000", // red
-                        "#ED230D" // dark red
+                        "#fe0000" // red
                     ];
 
                     nv.addGraph(function() {

@@ -1278,6 +1278,10 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   color: green;
 }
 
+.block-mem-pool {
+  color: orange;
+}
+
 .filter-button {
   margin-left: 10px;
 }
