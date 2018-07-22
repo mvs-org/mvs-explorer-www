@@ -80,13 +80,13 @@
                             <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
-                                <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'': input.attachment.decimals}} {{input.attachment.symbol}}</span>
+                                <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
                                 <span ng-if="!input.address">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="#!/adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
-                                <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8 | currency:'': 8}} ETP</span>
+                                <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8}} ETP</span>
                             </div>
                         </div>
                         <div ng-if="tx.inputs.length>4">
@@ -103,14 +103,14 @@
                                 <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
                                 <div class="right">
-                                    {{output.attachment.quantity | numberFormat:output.attachment.decimals|currency:'':output.attachment.decimals}} {{output.attachment.symbol}}
+                                    {{output.attachment.quantity | numberFormat:output.attachment.decimals}} {{output.attachment.symbol}}
                                 </div>
                             </div>
                             <div ng-if="output.value != 0" class="col-md-12 right break">
                                 <a class="address-mono" href="#!/adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
                                 <div class="right">
-                                    {{output.value | numberFormat:8|currency:'':8}} ETP
+                                    {{output.value | numberFormat:8}} ETP
                                 </div>
                             </div>
                         </div>

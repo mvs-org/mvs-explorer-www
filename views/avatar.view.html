@@ -14,28 +14,28 @@
         <div ng-show="loading_balances">
             <div class="mini-loader">Loading...</div>
         </div>
-        <div class="col-md-4 col-sm-12" ng-hide="loading_balances" ng-repeat="asset in addressAssets | orderBy:['priority','symbol'] ">
+        <div class="col-md-4 col-sm-12" ng-hide="loading_balances || addressAssets == [[]]" ng-repeat="asset in addressAssets | orderBy:['priority','symbol'] ">
             <div class="col-md-12 panel infobox">
                 <h3 class="assetSymbol break"><a href="#!/asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
                 <div class="asset-icon">
                     <img check-image ng-src="../img/assets/{{asset.icon}}.png">
                 </div>
                 <table>
-                    <tr ng-show="asset.symbol!=='ETP'">
+                    <tr ng-if="asset.symbol!=='ETP'">
                         <th>{{'BALANCE'|translate}}</th>
                         <td ng-show="loading_address"><img src="../images/spinner.gif"></td>
-                        <td ng-hide="loading_address">{{( tokens[asset.symbol] | numberFormat:asset.decimals|currency:'':asset.decimals)}}</td>
+                        <td ng-hide="loading_address">{{( tokens[asset.symbol] | numberFormat:asset.decimals)}}</td>
                     </tr>
                     <tr ng-if="asset.symbol==='ETP'">
                         <th>{{'BALANCE'|translate}}</th>
                         <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
-                        <td ng-show="!loading_address && info.ETP">{{info.ETP | numberFormat: 8|currency:'': 8}}</td>
-                        <td ng-show="!loading_address && !info.ETP">{{0 | numberFormat: 8|currency:'': 8}}</td>
+                        <td ng-show="!loading_address && info.ETP">{{info.ETP | numberFormat: 8}}</td>
+                        <td ng-show="!loading_address && !info.ETP">{{0 | numberFormat: 8}}</td>
                     </tr>
                     <tr ng-if="asset.symbol==='ETP'">
                         <th>{{'FROZEN'|translate}}</th>
                         <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_address">{{info.FROZEN | numberFormat: 8|currency:'': 8}}</td>
+                        <td ng-hide="loading_address">{{info.FROZEN | numberFormat: 8}}</td>
                     </tr>
                 </table>
             </div>
