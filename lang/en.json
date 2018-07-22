@@ -220,7 +220,7 @@
     "EXPLORER.UNCONFIRMED": "Pending confirmation",
     "TX.TOTAL_ETP_INPUT": "Total ETP Inputs",
     "TX.TOTAL_ETP_OUTPUT": "Total ETP Outputs",
-    "TX.FEE": "Transaction fee",
+    "TX.FEE": "Mining fee",
     "HELP.CERT_TYPE_ISSUE": "This certificate gives the permission to do a Secondary Issue on this MST.",
     "CERT_ISSUE": "Secondary Issue",
     "HELP.CERT_TYPE_DOMAIN": "This certificate gives the ownership of this domain",
