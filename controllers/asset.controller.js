@@ -24,7 +24,7 @@
                     }
                     $scope.assets.forEach(function(asset) {
                         asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
-                        asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default';
+                        asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
                     });
                     NProgress.done();
                 });
@@ -53,7 +53,7 @@
                     $scope.loading_asset = false;
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         $scope.asset = response.data.result[0];
-                        $scope.asset.icon = ($scope.icons.indexOf($scope.symbol) > -1) ? $scope.symbol : 'default';
+                        $scope.asset.icon = ($scope.icons.indexOf($scope.symbol) > -1) ? $scope.symbol : 'default_mst';
                     }
                 })
                 .then(() => loadStakelist())
@@ -144,8 +144,7 @@
                         "#0099CB", // blue
                         '#fe6700', // orange
                         '#ffd21c', // yellow
-                        "#fe0000", // red
-                        "#ED230D" // dark red
+                        "#fe0000" // red
                     ];
 
                     nv.addGraph(function() {

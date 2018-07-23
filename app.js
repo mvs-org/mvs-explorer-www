@@ -3,13 +3,6 @@
 
     angular.module('app', ['ui.router', 'ngCookies', 'LocalStorageModule', 'pascalprecht.translate', 'angularUtils.directives.dirPagination', 'ngAnimate','ngAria','ngMessages','ngMaterial', 'nvd3', 'vxWamp','ngSanitize','swaggerUi'])
         .config(config)
-        .filter('assetformat',function(){
-            return function(input, asset_type){
-                if(typeof asset_type === 'undefined')
-                    asset_type=8;
-                return parseFloat(input)/Math.pow(10,asset_type);
-            };
-        })
         .config(['$compileProvider', function($compileProvider) {
             $compileProvider.debugInfoEnabled(false);
         }])
@@ -38,15 +31,38 @@
             $wampProvider.init({
               //url: 'wss://explorer.mvs.org/ws',
               //url: 'ws://explorer-dev.mvs.org/ws',
-              //url: 'wss://explorer-new.mvs.org/ws',
+              //url: 'wss://explorer-testnet.mvs.org/ws',
               //url: 'ws://localhost:80/ws',
               url: ((window.location.protocol == 'https:') ? 'wss:' : 'ws:') + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/ws",
                 realm: 'realm1'
                 //Any other AutobahnJS options
             });
         })
+        .directive('bsTooltip', function() {
+          return {
+            restrict: 'A',
+            link: function(scope, element, attrs){
+                $(element).hover(function(){
+                    // on mouseenter
+                    $(element).tooltip('show');
+                }, function(){
+                    // on mouseleave
+                    $(element).tooltip('hide');
+                });
+            }
+          };
+        })
+        .filter('assetformat',function(){
+            return function(input, asset_type){
+                if(typeof asset_type === 'undefined')
+                    asset_type=8;
+                return parseFloat(input)/Math.pow(10,asset_type);
+            };
+        })
         .filter('numberFormat', () => function(number, decimals) {
-            return (number / Math.pow(10, decimals)).toFixed(decimals);
+            var parts = ((number / Math.pow(10, decimals)).toFixed(decimals)*1).toString().split(".");
+            parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            return parts.join(".");
         })
         .constant('appName', 'MetaverseExplorer')
         .run(run);

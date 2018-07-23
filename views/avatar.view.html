@@ -4,7 +4,72 @@
         <div class="headline col-md-8 col-xs-8 address-padding">
             <h1>{{ avatar.symbol }}</h1>
         </div>
+        <div class="headline col-md-4 col-xs-4 assetpage-icon">
+            <img check-image ng-src="../img/assets/default_avatar.png">
+        </div>
     </div>
+
+    <div class="row">
+        <h2 class="headline col-sm-12"><em></em>{{ 'BALANCES.HEADLINE' | translate }}</h2>
+        <div ng-show="loading_balances">
+            <div class="mini-loader">Loading...</div>
+        </div>
+        <div class="col-md-4 col-sm-12" ng-hide="loading_balances || addressAssets == [[]]" ng-repeat="asset in addressAssets | orderBy:['priority','symbol'] ">
+            <div class="col-md-12 panel infobox">
+                <h3 class="assetSymbol break"><a href="#!/asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
+                <div class="asset-icon">
+                    <img check-image ng-src="../img/assets/{{asset.icon}}.png">
+                </div>
+                <table>
+                    <tr ng-if="asset.symbol!=='ETP'">
+                        <th>{{'BALANCE'|translate}}</th>
+                        <td ng-show="loading_address"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_address">{{( tokens[asset.symbol] | numberFormat:asset.decimals)}}</td>
+                    </tr>
+                    <tr ng-if="asset.symbol==='ETP'">
+                        <th>{{'BALANCE'|translate}}</th>
+                        <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
+                        <td ng-show="!loading_address && info.ETP">{{info.ETP | numberFormat: 8}}</td>
+                        <td ng-show="!loading_address && !info.ETP">{{0 | numberFormat: 8}}</td>
+                    </tr>
+                    <tr ng-if="asset.symbol==='ETP'">
+                        <th>{{'FROZEN'|translate}}</th>
+                        <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_address">{{info.FROZEN | numberFormat: 8}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <h2 class="headline"><em></em>{{ 'AVATAR.CERTIFICATES' | translate }}</h2>
+    <div ng-show="loading_certs">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div ng-show="!loading_certs && certs.length == 0">{{ 'AVATAR.NO_CERTIFICATES' | translate }}</div>
+    <div class="row" ng-show="!loading_certs && certs.length != 0">
+        <div class="certificate panel nga-default nga-stagger nga-fade distrib-overview col-xs-12 col-sm-6 col-md-3 col-lg-2" ng-class="{certDomain: cert.attachment.cert == 'domain', certIssue: cert.attachment.cert == 'issue', certNaming: cert.attachment.cert == 'naming', certExpired: cert.spent_tx != 0}" ng-repeat="cert in certs | orderBy:['spent_tx','height']">
+            <div ng-show="cert.spent_tx != 0" class="conditionnal-tooltip" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_SPENT' | translate }}"></div>
+            <div class="panel-link" ng-class="{certExpiredOpacity: cert.spent_tx != 0}">
+                <h4 class="text-center cert-title">{{cert.attachment.symbol}}</h4>
+                <div>{{ 'CERT.TYPE' | translate }}:
+                  <span ng-show="cert.attachment.cert == 'issue'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE_ISSUE' | translate }}">{{ 'CERT_ISSUE' | translate }}</span>
+                  <span ng-show="cert.attachment.cert == 'domain'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE_DOMAIN' | translate }}">{{ 'CERT_DOMAIN' | translate }}</span>
+                  <span ng-show="cert.attachment.cert == 'naming'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE_NAMING' | translate }}">{{ 'CERT_NAMING' | translate }}</span>
+                  <span ng-show="cert.attachment.cert != 'issue' && cert.attachment.cert != 'domain' && cert.attachment.cert != 'naming'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE' | translate }}">{{cert.attachment.cert}}</span>
+                </div>
+                <div>{{ 'CERT.CURRENT_OWNER' | translate }}: <span class="break-all align-right">{{cert.attachment.owner}}</span></div>
+                <div>{{ 'TX.BLOCK' | translate }}: <a class="align-right" href="#!/blk/{{cert.height}}">{{cert.height}}</a></div>
+                <div>{{ 'CERT.CREATION' | translate }}: <a class="align-right" href="#!/tx/{{cert.tx}}">{{cert.confirmed_at * 1000| date}}</a></div>
+                <br/>
+                <h4 class="text-center" ng-if="cert.spent_tx!=0">
+                    <a href="#!/tx/{{cert.spent_tx}}">{{ 'CERT.INVALIDATED' | translate }}</a>
+                </h4>
+                <img class="cert-stamp" check-image ng-src="../img/assets/ETP.png">
+            </div>
+        </div>
+    </div>
+
 
     <h2 class="headline"><em></em>{{ 'AVATAR.INFO' | translate }}</h2>
     <div ng-show="loading_avatar">
@@ -43,33 +108,11 @@
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_BLOCK' | translate }}</div>
-                <div class="col-md-8 list-item-value">{{avatar.height}}</div>
+                <div class="col-md-8 list-item-value"><a href="#!/blk/{{avatar.height}}">{{avatar.height}}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_TRANSACTION' | translate }}</div>
                 <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{avatar.issue_tx}}">{{avatar.issue_tx}}</a></div>
-            </div>
-        </div>
-    </div>
-
-    <h2 class="headline"><em></em>{{ 'AVATAR.CERTIFICATES' | translate }}</h2>
-    <div ng-show="loading_certs">
-        <div class="mini-loader">Loading...</div>
-    </div>
-    <div ng-show="!loading_certs && certs.length == 0">{{ 'AVATAR.NO_CERTIFICATES' | translate }}</div>
-    <div class="row panel nga-default nga-stagger nga-fade distrib-overview" ng-show="!loading_certs && certs.length != 0">
-        <div class="panel-body">
-            <div class="col-xs-12 noPaddingLeftRight assetAddressTitle">
-                <span class="col-xs-7 overflow">{{ 'CERT.SYMBOL' | translate }}</span>
-                <span class="col-xs-3 right right-overflow">{{ 'CERT.TYPE' | translate }}</span>
-                <span class="col-xs-2 right right-overflow">{{ 'CERT.STATUS' | translate }}</span>
-            </div>
-
-            <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="cert in certs | orderBy:'height':true">
-                <span class="col-xs-7 overflow">{{cert.attachment.symbol}}</span>
-                <span class="col-xs-3 right right-overflow">{{cert.attachment.cert}}</span>
-                <span class="col-xs-2 right right-overflow" ng-if="cert.spent_tx==0">{{ 'CERT.VALID' | translate }}</span>
-                <span class="col-xs-2 right right-overflow" ng-if="cert.spent_tx!=0"><a href="#!/tx/{{cert.spent_tx}}">{{ 'CERT.INVALIDATED' | translate }}</a></span>
             </div>
         </div>
     </div>

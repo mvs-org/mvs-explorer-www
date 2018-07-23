@@ -9,6 +9,7 @@
 
         var address = $stateParams.address;
         $rootScope.nosplash = true;
+        $scope.loading_balances = true;
         $scope.loading_address = true;
         $scope.info = [];
         $scope.tokens = [];
@@ -16,7 +17,9 @@
         $scope.items_per_page = 10;
         $scope.minDate = new Date(2017, 2 - 1, 11);
         $scope.maxDate = new Date();
+        $scope.icons = Assets.hasIcon;
         $scope.priority = Assets.priority;
+        $scope.buttonCopyToClipboard = new ClipboardJS('.btn');
 
         qrcodelib.toCanvas(document.getElementById('qrcode'), address, {
             color: {
@@ -37,12 +40,14 @@
             if (typeof address !== 'undefined') {
                 MetaverseService.FetchAddress(address)
                     .then((response) => {
+                        $scope.loading_balances = false;
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
                             $scope.info = response.data.result.info;
                             $scope.tokens = response.data.result.tokens;
                             $scope.definitions = response.data.result.definitions;
                             for (var symbol in $scope.definitions) {
                                 $scope.definitions[symbol].priority = (typeof $scope.priority[symbol] != 'undefined') ? $scope.priority[symbol] : 1000;
+                                $scope.definitions[symbol].icon = ($scope.icons.indexOf(symbol) > -1) ? symbol : 'default_mst';
                             }
 
                             $scope.addressAssets = [];
@@ -50,6 +55,7 @@
                             assetETP.symbol = "ETP";
                             assetETP.priority = $scope.priority["ETP"];
                             assetETP.decimals = 8;
+                            assetETP.icon = "ETP";
                             $scope.addressAssets.push(assetETP);
 
                             for (var symbol in $scope.definitions) {

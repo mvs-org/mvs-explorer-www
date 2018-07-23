@@ -15,35 +15,35 @@
     <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_assets">
         <div class="col-md-12 hidden-xs hidden-sm">
             <div class="row panel list-item nga-default nga-stagger nga-fade">
-                <div class="col-md-3">{{ 'ASSETS.SYMBOL' | translate }}</div>
+                <div class="col-md-4">{{ 'ASSETS.SYMBOL' | translate }}</div>
                 <div class="col-md-2">{{ 'ASSETS.ISSUER' | translate }}</div>
                 <div class="col-md-2">{{ 'ASSETS.MAX_SUPPLY' | translate }}</div>
-                <div class="col-md-5">{{ 'ASSETS.DESCRIPTION' | translate }}</div>
+                <div class="col-md-4">{{ 'ASSETS.DESCRIPTION' | translate }}</div>
             </div>
 
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row">
                 <div class="col-md-3">
                   <h4><a href="#!/asset/ETP">ETP</a></h4>
-                  <span class="asset-icon-list-assets">
-                      <img check-image ng-src="../img/assets/ETP.png">
-                  </span>
+                </div>
+                <div class="col-md-1 asset-icon-list-assets">
+                    <img check-image ng-src="../img/assets/ETP.png">
                 </div>
                 <div class="col-md-2">mvs.org</div>
-                <div class="col-md-2">{{100000000 | currency:'':0}}</div>
-                <div class="col-md-5">MVS Official Token</div>
+                <div class="col-md-2">{{100000000 | numberFormat:'':0}}</div>
+                <div class="col-md-4">MVS Official Token</div>
             </div>
 
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:['priority','symbol'] ">
-                <div class="col-md-3 asset-symbol">
+                <div class="col-md-3">
                   <h4 ng-show="asset.symbol != 'ETP'"><a href="#!/asset/{{asset.symbol}}">{{asset.symbol}}</a></h4>
                   <h4 ng-show="asset.symbol == 'ETP'"><a>{{asset.symbol}}</a></h4>
-                  <span class="asset-icon-list-assets">
-                      <img ng-src="../img/assets/{{asset.icon}}.png">
-                  </span>
+                </div>
+                <div class="col-md-1 asset-icon-list-assets">
+                    <img ng-src="../img/assets/{{asset.icon}}.png">
                 </div>
                 <div class="col-md-2">{{asset.issuer}}</div>
-                <div class="col-md-2">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
-                <div class="col-md-5">{{asset.description}}</div>
+                <div class="col-md-2">{{asset.quantity | numberFormat : asset.decimals}}</div>
+                <div class="col-md-4">{{asset.description}}</div>
             </div>
         </div>
 
@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
-                    <td>{{100000000 | currency:'':0}}</td>
+                    <td>{{100000000 | numberFormat:0}}</td>
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>
@@ -79,7 +79,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
-                    <td>{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</td>
+                    <td>{{asset.quantity | numberFormat : asset.decimals}}</td>
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>

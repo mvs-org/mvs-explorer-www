@@ -45,8 +45,12 @@
 
         var transaction_hash = $stateParams.hash;
         $scope.loading_tx = true;
+        $scope.loading_outputs = true;
         $rootScope.nosplash = true;
         $scope.loading_confirmation = true;
+        $scope.total_inputs = 0;
+        $scope.total_outputs = 0;
+        $scope.buttonCopyToClipboard = new ClipboardJS('.btn');
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 
@@ -60,11 +64,17 @@
                         $scope.messages = [];
                         if ($scope.transaction.outputs.length) {
                             $scope.transaction.outputs.forEach(function(output) {
+                                $scope.total_outputs += output.value;
                                 if (output.attachment.type == "message") {
                                     $scope.messages.push(output.attachment.content);
                                 }
                                 if (output.locked_height_range)
                                     output.unlock_block = $scope.transaction.height + output.locked_height_range;
+                            });
+                        }
+                        if ($scope.transaction.inputs.length) {
+                            $scope.transaction.inputs.forEach(function(input) {
+                                $scope.total_inputs += input.value;
                             });
                         }
                     } else {
@@ -79,10 +89,18 @@
                 .then(() => MetaverseService.FetchHeight())
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                        $scope.height = response.data.result;
+                        $scope.height = Math.max(response.data.result, $scope.transaction.height);
                         $scope.confirmations = $scope.height - $scope.transaction.height + 1;
                         $scope.loading_confirmation = false;
                     }
+                })
+                .then(() => MetaverseService.FetchTxOutputs(transaction_hash))
+                .then((response) => {
+                    $scope.loading_outputs = false;
+                    var outputs = response.data.result;
+                    $scope.transaction.outputs.forEach((output, index) => {
+                        $scope.transaction.outputs[index].spent_tx = outputs[index].spent_tx;
+                    });
                 });
         }
     }

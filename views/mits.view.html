@@ -33,20 +33,20 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="avatar in avatars | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
-            <h3><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h3>
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="mit in mits | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+            <h3 class="break"><a href="#!/mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h3>
             <table class="col-xs-12 col-sm-12">
                 <tr>
-                    <th>{{ 'AVATAR.ADDRESS' | translate }}</th>
-                    <td class="address-mono"><a href="#!/adr/{{avatar.address}}">{{avatar.address}}</a></td>
+                    <th>{{ 'MIT.LAST_RECIPIENT' | translate }}</th>
+                    <td><a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></td>
                 </tr>
                 <tr>
-                    <th>{{ 'AVATAR.CREATION_DATE' | translate }}</th>
-                    <td>{{avatar.confirmed_at*1000|date}}</td>
+                    <th>{{ 'MIT.LAST_TX_DATE' | translate }}</th>
+                    <td><a href="#!/tx/{{mit.tx}}">{{mit.confirmed_at * 1000| date}}</a></td>
                 </tr>
                 <tr>
-                    <th>{{ 'AVATAR.CREATION_BLOCK' | translate }}</th>
-                    <td>{{avatar.height}}</td>
+                    <th>{{ 'MIT.LAST_TX_BLOCK' | translate }}</th>
+                    <td><a href="#!/blk/{{mit.height}}">{{mit.height}}</a></td>
                 </tr>
             </table>
         </div>

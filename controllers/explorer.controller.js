@@ -24,7 +24,7 @@
             return {
                 link: function(scope, element, attrs) {
                     element.bind('error', function() {
-                        element.attr('src', 'img/assets/default.png'); // set default image
+                        element.attr('src', 'img/assets/default_mst.png'); // set default image
                     });
                 }
             };
@@ -237,17 +237,19 @@
                         'name': translations['SUGGESTION.SHOW_ALL_ASSETS'],
                         'url': 'assets',
                         'type': 'asset',
-                        'icon': 'default'
+                        'icon': 'default_mst'
                     });
                     $scope.initialSuggestion.push({
                         'name': translations['SUGGESTION.SHOW_ALL_AVATARS'],
                         'url': 'avatars',
-                        'type': 'avatar'
+                        'type': 'avatar',
+                        'icon': 'default_avatar'
                     });
                     $scope.initialSuggestion.push({
                         'name': translations['SUGGESTION.SHOW_ALL_MITS'],
                         'url': 'mits',
-                        'type': 'mit'
+                        'type': 'mit',
+                        'icon': 'default_mit'
                     });
                 });
         }
@@ -338,18 +340,26 @@
             MetaverseService.AssetInfo($filter('uppercase')(search_field))
                 .then((response) => {
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
-                        $location.path('/asset/' + search_field);
+                        $location.path('/asset/' + $filter('uppercase')(search_field));
                     } else {
-                        MetaverseService.MitInfo(search_field)
-                            .then((response) => {
-                                if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
-                                    $location.path('/mit/' + search_field);
-                                } else {
-                                    $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
-                                        .then((data) => FlashService.Error(data));
-                                }
-                                NProgress.done();
-                            });
+                      MetaverseService.FetchAvatar(search_field)
+                          .then((response) => {
+                              if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                                  $location.path('/avatar/' + search_field);
+                              } else {
+                                  MetaverseService.MitInfo(search_field)
+                                      .then((response) => {
+                                          if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                                              $location.path('/mit/' + search_field);
+                                          } else {
+                                              $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                                                  .then((data) => FlashService.Error(data));
+                                          }
+                                          NProgress.done();
+                                      });
+                              }
+                              NProgress.done();
+                          });
                     }
                     NProgress.done();
                 });
@@ -402,7 +412,7 @@
                     name: asset,
                     url: "asset/" + asset,
                     type: "asset",
-                    icon: $scope.icons.indexOf(asset) > -1 ? asset : 'default'
+                    icon: $scope.icons.indexOf(asset) > -1 ? asset : 'default_mst'
                 };
             });
         }
@@ -412,7 +422,8 @@
                 return {
                     name: avatar,
                     url: 'avatar/' + avatar,
-                    type: 'avatar'
+                    type: 'avatar',
+                    icon: 'default_avatar'
                 };
             });
         }
@@ -455,7 +466,8 @@
                 return {
                     name: mit,
                     url: 'mit/' + mit,
-                    type: 'mit'
+                    type: 'mit',
+                    icon: 'default_mit'
                 };
             });
         }
