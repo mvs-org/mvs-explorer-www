@@ -4,7 +4,7 @@
 		<div class="headerbox">
 			<div class="">
 				<div class="tb-logo fl">
-					<a href="#!/">
+					<a href="">
 						<h1 class="dis-tablecell height50">
 							<img src="./img/metaverselogo.png" alt="metaverse" title="metaverse">
 						</h1>
@@ -13,15 +13,15 @@
 
 				<nav class="menu cn-menu fl">
 					<ul class="dis-tablecell height50">
-						<li><a href="#!/" ng-class="{selectedMenu: selectedMenu.main===''}" class="cool-line">{{'TOP_MENU_HOME'|translate}}</a></li>
-						<li><a href="#!/msts" ng-class="{selectedMenu: selectedMenu.main==='assets' || selectedMenu.main==='msts'}" class="cool-line">{{'TOP_MENU_MST'|translate}}</a></li>
-						<li><a href="#!/mits" ng-class="{selectedMenu: selectedMenu.main==='mits'}" class="cool-line">{{'TOP_MENU_MIT'|translate}}</a></li>
-						<li><a href="#!/avatars" ng-class="{selectedMenu: selectedMenu.main==='avatars'}" class="cool-line">{{'TOP_MENU_AVATARS'|translate}}</a></li>
-						<li><a href="#!/certs" ng-class="{selectedMenu: selectedMenu.main==='certs'}" class="cool-line">{{'TOP_MENU_CERTS'|translate}}</a></li>
-						<li><a href="#!/txs" ng-class="{selectedMenu: selectedMenu.main==='txs'}" class="cool-line">{{'TOP_MENU_TXS'|translate}}</a></li>
-						<li><a href="#!/blocks" ng-class="{selectedMenu: selectedMenu.main==='blocks'}" class="cool-line">{{'TOP_MENU_BLOCKS'|translate}}</a></li>
-						<li><a href="#!/mining" ng-class="{selectedMenu: selectedMenu.main==='mining'}" class="cool-line">{{'TOP_MENU_MINING'|translate}}</a></li>
-            <li><a href="#!/api" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='api'}">{{'TOP_MENU_API'|translate}}</a></li>
+						<li><a href="" ng-class="{selectedMenu: selectedMenu.main===''}" class="cool-line">{{'TOP_MENU_HOME'|translate}}</a></li>
+						<li><a href="msts" ng-class="{selectedMenu: selectedMenu.main==='assets' || selectedMenu.main==='msts'}" class="cool-line">{{'TOP_MENU_MST'|translate}}</a></li>
+						<li><a href="mits" ng-class="{selectedMenu: selectedMenu.main==='mits'}" class="cool-line">{{'TOP_MENU_MIT'|translate}}</a></li>
+						<li><a href="avatars" ng-class="{selectedMenu: selectedMenu.main==='avatars'}" class="cool-line">{{'TOP_MENU_AVATARS'|translate}}</a></li>
+						<li><a href="certs" ng-class="{selectedMenu: selectedMenu.main==='certs'}" class="cool-line">{{'TOP_MENU_CERTS'|translate}}</a></li>
+						<li><a href="txs" ng-class="{selectedMenu: selectedMenu.main==='txs'}" class="cool-line">{{'TOP_MENU_TXS'|translate}}</a></li>
+						<li><a href="blocks" ng-class="{selectedMenu: selectedMenu.main==='blocks'}" class="cool-line">{{'TOP_MENU_BLOCKS'|translate}}</a></li>
+						<li><a href="mining" ng-class="{selectedMenu: selectedMenu.main==='mining'}" class="cool-line">{{'TOP_MENU_MINING'|translate}}</a></li>
+            <li><a href="api" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='api'}">{{'TOP_MENU_API'|translate}}</a></li>
             <li><a href="http://mymvs.info" class="cool-line" target="_blank">{{'THIRD_PARTY_EXPLORER'|translate}}</a></li>
           </ul>
 					<div class="sl-language">
@@ -56,7 +56,7 @@
 		</div>
 
     <!--div>
-        <a class="center" href="#!/" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
+        <a class="center" href="" ngClick="startpage"><img src="images/logo.jpg" class="logo center" alt="" /></a>
     </div-->
 
 		<div ng-controller="SearchController as ctrl" layout="column" ng-cloak="" class="autocompleteSearch">
@@ -78,7 +78,7 @@
 												md-clear-button="true"
 												md-menu-class="autocomplete-custom-template">
 											<md-item-template>
-													<a href="#!/{{item.url}}">
+													<a href="{{item.url}}">
 															<div class="item-title overflow">
 																	<img ng-if="item.type == 'asset' || item.type == 'avatar' || item.type == 'mit'" check-image ng-src="../img/assets/{{item.icon}}.png">
 																	<span ng-if="item.type == 'tx'" ><i class="fas fa-exchange-alt"></i></span>

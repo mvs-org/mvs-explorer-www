@@ -28,7 +28,7 @@
                   <h4>{{cert.attachment.symbol}}</h4>
                 </div>
                 <div class="col-md-2">{{cert.attachment.cert}}</div>
-                <div class="col-md-4"><a href="#!/avatar/{{cert.attachment.owner}}">{{cert.attachment.owner}}</a></div>
+                <div class="col-md-4"><a href="avatar/{{cert.attachment.owner}}">{{cert.attachment.owner}}</a></div>
                 <div class="col-md-2">{{cert.confirmed_at * 1000| date}}</div>
             </div>
         </div>
@@ -42,7 +42,7 @@
               </tr>
               <tr>
                     <th>{{ 'ADDRESS' | translate }}</th>
-                    <td class="address-mono"><a href="#!/adr/{{cert.address}}">{{cert.address}}</a></td>
+                    <td class="address-mono"><a href="adr/{{cert.address}}">{{cert.address}}</a></td>
                 </tr>
                 <tr>
                     <th>{{ 'CERT.CREATION_DATE' | translate }}</th>

@@ -25,28 +25,28 @@
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" dir-paginate="mit in mits | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
 
                 <div class="col-md-4">
-                  <h4><a href="#!/mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h4>
+                  <h4><a href="mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h4>
                 </div>
-                <div class="col-md-4"><a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></div>
-                <div class="col-md-2"><a href="#!/tx/{{mit.tx}}">{{mit.confirmed_at * 1000| date}}</a></div>
-                <div class="col-md-2"><a href="#!/blk/{{mit.height}}">{{mit.height}}</a></div>
+                <div class="col-md-4"><a href="avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></div>
+                <div class="col-md-2"><a href="tx/{{mit.tx}}">{{mit.confirmed_at * 1000| date}}</a></div>
+                <div class="col-md-2"><a href="blk/{{mit.height}}">{{mit.height}}</a></div>
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="mit in mits | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
-            <h3 class="break"><a href="#!/mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h3>
+            <h3 class="break"><a href="mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h3>
             <table class="col-xs-12 col-sm-12">
                 <tr>
                     <th>{{ 'MIT.LAST_RECIPIENT' | translate }}</th>
-                    <td><a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></td>
+                    <td><a href="avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></td>
                 </tr>
                 <tr>
                     <th>{{ 'MIT.LAST_TX_DATE' | translate }}</th>
-                    <td><a href="#!/tx/{{mit.tx}}">{{mit.confirmed_at * 1000| date}}</a></td>
+                    <td><a href="tx/{{mit.tx}}">{{mit.confirmed_at * 1000| date}}</a></td>
                 </tr>
                 <tr>
                     <th>{{ 'MIT.LAST_TX_BLOCK' | translate }}</th>
-                    <td><a href="#!/blk/{{mit.height}}">{{mit.height}}</a></td>
+                    <td><a href="blk/{{mit.height}}">{{mit.height}}</a></td>
                 </tr>
             </table>
         </div>

@@ -16,13 +16,13 @@
             <div class="row panel list-item nga-default nga-stagger nga-fade" ng-hide="loading" dir-paginate="block in blocks | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
                 <div class="col-md-7 col-xs-12">
                     <span class="visible-xs visible-sm list-item-label">{{ 'BLOCK.HASH' | translate }}: </span>
-                    <a class="hash-mono" href="#!/blk/{{block.hash}}">
+                    <a class="hash-mono" href="blk/{{block.hash}}">
                     {{block.hash}}
                     </a>
                 </div>
                 <div class="col-md-2 col-xs-6">
                     <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span>
-                    <a href="#!/blk/{{block.number}}">
+                    <a href="blk/{{block.number}}">
                         {{block.number}}
                     </a>
                 </div>
