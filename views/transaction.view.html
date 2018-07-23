@@ -10,21 +10,25 @@
                 <div class="col-md-3 list-item-label">{{ 'TX.HASH' | translate }}</div>
                 <div class="col-md-9 list-item-value hash-mono">{{ transaction.hash }} <a class="btn" data-clipboard-text="{{ transaction.hash }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a></div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="transaction.height">
                 <div class="col-md-3 list-item-label">{{ 'TX.BLOCK' | translate }}</div>
                 <div class="col-md-9 list-item-value"><a href="#!/blk/{{transaction.block}}">{{ transaction.height }}</a>  <a class="btn" data-clipboard-text="{{ transaction.height }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a></div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'TX.TIMESTAMP' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
+                <div class="col-md-9 list-item-value">
+                    <span ng-show="transaction.confirmed_at != undefined">{{transaction.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</span>
+                    <span ng-show="transaction.confirmed_at == undefined">{{transaction.received_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</span>
+                </div>
             </div>
             <div class="row" ng-show="total_inputs - total_outputs >= 0">
                 <div class="col-md-3 list-item-label">{{ 'TX.FEE' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{total_inputs - total_outputs | numberFormat:8|currency:'':8}} ETP</div>
+                <div class="col-md-9 list-item-value">{{total_inputs - total_outputs | numberFormat:8}} ETP</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
-                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan != 0)">{{ 'TX.ORPHAN' | translate}}</div>
+                <div class="col-md-9 list-item-value block-mem-pool" ng-show="!loading_confirmation && (transaction.orphan == -1)">{{ 'EXPLORER.UNCONFIRMED' | translate}}</div>
+                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan > 0)">{{ 'TX.ORPHAN' | translate}}</div>
                 <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations > 100">{{ 'TX.CONFIRMED' | translate}}</div>
                 <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations <= 100">{{ confirmations }}</div>
                 <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>
@@ -57,7 +61,7 @@
                                 <div ng-show="input.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{input.attachment.symbol}}</div>
                                 <div ng-show="input.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{input.attachment.symbol}}</div>
                                 <div ng-show="input.attachment.type == 'mit'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="#!/mit/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
-                                <div ng-show="input.attachment.type != 'did-register' && input.attachment.type != 'did-transfer' && input.attachment.type != 'mit' && !input.attachment.cert">{{input.attachment.quantity | numberFormat:input.attachment.decimals | currency:'':input.attachment.decimals}} <a href="#!/asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                <div ng-show="input.attachment.type != 'did-register' && input.attachment.type != 'did-transfer' && input.attachment.type != 'mit' && !input.attachment.cert">{{input.attachment.quantity | numberFormat:input.attachment.decimals}} <a href="#!/asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                             </div>
                             <div class="col-md-7 inputColor">
                                 <div><a class="address-mono" ng-if="input.address" href="#!/adr/{{input.address}}">{{input.address}}</a></div>
@@ -66,7 +70,7 @@
                         </div>
                         <div class="row" ng-if="input.value != 0 || input.address == ''">
                             <div class="col-md-5">
-                                <span ng-if="input.address">{{input.value| numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a></span>
+                                <span ng-if="input.address">{{input.value| numberFormat:8}} <a href="#!/asset/ETP">ETP</a></span>
                             </div>
                             <div class="col-md-7 inputColor">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
@@ -85,10 +89,10 @@
 
                 <div class="col-xs-12 col-sm-12 col-md-6 right">
                     <div class="row break txLine" ng-repeat="output in transaction.outputs">
-                        <div ng-show="output.spent_tx != 0" class="transaction-arrow-right">
+                        <div ng-show="!loading_outputs && output.spent_tx != 0" class="transaction-arrow-right">
                             <a href="#!/tx/{{output.spent_tx}}"><i class="fas fa-arrow-circle-right"></i></a>
                         </div>
-                        <div ng-show="output.spent_tx == 0" class="transaction-arrow-right" bs-tooltip data-placement="left" title="{{ 'HELP.TX_UNSPENT_OUTPUT' | translate }}">
+                        <div ng-show="!loading_outputs && output.spent_tx == 0" class="transaction-arrow-right" bs-tooltip data-placement="left" title="{{ 'HELP.TX_UNSPENT_OUTPUT' | translate }}">
                             <i class="fas fa-arrow-circle-right disabled"></i>
                         </div>
                         <div class="row" ng-if="output.attachment.symbol != 'ETP'">
@@ -100,14 +104,14 @@
                             <div class="col-md-5 right valueColor">
                                 <div ng-show="output.attachment.type == 'did-register'"><div class="txType">{{'TX.TYPE_DID_ISSUE'|translate}}: </div><a href="#!/avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'did-transfer'"><div class="txType">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div><a href="#!/avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.type == 'asset-issue' && output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_SECONDARY_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_SECONDARY_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{output.attachment.symbol}}</div>
                                 <div ng-show="output.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{output.attachment.symbol}}</div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="#!/mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="#!/mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
-                                <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals | currency:'':output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="#!/asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                             </div>
                         </div>
                         <div class="row" ng-if="output.value != 0 || output.attachment.symbol == 'ETP'">
@@ -117,15 +121,15 @@
                                 <div ng-show="showScript" class="io-script">{{output.script}}</div>
                             </div>
                             <div class="col-md-5 right valueColor">
-                                {{output.value | numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a>
+                                {{output.value | numberFormat:8}} <a href="#!/asset/ETP">ETP</a>
                                 <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-6">{{'TX.TOTAL_ETP_INPUT'|translate}}: {{total_inputs | numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a></div>
-            <div class="col-md-6 right">{{'TX.TOTAL_ETP_OUTPUT'|translate}}: {{total_outputs | numberFormat:8|currency:'':8}} <a href="#!/asset/ETP">ETP</a></div>
+            <div class="col-md-6">{{'TX.TOTAL_ETP_INPUT'|translate}}: {{total_inputs | numberFormat:8}} <a href="#!/asset/ETP">ETP</a></div>
+            <div class="col-md-6 right">{{'TX.TOTAL_ETP_OUTPUT'|translate}}: {{total_outputs | numberFormat:8}} <a href="#!/asset/ETP">ETP</a></div>
         </div>
     </div>
 </div>

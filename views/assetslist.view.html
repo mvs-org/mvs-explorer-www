@@ -29,7 +29,7 @@
                     <img check-image ng-src="../img/assets/ETP.png">
                 </div>
                 <div class="col-md-2">mvs.org</div>
-                <div class="col-md-2">{{100000000 | currency:'':0}}</div>
+                <div class="col-md-2">{{100000000 | numberFormat:'':0}}</div>
                 <div class="col-md-4">MVS Official Token</div>
             </div>
 
@@ -42,7 +42,7 @@
                     <img ng-src="../img/assets/{{asset.icon}}.png">
                 </div>
                 <div class="col-md-2">{{asset.issuer}}</div>
-                <div class="col-md-2">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+                <div class="col-md-2">{{asset.quantity | numberFormat : asset.decimals}}</div>
                 <div class="col-md-4">{{asset.description}}</div>
             </div>
         </div>
@@ -59,7 +59,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
-                    <td>{{100000000 | currency:'':0}}</td>
+                    <td>{{100000000 | numberFormat:0}}</td>
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>
@@ -79,7 +79,7 @@
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
-                    <td>{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</td>
+                    <td>{{asset.quantity | numberFormat : asset.decimals}}</td>
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>

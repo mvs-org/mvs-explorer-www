@@ -1278,6 +1278,10 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   color: green;
 }
 
+.block-mem-pool {
+  color: orange;
+}
+
 .filter-button {
   margin-left: 10px;
 }
@@ -1424,21 +1428,17 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 
 .panel .panel-body a, .panel .panel-link a, a.link {
-  color: #347DED;
+  color: #0000EE;
 }
 
 .panel .panel-body a:hover, .panel .panel-link a:hover, a.link:hover {
-  color: #347DED;
+  color: #0000EE;
   opacity: 0.8;
 }
 
 .panel .panel-body a:active, .panel .panel-link a:hover, a.link:active {
-  color: #347DED;
+  //color: #0000EE;
   opacity: 0.5;
-}
-
-.valueColor {
-
 }
 
 .txLine {

@@ -45,6 +45,7 @@
 
         var transaction_hash = $stateParams.hash;
         $scope.loading_tx = true;
+        $scope.loading_outputs = true;
         $rootScope.nosplash = true;
         $scope.loading_confirmation = true;
         $scope.total_inputs = 0;
@@ -95,6 +96,7 @@
                 })
                 .then(() => MetaverseService.FetchTxOutputs(transaction_hash))
                 .then((response) => {
+                    $scope.loading_outputs = false;
                     var outputs = response.data.result;
                     $scope.transaction.outputs.forEach((output, index) => {
                         $scope.transaction.outputs[index].spent_tx = outputs[index].spent_tx;

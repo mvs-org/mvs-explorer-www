@@ -21,18 +21,18 @@
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MAX_SUPPLY' | translate }}</div>
-                <div class="col-md-8 list-item-value">{{asset.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+                <div class="col-md-8 list-item-value">{{asset.quantity | numberFormat : asset.decimals}}</div>
             </div>
 
 
             <div class="row" ng-show="asset.original_quantity != asset.quantity">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.INITIAL_MAX_SUPPLY' | translate }}</div>
-                <div class="col-md-8 list-item-value">{{asset.original_quantity | assetformat : asset.decimals | currency:'':0}}</div>
+                <div class="col-md-8 list-item-value">{{asset.original_quantity | numberFormat : asset.decimals}}</div>
             </div>
             <div class="row" ng-show="asset.original_quantity != asset.quantity">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.ADDED_VIA_SECONDARY_ISSUE' | translate }}</div>
                 <div class="col-md-8 list-item-value">
-                    {{asset.quantity - asset.original_quantity | assetformat : asset.decimals | currency:'':0}}
+                    {{asset.quantity - asset.original_quantity | numberFormat : asset.decimals}}
                     <div class="inline">
                         <a ng-show="asset.original_quantity != asset.quantity && !showSecondaryHistory" ng-click="showSecondaryHistory = true"><i class="fas fa-plus-circle"></i></a>
                         <a ng-show="asset.original_quantity != asset.quantity && showSecondaryHistory" ng-click="showSecondaryHistory = false"><i class="fas fa-minus-circle"></i></a>
@@ -42,7 +42,7 @@
             <div class="row" ng-show="showSecondaryHistory && update.is_secondaryissue" ng-repeat="update in asset.updates">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.SECONDARY_ISSUE_PAST' | translate }}{{$index+1}}</div>
                 <div class="col-md-8 list-item-value">
-                    <a href="#!/tx/{{update.issue_tx}}">{{update.quantity | assetformat : asset.decimals | currency:'':0}} - {{ 'TX.BLOCK' | translate }} {{update.height}} - {{update.confirmed_at * 1000| date}}</a>
+                    <a href="#!/tx/{{update.issue_tx}}">{{update.quantity | numberFormat : asset.decimals}} - {{ 'TX.BLOCK' | translate }} {{update.height}} - {{update.confirmed_at * 1000| date}}</a>
                     <span ng-show="update.attenuation_model_param"> - {{ 'ASSET.SECONDARY_ISSUE_PAST_FROZEN' | translate }}</span>
                     <div class="inline">
                         <a ng-show="update.attenuation_model_param && !this.showModel" ng-click="this.showModel = true"><i class="fas fa-plus-circle"></i></a>
@@ -53,7 +53,7 @@
                         <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_TYPE' | translate }} {{update.attenuation_model_param.type}}</div>
 
                         <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY' | translate }}:</div>
-                        <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{update.attenuation_model_param.lock_quantity | assetformat : asset.decimals | currency:'':0}}</div>
+                        <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{update.attenuation_model_param.lock_quantity | numberFormat : asset.decimals}}</div>
 
                         <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_NBR' | translate }}:</div>
                         <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{update.attenuation_model_param.total_period_nbr}} {{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD' | translate }}</div>
@@ -65,7 +65,7 @@
                         <div ng-show="update.attenuation_model_param.type == 2" ng-repeat="period in update.attenuation_model_param.locked">
                             <div class="col-xs-12 noPaddingLeftRight">
                                 <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_1' | translate }}{{$index+1}}{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_QUANTITY_MODEL2_2' | translate }}</div>
-                                <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{period.quantity | assetformat : asset.decimals | currency:'':0}}</div>
+                                <div class="col-xs-6 col-md-8 noPaddingLeftRight">{{period.quantity | numberFormat : asset.decimals}}</div>
                             </div>
                             <div class="col-xs-12 noPaddingLeftRight">
                                 <div class="col-xs-6 col-md-4 noPaddingLeftRight">{{ 'ASSET.SECONDARY_ISSUE_PAST_MODEL_PERIOD_MODEL2' | translate }}{{$index+1}}</div>
@@ -84,7 +84,7 @@
             <div class="row" ng-show="asset.symbol == 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'NUMBER_OF_COINS' | translate }}</div>
                 <div ng-show="loading_circulation" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_circulation" class="col-md-8 list-item-value">{{circulation | currency:'':0}}</div>
+                <div ng-hide="loading_circulation" class="col-md-8 list-item-value">{{circulation | numberFormat : 0}}</div>
             </div>
             <div class="row" ng-show="asset.symbol == 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.DEPOSIT_SUM' | translate }}</div>
@@ -142,13 +142,13 @@
 
             <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="stake in stakelist" ng-if="stake.address">
                 <span class="col-xs-7 overflow address-mono"><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></span>
-                <span class="col-xs-3 right right-overflow">{{stake.quantity | currency:'':0}}</span>
+                <span class="col-xs-3 right right-overflow">{{stake.quantity | numberFormat : 0}}</span>
                 <span class="col-xs-2 right right-overflow">{{stake.share}}%</span>
             </div>
         </div>
         <div class="col-md-5 col-xs-12 asset-chart">
-            <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{circulation | number}} {{asset.symbol}}</div>
-            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{asset.quantity | assetformat : asset.decimals | currency:'':0}} {{asset.symbol}}</div>
+            <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{circulation | numberFormat : 0}} {{asset.symbol}}</div>
+            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{asset.quantity | numberFormat : asset.decimals}} {{asset.symbol}}</div>
             <div id="chart">
                 <svg></svg>
             </div>
