@@ -25,20 +25,20 @@
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" dir-paginate="avatar in avatars | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
 
                 <div class="col-md-4">
-                  <h4><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h4>
+                  <h4><a href="avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h4>
                 </div>
-                <div class="col-md-4 address-mono"><a href="#!/adr/{{avatar.address}}">{{avatar.address}}</a></div>
+                <div class="col-md-4 address-mono"><a href="adr/{{avatar.address}}">{{avatar.address}}</a></div>
                 <div class="col-md-2">{{avatar.confirmed_at * 1000| date}}</div>
                 <div class="col-md-2">{{avatar.height}}</div>
             </div>
         </div>
 
         <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="avatar in avatars | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
-            <h3><a href="#!/avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h3>
+            <h3><a href="avatar/{{avatar.symbol}}">{{avatar.symbol}}</a></h3>
             <table class="col-xs-12 col-sm-12">
                 <tr>
                     <th>{{ 'AVATAR.ADDRESS' | translate }}</th>
-                    <td class="address-mono"><a href="#!/adr/{{avatar.address}}">{{avatar.address}}</a></td>
+                    <td class="address-mono"><a href="adr/{{avatar.address}}">{{avatar.address}}</a></td>
                 </tr>
                 <tr>
                     <th>{{ 'AVATAR.CREATION_DATE' | translate }}</th>

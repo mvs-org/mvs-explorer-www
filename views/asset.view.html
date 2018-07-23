@@ -42,7 +42,7 @@
             <div class="row" ng-show="showSecondaryHistory && update.is_secondaryissue" ng-repeat="update in asset.updates">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.SECONDARY_ISSUE_PAST' | translate }}{{$index+1}}</div>
                 <div class="col-md-8 list-item-value">
-                    <a href="#!/tx/{{update.issue_tx}}">{{update.quantity | numberFormat : asset.decimals}} - {{ 'TX.BLOCK' | translate }} {{update.height}} - {{update.confirmed_at * 1000| date}}</a>
+                    <a href="tx/{{update.issue_tx}}">{{update.quantity | numberFormat : asset.decimals}} - {{ 'TX.BLOCK' | translate }} {{update.height}} - {{update.confirmed_at * 1000| date}}</a>
                     <span ng-show="update.attenuation_model_param"> - {{ 'ASSET.SECONDARY_ISSUE_PAST_FROZEN' | translate }}</span>
                     <div class="inline">
                         <a ng-show="update.attenuation_model_param && !this.showModel" ng-click="this.showModel = true"><i class="fas fa-plus-circle"></i></a>
@@ -111,15 +111,15 @@
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.ADDRESS' | translate }}</div>
-                <div class="col-md-8 list-item-value address-mono"><a href="#!/adr/{{ asset.address }}">{{ asset.address }}</a></div>
+                <div class="col-md-8 list-item-value address-mono"><a href="adr/{{ asset.address }}">{{ asset.address }}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.HASH' | translate }}</div>
-                <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{ asset.issue_tx }}">{{ asset.issue_tx }}</a></div>
+                <div class="col-md-8 list-item-value hash-mono"><a href="tx/{{ asset.issue_tx }}">{{ asset.issue_tx }}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.HEIGHT' | translate }}</div>
-                <div class="col-md-8 list-item-value"><a href="#!/blk/{{ asset.height }}">{{ asset.height }}</a></div>
+                <div class="col-md-8 list-item-value"><a href="blk/{{ asset.height }}">{{ asset.height }}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.DESCRIPTION' | translate }}</div>
@@ -141,7 +141,7 @@
             </div>
 
             <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="stake in stakelist" ng-if="stake.address">
-                <span class="col-xs-7 overflow address-mono"><a href="#!/adr/{{stake.address}}">{{stake.address}}</a></span>
+                <span class="col-xs-7 overflow address-mono"><a href="adr/{{stake.address}}">{{stake.address}}</a></span>
                 <span class="col-xs-3 right right-overflow">{{stake.quantity | numberFormat : 0}}</span>
                 <span class="col-xs-2 right right-overflow">{{stake.share}}%</span>
             </div>

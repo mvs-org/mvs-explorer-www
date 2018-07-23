@@ -21,11 +21,11 @@
             </div>
             <div class="row" ng-hide="showAddressesHistory">
                 <div class="col-md-4 list-item-label">{{ 'MIT.INITIAL_OWNER' | translate }}</div>
-                <div class="col-md-8 list-item-value"><a href="#!/avatar/{{initial_mit.attachment.to_did}}">{{initial_mit.attachment.to_did}}<a></div>
+                <div class="col-md-8 list-item-value"><a href="avatar/{{initial_mit.attachment.to_did}}">{{initial_mit.attachment.to_did}}<a></div>
             </div>
             <div class="row" ng-hide="showAddressesHistory">
                 <div class="col-md-4 list-item-label">{{ 'MIT.CURRENT_OWNER' | translate }}</div>
-                <div class="col-md-8 list-item-value"><a href="#!/avatar/{{last_transfer.attachment.to_did}}">{{last_transfer.attachment.to_did}}<a></div>
+                <div class="col-md-8 list-item-value"><a href="avatar/{{last_transfer.attachment.to_did}}">{{last_transfer.attachment.to_did}}<a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATED_AT' | translate }}</div>
@@ -37,7 +37,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR.CREATION_TRANSACTION' | translate }}</div>
-                <div class="col-md-8 list-item-value hash-mono"><a href="#!/tx/{{initial_mit.tx}}">{{initial_mit.tx}}</a></div>
+                <div class="col-md-8 list-item-value hash-mono"><a href="tx/{{initial_mit.tx}}">{{initial_mit.tx}}</a></div>
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'MIT.CONTENT' | translate }}</div>
@@ -56,26 +56,26 @@
             <div class="cd-timeline-img">
             </div>
             <div class="cd-timeline-content">
-                <h4 class="break" ng-show="mit.attachment.status == 'registered'">{{ 'TX.MIT_CREATED' | translate }}<a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></h4>
-                <h4 class="break" ng-show="mit.attachment.status != 'registered'">{{ 'TX.MIT_TRANSFERED' | translate }}<a href="#!/avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></h4>
+                <h4 class="break" ng-show="mit.attachment.status == 'registered'">{{ 'TX.MIT_CREATED' | translate }}<a href="avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></h4>
+                <h4 class="break" ng-show="mit.attachment.status != 'registered'">{{ 'TX.MIT_TRANSFERED' | translate }}<a href="avatar/{{mit.attachment.to_did}}">{{mit.attachment.to_did}}</a></h4>
 
                 <div class="timeline-content-info">
                     <div class="col-xs-5 break">
-                        <a ng-show="previous_tx[mit.tx].attachment.to_did" href="#!/avatar/{{previous_tx[mit.tx].attachment.to_did}}"><i class="fa fa-user" aria-hidden="true"></i> {{previous_tx[mit.tx].attachment.to_did}}</a>
+                        <a ng-show="previous_tx[mit.tx].attachment.to_did" href="avatar/{{previous_tx[mit.tx].attachment.to_did}}"><i class="fa fa-user" aria-hidden="true"></i> {{previous_tx[mit.tx].attachment.to_did}}</a>
                     </div>
                     <div class="col-xs-2">
                         <i class="fas fa-arrow-right"></i>
                     </div>
                     <div class="col-xs-5 right break">
-                        <a href="#!/avatar/{{mit.attachment.to_did}}"><i class="fa fa-user" aria-hidden="true"></i> {{mit.attachment.to_did}}</a>
+                        <a href="avatar/{{mit.attachment.to_did}}"><i class="fa fa-user" aria-hidden="true"></i> {{mit.attachment.to_did}}</a>
                     </div>
                 </div>
                 <br/>
                 <div class="overflow">
-                    <a href="#!/tx/{{mit.tx}}"><i class="fas fa-exchange-alt"></i> {{mit.tx}}</a>
+                    <a href="tx/{{mit.tx}}"><i class="fas fa-exchange-alt"></i> {{mit.tx}}</a>
                 </div>
                 <div>
-                    <a href="#!/blk/{{mit.height}}"><i class="fa fa-cube" aria-hidden="true"></i> {{mit.height}}</a>
+                    <a href="blk/{{mit.height}}"><i class="fa fa-cube" aria-hidden="true"></i> {{mit.height}}</a>
                 </div>
                 <!--p>Comment.</p-->
                 <div class="cd-date">

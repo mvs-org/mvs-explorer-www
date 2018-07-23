@@ -7,8 +7,8 @@
     <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_txs">
         <div class="col-md-12 col-sm-12">
             <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="tx in txList | orderBy:'confirmed_at':true">
-                    <div class="col-md-7 col-sm-12 hash-mono"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}: </span><a href="#!/tx/{{tx.hash}}">{{tx.hash}}</a></div>
-                    <div class="col-md-2 col-sm-12" ng-show="tx.height"><span class="list-item-label">{{ 'TX.BLOCK' | translate }}: </span><a href="#!/blk/{{tx.height}}">{{tx.height}}</a></div>
+                    <div class="col-md-7 col-sm-12 hash-mono"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}: </span><a href="tx/{{tx.hash}}">{{tx.hash}}</a></div>
+                    <div class="col-md-2 col-sm-12" ng-show="tx.height"><span class="list-item-label">{{ 'TX.BLOCK' | translate }}: </span><a href="blk/{{tx.height}}">{{tx.height}}</a></div>
                     <div class="col-md-2 col-sm-12" ng-show="!tx.height"><span>{{ 'EXPLORER.UNCONFIRMED' | translate }}</span></div>
                     <div class="col-md-3 col-sm-12 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) >= 0">
                         <span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 3600000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 60000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
@@ -33,7 +33,7 @@
   <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_blocks">
       <div class="col-md-12">
           <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="block in blockList">
-              <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span><a href="#!/blk/{{block.number}}">{{block.number}}</a></div>
+              <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span><a href="blk/{{block.number}}">{{block.number}}</a></div>
               <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}: </span>{{block.transaction_count}}</div>
               <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.DIFFICULTY' | translate }}: </span>{{block.bits}}</div>
               <div class="col-md-3 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) >= 0">
