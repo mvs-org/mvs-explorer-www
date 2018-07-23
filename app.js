@@ -81,7 +81,7 @@
                 controller: 'StartpageController'
             })
             .state('explorer.api', {
-                url: "/api",
+                url: "/dev/api",
                 templateUrl: "views/api/api.html"
             })
             .state('explorer.transaction', {
