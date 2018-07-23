@@ -51,9 +51,9 @@
         .constant('appName', 'MetaverseExplorer')
         .run(run);
 
-    config.$inject = ['$stateProvider', '$urlRouterProvider'];
+    config.$inject = ['$stateProvider', '$urlRouterProvider', '$locationProvider'];
 
-    function config($stateProvider, $urlRouterProvider) {
+    function config($stateProvider, $urlRouterProvider, $locationProvider) {
         $stateProvider
             .state('explorer', {
                 templateUrl: "views/index.view.html",
@@ -149,6 +149,8 @@
                 controller: 'MitController'
             });
         $urlRouterProvider.otherwise("/");
+        $locationProvider.html5Mode(true);
+
     };
 
     run.$inject = ['$rootScope', '$location', 'localStorageService', '$translate', '$wamp'];
