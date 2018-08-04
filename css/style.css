@@ -1449,6 +1449,12 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   margin-left: 15px;
 }
 
+.blockTxLine {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #eee;
+}
+
 .transaction-arrow-left {
   position: absolute;
   left: -5px;
