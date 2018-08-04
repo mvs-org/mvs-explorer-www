@@ -61,6 +61,7 @@
         var h = 600;
         var r = h / 2;
         var arc = d3.svg.arc().outerRadius(r);
+        var interval = 3000;
 
         $scope.data = [];
 
@@ -77,10 +78,10 @@
 
 
         // api call
-        MetaverseService.Chart()
+        MetaverseService.Chart(interval)
             .then((res) => {
                 $scope.data = res.data.result;
-                let rest_part = 1000;
+                let rest_part = interval;
                 $scope.data.forEach((miner) => {
                     rest_part -= miner.counter;
                     if ($scope.locations[miner.origin] == undefined)
@@ -103,7 +104,7 @@
                             return "<b>" + d.name + "</b><br>" + d.url;
                         })
                         .y(function(d) {
-                            return d.counter / 10;
+                            return d.counter / interval * 100;
                         })
                         .color($scope.colors)
                         .showLabels(true)

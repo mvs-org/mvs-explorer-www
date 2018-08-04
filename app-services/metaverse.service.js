@@ -79,7 +79,7 @@
 
         service.DepositRewards = () => _send('rewards');
 
-        service.Chart = () => _send('poolstats');
+        service.Chart = (interval) => _send('poolstats' + ((interval) ? '?interval=' + interval : ''));
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 
