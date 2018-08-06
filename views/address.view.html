@@ -45,11 +45,9 @@
 
 
     <div>
-        <div class="row">
-        </div>
-
+        <div class="row"></div>
         <h2 class="headline"><em></em>{{ 'ADDRESS.TXS' | translate }}</h2>
-          <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
 
         <div class="date-input">
             <md-datepicker ng-model="min_date" md-placeholder="{{'FROM_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
@@ -57,10 +55,7 @@
             <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters()"><i class="fas fa-search"></i></md-button>
         </div>
 
-
-        <div class="row">
-        </div>
-
+        <div class="row"></div>
 
         <div ng-show="loading_address">
             <div class="mini-loader">Loading...</div>
@@ -79,17 +74,24 @@
                 <div class="row">
                     <div class="col-md-5">
                         <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
-                        <div class="row" ng-if="$index < 5" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
+                        <div class="row break blockTxLine" ng-if="$index < 5" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
                             <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
                                 <a class="address-mono" ng-if="input.address" href="adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
-                                <span ng-if="input.address">{{input.attachment.quantity | numberFormat:input.attachment.decimals}} {{input.attachment.symbol}}</span>
+                                <div ng-if="input.address">
+                                    <div ng-show="input.attachment.type == 'did-register' || input.attachment.type == 'did-transfer'"><div class="txType">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div><a href="avatar/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                    <div ng-show="input.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                    <div ng-show="input.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{input.attachment.symbol}}</div>
+                                    <div ng-show="input.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{input.attachment.symbol}}</div>
+                                    <div ng-show="input.attachment.type == 'mit'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                    <div ng-show="input.attachment.type != 'did-register' && input.attachment.type != 'did-transfer' && input.attachment.type != 'mit' && !input.attachment.cert">{{input.attachment.quantity | numberFormat:input.attachment.decimals}} <a href="asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
+                                </div>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{ input.address }}</a>
                                 <br>
-                                <span ng-if="input.address">{{input.value | numberFormat:8}} ETP</span>
+                                <span ng-if="input.address">{{input.value | numberFormat:8}} <a href="asset/ETP">ETP</a></span>
                             </div>
                         </div>
                         <div ng-if="tx.inputs.length>4">
@@ -101,20 +103,26 @@
                     </div>
                     <div class="col-md-6 right">
                         <div class="subhead"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row" ng-if="$index < 5" ng-repeat="output in tx.outputs" ng-class="{searchedAddress: output.address==address}">
-                            <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
-                                <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
-                                <br>
-                                <div>
-                                    <span ng-if="output.attachment.quantity">{{output.attachment.quantity | numberFormat:output.attachment.decimals}} </span>{{output.attachment.symbol}}
-                                </div>
+                        <div class="row break blockTxLine" ng-if="$index < 5" ng-repeat="output in tx.outputs" ng-class="{searchedAddress: output.address==address}">
+                            <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 break">
+                                <div ng-show="output.attachment.to_did" class="break"><a href="avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
+                                <div ng-hide="output.attachment.to_did"><a class="address-mono" href="adr/{{output.address}}">{{output.address}}</a></div>
+                                <div ng-show="output.attachment.type == 'did-register'"><div class="txType">{{'TX.TYPE_DID_ISSUE'|translate}}: </div><a href="avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'did-transfer'"><div class="txType">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div><a href="avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-issue' && output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_SECONDARY_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                <div ng-show="output.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                             </div>
-                            <div ng-if="output.value != 0" class="col-md-12 right break">
+                            <div ng-if="output.value != 0 || output.attachment.symbol == 'ETP'" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
-                                <div>
-                                    {{output.value | numberFormat:8}} ETP
-                                </div>
+                                <div ng-show="output.attachment.type == 'message'" class="txType">{{'TX.TYPE_MESSAGE'|translate}}</div>
+                                <div ng-show="output.attachment.type != 'message' || output.value != 0">{{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a></div>
                             </div>
                         </div>
                         <div ng-if="tx.outputs.length>4">
@@ -123,8 +131,7 @@
                     </div>
                 </div>
             </div>
-
-
         </div>
-          <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
     </div>
+</div>

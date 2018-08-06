@@ -10,22 +10,29 @@
 
         $scope.loading_balances = true;
         $scope.loading_avatar = true;
+        $scope.loading_certs = true;
+        $scope.loading_txs = true;
         $scope.showAddressesHistory = false;
         $scope.certs = [];
         $scope.icons = Assets.hasIcon;
         $scope.priority = Assets.priority;
+        $scope.items_per_page = 10;
+        $scope.minDate = new Date(2017, 2 - 1, 11);
+        $scope.maxDate = new Date();
+
         MetaverseService.FetchAvatar($stateParams.symbol)
             .then((response) => {
                 $scope.avatar = response.data.result;
                 $scope.loading_avatar = false;
-                fetchAddress($scope.avatar.address)
+                fetchAddress($scope.avatar.address);
+                loadTransactions();
             })
             .catch((error) => {
                 $scope.loading_avatar = false;
                 console.error(error);
             });
 
-        $scope.loading_certs = true;
+
         MetaverseService.FetchCerts($stateParams.symbol, 1)
             .then((response) => {
                 $scope.certs = response.data.result;
@@ -76,6 +83,39 @@
                     });
             }
         }
+
+        $scope.switchPage = (page) => {
+            $scope.current_page = page;
+            return loadTransactions();
+        };
+
+        $scope.applyFilters = () => {
+            $scope.current_page = 1;
+            return loadTransactions();
+        };
+
+        function loadTransactions() {
+            if (typeof $scope.avatar !== 'undefined' && $scope.avatar.address !== 'undefined') {
+                NProgress.start();
+                MetaverseService.FetchHistory($scope.avatar.address, $scope.current_page - 1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
+                    .then((response) => {
+                        $scope.loading_txs = false;
+                        if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
+                            $scope.transactions = response.data.result.transactions;
+                            $scope.total_count = response.data.result.count;
+                            $scope.loading = false;
+                        } else {
+                            $translate('MESSAGES.ERROR_TRANSACTION_NOT_FOUND')
+                                .then((data) => {
+                                    FlashService.Error(data, true);
+                                });
+                        }
+                        NProgress.done();
+                    });
+            }
+        }
+
+        $scope.switchPage(1);
 
     }
 

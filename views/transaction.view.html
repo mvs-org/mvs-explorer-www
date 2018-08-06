@@ -121,7 +121,8 @@
                                 <div ng-show="showScript" class="io-script">{{output.script}}</div>
                             </div>
                             <div class="col-md-5 right valueColor">
-                                {{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a>
+                                <div ng-show="output.attachment.type == 'message'" class="txType">{{'TX.TYPE_MESSAGE'|translate}}</div>
+                                <div ng-show="output.attachment.type != 'message' || output.value != 0">{{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a></div>
                                 <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
                             </div>
                         </div>
