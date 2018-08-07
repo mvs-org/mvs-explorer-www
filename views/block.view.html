@@ -123,9 +123,8 @@
                             <div ng-if="output.value != 0 || output.attachment.symbol == 'ETP'" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
                                 <br>
-                                <div>
-                                    {{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a>
-                                </div>
+                                <div ng-show="output.attachment.type == 'message'" class="txType">{{'TX.TYPE_MESSAGE'|translate}}</div>
+                                <div ng-show="output.attachment.type != 'message' || output.value != 0">{{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a></div>
                             </div>
                         </div>
                         <div ng-if="tx.outputs.length>4">
