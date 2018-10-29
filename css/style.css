@@ -1682,3 +1682,7 @@ Main components
     white-space: nowrap;
     overflow: hidden;
 }
+
+.powered-by {
+    font-style: italic;
+}

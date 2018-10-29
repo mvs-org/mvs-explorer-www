@@ -5,7 +5,8 @@
         .module('app')
         .controller('StartpageController', StartpageController)
         .controller('BlockListController', BlockListController)
-        .controller('TransactionListController', TransactionListController);
+        .controller('TransactionListController', TransactionListController)
+        .controller('PriceController', PriceController);
 
     function StartpageController($scope, $location, localStorageService, FlashService, $translate, $interval, $wamp) {
 
@@ -13,6 +14,70 @@
         $scope.loading_blocks = true;
         $scope.loading_txs = true;
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
+
+        $scope.loading_circulation = true;
+        $scope.loading_pricing = true;
+        $scope.loading_eth_swap = true;
+
+    }
+
+    function PriceController(MetaverseService, $scope, $translate) {
+
+        $scope.loading_circulation = true;
+        $scope.loading_pricing = true;
+        $scope.loading_eth_swap = true;
+        $scope.loading_etp_relayer_pool = true;
+        $scope.etp_relayer_avatar = 'droplet'
+        $scope.etp_relayer_pool = ''
+        $scope.etp_relayer_address = '0xc1e5fd24fa2b4a3581335fc3f2850f717dd09c86';
+        $scope.eth_relayer_pool = ''
+
+        function getAvatar() {
+            return MetaverseService.FetchAvatar($scope.etp_relayer_avatar).then((response) => {
+                if (response.data.status && response.data.status.success) {
+                    getEtpRelayerPool(response.data.result.address);
+                }
+            }, console.error);
+        }
+
+        function getEtpRelayerPool(address) {
+            return MetaverseService.FetchAddress(address).then((response) => {
+                $scope.loading_etp_relayer_pool = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.etp_relayer_pool = response.data.result.info.ETP;
+                }
+            }, console.error);
+        }
+
+        function getCirculation() {
+            return MetaverseService.Circulation().then((response) => {
+                $scope.loading_circulation = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.circulation = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function getPricing() {
+            return MetaverseService.Pricing().then((response) => {
+                $scope.loading_pricing = false;
+                if (response.data.status && response.data.status.success)
+                    $scope.pricing = response.data.result;
+            }, console.error);
+        }
+
+        function getEthSwapRate() {
+            return MetaverseService.GetEthSwapRate().then((response) => {
+                $scope.loading_eth_swap = false;
+                if (response.data.status && response.data.status.success)
+                    $scope.eth_swap_rate = response.data.result;
+            }, console.error);
+        }
+
+        getCirculation();
+        getPricing();
+        getEthSwapRate();
+        getAvatar();
 
     }
 
