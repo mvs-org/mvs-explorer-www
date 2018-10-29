@@ -232,5 +232,6 @@
     "COPY": "Copy",
     "TX.MIT_CREATED": "MIT created by ",
     "TX.MIT_TRANSFERED": "MIT transfered to ",
-    "TX.TYPE_MESSAGE": "Public message or data"
+    "TX.TYPE_MESSAGE": "Public message or data",
+    "ETH_SWAP_PRICE": "ETH/ETP swap rate"
 }

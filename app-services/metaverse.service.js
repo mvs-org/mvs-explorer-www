@@ -13,9 +13,9 @@
     function MetaverseService($http, localStorageService) {
       var service = {};
 
-      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      //var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
       //var SERVER = "http://localhost";
-      //var SERVER = "https://explorer-testnet.mvs.org/api";
+      var SERVER = "https://explorer.mvs.org/api";
 
       service.SERVER = SERVER;
         /**
@@ -73,7 +73,7 @@
 
         service.Circulation = () => _send('circulation');
 
-        service.Pricing = () => _send('pricing');
+        service.Pricing = () => _send('pricing/tickers');
 
         service.DepositSum = () => _send('depositsum');
 
@@ -82,6 +82,8 @@
         service.Chart = (interval) => _send('poolstats' + ((interval) ? '?interval=' + interval : ''));
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
+
+        service.GetEthSwapRate = () => _send('bridge/rate/ETHETP');
 
         service.Broadcast = (raw_transaction) => _post('tx', '{"tx":"' + raw_transaction + '"}');
 
