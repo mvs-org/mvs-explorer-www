@@ -232,5 +232,12 @@
     "COPY": "Copy",
     "TX.MIT_CREATED": "MIT created by ",
     "TX.MIT_TRANSFERED": "MIT transfered to ",
-    "ETH_SWAP_PRICE": "ETH/ETP兑换汇率"
+    "TX.TYPE_MESSAGE": "Public message or data",
+    "ETH_SWAP_PRICE": "ETH/ETP兑换汇率",
+    "TOKEN_DROPLET_INFO": "Ether/ERC20实时跨链兑换",
+    "TOKEN_DROPLET.ETP_RELAYER_POOL": "中继ETP池",
+    "TOKEN_DROPLET.ETH_RELAYER_POOL": "中继ETH池",
+    "TOKEN_DROPLET.ETP_RELAYER_NAME": "中继ETP的数字身份",
+    "TOKEN_DROPLET.ETH_RELAYER_NAME": "中继ETH的地址",
+    "TOKEN_DROPLET.POWERED_BY": "*Powered by RightBTC"
 }
