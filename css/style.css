@@ -1686,3 +1686,15 @@ Main components
 .powered-by {
     font-style: italic;
 }
+
+.infobox-table {
+    table-layout: fixed;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.infobox-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
