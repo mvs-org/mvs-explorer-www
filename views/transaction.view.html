@@ -44,7 +44,7 @@
             <hr ng-show="messages.length > 0">
             <div class="row" ng-show="messages.length > 0">
                 <div class="col-md-12 list-item-value">{{ 'TX.MEMO' | translate }}</div>
-                <div class="col-md-12 list-item-label" ng-repeat="message in messages">{{ message }}</div>
+                <div class="col-md-12 list-item-label" ng-repeat="message in messages track by $index">{{ message }}</div>
             </div>
 
             <hr>
