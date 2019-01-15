@@ -248,6 +248,6 @@
 
     "CERT_MINING": "Mining",
     "TX.TYPE_ASSET_CERT_MINING": "Mining certificate",
-    "HELP.CERT_TYPE_MINING": "This certificate proof that this MST can be mined"   
+    "HELP.CERT_TYPE_MINING": "This certificate proof that this MST can be mined"
 
 }

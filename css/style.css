@@ -1701,3 +1701,7 @@ Main components
     text-overflow: ellipsis;
     white-space: nowrap;
 }
+
+.no-padding-right {
+    padding-right: 0;
+}
