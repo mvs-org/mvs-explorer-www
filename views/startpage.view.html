@@ -1,3 +1,60 @@
+<div class="content" ng-controller="PriceController">
+    <div class="row">
+        <div class="col-md-6 infobox-specific-height">
+            <div class="panel infobox">
+                <h3>{{'MARKET_CAP'|translate}}</h3>
+                <table>
+                    <tr>
+                        <th>{{ 'NUMBER_OF_COINS' |translate }}</th>
+                        <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_circulation">{{circulation | number}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'PRICE'|translate}}</th>
+                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_pricing">{{pricing.ETP.USD.price | currency}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'MARKET_CAP'|translate}}</th>
+                        <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_pricing||loading_circulation">{{pricing.ETP.USD.price*circulation | currency}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-6 infobox-specific-height">
+            <div class="panel infobox">
+                <h3>{{'TOKEN_DROPLET_INFO'|translate}}</h3>
+                <table class="infobox-table">
+                    <tr>
+                        <th>{{'ETH_SWAP_PRICE'|translate}}</th>
+                        <td ng-show="loading_eth_swap"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_eth_swap">{{eth_swap_rate | number}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'TOKEN_DROPLET.ETP_RELAYER_NAME'|translate}}</th>
+                        <td><a href="/avatar/{{etp_relayer_avatar}}">{{etp_relayer_avatar}}</a></td>
+                    </tr>
+                    <tr>
+                        <th>{{'TOKEN_DROPLET.ETP_RELAYER_POOL'|translate}}</th>
+                        <td ng-show="loading_etp_relayer_pool"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_etp_relayer_pool">{{etp_relayer_pool | numberFormat:8}} ETP</td>
+                    </tr>
+                    <tr>
+                        <th>{{'TOKEN_DROPLET.ETH_RELAYER_NAME'|translate}}</th>
+                        <td><a href="https://etherscan.io/address/{{etp_relayer_address}}" target="_blank">{{etp_relayer_address}}</a></td>
+                    </tr>
+                    <tr>
+                        <th></th>
+                        <td class="powered-by"><a href="https://www.rightbtc.com/" target="_blank">{{'TOKEN_DROPLET.POWERED_BY'|translate}}</a></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="content" ng-controller="TransactionListController">
     <h2 class="headline"><em></em> {{"LATEST_TRANSACTIONS" | translate}}</h2>
 
@@ -25,24 +82,29 @@
 </div>
 
 <div class="content" ng-controller="BlockListController">
-  <h2 class="headline"><em></em> {{ 'EXPLORER.LATEST_BLOCKS' | translate }}</h2>
+    <h2 class="headline"><em></em> {{ 'EXPLORER.LATEST_BLOCKS' | translate }}</h2>
 
-  <div ng-show="loading_blocks">
-      <div class="mini-loader">Loading...</div>
-  </div>
-  <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_blocks">
-      <div class="col-md-12">
-          <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="block in blockList">
-              <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span><a href="blk/{{block.number}}">{{block.number}}</a></div>
-              <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}: </span>{{block.transaction_count}}</div>
-              <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.DIFFICULTY' | translate }}: </span>{{block.bits}}</div>
-              <div class="col-md-3 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) >= 0">
-                <span ng-show="currentTimeStamp - (block.time_stamp * 1000) > 3600000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (block.time_stamp * 1000) > 60000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (block.time_stamp * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
-              </div>
-              <div class="col-md-3 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) < 0">
-                <span>Block in </span><span ng-show="(block.time_stamp * 1000) - currentTimeStamp > 3600000">{{(block.time_stamp * 1000) - currentTimeStamp| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="(block.time_stamp * 1000) - currentTimeStamp > 60000">{{(block.time_stamp * 1000) - currentTimeStamp| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{(block.time_stamp * 1000) - currentTimeStamp| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
-              </div>
-          </div>
-      </div>
-  </div>
+    <div ng-show="loading_blocks">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_blocks">
+        <div class="col-md-12">
+            <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="block in blockList">
+                <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span><a href="blk/{{block.number}}">{{block.number}}</a></div>
+                <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}: </span>{{block.transaction_count}}</div>
+                <div class="col-md-3"><span class="list-item-label">{{ 'EXPLORER.BLOCK_TYPE' | translate }}: </span>
+                    <span ng-if="block.version == 1">{{ 'EXPLORER.BLOCK_TYPE_POW' | translate }}</span>
+                    <span ng-if="block.version == 2">{{ 'EXPLORER.BLOCK_TYPE_POS' | translate }}</span>
+                    <span ng-if="block.version == 3">{{ 'EXPLORER.BLOCK_TYPE_DPOS' | translate }}</span>
+                    <span ng-if="block.version < 1 || block.version > 3>">{{block.version}}</span>
+                </div>
+                <div class="col-md-3 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) >= 0">
+                    <span ng-show="currentTimeStamp - (block.time_stamp * 1000) > 3600000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (block.time_stamp * 1000) > 60000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (block.time_stamp * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
+                </div>
+                <div class="col-md-3 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) < 0">
+                    <span>Block in </span><span ng-show="(block.time_stamp * 1000) - currentTimeStamp > 3600000">{{(block.time_stamp * 1000) - currentTimeStamp| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="(block.time_stamp * 1000) - currentTimeStamp > 60000">{{(block.time_stamp * 1000) - currentTimeStamp| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{(block.time_stamp * 1000) - currentTimeStamp| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

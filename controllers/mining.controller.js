@@ -11,6 +11,7 @@
         $scope.loading_pricing = true;
         $scope.loading_blocktimes = true;
         $scope.loading_difficulty = true;
+        $scope.loading_eth_swap = true;
 
         function getMiningInfo() {
             return MetaverseService.MiningInfo().then((response) => {
@@ -34,6 +35,14 @@
                 $scope.loading_pricing = false;
                 if (response.data.status && response.data.status.success)
                     $scope.pricing = response.data.result;
+            }, console.error);
+        }
+
+        function getEthSwapRate() {
+            return MetaverseService.GetEthSwapRate().then((response) => {
+                $scope.loading_eth_swap = false;
+                if (response.data.status && response.data.status.success)
+                    $scope.eth_swap_rate = response.data.result;
             }, console.error);
         }
 
@@ -125,6 +134,7 @@
         getCirculation();
         getStatistics();
         getPricing();
+        getEthSwapRate();
         getMiningInfo();
     }
 

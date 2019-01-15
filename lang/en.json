@@ -232,5 +232,22 @@
     "COPY": "Copy",
     "TX.MIT_CREATED": "MIT created by ",
     "TX.MIT_TRANSFERED": "MIT transfered to ",
-    "TX.TYPE_MESSAGE": "Public message or data"
+    "TX.TYPE_MESSAGE": "Public message or data",
+    "ETH_SWAP_PRICE": "Ether/ETP swap rate",
+    "TOKEN_DROPLET_INFO": "Ether/ERC20 Swap",
+    "TOKEN_DROPLET.ETP_RELAYER_POOL": "ETP relayer pool",
+    "TOKEN_DROPLET.ETH_RELAYER_POOL": "ETH relayer pool",
+    "TOKEN_DROPLET.ETP_RELAYER_NAME": "ETP relayer Avatar",
+    "TOKEN_DROPLET.ETH_RELAYER_NAME": "ETH relayer address",
+    "TOKEN_DROPLET.POWERED_BY": "*Powered by RightBTC",
+
+    "EXPLORER.BLOCK_TYPE": "Block type",
+    "EXPLORER.BLOCK_TYPE_POW": "PoW",
+    "EXPLORER.BLOCK_TYPE_POS": "PoS",
+    "EXPLORER.BLOCK_TYPE_DPOS": "dPoS",
+
+    "CERT_MINING": "Mining",
+    "TX.TYPE_ASSET_CERT_MINING": "Mining certificate",
+    "HELP.CERT_TYPE_MINING": "This certificate proof that this MST can be mined"
+
 }

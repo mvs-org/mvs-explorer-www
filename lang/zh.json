@@ -231,5 +231,23 @@
     "HELP.TX_UNSPENT_OUTPUT": "This output has not been spent yet",
     "COPY": "Copy",
     "TX.MIT_CREATED": "MIT created by ",
-    "TX.MIT_TRANSFERED": "MIT transfered to "
+    "TX.MIT_TRANSFERED": "MIT transfered to ",
+    "TX.TYPE_MESSAGE": "Public message or data",
+    "ETH_SWAP_PRICE": "ETH/ETP兑换汇率",
+    "TOKEN_DROPLET_INFO": "Ether/ERC20实时跨链兑换",
+    "TOKEN_DROPLET.ETP_RELAYER_POOL": "中继ETP池",
+    "TOKEN_DROPLET.ETH_RELAYER_POOL": "中继ETH池",
+    "TOKEN_DROPLET.ETP_RELAYER_NAME": "中继ETP的数字身份",
+    "TOKEN_DROPLET.ETH_RELAYER_NAME": "中继ETH的地址",
+    "TOKEN_DROPLET.POWERED_BY": "*Powered by RightBTC",
+
+    "EXPLORER.BLOCK_TYPE": "Block type",
+    "EXPLORER.BLOCK_TYPE_POW": "PoW",
+    "EXPLORER.BLOCK_TYPE_POS": "PoS",
+    "EXPLORER.BLOCK_TYPE_DPOS": "dPoS",
+
+    "CERT_MINING": "Mining",
+    "TX.TYPE_ASSET_CERT_MINING": "Mining certificate",
+    "HELP.CERT_TYPE_MINING": "This certificate proof that this MST can be mined"
+    
 }

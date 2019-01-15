@@ -17,6 +17,13 @@
                 </div>
             </div>
             <div class="row">
+                <div class="col-md-3 list-item-label">{{ 'EXPLORER.BLOCK_TYPE' | translate }}</div>
+                <div ng-if="block.version == 1" class="col-md-9 list-item-value">{{ 'EXPLORER.BLOCK_TYPE_POW' | translate }}</div>
+                <div ng-if="block.version == 2" class="col-md-9 list-item-value">{{ 'EXPLORER.BLOCK_TYPE_POS' | translate }}</div>
+                <div ng-if="block.version == 3" class="col-md-9 list-item-value">{{ 'EXPLORER.BLOCK_TYPE_DPOS' | translate }}</div>
+                <div ng-if="block.version < 1 || block.version > 3" class="col-md-9 list-item-value">Version {{ block.version }}</div>
+            </div>
+            <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.NO_OF_TXS' | translate }}</div>
                 <div class="col-md-9 list-item-value">{{ block.transaction_count }}</div>
             </div>
@@ -27,10 +34,6 @@
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.MIX_HASH' | translate }}</div>
                 <div class="col-md-9 list-item-value hash-mono">{{ block.mixhash }}</div>
-            </div>
-            <div class="row">
-                <div class="col-md-3 list-item-label">{{ 'BLOCK.VERSION' | translate }}</div>
-                <div class="col-md-9 list-item-value">{{ block.version }}</div>
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'EXPLORER.DIFFICULTY' | translate }}</div>
@@ -85,6 +88,7 @@
                                     <div ng-show="input.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                                     <div ng-show="input.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{input.attachment.symbol}}</div>
                                     <div ng-show="input.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{input.attachment.symbol}}</div>
+                                    <div ng-show="input.attachment.cert == 'mining'"><div class="txType">{{'TX.TYPE_ASSET_CERT_MINING'|translate}}: </div><a href="asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                                     <div ng-show="input.attachment.type == 'mit'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                                     <div ng-show="input.attachment.type != 'did-register' && input.attachment.type != 'did-transfer' && input.attachment.type != 'mit' && !input.attachment.cert">{{input.attachment.quantity | numberFormat:input.attachment.decimals}} <a href="asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                                 </div>
@@ -105,7 +109,7 @@
                     </div>
                     <div class="col-md-6 right">
                         <div class="subhead"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row break blockTxLine" ng-if="$index < 5" ng-repeat="output in tx.outputs">
+                        <div class="row break blockTxLine" ng-if="$index < 5 && output.attachment.type != 'null'" ng-repeat="output in tx.outputs">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 break">
                                 <div ng-show="output.attachment.to_did" class="break"><a href="avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
                                 <div ng-hide="output.attachment.to_did"><a class="address-mono" href="adr/{{output.address}}">{{output.address}}</a></div>
@@ -116,6 +120,7 @@
                                 <div ng-show="output.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{output.attachment.symbol}}</div>
                                 <div ng-show="output.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                <div ng-show="output.attachment.cert == 'mining'"><div class="txType">{{'TX.TYPE_ASSET_CERT_MINING'|translate}}: </div><a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>

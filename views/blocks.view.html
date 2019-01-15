@@ -6,9 +6,10 @@
     <div class="row nga-default nga-stagger nga-fade" ng-hide="loading">
         <div class="hidden-xs hidden-sm col-md-12">
             <div class="row panel list-item">
-                <div class="col-md-7"><span class="list-item-label">{{ 'BLOCK.HASH' | translate }}</span></div>
-                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}</span></div>
-                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}</span></div>
+                <div class="col-md-7 no-padding-right"><span class="list-item-label">{{ 'BLOCK.HASH' | translate }}</span></div>
+                <div class="col-md-1 no-padding-right"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}</span></div>
+                <div class="col-md-1 no-padding-right"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}</span></div>
+                <div class="col-md-2 no-padding-right"><span class="list-item-label">{{ 'EXPLORER.BLOCK_TYPE' | translate }}</span></div>
                 <div class="col-md-1 right"><span class="list-item-label">{{ 'TIME' | translate }}</span></div>
             </div>
         </div>
@@ -17,18 +18,25 @@
                 <div class="col-md-7 col-xs-12">
                     <span class="visible-xs visible-sm list-item-label">{{ 'BLOCK.HASH' | translate }}: </span>
                     <a class="hash-mono" href="blk/{{block.hash}}">
-                    {{block.hash}}
+                        {{block.hash}}
                     </a>
                 </div>
-                <div class="col-md-2 col-xs-6">
+                <div class="col-md-1 col-xs-4">
                     <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}: </span>
                     <a href="blk/{{block.number}}">
                         {{block.number}}
                     </a>
                 </div>
-                <div class="col-md-1 col-xs-6">
+                <div class="col-md-1 col-xs-4">
                     <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}: </span>
                     <span>{{block.transaction_count}}</span>
+                </div>
+                <div class="col-md-1 col-xs-4">
+                    <span class="visible-xs visible-sm list-item-label">{{ 'EXPLORER.BLOCK_TYPE' | translate }}: </span>
+                    <span ng-if="block.version == 1">{{ 'EXPLORER.BLOCK_TYPE_POW' | translate }}</span>
+                    <span ng-if="block.version == 2">{{ 'EXPLORER.BLOCK_TYPE_POS' | translate }}</span>
+                    <span ng-if="block.version == 3">{{ 'EXPLORER.BLOCK_TYPE_DPOS' | translate }}</span>
+                    <span ng-if="block.version < 1 || block.version > 3">{{block.version}}</span>
                 </div>
                 <div class="col-md-2 col-xs-12">
                     <div class="hidden-xs hidden-sm right">

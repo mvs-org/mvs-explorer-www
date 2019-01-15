@@ -1,25 +1,5 @@
 <div class="row">
     <div class="col-md-4">
-        <div class="col-md-12 panel infobox infobox-specific-height">
-            <h3>{{'MARKET_CAP'|translate}}</h3>
-            <table>
-                <tr>
-                    <th>{{ 'NUMBER_OF_COINS' |translate }}</th>
-                    <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
-                    <td ng-hide="loading_circulation">{{circulation | number}}</td>
-                </tr>
-                <tr>
-                    <th>{{'PRICE'|translate}}</th>
-                    <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
-                    <td ng-hide="loading_pricing">{{pricing.ETPUSD | currency}}</td>
-                </tr>
-                <tr>
-                    <th>{{'MARKET_CAP'|translate}}</th>
-                    <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
-                    <td ng-hide="loading_pricing||loading_circulation">{{pricing.ETPUSD*circulation | currency}}</td>
-                </tr>
-            </table>
-        </div>
 
         <div class="col-md-12 panel infobox infobox-specific-height mining-box">
             <h3>{{'MINING_POOL_INFO'|translate}}</h3>
