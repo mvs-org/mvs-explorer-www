@@ -244,6 +244,10 @@
     "EXPLORER.BLOCK_TYPE": "Block type",
     "EXPLORER.BLOCK_TYPE_POW": "PoW",
     "EXPLORER.BLOCK_TYPE_POS": "PoS",
-    "EXPLORER.BLOCK_TYPE_DPOS": "dPoS"
+    "EXPLORER.BLOCK_TYPE_DPOS": "dPoS",
+
+    "CERT_MINING": "Mining",
+    "TX.TYPE_ASSET_CERT_MINING": "Mining certificate",
+    "HELP.CERT_TYPE_MINING": "This certificate proof that this MST can be mined"   
 
 }
