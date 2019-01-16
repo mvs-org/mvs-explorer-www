@@ -248,6 +248,10 @@
 
     "CERT_MINING": "Mining",
     "TX.TYPE_ASSET_CERT_MINING": "Mining certificate",
-    "HELP.CERT_TYPE_MINING": "This certificate proof that this MST can be mined"
+    "HELP.CERT_TYPE_MINING": "This certificate proof that this MST can be mined",
+
+    "CERT_WITNESS": "Witness",
+    "TX.TYPE_ASSET_CERT_WITNESS": "Witness certificate",
+    "HELP.CERT_TYPE_WITNESS": "This certificate is used for dPoS"
 
 }
