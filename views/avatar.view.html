@@ -48,7 +48,7 @@
     </div>
     <div ng-show="!loading_certs && certs.length == 0">{{ 'AVATAR.NO_CERTIFICATES' | translate }}</div>
     <div class="row" ng-show="!loading_certs && certs.length != 0">
-        <div class="certificate panel nga-default nga-stagger nga-fade distrib-overview col-xs-12 col-sm-6 col-md-3 col-lg-2" ng-class="{certDomain: cert.attachment.cert == 'domain', certIssue: cert.attachment.cert == 'issue', certNaming: cert.attachment.cert == 'naming', certMining: cert.attachment.cert == 'mining', certExpired: cert.spent_tx != 0}" ng-repeat="cert in certs | orderBy:['spent_tx','height']">
+        <div class="certificate panel nga-default nga-stagger nga-fade distrib-overview col-xs-12 col-sm-6 col-md-3 col-lg-2" ng-class="{certDomain: cert.attachment.cert == 'domain', certIssue: cert.attachment.cert == 'issue', certNaming: cert.attachment.cert == 'naming', certMining: cert.attachment.cert == 'mining', certWitness: cert.attachment.cert == 'witness', certExpired: cert.spent_tx != 0}" ng-repeat="cert in certs | orderBy:['spent_tx','height']">
             <div ng-show="cert.spent_tx != 0" class="conditionnal-tooltip" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_SPENT' | translate }}"></div>
             <div class="panel-link" ng-class="{certExpiredOpacity: cert.spent_tx != 0}">
                 <h4 class="text-center cert-title">{{cert.attachment.symbol}}</h4>
@@ -57,7 +57,8 @@
                   <span ng-show="cert.attachment.cert == 'domain'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE_DOMAIN' | translate }}">{{ 'CERT_DOMAIN' | translate }}</span>
                   <span ng-show="cert.attachment.cert == 'naming'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE_NAMING' | translate }}">{{ 'CERT_NAMING' | translate }}</span>
                   <span ng-show="cert.attachment.cert == 'mining'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE_MINING' | translate }}">{{ 'CERT_MINING' | translate }}</span>
-                  <span ng-show="cert.attachment.cert != 'issue' && cert.attachment.cert != 'domain' && cert.attachment.cert != 'naming' && cert.attachment.cert != 'mining'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE' | translate }}">{{cert.attachment.cert}}</span>
+                  <span ng-show="cert.attachment.cert == 'witness'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE_WITNESS' | translate }}">{{ 'CERT_WITNESS' | translate }}</span>
+                  <span ng-show="cert.attachment.cert != 'issue' && cert.attachment.cert != 'domain' && cert.attachment.cert != 'naming' && cert.attachment.cert != 'mining' && cert.attachment.cert != 'witness'" class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE' | translate }}">{{cert.attachment.cert}}</span>
                 </div>
                 <div>{{ 'CERT.CURRENT_OWNER' | translate }}: <span class="break-all align-right">{{cert.attachment.owner}}</span></div>
                 <div>{{ 'TX.BLOCK' | translate }}: <a class="align-right" href="blk/{{cert.height}}">{{cert.height}}</a></div>
@@ -160,6 +161,7 @@
                                     <div ng-show="input.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{input.attachment.symbol}}</div>
                                     <div ng-show="input.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{input.attachment.symbol}}</div>
                                     <div ng-show="input.attachment.cert == 'mining'"><div class="txType">{{'TX.TYPE_ASSET_CERT_MINING'|translate}}: </div>{{input.attachment.symbol}}</div>
+                                    <div ng-show="input.attachment.cert == 'witness'"><div class="txType">{{'TX.TYPE_ASSET_CERT_WITNESS'|translate}}: </div>{{input.attachment.symbol}}</div>
                                     <div ng-show="input.attachment.type == 'mit'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                                     <div ng-show="input.attachment.type != 'did-register' && input.attachment.type != 'did-transfer' && input.attachment.type != 'mit' && !input.attachment.cert">{{input.attachment.quantity | numberFormat:input.attachment.decimals}} <a href="asset/{{input.attachment.symbol}}">{{input.attachment.symbol}}</a></div>
                                 </div>
@@ -193,6 +195,7 @@
                                 <div ng-show="output.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{output.attachment.symbol}}</div>
                                 <div ng-show="output.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{output.attachment.symbol}}</div>
                                 <div ng-show="output.attachment.cert == 'mining'"><div class="txType">{{'TX.TYPE_ASSET_CERT_MINING'|translate}}: </div><a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-show="output.attachment.cert == 'witness'"><div class="txType">{{'TX.TYPE_ASSET_CERT_WITNESS'|translate}}: </div>{{output.attachment.symbol}}</div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
