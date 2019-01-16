@@ -47,7 +47,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'null'" ng-class="{searchedAddress: output.address==address}">
+                        <div class="row" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'" ng-class="{searchedAddress: output.address==address}">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
                                 <br>

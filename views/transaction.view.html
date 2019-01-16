@@ -90,7 +90,7 @@
                 </div>
 
                 <div class="col-xs-12 col-sm-12 col-md-6 right">
-                    <div class="row break txLine" ng-repeat="output in transaction.outputs" ng-if="output.attachment.type != 'null'">
+                    <div class="row break txLine" ng-repeat="output in transaction.outputs" ng-if="output.attachment.type != 'coinstake'">
                         <div ng-show="!loading_outputs && output.spent_tx != 0" class="transaction-arrow-right">
                             <a href="tx/{{output.spent_tx}}"><i class="fas fa-arrow-circle-right"></i></a>
                         </div>

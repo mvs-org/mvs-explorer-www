@@ -110,7 +110,7 @@
                     </div>
                     <div class="col-md-6 right">
                         <div class="subhead"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row break blockTxLine" ng-if="$index < 5 && output.attachment.type != 'null'" ng-repeat="output in tx.outputs">
+                        <div class="row break blockTxLine" ng-if="$index < 5 && output.attachment.type != 'coinstake'" ng-repeat="output in tx.outputs">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 break">
                                 <div ng-show="output.attachment.to_did" class="break"><a href="avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
                                 <div ng-hide="output.attachment.to_did"><a class="address-mono" href="adr/{{output.address}}">{{output.address}}</a></div>
