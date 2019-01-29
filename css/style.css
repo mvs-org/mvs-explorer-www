@@ -150,6 +150,10 @@ em{
     margin-bottom: 30px;
 }
 
+.jumbotron h1 {
+    font-size: 36px;
+}
+
 .loader {
     padding-top: 150px;
     top: 50px;
