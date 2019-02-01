@@ -13,9 +13,9 @@
     function MetaverseService($http, localStorageService) {
       var service = {};
 
-      //var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
       //var SERVER = "http://localhost";
-      var SERVER = "https://explorer.mvs.org/api";
+      //var SERVER = "https://explorer.mvs.org/api";
 
       service.SERVER = SERVER;
         /**
@@ -37,7 +37,7 @@
 
         service.ListBlocks = (page, items_per_page) => _send('blocks?page=' + page + '&items_per_page=' + items_per_page);
 
-        service.BlockStats = (page) => _send('stats/block');
+        service.BlockStats = (type, downscale) => _send('stats/block?type=' + type + ((downscale) ? '&downscale=' + downscale : ''));
 
         service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
