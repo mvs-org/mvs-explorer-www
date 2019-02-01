@@ -57,9 +57,18 @@
 </div>
 
 <div class="col-md-12 panel infobox infobox-specific-height">
-    <h3>{{'EXPLORER.DIFFICULTY'|translate}}</h3>
+    <h3>{{'STATS.POW_DIFFICULTY'|translate}}</h3>
     <div ng-show="loading_difficulty">
         <div class="mini-loader">Loading...</div>
     </div>
     <nvd3 options="difficultyChart.options" data="difficultyChart.data" class="with-3d-shadow with-transitions"></nvd3>
 </div>
+
+<div class="col-md-12 panel infobox infobox-specific-height">
+    <h3>{{'STATS.POS_DIFFICULTY'|translate}}</h3>
+    <div ng-show="loading_difficulty">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <nvd3 options="posDifficultyChart.options" data="posDifficultyChart.data" class="with-3d-shadow with-transitions"></nvd3>
+</div>
+

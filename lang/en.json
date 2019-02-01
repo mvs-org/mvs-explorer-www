@@ -255,6 +255,10 @@
     "HELP.CERT_TYPE_WITNESS": "This certificate is used for dPoS",
 
     "TESTNET_ETP_TITLE": "Free Testnet ETP",
-    "TESTNET_ETP": "Now there is also an official website to get free testnet ETP. Just visit: "
+    "TESTNET_ETP": "Now there is also an official website to get free testnet ETP. Just visit: ", 
+
+    "STATS.POW_DIFFICULTY": "PoW difficulty",
+    "STATS.POS_DIFFICULTY": "PoS difficulty",
+    "STATS.DPOS_DIFFICULTY": "dPoS difficulty"
 
 }

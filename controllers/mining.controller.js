@@ -11,6 +11,7 @@
         $scope.loading_pricing = true;
         $scope.loading_blocktimes = true;
         $scope.loading_difficulty = true;
+        $scope.loading_pos_difficulty = true;
         $scope.loading_eth_swap = true;
 
         function getMiningInfo() {
@@ -47,7 +48,7 @@
         }
 
         function getStatistics() {
-            return MetaverseService.BlockStats()
+            return MetaverseService.BlockStats('pow', 10)
                 .then((response) => {
                     var blocktimes = [];
                     var difficulties = [];
@@ -68,10 +69,59 @@
                 });
         }
 
+        function getPosStatistics() {
+            return MetaverseService.BlockStats('pos', 1)
+                .then((response) => {
+                    var difficulties = [];
+                    response.data.result.forEach((point) => {
+                        difficulties.push({
+                            x: point[0],
+                            y: point[2]
+                        });
+                    });
+                    drawPosDifficulties(difficulties);
+                    $scope.loading_pos_difficulty = false;
+                });
+        }
+
         function drawDifficulties(data) {
             $translate(['HEIGHT', 'GRAPH.DIFFICULTY'])
                 .then((translations) => {
                     $scope.difficultyChart = {
+                        options: {
+                            chart: {
+                                type: 'lineChart',
+                                height: 450,
+                                margin: {
+                                    top: 20,
+                                    right: 40,
+                                    bottom: 40,
+                                    left: 95
+                                },
+                                y: function(d) {
+                                    return d.y;
+                                },
+                                showLegend: false,
+                                xAxis: {
+                                    axisLabel: translations['HEIGHT']
+                                },
+                                yAxis: {
+                                    axisLabelDistance: -65,
+                                    axisLabel: translations['GRAPH.DIFFICULTY']
+                                }
+                            }
+                        },
+                        data: [{
+                            values: data
+                        }]
+                    };
+                });
+        }
+
+        function drawPosDifficulties(data) {
+            $translate(['HEIGHT', 'GRAPH.DIFFICULTY'])
+                .then((translations) => {
+                    $scope.posDifficultyChart = {
                         options: {
                             chart: {
                                 type: 'lineChart',
@@ -133,6 +183,7 @@
         }
         getCirculation();
         getStatistics();
+        getPosStatistics();
         getPricing();
         getEthSwapRate();
         getMiningInfo();
