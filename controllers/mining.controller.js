@@ -52,7 +52,9 @@
                 .then((response) => {
                     var blocktimes = [];
                     var difficulties = [];
+                    let maxDifficultyY = 0;
                     response.data.result.forEach((point) => {
+                        maxDifficultyY = Math.max(maxDifficultyY, point[2]);
                         blocktimes.push({
                             x: point[0],
                             y: point[1]
@@ -63,7 +65,7 @@
                         });
                     });
                     drawBlocktimes(blocktimes);
-                    drawDifficulties(difficulties);
+                    drawDifficulties(difficulties, maxDifficultyY);
                     $scope.loading_blocktimes = false;
                     $scope.loading_difficulty = false;
                 });
@@ -73,18 +75,20 @@
             return MetaverseService.BlockStats('pos', 1)
                 .then((response) => {
                     var difficulties = [];
+                    let maxY = 0;
                     response.data.result.forEach((point) => {
+                        maxY = Math.max(maxY, point[2]);
                         difficulties.push({
                             x: point[0],
                             y: point[2]
                         });
                     });
-                    drawPosDifficulties(difficulties);
+                    drawPosDifficulties(difficulties, maxY);
                     $scope.loading_pos_difficulty = false;
                 });
         }
 
-        function drawDifficulties(data) {
+        function drawDifficulties(data, maxY) {
             $translate(['HEIGHT', 'GRAPH.DIFFICULTY'])
                 .then((translations) => {
                     $scope.difficultyChart = {
@@ -108,7 +112,8 @@
                                 yAxis: {
                                     axisLabelDistance: -65,
                                     axisLabel: translations['GRAPH.DIFFICULTY']
-                                }
+                                },
+                                yDomain: [0, maxY]
                             }
                         },
                         data: [{
@@ -118,7 +123,7 @@
                 });
         }
 
-        function drawPosDifficulties(data) {
+        function drawPosDifficulties(data, maxY) {
             $translate(['HEIGHT', 'GRAPH.DIFFICULTY'])
                 .then((translations) => {
                     $scope.posDifficultyChart = {
@@ -142,7 +147,8 @@
                                 yAxis: {
                                     axisLabelDistance: -65,
                                     axisLabel: translations['GRAPH.DIFFICULTY']
-                                }
+                                },
+                                yDomain: [0, maxY]
                             }
                         },
                         data: [{
