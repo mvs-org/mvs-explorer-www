@@ -85,7 +85,8 @@ module.exports = function(grunt) {
                     './node_modules/angular-wamp/release/angular-wamp.js',
                     'node_modules/angular-nvd3/dist/angular-nvd3.js',
                     'node_modules/angular-sanitize/angular-sanitize.js',
-                    'node_modules/angular-swagger-ui/dist/scripts/swagger-ui.js'
+                    'node_modules/angular-swagger-ui/dist/scripts/swagger-ui.js',
+                    './node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js'
                 ],
                 dest: './min/framework.js'
             },
