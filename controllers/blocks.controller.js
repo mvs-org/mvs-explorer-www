@@ -8,23 +8,25 @@
 
     function BlocksController($scope, MetaverseService) {
 
-        $scope.items_per_page = 50;
+        $scope.loading_blocks = false;
+        $scope.last_known = '';
+        $scope.blocks = [];
 
-        $scope.switchPage = (page) => {
-            $scope.loading = true;
-            return MetaverseService.ListBlocks(page - 1, $scope.items_per_page)
-                .then((response) => {
-                    $scope.blocks = response.data.result.result;
-                    $scope.total_count = response.data.result.count;
-                    $scope.loading = false;
-                })
-                .catch((error) => {
-                    $scope.loading = false;
-                    console.error(error);
-                });
-        };
-
-        $scope.switchPage(1);
+        $scope.load = function() {
+            if(!$scope.loading_blocks) {
+                $scope.loading_blocks = true;
+                return MetaverseService.ListBlocks($scope.last_known)
+                    .then((response) => {
+                        $scope.blocks = $scope.blocks.concat(response.data.result);
+                        $scope.last_known = $scope.blocks[$scope.blocks.length-1]._id;
+                        $scope.loading_blocks = false;
+                    })
+                    .catch((error) => {
+                        $scope.loading_blocks = false;
+                        console.error(error);
+                    });
+            }
+        }
 
     }
 
