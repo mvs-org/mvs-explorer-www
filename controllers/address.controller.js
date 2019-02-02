@@ -20,6 +20,7 @@
         $scope.transactions = [];
         $scope.last_known = '';
         $scope.loading_txs = false;
+        $scope.txs_fully_loaded = false;
         $scope.icons = Assets.hasIcon;
         $scope.priority = Assets.priority;
         $scope.buttonCopyToClipboard = new ClipboardJS('.btn');
@@ -87,13 +88,15 @@
         };
        
         $scope.loadTransactions = function() {
-            if(!$scope.loading_txs) {
+            if(!$scope.loading_txs && !$scope.txs_fully_loaded) {
                 $scope.loading_txs = true;
                 return MetaverseService.ListTxs($scope.last_known, address, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.transactions = $scope.transactions.concat(response.data.result);
                         $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
                         $scope.loading_txs = false;
+                        if(response.data.result.length == 0)
+                            $scope.txs_fully_loaded = true;
                     })
                     .catch((error) => {
                         $scope.loading_txs = false;

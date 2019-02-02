@@ -21,13 +21,14 @@
         $scope.transactions = [];
         $scope.last_known = '';
         $scope.loading_txs = false;
+        $scope.txs_fully_loaded = false;
 
         MetaverseService.FetchAvatar($stateParams.symbol)
             .then((response) => {
                 $scope.avatar = response.data.result;
                 $scope.loading_avatar = false;
                 fetchAddress($scope.avatar.address);
-                loadTransactions();
+                $scope.loadTransactions();
             })
             .catch((error) => {
                 $scope.loading_avatar = false;
@@ -94,13 +95,17 @@
         };
        
         $scope.loadTransactions = function() {
-            if(!$scope.loading_txs && $scope.avatar && $scope.avatar.address) {
+            if(!$scope.loading_txs && $scope.avatar && $scope.avatar.address && !$scope.txs_fully_loaded) {
                 $scope.loading_txs = true;
                 return MetaverseService.ListTxs($scope.last_known, $scope.avatar.address, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.transactions = $scope.transactions.concat(response.data.result);
                         $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
                         $scope.loading_txs = false;
+                        console.log(response.data.result)
+                        console.log($scope.txs_fully_loaded)
+                        if(response.data.result.length == 0)
+                            $scope.txs_fully_loaded = true;
                     })
                     .catch((error) => {
                         $scope.loading_txs = false;
