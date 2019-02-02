@@ -96,7 +96,7 @@
                     <span ng-if="block.version == 1">{{ 'EXPLORER.BLOCK_TYPE_POW' | translate }}</span>
                     <span ng-if="block.version == 2">{{ 'EXPLORER.BLOCK_TYPE_POS' | translate }}</span>
                     <span ng-if="block.version == 3">{{ 'EXPLORER.BLOCK_TYPE_DPOS' | translate }}</span>
-                    <span ng-if="block.version < 1 || block.version > 3>">{{block.version}}</span>
+                    <span ng-if="block.version < 1 || block.version > 3">{{block.version}}</span>
                 </div>
                 <div class="col-md-3 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) >= 0">
                     <span ng-show="currentTimeStamp - (block.time_stamp * 1000) > 3600000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (block.time_stamp * 1000) > 60000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (block.time_stamp * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>

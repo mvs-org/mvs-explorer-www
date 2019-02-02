@@ -1,7 +1,7 @@
 {
   "name": "MVS_explorer",
   "description": "Explorer for Metaverse.",
-  "version": "0.4.3s15",
+  "version": "0.4.3s20",
   "repository": {
     "type": "git",
     "url": "https://github.com/ViewBTC/mvs-explorer.git"
@@ -37,6 +37,7 @@
     "leaflet-ajax": "^2.1.0",
     "leaflet.ajax": "^1.1.0",
     "leaflet.markercluster": "^1.3.0",
+    "ng-infinite-scroll": "^1.3.0",
     "nprogress": "^0.2.0",
     "qrcode": "^0.9.0"
   },
