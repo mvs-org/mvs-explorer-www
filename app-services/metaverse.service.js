@@ -15,6 +15,7 @@
 
       var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
       //var SERVER = "http://localhost";
+      //var SERVER = "https://explorer.mvs.org/api";
       //var SERVER = "https://explorer-testnet.mvs.org/api";
 
       service.SERVER = SERVER;
@@ -47,7 +48,7 @@
 
         service.BlockTxs = (blockhash, page, items_per_page) => _send('block/txs/' + blockhash + ((page) ? '?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : '') : ''));
 
-        service.Txs = (page, min_time, max_time) => _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
+        service.Txs = (last_known, min_time, max_time) => _send('v2/txs?last_known=' + last_known + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.ListAssets = (number) => _send('assets');
 
