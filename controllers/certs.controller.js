@@ -37,6 +37,28 @@
 
         $scope.switchPage(1);
 
+        /*
+        $scope.loading_certs = false;
+        $scope.last_known = '';
+        $scope.certs = [];
+
+        $scope.load = function() {
+            if(!$scope.loading_certs) {
+                $scope.loading_certs = true;
+                return MetaverseService.ListCerts($scope.last_known)
+                    .then((response) => {
+                        $scope.certs = $scope.certs.concat(response.data.result);
+                        $scope.last_known = $scope.certs[$scope.certs.length-1]._id;
+                        $scope.loading_certs = false;
+                    })
+                    .catch((error) => {
+                        $scope.loading_certs = false;
+                        console.error(error);
+                    });
+            }
+        }
+        */
+
     }
 
 })();

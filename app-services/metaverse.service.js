@@ -36,7 +36,7 @@
 
         service.FetchTxOutputs = (hash) => _send('tx/outputs/' + hash);
 
-        service.ListBlocks = (page, items_per_page) => _send('blocks?page=' + page + '&items_per_page=' + items_per_page);
+        service.ListBlocks = (last_known) => _send('v2/blocks' +((last_known) ? '?last_known=' + last_known : ''));
 
         service.BlockStats = (type, downscale) => _send('stats/block?type=' + type + ((downscale) ? '&downscale=' + downscale : ''));
 
@@ -48,13 +48,15 @@
 
         service.BlockTxs = (blockhash, page, items_per_page) => _send('block/txs/' + blockhash + ((page) ? '?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : '') : ''));
 
-        service.Txs = (last_known, min_time, max_time) => _send('v2/txs?last_known=' + last_known + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
+        service.ListTxs = (last_known, address, min_time, max_time) => _send('v2/txs?last_known=' + last_known + ((address) ? '&address=' + address : '') + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.ListAssets = (number) => _send('assets');
 
         service.ListAvatars = (page, items_per_page) => _send('avatars?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
 
         service.ListCerts = (page, items_per_page) => _send('certs?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+
+        //service.ListCerts = (last_known) => _send('v2/certs' +((last_known) ? '?last_known=' + last_known : ''));
 
         service.ListMits = (page, items_per_page) => _send('mits?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
 

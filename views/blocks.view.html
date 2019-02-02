@@ -1,9 +1,7 @@
 <div class="content">
     <h2 class="headline"><em></em> {{ 'BLOCKS' | translate }}</h2>
-    <div ng-show="loading">
-        <div class="mini-loader">Loading...</div>
-    </div>
-    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading">
+
+    <div class="row nga-default nga-stagger nga-fade">
         <div class="hidden-xs hidden-sm col-md-12">
             <div class="row panel list-item">
                 <div class="col-md-7 no-padding-right"><span class="list-item-label">{{ 'BLOCK.HASH' | translate }}</span></div>
@@ -13,8 +11,8 @@
                 <div class="col-md-1 right"><span class="list-item-label">{{ 'TIME' | translate }}</span></div>
             </div>
         </div>
-        <div class="col-md-12">
-            <div class="row panel list-item nga-default nga-stagger nga-fade" ng-hide="loading" dir-paginate="block in blocks | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+        <div class="col-md-12" infinite-scroll="load()">
+            <div ng-repeat="block in blocks" class="row panel list-item nga-default nga-stagger nga-fade">
                 <div class="col-md-7 col-xs-12">
                     <span class="visible-xs visible-sm list-item-label">{{ 'BLOCK.HASH' | translate }}: </span>
                     <a class="hash-mono" href="blk/{{block.hash}}">
@@ -49,6 +47,8 @@
                 </div>
             </div>
         </div>
-        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
-    </div>
+        <div ng-show="loading_blocks">
+            <div class="mini-loader">Loading...</div>
+        </div>
+    </div>   
 </div>

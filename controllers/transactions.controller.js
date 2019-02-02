@@ -25,7 +25,7 @@
         $scope.load = function() {
             if(!$scope.loading_txs) {
                 $scope.loading_txs = true;
-                return MetaverseService.Txs($scope.last_known, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
+                return MetaverseService.ListTxs($scope.last_known, undefined, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.transactions = $scope.transactions.concat(response.data.result);
                         $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
