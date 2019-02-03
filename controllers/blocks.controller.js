@@ -11,15 +11,18 @@
         $scope.loading_blocks = false;
         $scope.last_known = '';
         $scope.blocks = [];
+        $scope.blocks_fully_loaded = false;
 
         $scope.load = function() {
-            if(!$scope.loading_blocks) {
+            if(!$scope.loading_blocks && !$scope.blocks_fully_loaded) {
                 $scope.loading_blocks = true;
                 return MetaverseService.ListBlocks($scope.last_known)
                     .then((response) => {
                         $scope.blocks = $scope.blocks.concat(response.data.result);
                         $scope.last_known = $scope.blocks[$scope.blocks.length-1]._id;
                         $scope.loading_blocks = false;
+                        if(response.data.result.length == 0)
+                            $scope.blocks_fully_loaded = true;
                     })
                     .catch((error) => {
                         $scope.loading_blocks = false;
