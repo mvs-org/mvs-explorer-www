@@ -19,7 +19,8 @@
                 return MetaverseService.ListBlocks($scope.last_known)
                     .then((response) => {
                         $scope.blocks = $scope.blocks.concat(response.data.result);
-                        $scope.last_known = $scope.blocks[$scope.blocks.length-1]._id;
+                        if($scope.blocks[$scope.blocks.length-1])
+                            $scope.last_known = $scope.blocks[$scope.blocks.length-1]._id;
                         $scope.loading_blocks = false;
                         if(response.data.result.length == 0)
                             $scope.blocks_fully_loaded = true;

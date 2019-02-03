@@ -89,6 +89,8 @@
 
         $scope.applyFilters = (min_date, max_date) => {
             $scope.transactions = [];
+            $scope.last_known = '';
+            $scope.txs_fully_loaded = false;
             $scope.min = min_date;
             $scope.max = max_date;
             $scope.loadTransactions();
@@ -100,10 +102,9 @@
                 return MetaverseService.ListTxs($scope.last_known, $scope.avatar.address, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.transactions = $scope.transactions.concat(response.data.result);
-                        $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
+                        if($scope.transactions[$scope.transactions.length-1])
+                            $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
                         $scope.loading_txs = false;
-                        console.log(response.data.result)
-                        console.log($scope.txs_fully_loaded)
                         if(response.data.result.length == 0)
                             $scope.txs_fully_loaded = true;
                     })
