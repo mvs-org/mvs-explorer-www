@@ -58,7 +58,9 @@
 
         service.CertsCount = () => _send('v2/info/cert');
         
-        service.ListMits = (page, items_per_page) => _send('mits?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+        service.ListMits = (last_known) => _send('v2/mits' +((last_known) ? '?last_known=' + last_known : ''));
+
+        service.MitsCount = () => _send('v2/info/mit');
 
         service.FetchAvatar = (symbol) => _send('avatar/'+symbol);
 

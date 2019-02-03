@@ -4,15 +4,11 @@
 
     <h4 class="assets-count">
       <span>{{ 'MIT.NUMBER_OF' | translate }}: </span>
-      <span ng-show="loading_mits"><img src="../images/spinner.gif"></span>
-      <span ng-hide="loading_mits">{{total_count}}</span>
+      <span ng-show="loading_count"><img src="../images/spinner.gif"></span>
+      <span ng-hide="loading_count">{{count}}</span>
     </h4>
 
-    <div ng-show="loading_mits">
-        <div class="mini-loader">Loading...</div>
-    </div>
-
-    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_mits">
+    <div class="row nga-default nga-stagger nga-fade" infinite-scroll="load()">
 
         <div class="col-md-12 hidden-xs hidden-sm">
             <div class="row panel list-item nga-default nga-stagger nga-fade">
@@ -22,8 +18,7 @@
                 <div class="col-md-2">{{ 'MIT.LAST_TX_BLOCK' | translate }}</div>
             </div>
 
-            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" dir-paginate="mit in mits | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
-
+            <div ng-repeat="mit in mits" class="row panel list-item nga-default nga-stagger nga-fade asset-row">            
                 <div class="col-md-4">
                   <h4><a href="mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h4>
                 </div>
@@ -33,7 +28,7 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="mit in mits | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+        <div ng-repeat="mit in mits" class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl">
             <h3 class="break"><a href="mit/{{mit.attachment.symbol}}">{{mit.attachment.symbol}}</a></h3>
             <table class="col-xs-12 col-sm-12">
                 <tr>
@@ -50,6 +45,8 @@
                 </tr>
             </table>
         </div>
-        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+    </div>
+    <div ng-show="loading_mits">
+        <div class="mini-loader">Loading...</div>
     </div>
 </div>

@@ -28,28 +28,26 @@
             </div>
         </div>
 
-        <div class="hidden-md hidden-lg hidden-xl">
-            <div ng-repeat="cert in certs" class="col-xs-12 col-sm-12 panel assetbox">
-                <h3>{{cert.attachment.symbol}}</h3>
-                <table class="col-xs-12 col-sm-12">
-                <tr>
-                    <th>{{ 'CERT.TYPE' | translate }}</th>
-                    <td>{{cert.attachment.cert}}</td>
+        <div ng-repeat="cert in certs" class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl">
+            <h3>{{cert.attachment.symbol}}</h3>
+            <table class="col-xs-12 col-sm-12">
+            <tr>
+                <th>{{ 'CERT.TYPE' | translate }}</th>
+                <td>{{cert.attachment.cert}}</td>
+            </tr>
+            <tr>
+                    <th>{{ 'ADDRESS' | translate }}</th>
+                    <td class="address-mono"><a href="adr/{{cert.address}}">{{cert.address}}</a></td>
                 </tr>
                 <tr>
-                        <th>{{ 'ADDRESS' | translate }}</th>
-                        <td class="address-mono"><a href="adr/{{cert.address}}">{{cert.address}}</a></td>
-                    </tr>
-                    <tr>
-                        <th>{{ 'CERT.CREATION_DATE' | translate }}</th>
-                        <td>{{cert.confirmed_at*1000|date}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{ 'CERT.CREATION_BLOCK' | translate }}</th>
-                        <td>{{cert.height}}</td>
-                    </tr>
-                </table>
-            </div>
+                    <th>{{ 'CERT.CREATION_DATE' | translate }}</th>
+                    <td>{{cert.confirmed_at*1000|date}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'CERT.CREATION_BLOCK' | translate }}</th>
+                    <td>{{cert.height}}</td>
+                </tr>
+            </table>
         </div>
     </div>
     <div ng-show="loading_certs">
