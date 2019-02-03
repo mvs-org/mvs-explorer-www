@@ -8,34 +8,39 @@
 
     function MitsController($scope, MetaverseService) {
 
-        $scope.loading_mits = true;
-        $scope.items_per_page = 50;
+        $scope.loading_mits = false;
+        $scope.last_known = '';
+        $scope.mits = [];
+        $scope.mits_fully_loaded = false;
+        $scope.loading_count = true;
 
-        $scope.switchPage = (page) => {
-            $scope.current_page = page;
-            return load();
-        };
+        $scope.load = function() {
+            if(!$scope.loading_mits && !$scope.mits_fully_loaded) {
+                $scope.loading_mits = true;
+                return MetaverseService.ListMits($scope.last_known)
+                    .then((response) => {
+                        $scope.mits = $scope.mits.concat(response.data.result);
+                        $scope.last_known = $scope.mits[$scope.mits.length-1]._id;
+                        $scope.loading_mits = false;
+                        if(response.data.result.length == 0)
+                            $scope.mits_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_mits = false;
+                        console.error(error);
+                    });
+            }
+        }
 
-        $scope.applyFilters = () => {
-            $scope.current_page = 1;
-            return load();
-        };
-
-        var load = () => {
-            $scope.loading_mits = true;
-            return MetaverseService.ListMits($scope.current_page - 1, $scope.items_per_page)
-                .then((response) => {
-                    $scope.mits = response.data.result.result;
-                    $scope.total_count = response.data.result.count;
-                    $scope.loading_mits = false;
-                })
-                .catch((error) => {
-                    $scope.loading_mits = false;
-                    console.error(error);
-                });
-        };
-
-        $scope.switchPage(1);
+        MetaverseService.MitsCount()
+            .then((response) => {
+                $scope.count = response.data.result.count;
+                $scope.loading_count = false;
+            })
+            .catch((error) => {
+                $scope.loading_count = false;
+                console.error(error);
+            });
 
     }
 

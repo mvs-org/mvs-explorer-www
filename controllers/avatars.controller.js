@@ -89,6 +89,8 @@
 
         $scope.applyFilters = (min_date, max_date) => {
             $scope.transactions = [];
+            $scope.last_known = '';
+            $scope.txs_fully_loaded = false;
             $scope.min = min_date;
             $scope.max = max_date;
             $scope.loadTransactions();
@@ -100,7 +102,8 @@
                 return MetaverseService.ListTxs($scope.last_known, $scope.avatar.address, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.transactions = $scope.transactions.concat(response.data.result);
-                        $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
+                        if($scope.transactions[$scope.transactions.length-1])
+                            $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
                         $scope.loading_txs = false;
                         if(response.data.result.length == 0)
                             $scope.txs_fully_loaded = true;
@@ -116,34 +119,39 @@
 
     function AvatarsController($scope, MetaverseService) {
 
-        $scope.loading_avatars = true;
-        $scope.items_per_page = 50;
+        $scope.loading_avatars = false;
+        $scope.last_known = '';
+        $scope.avatars = [];
+        $scope.avatars_fully_loaded = false;
+        $scope.loading_count = true;
 
-        $scope.switchPage = (page) => {
-            $scope.current_page = page;
-            return load();
-        };
+        $scope.load = function() {
+            if(!$scope.loading_avatars && !$scope.avatars_fully_loaded) {
+                $scope.loading_avatars = true;
+                return MetaverseService.ListAvatars($scope.last_known)
+                    .then((response) => {
+                        $scope.avatars = $scope.avatars.concat(response.data.result);
+                        $scope.last_known = $scope.avatars[$scope.avatars.length-1]._id;
+                        $scope.loading_avatars = false;
+                        if(response.data.result.length == 0)
+                            $scope.avatars_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_avatars = false;
+                        console.error(error);
+                    });
+            }
+        }
 
-        $scope.applyFilters = () => {
-            $scope.current_page = 1;
-            return load();
-        };
-
-        var load = () => {
-            $scope.loading_avatars = true;
-            return MetaverseService.ListAvatars($scope.current_page - 1, $scope.items_per_page)
-                .then((response) => {
-                    $scope.avatars = response.data.result.result;
-                    $scope.total_count = response.data.result.count;
-                    $scope.loading_avatars = false;
-                })
-                .catch((error) => {
-                    $scope.loading_avatars = false;
-                    console.error(error);
-                });
-        };
-
-        $scope.switchPage(1);
+        MetaverseService.AvatarsCount()
+            .then((response) => {
+                $scope.count = response.data.result.count;
+                $scope.loading_count = false;
+            })
+            .catch((error) => {
+                $scope.loading_count = false;
+                console.error(error);
+            });
 
     }
 
