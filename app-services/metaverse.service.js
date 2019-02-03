@@ -54,10 +54,10 @@
 
         service.ListAvatars = (page, items_per_page) => _send('avatars?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
 
-        service.ListCerts = (page, items_per_page) => _send('certs?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+        service.ListCerts = (last_known) => _send('v2/certs' +((last_known) ? '?last_known=' + last_known : ''));
 
-        //service.ListCerts = (last_known) => _send('v2/certs' +((last_known) ? '?last_known=' + last_known : ''));
-
+        service.CertsCount = () => _send('v2/info/cert');
+        
         service.ListMits = (page, items_per_page) => _send('mits?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
 
         service.FetchAvatar = (symbol) => _send('avatar/'+symbol);

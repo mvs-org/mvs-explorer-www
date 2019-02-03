@@ -4,15 +4,11 @@
 
     <h4 class="assets-count">
       <span>{{ 'CERTS.COUNT' | translate }}: </span>
-      <span ng-show="loading_certs"><img src="../images/spinner.gif"></span>
-      <span ng-hide="loading_certs">{{total_count}}</span>
+      <span ng-show="loading_count"><img src="../images/spinner.gif"></span>
+      <span ng-hide="loading_count">{{count}}</span>
     </h4>
 
-    <div ng-show="loading_certs">
-        <div class="mini-loader">Loading...</div>
-    </div>
-
-    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_certs">
+    <div class="row nga-default nga-stagger nga-fade" infinite-scroll="load()">
 
         <div class="col-md-12 hidden-xs hidden-sm">
             <div class="row panel list-item nga-default nga-stagger nga-fade">
@@ -22,8 +18,7 @@
                 <div class="col-md-2">{{ 'CERT.CREATION_DATE' | translate }}</div>
             </div>
 
-            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" dir-paginate="cert in certs | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
-
+            <div ng-repeat="cert in certs" class="row panel list-item nga-default nga-stagger nga-fade asset-row">            
                 <div class="col-md-4">
                   <h4>{{cert.attachment.symbol}}</h4>
                 </div>
@@ -33,27 +28,31 @@
             </div>
         </div>
 
-        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" dir-paginate="cert in certs | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
-            <h3>{{cert.attachment.symbol}}</h3>
-            <table class="col-xs-12 col-sm-12">
-              <tr>
-                  <th>{{ 'CERT.TYPE' | translate }}</th>
-                  <td>{{cert.attachment.cert}}</td>
-              </tr>
-              <tr>
-                    <th>{{ 'ADDRESS' | translate }}</th>
-                    <td class="address-mono"><a href="adr/{{cert.address}}">{{cert.address}}</a></td>
+        <div class="hidden-md hidden-lg hidden-xl">
+            <div ng-repeat="cert in certs" class="col-xs-12 col-sm-12 panel assetbox">
+                <h3>{{cert.attachment.symbol}}</h3>
+                <table class="col-xs-12 col-sm-12">
+                <tr>
+                    <th>{{ 'CERT.TYPE' | translate }}</th>
+                    <td>{{cert.attachment.cert}}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'CERT.CREATION_DATE' | translate }}</th>
-                    <td>{{cert.confirmed_at*1000|date}}</td>
-                </tr>
-                <tr>
-                    <th>{{ 'CERT.CREATION_BLOCK' | translate }}</th>
-                    <td>{{cert.height}}</td>
-                </tr>
-            </table>
+                        <th>{{ 'ADDRESS' | translate }}</th>
+                        <td class="address-mono"><a href="adr/{{cert.address}}">{{cert.address}}</a></td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'CERT.CREATION_DATE' | translate }}</th>
+                        <td>{{cert.confirmed_at*1000|date}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{ 'CERT.CREATION_BLOCK' | translate }}</th>
+                        <td>{{cert.height}}</td>
+                    </tr>
+                </table>
+            </div>
         </div>
-        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+    </div>
+    <div ng-show="loading_certs">
+        <div class="mini-loader">Loading...</div>
     </div>
 </div>
