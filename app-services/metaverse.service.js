@@ -52,8 +52,10 @@
 
         service.ListAssets = (number) => _send('assets');
 
-        service.ListAvatars = (page, items_per_page) => _send('avatars?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+        service.ListAvatars = (last_known) => _send('v2/avatars' +((last_known) ? '?last_known=' + last_known : ''));
 
+        service.AvatarsCount = () => _send('v2/info/avatar');
+        
         service.ListCerts = (last_known) => _send('v2/certs' +((last_known) ? '?last_known=' + last_known : ''));
 
         service.CertsCount = () => _send('v2/info/cert');

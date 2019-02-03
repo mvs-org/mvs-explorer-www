@@ -36,7 +36,6 @@
             .then((response) => {
                 $scope.count = response.data.result.count;
                 $scope.loading_count = false;
-                console.log($scope.count)
             })
             .catch((error) => {
                 $scope.loading_count = false;
