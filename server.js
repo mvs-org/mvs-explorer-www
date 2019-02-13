@@ -25,15 +25,15 @@ const botUserAgents = [
 const app = express()
 
 if (process.env.RENDERTRON_PROXY){
-    app.use(rendertron.makeMiddleware({
-        proxyUrl: process.env.RENDERTRON_PROXY,
-        userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
-    }))
     app.use(function (req, res, next) {
         res.set('Cache-Control', 'public, max-age=300, s-max-age=3600')
         res.set('Vary', 'User-Agent')
         next()
     })
+    app.use(rendertron.makeMiddleware({
+        proxyUrl: process.env.RENDERTRON_PROXY,
+        userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
+    }))
 }
 
 app.use(express.static(__dirname + '/dist'));
