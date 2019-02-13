@@ -24,8 +24,9 @@ const botUserAgents = [
 
 const app = express()
 
+if(process.env.RENDERTRON_PROXY)
 app.use(rendertron.makeMiddleware({
-    proxyUrl: 'https://render-tron.appspot.com/render',
+    proxyUrl: process.env.RENDERTRON_PROXY,
     userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
 }));
 
