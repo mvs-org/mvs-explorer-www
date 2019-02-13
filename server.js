@@ -32,4 +32,4 @@ app.use(rendertron.makeMiddleware({
 
 app.use(express.static(__dirname + '/dist'));
 
-app.listen(8080)
+app.listen(80)
