@@ -24,6 +24,12 @@ const botUserAgents = [
 
 const app = express()
 
+app.use(function (req, res, next) {
+    res.set('Cache-Control', 'public, max-age=300, s-max-age=3600')
+    res.set('Vary', 'User-Agent')
+    next()
+})
+
 if (process.env.RENDERTRON_PROXY) {
     app.use(rendertron.makeMiddleware({
         proxyUrl: process.env.RENDERTRON_PROXY,
@@ -31,6 +37,6 @@ if (process.env.RENDERTRON_PROXY) {
     }))
 }
 
-app.use(express.static(__dirname + '/dist', {setHeaders}));
+app.use(express.static(__dirname + '/dist'));
 
 app.listen(80)
