@@ -70,7 +70,7 @@
             </div>
             <!--List of txs-->
             <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="tx in txList | orderBy:'confirmed_at':true">
-                    <div class="col-md-7 col-sm-12"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}: </span><a class="hash-mono" href="tx/{{tx.hash}}">{{tx.hash}}</a></div>
+                    <div class="col-md-7 col-sm-12 overflow"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}: </span><a class="hash-mono" href="tx/{{tx.hash}}">{{tx.hash}}</a></div>
                     <div class="col-md-2 col-sm-12" ng-show="tx.height"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'TX.BLOCK' | translate }}: </span><a href="blk/{{tx.height}}">{{tx.height}}</a></div>
                     <div class="col-md-2 col-sm-12" ng-show="!tx.height"><span>{{ 'EXPLORER.UNCONFIRMED' | translate }}</span></div>
                     <div class="col-md-3 col-sm-12 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) >= 0">
@@ -97,8 +97,8 @@
         <div class="col-md-12">
             <!--Header-->
             <div class="hidden-xs hidden-sm row panel list-item nga-default nga-stagger">
-                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}</span></div>
                 <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}</span></div>
+                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}</span></div>
                 <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_TYPE' | translate }}</span></div>
                 <div class="col-md-4"><span class="list-item-label">{{ 'EXPLORER.BLOCK_MINER' | translate }}</span></div>
                 <div class="col-md-2 right"></div>
@@ -113,7 +113,7 @@
                     <span ng-if="block.version == 3">{{ 'EXPLORER.BLOCK_TYPE_DPOS' | translate }}</span>
                     <span ng-if="block.version < 1 || block.version > 3">{{block.version}}</span>
                 </div>
-                <div class="col-md-4 no-padding-right"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.BLOCK_MINER' | translate }}: </span>
+                <div class="col-md-4 no-padding-right overflow"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.BLOCK_MINER' | translate }}: </span>
                     <span ng-show="block.miner && block.version == 1"><a href="adr/{{block.miner_address}}">{{block.miner}}</a></span>
                     <span ng-show="block.miner && block.version == 2"><a href="avatar/{{block.miner}}">{{block.miner}}</a></span>
                     <span ng-hide="block.miner" class="address-mono"><a href="adr/{{block.miner_address}}">{{block.miner_address}}</a></span>

@@ -1709,3 +1709,7 @@ Main components
 .no-padding-right {
     padding-right: 0;
 }
+
+.nowrap {
+    white-space: nowrap;
+}
