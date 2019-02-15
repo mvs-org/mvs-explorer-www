@@ -259,6 +259,9 @@
 
     "STATS.POW_DIFFICULTY": "PoW difficulty",
     "STATS.POS_DIFFICULTY": "PoS difficulty",
-    "STATS.DPOS_DIFFICULTY": "dPoS difficulty"
+    "STATS.DPOS_DIFFICULTY": "dPoS difficulty",
+
+    "EXPLORER.BLOCK_MINER": "Miner",
+    "EXPLORER.BLOCK_MINER_UNKNOWN": "Unknown"
 
 }
