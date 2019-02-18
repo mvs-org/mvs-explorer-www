@@ -24,6 +24,12 @@
                 <div ng-if="block.version < 1 || block.version > 3" class="col-md-9 list-item-value">Version {{ block.version }}</div>
             </div>
             <div class="row">
+                <div class="col-md-3 list-item-label">{{ 'EXPLORER.BLOCK_MINER' | translate }}</div>
+                <div ng-show="block.miner && block.version == 1" class="col-md-9 list-item-value"><a href="adr/{{block.miner_address}}">{{block.miner}}</a></div>
+                <div ng-show="block.miner && block.version == 2" class="col-md-9 list-item-value"><a href="avatar/{{block.miner}}">{{block.miner}}</a></div>
+                <div ng-hide="block.miner" class="col-md-9 address-mono list-item-value"><a href="adr/{{block.miner_address}}">{{block.miner_address}}</a></div>
+            </div>
+            <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'BLOCK.NO_OF_TXS' | translate }}</div>
                 <div class="col-md-9 list-item-value">{{ block.transaction_count }}</div>
             </div>

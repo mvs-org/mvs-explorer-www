@@ -62,10 +62,13 @@
         var r = h / 2;
         var arc = d3.svg.arc().outerRadius(r);
         var interval = 3000;
+        var posInterval = 1000;
+        var posTop = 25;
 
         $scope.data = [];
-
-        $scope.locations = {};
+        $scope.posdata = [];
+        $scope.locations = {}; 
+        $scope.avatars = [];     
 
         $scope.colors = [
             "#006599", // dark blue
@@ -77,7 +80,7 @@
         ];
 
 
-        // api call
+        //PoW mining pools
         MetaverseService.Chart(interval)
             .then((res) => {
                 $scope.data = res.data.result;
@@ -126,6 +129,57 @@
                     });
 
                     return chart;
+                });
+
+            });
+
+        //PoS mining pools
+        MetaverseService.PosChart(posInterval, posTop)
+            .then((res) => {
+                $scope.posdata = res.data.result;
+                let rest_part = posInterval;
+                $scope.effectiveInterval = 0; //To remove after 1000 blocks
+                $scope.posdata.forEach((miner) => {
+                    rest_part -= miner.counter;
+                    $scope.avatars.push(miner.avatar);
+                    $scope.effectiveInterval += miner.counter;  //To remove after 1000 blocks
+                });
+                /*$scope.posdata = [{
+                    avatar: 'others',
+                    counter: rest_part
+                }].concat($scope.posdata);*/
+                $scope.posdata.sort((a, b) => a.counter > b.counter);
+            }).then(() => {
+
+                nv.addGraph(function() {
+                    var poschart = nv.models.pieChart()
+                        .x(function(d) {
+                            return d.avatar;
+                        })
+                        .y(function(d) {
+                            //return d.counter / posInterval * 100;
+                            return d.counter / $scope.effectiveInterval * 100;
+                        })
+                        .color($scope.colors)
+                        .showLabels(true)
+                        .showLegend(false)
+                        .labelType("percent");
+
+                    d3.select("#poschart svg")
+                        .datum($scope.posdata)
+                        .transition().duration(1200)
+                        .call(poschart);
+
+                    var positionX = 210;
+                    var positionY = 30;
+                    var verticalOffset = 25;
+
+                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                        positionY += verticalOffset;
+                        d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
+                    });
+
+                    return poschart;
                 });
 
             });
