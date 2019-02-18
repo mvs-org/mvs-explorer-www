@@ -262,6 +262,11 @@
     "STATS.DPOS_DIFFICULTY": "dPoS difficulty",
 
     "EXPLORER.BLOCK_MINER": "Miner",
-    "EXPLORER.BLOCK_MINER_UNKNOWN": "Unknown"
+    
+    "POW.HEADLINE": "PoW mining",
+    "POS.HEADLINE": "PoS mining",
+    "DPOS.HEADLINE": "dPoS mining",
+
+    "POS_MINERS_INFORMATION": "Top PoS miners"
 
 }
