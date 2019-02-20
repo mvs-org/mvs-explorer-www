@@ -50,7 +50,11 @@
 
         service.ListTxs = (last_known, address, min_time, max_time) => _send('v2/txs?last_known=' + last_known + ((address) ? '&address=' + address : '') + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
-        service.ListAssets = (number) => _send('assets');
+        service.ListSpecialAssets = () => _send('v2/msts/special');
+        
+        service.ListAssets = (last_symbol) => _send('v2/msts' +((last_symbol) ? '?last_symbol=' + last_symbol : ''));
+
+        service.AssetsCount = () => _send('v2/info/msts');
 
         service.ListAvatars = (last_known) => _send('v2/avatars' +((last_known) ? '?last_known=' + last_known : ''));
 
@@ -88,7 +92,7 @@
 
         service.Chart = (interval) => _send('poolstats' + ((interval) ? '?interval=' + interval : ''));
 
-        service.PosChart = (interval, top) => _send('posstats' + ((interval) ? '?interval=' + interval + ((top) ? '&top=' + top : '') : ((top) ? '?top=' + top : '')));
+        service.PosChart = (interval, top) => _send('posstats' + ((interval) ? '?interval=' + interval + ((top) ? '&top=' + top : '') : ((top) ? '?top=' + top : '')) + '&hi=12');
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 

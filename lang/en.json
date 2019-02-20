@@ -75,7 +75,7 @@
     "TOP_MENU_ASSETS": "Assets",
     "TOP_MENU_API": "API",
     "LANG_CODE": "en",
-    "ASSETS.ASSETS_COUNT": "Number of Assets on the Metaverse blockchain",
+    "ASSETS.ASSETS_COUNT": "Number of MSTs on the Metaverse blockchain",
     "TX": {
       "FROZEN_UNTIL_BLOCK": "frozen until block"
     },

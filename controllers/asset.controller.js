@@ -8,27 +8,62 @@
 
     function AssetsListController(MetaverseService, $scope, $location, $stateParams, FlashService, $translate, $rootScope, Assets) {
 
-        $scope.loading_assets = true;
+        $scope.loading_special_assets = false;
+        $scope.loading_assets = false;
+        $scope.special_assets = [];
+        $scope.assets = [];
+        $scope.last_known = '';
         $scope.icons = Assets.hasIcon;
         $scope.priority = Assets.priority;
+        $scope.assets_fully_loaded = false;
+        $scope.loading_count = true;
 
-        listAssets();
+        listSpecialAssets();
 
-        function listAssets() {
+        function listSpecialAssets() {
             NProgress.start();
-            MetaverseService.ListAssets()
+            $scope.loading_special_assets = true;
+            MetaverseService.ListSpecialAssets()
                 .then((response) => {
-                    $scope.loading_assets = false;
+                    $scope.loading_special_assets = false;
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $scope.assets = response.data.result;
+                        $scope.special_assets = response.data.result;
                     }
-                    $scope.assets.forEach(function(asset) {
+                    $scope.specialAssets.forEach(function(asset) {
                         asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
                         asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
                     });
                     NProgress.done();
                 });
         }
+
+        $scope.load = function() {
+            if(!$scope.loading_assets && !$scope.assets_fully_loaded) {
+                $scope.loading_assets = true;
+                return MetaverseService.ListAssets($scope.last_known)
+                    .then((response) => {
+                        $scope.assets = $scope.assets.concat(response.data.result);
+                        $scope.last_known = $scope.assets[$scope.assets.length-1].symbol;
+                        $scope.loading_assets = false;
+                        if(response.data.result.length == 0)
+                            $scope.assets_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_assets = false;
+                        console.error(error);
+                    });
+            }
+        }
+
+        MetaverseService.AssetsCount()
+            .then((response) => {
+                $scope.count = response.data.result.count;
+                $scope.loading_count = false;
+            })
+            .catch((error) => {
+                $scope.loading_count = false;
+                console.error(error);
+            });
 
     }
 

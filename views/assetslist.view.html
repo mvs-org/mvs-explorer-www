@@ -3,16 +3,12 @@
     <h2 class="headline"><em></em>{{ 'MST.HEADLINE' | translate }}</h2>
 
     <h4 class="assets-count">
-      <span>{{ 'ASSETS.ASSETS_COUNT' | translate }}: </span>
-      <span ng-show="loading_assets"><img src="../images/spinner.gif"></span>
-      <span ng-hide="loading_assets">{{assets.length}}</span>
+        <span>{{ 'ASSETS.ASSETS_COUNT' | translate }}: </span>
+        <span ng-show="loading_count"><img src="../images/spinner.gif"></span>
+        <span ng-hide="loading_count">{{count}}</span>
     </h4>
 
-    <div ng-if="loading_assets">
-        <div class="mini-loader">Loading...</div>
-    </div>
-
-    <div class="row nga-default nga-stagger nga-fade" ng-hide="loading_assets">
+    <div class="row nga-default nga-stagger nga-fade" infinite-scroll="load()">
         <div class="col-md-12 hidden-xs hidden-sm">
             <div class="row panel list-item nga-default nga-stagger nga-fade">
                 <div class="col-md-4">{{ 'ASSETS.SYMBOL' | translate }}</div>
@@ -33,7 +29,20 @@
                 <div class="col-md-4">MVS Official Token</div>
             </div>
 
-            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:['priority','symbol'] ">
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in special_assets | orderBy:['priority','symbol'] ">
+                <div class="col-md-3">
+                  <h4 ng-show="asset.symbol != 'ETP'"><a href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h4>
+                  <h4 ng-show="asset.symbol == 'ETP'"><a>{{asset.symbol}}</a></h4>
+                </div>
+                <div class="col-md-1 asset-icon-list-assets">
+                    <img ng-src="../img/assets/{{asset.icon}}.png">
+                </div>
+                <div class="col-md-2">{{asset.issuer}}</div>
+                <div class="col-md-2">{{asset.quantity | numberFormat : asset.decimals}}</div>
+                <div class="col-md-4">{{asset.description}}</div>
+            </div>
+
+            <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:['symbol'] ">
                 <div class="col-md-3">
                   <h4 ng-show="asset.symbol != 'ETP'"><a href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h4>
                   <h4 ng-show="asset.symbol == 'ETP'"><a>{{asset.symbol}}</a></h4>
@@ -67,8 +76,9 @@
                 </tr>
             </table>
         </div>
-        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in assets | orderBy:['priority','symbol'] ">
-            <h3><a href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
+
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in special_assets | orderBy:['priority','symbol'] ">
+            <h3><a class="mst-symbol" href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
             <div class="asset-icon">
                 <img ng-src="../img/assets/{{asset.icon}}.png">
             </div>
@@ -87,5 +97,29 @@
                 </tr>
             </table>
         </div>
+
+        <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in assets | orderBy:['symbol'] ">
+            <h3><a class="mst-symbol" href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
+            <div class="asset-icon">
+                <img ng-src="../img/assets/{{asset.icon}}.png">
+            </div>
+            <table class="col-xs-12 col-sm-12">
+                <tr>
+                    <th>{{ 'ASSETS.ISSUER' | translate }}</th>
+                    <td>{{asset.issuer}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
+                    <td>{{asset.quantity | numberFormat : asset.decimals}}</td>
+                </tr>
+                <tr>
+                    <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>
+                    <td>{{asset.description}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div ng-show="loading_assets">
+        <div class="mini-loader">Loading...</div>
     </div>
 </div>
