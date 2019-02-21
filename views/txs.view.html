@@ -22,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
+                        <div><b>{{'INPUTS'|translate}}:</b></div>
                         <div class="row" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
                             <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{ input.address }}</a>
@@ -44,18 +44,16 @@
                         <i class="fas fa-arrow-right fa-2x"></i>
                     </div>
                     <div class="col-md-6">
-                        <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
+                        <div class="right"><b>{{'OUTPUTS'|translate}}:</b></div>
                         <div class="row" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'" ng-class="{searchedAddress: output.address==address}">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
-                                <br>
                                 <div class="right">
                                     {{output.attachment.quantity | numberFormat:output.attachment.decimals}} {{output.attachment.symbol}}
                                 </div>
                             </div>
                             <div ng-if="output.value != 0" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
-                                <br>
                                 <div class="right">
                                     {{output.value | numberFormat:8}} ETP
                                 </div>

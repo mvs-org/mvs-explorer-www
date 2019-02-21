@@ -72,6 +72,13 @@ a{
 .right{
     text-align: right;
 }
+@media (min-width: 992px) {
+    .list-col-right {
+        text-align: right;
+        padding-left: 0;
+    }
+}
+
 .right-overflow{
     direction: rtl;
 }
@@ -1712,6 +1719,10 @@ Main components
 
 .no-padding-right {
     padding-right: 0;
+}
+
+.no-padding-left {
+    padding-left: 0;
 }
 
 .nowrap {
