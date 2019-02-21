@@ -471,6 +471,15 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	width: 187px;
 }
 
+@media only screen and (min-width: 1100px) and (max-width: 1240px) {
+  .tb-logo{
+    width: 130px;
+  }
+  .tb-logo img{
+    width: 130px !important;
+  }
+}
+
 
 .tb-logo h1{
 	line-height:0;
@@ -1133,7 +1142,7 @@ a:hover{
 		padding: 3px 8px;
 	}
 	.cn-menu.menu{
-		margin-left: 30px !important;
+		margin-left: 20px !important;
 	}
 
 }
