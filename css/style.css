@@ -1717,3 +1717,10 @@ Main components
 .nowrap {
     white-space: nowrap;
 }
+
+.mst-symbol {
+  table-layout: fixed;
+  word-break: break-all;
+  word-wrap: break-word;
+  padding-right: 40px;
+}
