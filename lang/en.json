@@ -241,7 +241,7 @@
     "TOKEN_DROPLET.ETH_RELAYER_NAME": "ETH relayer address",
     "TOKEN_DROPLET.POWERED_BY": "*Powered by RightBTC",
 
-    "EXPLORER.BLOCK_TYPE": "Block type",
+    "EXPLORER.BLOCK_TYPE": "Type",
     "EXPLORER.BLOCK_TYPE_POW": "PoW",
     "EXPLORER.BLOCK_TYPE_POS": "PoS",
     "EXPLORER.BLOCK_TYPE_DPOS": "dPoS",
