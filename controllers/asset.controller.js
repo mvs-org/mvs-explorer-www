@@ -28,11 +28,11 @@
                     $scope.loading_special_assets = false;
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         $scope.special_assets = response.data.result;
+                        $scope.special_assets.forEach(function(asset) {
+                            asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
+                            asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
+                        });
                     }
-                    $scope.specialAssets.forEach(function(asset) {
-                        asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
-                        asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
-                    });
                     NProgress.done();
                 });
         }
@@ -42,11 +42,18 @@
                 $scope.loading_assets = true;
                 return MetaverseService.ListAssets($scope.last_known)
                     .then((response) => {
-                        $scope.assets = $scope.assets.concat(response.data.result);
-                        $scope.last_known = $scope.assets[$scope.assets.length-1].symbol;
-                        $scope.loading_assets = false;
-                        if(response.data.result.length == 0)
+                        if(response.data.result.length == 0) {
                             $scope.assets_fully_loaded = true;
+                        } else {
+                            let additionnal_assets = response.data.result
+                            additionnal_assets.forEach(function(asset) {
+                                asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
+                                asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
+                            });
+                            $scope.assets = $scope.assets.concat(additionnal_assets);
+                            $scope.last_known = $scope.assets[$scope.assets.length-1].symbol;
+                        }
+                        $scope.loading_assets = false;
                     })
                     .catch((error) => {
                         $scope.loading_assets = false;

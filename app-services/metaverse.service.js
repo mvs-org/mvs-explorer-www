@@ -54,7 +54,7 @@
         
         service.ListAssets = (last_symbol) => _send('v2/msts' +((last_symbol) ? '?last_symbol=' + last_symbol : ''));
 
-        service.AssetsCount = () => _send('v2/info/msts');
+        service.AssetsCount = () => _send('v2/info/mst');
 
         service.ListAvatars = (last_known) => _send('v2/avatars' +((last_known) ? '?last_known=' + last_known : ''));
 

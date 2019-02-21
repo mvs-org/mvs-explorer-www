@@ -9,7 +9,10 @@
     </h4>
 
     <div class="row nga-default nga-stagger nga-fade" infinite-scroll="load()">
+
+        <!--Large screens-->
         <div class="col-md-12 hidden-xs hidden-sm">
+            <!--Header-->
             <div class="row panel list-item nga-default nga-stagger nga-fade">
                 <div class="col-md-4">{{ 'ASSETS.SYMBOL' | translate }}</div>
                 <div class="col-md-2">{{ 'ASSETS.ISSUER' | translate }}</div>
@@ -17,6 +20,7 @@
                 <div class="col-md-4">{{ 'ASSETS.DESCRIPTION' | translate }}</div>
             </div>
 
+            <!--ETP-->
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row">
                 <div class="col-md-3">
                   <h4><a href="asset/ETP">ETP</a></h4>
@@ -29,6 +33,7 @@
                 <div class="col-md-4">MVS Official Token</div>
             </div>
 
+            <!--Special assets on top-->
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in special_assets | orderBy:['priority','symbol'] ">
                 <div class="col-md-3">
                   <h4 ng-show="asset.symbol != 'ETP'"><a href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h4>
@@ -42,6 +47,7 @@
                 <div class="col-md-4">{{asset.description}}</div>
             </div>
 
+            <!--Others assets-->
             <div class="row panel list-item nga-default nga-stagger nga-fade asset-row" ng-repeat="asset in assets | orderBy:['symbol'] ">
                 <div class="col-md-3">
                   <h4 ng-show="asset.symbol != 'ETP'"><a href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h4>
@@ -56,6 +62,8 @@
             </div>
         </div>
 
+        <!--Small screens-->
+        <!--ETP-->
         <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl">
             <h3><a href="asset/ETP">ETP</a></h3>
             <div class="asset-icon">
@@ -77,6 +85,7 @@
             </table>
         </div>
 
+        <!--Special assets on top-->
         <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in special_assets | orderBy:['priority','symbol'] ">
             <h3><a class="mst-symbol" href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
             <div class="asset-icon">
@@ -98,6 +107,7 @@
             </table>
         </div>
 
+        <!--Others assets-->
         <div class="col-xs-12 col-sm-12 panel assetbox hidden-md hidden-lg hidden-xl" ng-repeat="asset in assets | orderBy:['symbol'] ">
             <h3><a class="mst-symbol" href="asset/{{asset.symbol}}">{{asset.symbol}}</a></h3>
             <div class="asset-icon">
