@@ -60,7 +60,6 @@
     function ChartController($scope, MetaverseService) {
         var h = 600;
         var r = h / 2;
-        var arc = d3.svg.arc().outerRadius(r);
         var interval = 3000;
         var posInterval = 1000;
         var posTop = 25;
@@ -76,7 +75,6 @@
             '#fe6700', // orange
             '#ffd21c', // yellow
             "#fe0000" // red
-
         ];
 
 

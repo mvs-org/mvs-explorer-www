@@ -1,14 +1,15 @@
+<!--PoW stats-->
 <h2 class="headline"><em></em>{{ 'POW.HEADLINE' | translate }}</h2>
 
 <div class="row">
     <div class="col-md-4">
         <div class="col-md-12 panel infobox infobox-specific-height mining-box">
-            <h3>{{'MINING_POOL_INFO'|translate}}</h3>
+            <h3>{{'POW_MINING_INFO'|translate}}</h3>
             <table>
                 <tr>
                     <th>{{'HEIGHT'|translate}}</th>
                     <td ng-show="loading_pow_mining_info"><img src="../images/spinner.gif"></td>
-                    <td ng-show="!loading_pow_mining_info">{{pow_mining_info.height | number}}</td>
+                    <td ng-show="!loading_pow_mining_info"><a href="blk/{{pow_mining_info.height}}">{{pow_mining_info.height | number}}</a></td>
                 </tr>
                 <tr>
                     <th>{{'EXPLORER.DIFFICULTY'|translate}}</th>
@@ -23,7 +24,7 @@
                 <tr>
                     <th>{{'EXPLORER.LAST_POW'|translate}}</th>
                     <td ng-show="loading_pow_mining_info"><img src="../images/spinner.gif"></td>
-                    <td ng-show="!loading_pow_mining_info">{{pow_mining_info.height - pow_mining_info.last}}{{"EXPLORER.BLOCKS_AGO"|translate}}</td>
+                    <td ng-show="!loading_pow_mining_info"><a href="blk/{{pow_mining_info.last}}">{{pow_mining_info.height - pow_mining_info.last}}{{"EXPLORER.BLOCKS_AGO"|translate}}</a></td>
                 </tr>
             </table>
         </div>
@@ -62,6 +63,7 @@
     <nvd3 options="difficultyChart.options" data="difficultyChart.data" class="with-3d-shadow with-transitions"></nvd3>
 </div>
 
+<!--PoS stats-->
 <h2 class="headline"><em></em>{{ 'POS.HEADLINE' | translate }}</h2>
 
 <div class="row">
@@ -72,7 +74,7 @@
                 <tr>
                     <th>{{'HEIGHT'|translate}}</th>
                     <td ng-show="loading_pos_mining_info"><img src="../images/spinner.gif"></td>
-                    <td ng-show="!loading_pos_mining_info">{{pos_mining_info.height | number}}</td>
+                    <td ng-show="!loading_pos_mining_info"><a href="blk/{{pos_mining_info.height}}">{{pos_mining_info.height | number}}</a></td>
                 </tr>
                 <tr>
                     <th>{{'EXPLORER.DIFFICULTY'|translate}}</th>
@@ -82,7 +84,7 @@
                 <tr>
                     <th>{{'EXPLORER.LAST_POS'|translate}}</th>
                     <td ng-show="loading_pos_mining_info"><img src="../images/spinner.gif"></td>
-                    <td ng-show="!loading_pos_mining_info">{{pos_mining_info.height - pos_mining_info.last}}{{"EXPLORER.BLOCKS_AGO"|translate}}</td>
+                    <td ng-show="!loading_pos_mining_info"><a href="blk/{{pos_mining_info.last}}">{{pos_mining_info.height - pos_mining_info.last}}{{"EXPLORER.BLOCKS_AGO"|translate}}</a></td>
                 </tr>
             </table>
         </div>
@@ -115,6 +117,65 @@
         <div class="mini-loader">Loading...</div>
     </div>
     <nvd3 options="posDifficultyChart.options" data="posDifficultyChart.data" class="with-3d-shadow with-transitions"></nvd3>
+</div>
+
+<!--General stats-->
+<h2 class="headline"><em></em>{{ 'GENERAL.HEADLINE' | translate }}</h2>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-md-12 panel infobox infobox-specific-height mining-box">
+            <h3>{{'GENERAL_INFORMATION'|translate}}</h3>
+            <table>
+                <tr>
+                    <th>{{'HEIGHT'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!loading_mining_info"><a href="blk/{{pos_mining_info.height}}">{{mining_info.height | number}}</a></td>
+                </tr>
+                <tr>
+                    <th>{{'EXPLORER.NUMBER_MST'|translate}}</th>
+                    <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!loading_info">{{info.counter.mst}}</td>
+                </tr>
+                <tr>
+                    <th>{{'EXPLORER.NUMBER_MIT'|translate}}</th>
+                    <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!loading_info">{{info.counter.mit}}</td>
+                </tr>
+                <tr>
+                    <th>{{'EXPLORER.NUMBER_AVATAR'|translate}}</th>
+                    <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!loading_info">{{info.counter.avatar}}</td>
+                </tr>
+                <tr>
+                    <th>{{'EXPLORER.NUMBER_CERT'|translate}}</th>
+                    <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!loading_info">{{info.counter.cert}}</td>
+                </tr>
+                <tr>
+                    <th>{{'EXPLORER.NUMBER_TXS_24H'|translate}}</th>
+                    <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!loading_info">{{info.counter.transactions_24h}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="col-md-12 panel infobox infobox-specific-height">
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>{{'BLOCKS_TYPE_INFORMATION'|translate}}</h3>
+                </div>
+                <div class="col-md-8">
+                    <div>
+                        <div id="blockstypechart">
+                            <svg></svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="col-md-12 panel infobox infobox-specific-height">

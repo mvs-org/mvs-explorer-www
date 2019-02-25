@@ -269,6 +269,24 @@
     "POS_MINERS_INFORMATION": "Top PoS miners",
     "EXPLORER.LAST_POW": "Last PoW block",
     "EXPLORER.LAST_POS": "Last PoS block",
-    "EXPLORER.BLOCKS_AGO": " blocks ago"
+    "EXPLORER.BLOCKS_AGO": " blocks ago",
+
+    "GRAPH.DIFFICULTY_MEGA": "Difficulty (M)",
+    "GRAPH.DIFFICULTY_GIGA": "Difficulty (G)",
+    "GRAPH.DIFFICULTY_TERA": "Difficulty (T)",
+
+    "GENERAL.HEADLINE": "General",
+    "BLOCKS_TYPE_INFORMATION": "Type of mining",
+
+    "POW_MINING_INFO": "PoW Mining Info",
+    "POS_MINING_INFO": "PoS Mining Info",
+
+    "EXPLORER.NUMBER_MST": "Number of MSTs",
+    "EXPLORER.NUMBER_MIT": "Number of MITs",
+    "EXPLORER.NUMBER_AVATAR": "Number of Avatars",
+    "EXPLORER.NUMBER_CERT": "Number of certificates",
+    "EXPLORER.NUMBER_TXS_24H": "Transactions during last 24h",
+
+    "GENERAL_INFORMATION": "Information"
     
 }
