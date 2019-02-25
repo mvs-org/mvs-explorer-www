@@ -7,6 +7,8 @@
 
     function MiningController(MetaverseService, $scope, $translate) {
         $scope.loading_mining_info = true;
+        $scope.loading_pow_mining_info = true;
+        $scope.loading_pos_mining_info = true;
         $scope.loading_circulation = true;
         $scope.loading_pricing = true;
         $scope.loading_blocktimes = true;
@@ -19,6 +21,22 @@
                 $scope.loading_mining_info = false;
                 if (response.data.status && response.data.status.success)
                     $scope.mining_info = response.data.result;
+            }, console.error);
+        }
+
+        function getPowMiningInfo() {
+            return MetaverseService.PowMiningInfo().then((response) => {
+                $scope.loading_pow_mining_info = false;
+                if (response.data.status && response.data.status.success)
+                    $scope.pow_mining_info = response.data.result;
+            }, console.error);
+        }
+
+        function getPosMiningInfo() {
+            return MetaverseService.PosMiningInfo().then((response) => {
+                $scope.loading_pos_mining_info = false;
+                if (response.data.status && response.data.status.success)
+                    $scope.pos_mining_info = response.data.result;
             }, console.error);
         }
 
@@ -193,6 +211,8 @@
         getPricing();
         getEthSwapRate();
         getMiningInfo();
+        getPowMiningInfo();
+        getPosMiningInfo();
     }
 
 })();
