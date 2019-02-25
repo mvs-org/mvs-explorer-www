@@ -91,12 +91,12 @@
                         $scope.locations[miner.origin] = [];
                     $scope.locations[miner.origin].push(miner);
                 });
+                $scope.data.sort((a, b) => a.counter - b.counter);
                 $scope.data = [{
                     name: 'others',
                     url: "",
                     counter: rest_part
                 }].concat($scope.data);
-                $scope.data.sort((a, b) => a.counter > b.counter);
                 $scope.locationsmap = Object.keys($scope.locations);
 
             }).then(() => {
@@ -144,11 +144,11 @@
                     $scope.avatars.push(miner.avatar);
                     $scope.effectiveInterval += miner.counter;  //To remove after 1000 blocks
                 });
+                $scope.posdata.sort((a, b) => a.counter - b.counter);
                 /*$scope.posdata = [{
                     avatar: 'others',
                     counter: rest_part
                 }].concat($scope.posdata);*/
-                $scope.posdata.sort((a, b) => a.counter > b.counter);
             }).then(() => {
 
                 nv.addGraph(function() {
