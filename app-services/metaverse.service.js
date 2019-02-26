@@ -80,7 +80,13 @@
 
         service.AssetStakes = (symbol) => _send('stakes/' + symbol);
 
-        service.MiningInfo = () => _send('mining');
+        service.Info = () => _send('info');
+
+        service.MiningInfo = (interval) => _send('mining' + ((interval) ? '?interval=' + interval : ''));
+
+        service.PowMiningInfo = () => _send('mining/pow');
+
+        service.PosMiningInfo = () => _send('mining/pos');
 
         service.Circulation = () => _send('circulation');
 
