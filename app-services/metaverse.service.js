@@ -82,7 +82,7 @@
 
         service.Info = () => _send('info');
 
-        service.MiningInfo = (interval) => _send('mining' + ((interval) ? '?interval=' + interval : ''));
+        service.MiningInfo = (interval) => _send('mining/general' + ((interval) ? '?interval=' + interval : ''));
 
         service.PowMiningInfo = () => _send('mining/pow');
 
