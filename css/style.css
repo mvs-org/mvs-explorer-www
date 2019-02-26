@@ -258,9 +258,9 @@ em{
 }
 
 .subhead {
-    margin: 5px;
     color: #000;
     font-size: 15px;
+    cursor: default;
 }
 
 .transaction-arrow-big-screen {
