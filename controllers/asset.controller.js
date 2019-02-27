@@ -157,6 +157,7 @@
                     $scope.stakelist = stakes.data.result.map((stake) => {
                         return {
                             address: stake.a,
+                            row_quantity: stake.q,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
                             share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
                         };
@@ -170,8 +171,10 @@
                         rest.share -= stake.share;
                         rest.quantity -= stake.quantity;
                     });
-
-                    $scope.stakelist.push(rest);
+                    $scope.stakelist.sort((a, b) => a.quantity - b.quantity);
+                    $scope.stakelist = [rest].concat($scope.stakelist);
+                    console.log($scope.stakelist);
+                    //$scope.stakelist.push(rest);
 
                     var h = 800;
                     var r = h / 2;
