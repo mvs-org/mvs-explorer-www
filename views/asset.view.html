@@ -140,7 +140,7 @@
                 <span class="col-xs-2 right right-overflow">{{"SHARE"|translate}}</span>
             </div>
 
-            <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="stake in stakelist" ng-if="stake.address">
+            <div class="col-xs-12 noPaddingLeftRight assetAddressLine" ng-repeat="stake in stakelist | orderBy:['-row_quantity']" ng-if="stake.address">
                 <span class="col-xs-7 overflow address-mono"><a href="adr/{{stake.address}}">{{stake.address}}</a></span>
                 <span class="col-xs-3 right right-overflow">{{stake.quantity | numberFormat : 0}}</span>
                 <span class="col-xs-2 right right-overflow">{{stake.share}}%</span>
