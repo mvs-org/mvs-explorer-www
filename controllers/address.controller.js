@@ -10,7 +10,6 @@
         var address = $stateParams.address;
         $rootScope.nosplash = true;
         $scope.loading_balances = true;
-        $scope.loading_address = true;
         $scope.info = [];
         $scope.tokens = [];
         $scope.definitions = [];
