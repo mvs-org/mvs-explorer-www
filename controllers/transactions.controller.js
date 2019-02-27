@@ -9,35 +9,40 @@
 
     function TransactionsController($scope, MetaverseService) {
 
-        $scope.items_per_page = 10;
         $scope.minDate = new Date(2017, 2 - 1, 11);
         $scope.maxDate = new Date();
+        $scope.transactions = [];
+        $scope.last_known = '';
+        $scope.loading_txs = false;
+        $scope.txs_fully_loaded = false;
 
-        $scope.switchPage = (page) => {
-            $scope.current_page = page;
-            return load();
+        $scope.applyFilters = (min_date, max_date) => {
+            $scope.transactions = [];
+            $scope.last_known = '';
+            $scope.txs_fully_loaded = false;
+            $scope.min = min_date;
+            $scope.max = max_date;
+            $scope.load();
         };
-
-        $scope.applyFilters = () => {
-            $scope.current_page = 1;
-            return load();
-        };
-
-        var load = () => {
-            $scope.loading_txs = true;
-            return MetaverseService.Txs($scope.current_page - 1, ($scope.min_date) ? $scope.min_date.getTime() / 1000 : null, ($scope.max_date) ? ($scope.max_date).getTime() / 1000 + 86400 : null)
-                .then((response) => {
-                    $scope.txs = response.data.result.result;
-                    $scope.total_count = response.data.result.count;
-                    $scope.loading_txs = false;
-                })
-                .catch((error) => {
-                    $scope.loading_txs = false;
-                    console.error(error);
-                });
-        };
-
-        $scope.switchPage(1);
+       
+        $scope.load = function() {
+            if(!$scope.loading_txs && !$scope.txs_fully_loaded) {
+                $scope.loading_txs = true;
+                return MetaverseService.ListTxs($scope.last_known, undefined, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
+                    .then((response) => {
+                        $scope.transactions = $scope.transactions.concat(response.data.result);
+                        if($scope.transactions[$scope.transactions.length-1])
+                            $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
+                        $scope.loading_txs = false;
+                        if(response.data.result.length == 0)
+                            $scope.txs_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_txs = false;
+                        console.error(error);
+                    });
+            }
+        }
 
     }
 

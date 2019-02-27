@@ -13,9 +13,10 @@
     function MetaverseService($http, localStorageService) {
       var service = {};
 
-      //var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
       //var SERVER = "http://localhost";
-      var SERVER = "https://explorer.mvs.org/api";
+      //var SERVER = "https://explorer.mvs.org/api";
+      //var SERVER = "https://explorer-testnet.mvs.org/api";
 
       service.SERVER = SERVER;
         /**
@@ -35,9 +36,9 @@
 
         service.FetchTxOutputs = (hash) => _send('tx/outputs/' + hash);
 
-        service.ListBlocks = (page, items_per_page) => _send('blocks?page=' + page + '&items_per_page=' + items_per_page);
+        service.ListBlocks = (last_known) => _send('v2/blocks' +((last_known) ? '?last_known=' + last_known : ''));
 
-        service.BlockStats = (page) => _send('stats/block');
+        service.BlockStats = (type, downscale) => _send('stats/block?type=' + type + ((downscale) ? '&downscale=' + downscale : ''));
 
         service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
@@ -47,15 +48,25 @@
 
         service.BlockTxs = (blockhash, page, items_per_page) => _send('block/txs/' + blockhash + ((page) ? '?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : '') : ''));
 
-        service.Txs = (page, min_time, max_time) => _send('txs?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
+        service.ListTxs = (last_known, address, min_time, max_time) => _send('v2/txs?last_known=' + last_known + ((address) ? '&address=' + address : '') + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
-        service.ListAssets = (number) => _send('assets');
+        service.ListSpecialAssets = () => _send('v2/msts/special');
+        
+        service.ListAssets = (last_symbol) => _send('v2/msts' +((last_symbol) ? '?last_symbol=' + last_symbol : ''));
 
-        service.ListAvatars = (page, items_per_page) => _send('avatars?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+        service.AssetsCount = () => _send('v2/info/mst');
 
-        service.ListCerts = (page, items_per_page) => _send('certs?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+        service.ListAvatars = (last_known) => _send('v2/avatars' +((last_known) ? '?last_known=' + last_known : ''));
 
-        service.ListMits = (page, items_per_page) => _send('mits?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : ''));
+        service.AvatarsCount = () => _send('v2/info/avatar');
+        
+        service.ListCerts = (last_known) => _send('v2/certs' +((last_known) ? '?last_known=' + last_known : ''));
+
+        service.CertsCount = () => _send('v2/info/cert');
+        
+        service.ListMits = (last_known) => _send('v2/mits' +((last_known) ? '?last_known=' + last_known : ''));
+
+        service.MitsCount = () => _send('v2/info/mit');
 
         service.FetchAvatar = (symbol) => _send('avatar/'+symbol);
 
@@ -69,7 +80,13 @@
 
         service.AssetStakes = (symbol) => _send('stakes/' + symbol);
 
-        service.MiningInfo = () => _send('mining');
+        service.Info = () => _send('info');
+
+        service.MiningInfo = (interval) => _send('mining/general' + ((interval) ? '?interval=' + interval : ''));
+
+        service.PowMiningInfo = () => _send('mining/pow');
+
+        service.PosMiningInfo = () => _send('mining/pos');
 
         service.Circulation = () => _send('circulation');
 
@@ -80,6 +97,8 @@
         service.DepositRewards = () => _send('rewards');
 
         service.Chart = (interval) => _send('poolstats' + ((interval) ? '?interval=' + interval : ''));
+
+        service.PosChart = (interval, top) => _send('posstats' + ((interval) ? '?interval=' + interval + ((top) ? '&top=' + top : '') : ((top) ? '?top=' + top : '')));
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 

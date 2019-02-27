@@ -1,12 +1,16 @@
 {
   "name": "MVS_explorer",
   "description": "Explorer for Metaverse.",
-  "version": "0.4.3s12",
+  "version": "0.4.3s34",
   "repository": {
     "type": "git",
     "url": "https://github.com/ViewBTC/mvs-explorer.git"
   },
   "dependencies": {
+    "express": "^4.16.4",
+    "rendertron-middleware": "^0.1.5"
+  },
+  "devDependencies": {
     "@angular/animations": "^5.2.11",
     "@angular/cdk": "^5.2.5",
     "@angular/material": "^5.2.5",
@@ -29,21 +33,12 @@
     "angulartics": "^1.6.0",
     "angulartics-piwik": "^1.0.5",
     "autobahn-js-built": "^0.11.1",
-    "bootstrap": "^3.3.7",
-    "clipboard": "^2.0.1",
-    "font-awesome": "^4.7.0",
-    "jquery": "^3.3.1",
-    "leaflet": "^1.3.1",
-    "leaflet-ajax": "^2.1.0",
-    "leaflet.ajax": "^1.1.0",
-    "leaflet.markercluster": "^1.3.0",
-    "nprogress": "^0.2.0",
-    "qrcode": "^0.9.0"
-  },
-  "devDependencies": {
     "babel": "^6.23.0",
     "babel-core": "^6.26.3",
     "babel-preset-es2015": "^6.24.1",
+    "bootstrap": "^3.3.7",
+    "clipboard": "^2.0.1",
+    "font-awesome": "^4.7.0",
     "grunt": "^1.0.3",
     "grunt-babel": "^7.0.0",
     "grunt-contrib-clean": "^1.1.0",
@@ -53,6 +48,14 @@
     "grunt-contrib-uglify": "^3.3.0",
     "grunt-ng-annotate": "^3.0.0",
     "grunt-rev-package": "0.0.6",
-    "grunt-string-replace": "^1.3.1"
+    "grunt-string-replace": "^1.3.1",
+    "jquery": "^3.3.1",
+    "leaflet": "^1.3.1",
+    "leaflet-ajax": "^2.1.0",
+    "leaflet.ajax": "^1.1.0",
+    "leaflet.markercluster": "^1.3.0",
+    "ng-infinite-scroll": "^1.3.0",
+    "nprogress": "^0.2.0",
+    "qrcode": "^0.9.0"
   }
 }

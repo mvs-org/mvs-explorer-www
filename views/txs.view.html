@@ -3,16 +3,14 @@
     <div class="date-input">
         <md-datepicker ng-model="min_date" md-placeholder="{{'FROM_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
         <md-datepicker ng-model="max_date" md-placeholder="{{'TO_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
-        <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters()"><i class="fas fa-search"></i></md-button>
+        <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters(min_date, max_date)"><i class="fas fa-search"></i></md-button>
     </div>
     <div class="row right">
       <md-button class="md-secondary md-raised broadcast-btn" href="broadcast">{{ 'TX.BROADCAST_BTN' | translate}}</md-button>
     </div>
-    <div ng-show="loading_txs">
-        <div class="mini-loader">Loading...</div>
-    </div>
-    <div ng-hide="loading_txs">
-        <div class="row panel nga-default nga-stagger nga-fade" dir-paginate="tx in txs | itemsPerPage:items_per_page" total-items="total_count" current-page="current_page">
+
+    <div infinite-scroll="load()">
+        <div ng-repeat="tx in transactions" class="row panel nga-default nga-stagger nga-fade">
             <div class="panel-body">
                 <div class="row tx-head">
                     <div class="col-md-9 col-sm-12 break">
@@ -24,7 +22,7 @@
                 </div>
                 <div class="row">
                     <div class="col-md-5">
-                        <div class="subhead"><b>{{'INPUTS'|translate}}:</b></div>
+                        <div><b>{{'INPUTS'|translate}}:</b></div>
                         <div class="row" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
                             <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{ input.address }}</a>
@@ -46,18 +44,16 @@
                         <i class="fas fa-arrow-right fa-2x"></i>
                     </div>
                     <div class="col-md-6">
-                        <div class="subhead right"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row" ng-repeat="output in tx.outputs" ng-class="{searchedAddress: output.address==address}">
+                        <div class="right"><b>{{'OUTPUTS'|translate}}:</b></div>
+                        <div class="row" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'" ng-class="{searchedAddress: output.address==address}">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
-                                <br>
                                 <div class="right">
                                     {{output.attachment.quantity | numberFormat:output.attachment.decimals}} {{output.attachment.symbol}}
                                 </div>
                             </div>
                             <div ng-if="output.value != 0" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
-                                <br>
                                 <div class="right">
                                     {{output.value | numberFormat:8}} ETP
                                 </div>
@@ -67,7 +63,10 @@
                 </div>
             </div>
         </div>
-        <dir-pagination-controls class="pull-right" max-size="7" on-page-change="switchPage(newPageNumber)"></dir-pagination-controls>
+    </div>
+    
+    <div ng-show="loading_txs">
+        <div class="mini-loader">Loading...</div>
     </div>
 
 </div>

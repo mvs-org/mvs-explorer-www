@@ -72,6 +72,13 @@ a{
 .right{
     text-align: right;
 }
+@media (min-width: 992px) {
+    .list-col-right {
+        text-align: right;
+        padding-left: 0;
+    }
+}
+
 .right-overflow{
     direction: rtl;
 }
@@ -251,9 +258,9 @@ em{
 }
 
 .subhead {
-    margin: 5px;
     color: #000;
     font-size: 15px;
+    cursor: default;
 }
 
 .transaction-arrow-big-screen {
@@ -283,7 +290,7 @@ em{
     margin-top: 15px;
 }
 
-#chart svg {
+#chart svg, #poschart svg, #blockstypechart svg {
     height: 400px;
     margin-top: -40px;
     margin-bottom: -40px;
@@ -462,6 +469,15 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	font-size: 0;
 	margin: 0;
 	width: 187px;
+}
+
+@media only screen and (min-width: 1100px) and (max-width: 1240px) {
+  .tb-logo{
+    width: 130px;
+  }
+  .tb-logo img{
+    width: 130px !important;
+  }
 }
 
 
@@ -1126,7 +1142,7 @@ a:hover{
 		padding: 3px 8px;
 	}
 	.cn-menu.menu{
-		margin-left: 30px !important;
+		margin-left: 20px !important;
 	}
 
 }
@@ -1391,6 +1407,14 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
   box-shadow: 2px 2px 10px 2px green;
 }
 
+.certMining {
+  box-shadow: 2px 2px 10px 2px yellow;
+}
+
+.certWitness {
+  box-shadow: 2px 2px 10px 2px orangered;
+}
+
 .certExpired {
   -webkit-filter: grayscale(100%); /* Safari 6.0 - 9.0 */
   filter: grayscale(100%);
@@ -1437,7 +1461,6 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 
 .panel .panel-body a:active, .panel .panel-link a:hover, a.link:active {
-  //color: #0000EE;
   opacity: 0.5;
 }
 
@@ -1639,7 +1662,7 @@ Main components
     margin-left: 0;
     padding: 1.6em;
     width: calc(50% - 30px);
-    margin: 0 5%
+    margin: 0 5%;
     overflow: hidden;
     margin-left: 0;
   }
@@ -1697,4 +1720,23 @@ Main components
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+}
+
+.no-padding-right {
+    padding-right: 0;
+}
+
+.no-padding-left {
+    padding-left: 0;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+.mst-symbol {
+  table-layout: fixed;
+  word-break: break-all;
+  word-wrap: break-word;
+  padding-right: 40px;
 }

@@ -1,19 +1,14 @@
-FROM nginx
-
-RUN apt-get update \
-    && apt-get install -y \
-    curl \
-    gnupg \
-    && curl -sL https://deb.nodesource.com/setup_6.x | bash - \
-    && apt-get install -y nodejs \
-    && npm install -g grunt-cli
-
+FROM node:8.15.0-alpine as builder
+WORKDIR /app
+RUN npm i -g grunt-cli
 COPY . .
-
-RUN rm /etc/nginx/conf.d/default.conf
-
-RUN cp nginx.conf /etc/nginx/conf.d/default.conf
-
 RUN rm -rf dist min-safe min && npm i && grunt
 
-RUN cp -r ./dist/* /usr/share/nginx/html
+FROM node:8.15.0-alpine
+WORKDIR /app
+COPY --from=builder /app/dist dist
+COPY package.json .
+COPY server.js .
+RUN npm i --prod
+EXPOSE 80
+CMD [ "npm", "start"  ]
