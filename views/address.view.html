@@ -24,19 +24,16 @@
                 <table>
                     <tr ng-show="asset.symbol!=='ETP'">
                         <th>{{'BALANCE'|translate}}</th>
-                        <td ng-show="loading_address"><img src="../images/spinner.gif"></td>
-                        <td ng-hide="loading_address">{{( tokens[asset.symbol] | numberFormat:asset.decimals)}}</td>
+                        <td>{{( tokens[asset.symbol] | numberFormat:asset.decimals)}}</td>
                     </tr>
                     <tr ng-if="asset.symbol==='ETP'">
                         <th>{{'BALANCE'|translate}}</th>
-                        <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
-                        <td ng-show="!loading_address && info.ETP">{{info.ETP | numberFormat: 8}}</td>
-                        <td ng-show="!loading_address && !info.ETP">{{0 | numberFormat: 8}}</td>
+                        <td ng-show="info.ETP">{{info.ETP | numberFormat: 8}}</td>
+                        <td ng-show="!info.ETP">{{0 | numberFormat: 8}}</td>
                     </tr>
                     <tr ng-if="asset.symbol==='ETP'">
                         <th>{{'FROZEN'|translate}}</th>
-                        <td ng-show="loading_address"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_address">{{info.FROZEN | numberFormat: 8}}</td>
+                        <td>{{info.FROZEN | numberFormat: 8}}</td>
                     </tr>
                 </table>
             </div>
