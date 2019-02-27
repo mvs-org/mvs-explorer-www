@@ -1,5 +1,7 @@
 <!--General stats-->
-<h2 class="headline"><em></em>{{ 'GENERAL.HEADLINE' | translate }}</h2>
+<!--div class="row col-md-12">
+    <h2 class="headline"><em></em>{{ 'GENERAL.HEADLINE' | translate }}</h2>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -55,18 +57,12 @@
             </div>
         </div>
     </div>
-</div>
-
-<div class="col-md-12 panel infobox infobox-specific-height">
-    <h3>{{'BLOCKTIME'|translate}}</h3>
-    <div ng-show="loading_blocktimes">
-        <div class="mini-loader">Loading...</div>
-    </div>
-    <nvd3 options="blocktimeChart.options" data="blocktimeChart.data" class="with-3d-shadow with-transitions"></nvd3>
-</div>
+</div-->
 
 <!--PoW stats-->
-<h2 class="headline"><em></em>{{ 'POW.HEADLINE' | translate }}</h2>
+<div class="row col-md-12">
+    <h2 class="headline"><em></em>{{ 'POW.HEADLINE' | translate }}</h2>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -131,7 +127,9 @@
 </div>
 
 <!--PoS stats-->
-<h2 class="headline"><em></em>{{ 'POS.HEADLINE' | translate }}</h2>
+<div class="row col-md-12">
+    <h2 class="headline"><em></em>{{ 'POS.HEADLINE' | translate }}</h2>
+</div>
 
 <div class="row">
     <div class="col-md-4">
@@ -184,5 +182,13 @@
         <div class="mini-loader">Loading...</div>
     </div>
     <nvd3 options="posDifficultyChart.options" data="posDifficultyChart.data" class="with-3d-shadow with-transitions"></nvd3>
+</div>
+
+<div class="col-md-12 panel infobox infobox-specific-height">
+    <h3>{{'BLOCKTIME'|translate}}</h3>
+    <div ng-show="loading_blocktimes">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <nvd3 options="blocktimeChart.options" data="blocktimeChart.data" class="with-3d-shadow with-transitions"></nvd3>
 </div>
 

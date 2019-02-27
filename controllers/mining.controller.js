@@ -291,7 +291,7 @@
         getEthSwapRate();
         getPowMiningInfo();
         getPosMiningInfo();
-        getInfo();
+        //getInfo();
     }
 
 })();
