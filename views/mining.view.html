@@ -99,7 +99,7 @@
                 <div class="col-md-4">
                     <h3>{{'POS_MINERS_INFORMATION'|translate}}</h3>
                     <div ng-repeat="avatar in avatars">
-                        {{$index+1}}: {{avatar}}
+                        <a href="avatar/{{avatar}}">{{$index+1}}: {{avatar}}</a>
                     </div>
                 </div>
                 <div class="col-md-8">
