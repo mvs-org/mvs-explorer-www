@@ -50,7 +50,7 @@
         }
 
         function getCirculation() {
-            return MetaverseService.Circulation().then((response) => {
+            return MetaverseService.Circulation(1).then((response) => {
                 $scope.loading_circulation = false;
                 if (response.data.status && response.data.status.success) {
                     $scope.circulation = parseFloat(response.data.result).toFixed(0);
