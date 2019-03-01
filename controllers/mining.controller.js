@@ -44,6 +44,7 @@
                 $scope.loading_pow_mining_info = false;
                 if (response.data.status && response.data.status.success)
                     $scope.pow_mining_info = response.data.result;
+                    $scope.pow_mining_info.difficulty_simplify = simplify($scope.pow_mining_info.difficulty);
             }, console.error);
         }
 
@@ -52,6 +53,7 @@
                 $scope.loading_pos_mining_info = false;
                 if (response.data.status && response.data.status.success)
                     $scope.pos_mining_info = response.data.result;
+                    $scope.pos_mining_info.difficulty_simplify = simplify($scope.pos_mining_info.difficulty);
             }, console.error);
         }
 
@@ -110,15 +112,18 @@
             var result = {};
             result.divisor = 1;
             result.text = "GRAPH.DIFFICULTY";
-            if(difficulty > 10000000000000) {
+            if(difficulty > 1000000000000) {
                 result.text = "GRAPH.DIFFICULTY_TERA";
                 result.divisor = 1000000000000;
-            } else if (difficulty > 10000000000) {
+                result.letter = 'T';
+            } else if (difficulty > 1000000000) {
                 result.text = "GRAPH.DIFFICULTY_GIGA";
                 result.divisor = 1000000000;
-            } else if (difficulty > 10000000) {
+                result.letter = 'G';
+            } else if (difficulty > 1000000) {
                 result.text = "GRAPH.DIFFICULTY_MEGA";
                 result.divisor = 1000000;
+                result.letter = 'M';
             }
             return result;
         }
