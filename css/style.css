@@ -115,9 +115,6 @@ em{
     color: #4b606d;
     min-height: 130px;
 }
-.infobox a {
-    /*color: #4b606d;*/
-}
 .infobox table{
     width: 100%;
 }
@@ -177,7 +174,6 @@ em{
     font-weight: bold;
     font-size: 15vh;
     opacity: 0.8;
-
 }
 .loading-text {
     top: 480px;
@@ -810,9 +806,6 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	right: 20px;
 	top: 12px;
 }
-.menu ul li a.test-area{
-	/*color:#347ded ;*/
-}
 
 .menu ul li a.blockchain-exploer:hover{
 	color: #fff;
@@ -821,7 +814,6 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	background: #347ded;
 	color: #fff;
 	border-radius: 30px;
-	/*font-size: 16px;*/
 }
 .menu ul li a.blockchain-exploer span{
 	padding: 0 0 0 5px;
@@ -843,7 +835,6 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 
 }
 
-
 .tb-small{
 	padding-top:0;
 	padding-bottom:0
@@ -854,17 +845,6 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 		padding-top:0;
 		padding-bottom:0
 	}
-
-}
-
-.top-bar.tb-transp{
-	/*background:#none;*/
-	/*background:rgba(7,7,7,0)*/
-	/*background:rgba(7,7,7,.9);*/
-}
-
-.tb-transp .menu ul li a{
-	/*color:#fff;*/
 }
 
 .tb-transp .menu ul li:hover a{
@@ -872,17 +852,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 }
 
 .tb-small.tb-transp{
-	/*background:#f9f9f9;*/
 	background:rgba(249,249,249,.9)
-
-}
-
-@media only screen and (max-width:768px){
-	.top-bar.tb-transp{
-		/*background:#111;*/
-		/*background:rgba(7,7,7,.9)*/
-	}
-
 }
 
 /*header*/
@@ -1373,7 +1343,6 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 }
 
 .broadcast-btn {
-  align: right;
   margin-left: 0px;
   margin-right: 0px;
 }
@@ -1444,7 +1413,6 @@ md-progress-linear.md-default-theme .md-bar, md-progress-linear .md-bar {
 
 .align-right {
   float: right;
-  display: inline-block;
 }
 
 .assetSymbol {
@@ -1743,4 +1711,15 @@ Main components
   word-break: break-all;
   word-wrap: break-word;
   padding-right: 40px;
+}
+
+.avatar-logo img {
+  width: 25px;
+}
+
+.avatar-logo h4 {
+  display: inline-block;
+  position: absolute;
+  margin-top: 5px;
+  margin-left: 8px;
 }

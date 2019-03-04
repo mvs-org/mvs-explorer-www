@@ -12,12 +12,29 @@ before_install:
 script:
 - grunt
 after_success:
+- VERSION=$(node -e "console.log(require('./package.json').version)")
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
 - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]]; then
-  docker build -t cangr/mvs-explorer-www:testnet .; docker push cangr/mvs-explorer-www:testnet;
+  docker build -t "mvsorg/mvs-explorer-www:testnet" .;
+  docker tag "mvsorg/mvs-explorer-www:testnet" "mvsorg/mvs-explorer-www:$VERSION-testnet";
+  docker push "mvsorg/mvs-explorer-www:testnet";
+  docker push "mvsorg/mvs-explorer-www:$VERSION-testnet";
+  fi
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "dev" ]]; then
+  docker build -t "mvsorg/mvs-explorer-www:dev" .;
+  docker tag "mvsorg/mvs-explorer-www:dev" "mvsorg/mvs-explorer-www:$VERSION-dev";
+  docker push "mvsorg/mvs-explorer-www:$VERSION-dev";
+  docker push "mvsorg/mvs-explorer-www:dev";
   fi
 - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
-  docker build -t cangr/mvs-explorer-www:latest .; docker push cangr/mvs-explorer-www:latest;
+  docker build -t "mvsorg/mvs-explorer-www:latest" .;
+  docker tag "mvsorg/mvs-explorer-www:latest" "mvsorg/mvs-explorer-www:$VERSION-mainnet";
+  docker tag "mvsorg/mvs-explorer-www:latest" "mvsorg/mvs-explorer-www:$VERSION";
+  docker tag "mvsorg/mvs-explorer-www:latest" "mvsorg/mvs-explorer-www:mainnet";
+  docker push "mvsorg/mvs-explorer-www:latest";
+  docker push "mvsorg/mvs-explorer-www:mainnet";
+  docker push "mvsorg/mvs-explorer-www:$VERSION-mainnet";
+  docker push "mvsorg/mvs-explorer-www:$VERSION";
   fi
 env:
   secure: qtaZxvljW1r2ZjJRJR15rYsUBmQZ5/BPMDSF6Z9gDWpKuzqsbA0IWRx4KvU6sHhWw1TGNb2m5ghBXBY7U3gYaV4zZP8TTa0XVOl2QQUQBKEtp5vhDb9O3M7m3D0ONyzJjbuer8FWKBpDfNeSGeSv8mjcVzm+Zokw3SflcEACaucOXrwCxzUVWqHY6LbTQn8JZ69epZFaodLa7XEDTFY4v4TmwaVSpU8ByhLjIOjyluOVwSB01YVuIeo35Eumd+eX6ekrnat6PKoDVUHWEO9RUHfWWwDwprPJzwylYupkfdehJYpQyzHQfLoSSvHfZct938j+Y3yxg7NHyaHfmZwITWifNHOzK4bnOkFHI8ZxS8ydpAdnY3USU3r/BGjffnxT1jB8UGc2rUOZkzuc9dTxWwHbzBLch6NOqsX/5H7byMoHCbcE8UILoBno7cTx9dvvAJCBpoll0j2v5YY8MHrcuegEJEtboTSJxfuPzPl7ovLEZyWshDUa1rZch/nFnt+1twrQDXACtpVF1gLK6QsMjVZPTFARZ458RFRI9QLPMhU+kBKepEXxOQlkcFWeNiCvpXu48qgf90NFH69xw7I+8/REXloeRCjUIvZBR7hjWSaHqmJLCO4ENFFFHD2vjaOhV9kjBE5vJtNh6y/c2IB/k7/+ICd9CVcmAf3GiGuRSoY=

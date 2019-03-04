@@ -10,9 +10,11 @@
         var address = $stateParams.address;
         $rootScope.nosplash = true;
         $scope.loading_balances = true;
+        $scope.loading_avatar = true;
         $scope.info = [];
         $scope.tokens = [];
         $scope.definitions = [];
+        $scope.avatar = {};
         $scope.items_per_page = 10;
         $scope.minDate = new Date(2017, 2 - 1, 11);
         $scope.maxDate = new Date();
@@ -38,6 +40,8 @@
         $scope.address = address;
 
         fetchAddress(address);
+
+        fetchAvatar(address);
 
         function fetchAddress(address) {
             if (typeof address !== 'undefined') {
@@ -77,6 +81,18 @@
                         }
                     });
             }
+        }
+
+        function fetchAvatar(address) {
+            MetaverseService.FetchAvatar(address)
+                .then((response) => {
+                    $scope.avatar = response.data.result;
+                    $scope.loading_avatar = false;
+                })
+                .catch((error) => {
+                    $scope.loading_avatar = false;
+                    console.error(error);
+                });
         }
 
         $scope.applyFilters = (min_date, max_date) => {
