@@ -88,7 +88,7 @@
 
         service.PosMiningInfo = () => _send('mining/pos');
 
-        service.Circulation = () => _send('circulation');
+        service.Circulation = (adjust) => _send('circulation' + ((adjust) ? '?adjust=' + adjust : ''));
 
         service.Pricing = () => _send('pricing/tickers');
 
