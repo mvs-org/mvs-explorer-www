@@ -12,11 +12,18 @@ before_install:
 script:
 - grunt
 after_success:
+- VERSION=$(node -e "console.log(require('./package.json').version)")
 - docker login -u $DOCKER_USER -p $DOCKER_PASS
 - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "testnet" ]]; then
+  docker build -t cangr/mvs-explorer-www:testnet-$VERSION .; docker push mvsorg/mvs-explorer-www:testnet-$VERSION;
   docker build -t cangr/mvs-explorer-www:testnet .; docker push mvsorg/mvs-explorer-www:testnet;
   fi
+- if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "dev" ]]; then
+  docker build -t cangr/mvs-explorer-www:dev-$VERSION .; docker push mvsorg/mvs-explorer-www:dev-$VERSION;
+  docker build -t cangr/mvs-explorer-www:dev .; docker push mvsorg/mvs-explorer-www:dev;
+  fi
 - if [[ $TRAVIS_PULL_REQUEST == "false" ]] && [[ $TRAVIS_BRANCH == "master" ]]; then
+  docker build -t cangr/mvs-explorer-www:$VERSION .; docker push mvsorg/mvs-explorer-www:$VERSION;
   docker build -t cangr/mvs-explorer-www:latest .; docker push mvsorg/mvs-explorer-www:latest;
   fi
 env:
