@@ -2,7 +2,12 @@
     <div class="row">
         <h2 class="headline col-sm-12"><em></em>{{ 'ADDRESS.HEADLINE' | translate }}</h2>
         <div class="col-md-8 col-sm-12 address-padding">
-            <h4 class="address-mono">{{ address }} <a class="btn link" data-clipboard-text="{{ address }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a></h4>
+            <h4 class="address-mono">{{address}} <a class="btn link" data-clipboard-text="{{ address }}" bs-tooltip data-placement="top" title="{{ 'COPY' | translate }}"><i class="far fa-copy"></i></a></h4>
+            <a href="avatar/{{avatar.symbol}}" class="avatar-logo" ng-show="avatar.symbol">
+                <img ng-src="../img/assets/default_avatar.png">
+                <h4>{{avatar.symbol}}</h4>
+            </a>
+            
         </div>
         <div class="col-md-4 ">
             <div class="qr-code">

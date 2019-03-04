@@ -136,17 +136,15 @@
             .then((res) => {
                 $scope.posdata = res.data.result;
                 let rest_part = posInterval;
-                $scope.effectiveInterval = 0; //To remove after 1000 blocks
                 $scope.posdata.forEach((miner) => {
                     rest_part -= miner.counter;
                     $scope.avatars.push(miner.avatar);
-                    $scope.effectiveInterval += miner.counter;  //To remove after 1000 blocks
                 });
                 $scope.posdata.sort((a, b) => a.counter - b.counter);
-                /*$scope.posdata = [{
+                $scope.posdata = [{
                     avatar: 'others',
                     counter: rest_part
-                }].concat($scope.posdata);*/
+                }].concat($scope.posdata);
             }).then(() => {
 
                 nv.addGraph(function() {
@@ -155,8 +153,7 @@
                             return d.avatar;
                         })
                         .y(function(d) {
-                            //return d.counter / posInterval * 100;
-                            return d.counter / $scope.effectiveInterval * 100;
+                            return d.counter / posInterval * 100;
                         })
                         .color($scope.colors)
                         .showLabels(true)
