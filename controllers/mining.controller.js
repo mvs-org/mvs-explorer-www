@@ -100,7 +100,7 @@
                             y: point[2]/result_simplify.divisor
                         });
                     });
-                    maxDifficultyY = Math.round(maxDifficultyY);
+                    maxDifficultyY = Math.floor(maxDifficultyY+1);
                     drawBlocktimes(blocktimes);
                     drawDifficulties(difficulties, maxDifficultyY, result_simplify.text);
                     $scope.loading_blocktimes = false;
@@ -141,7 +141,7 @@
                             y: point[2]/result_simplify.divisor
                         });
                     });
-                    maxY = Math.round(maxY);
+                    maxY = Math.floor(maxY+1);
                     drawPosDifficulties(difficulties, maxY, result_simplify.text);
                     $scope.loading_pos_difficulty = false;
                 });

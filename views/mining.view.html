@@ -138,6 +138,11 @@
                     <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
                     <td ng-show="!loading_mining_info"><a href="blk/{{pos_mining_info.height}}">{{mining_info.height | number}}</a></td>
                 </tr>
+                <tr>
+                    <th>{{'BLOCKTIME'|translate}}</th>
+                    <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!loading_mining_info">{{mining_info.blocktime | number}}</td>
+                </tr>
                 <!--tr>
                     <th>{{'EXPLORER.NUMBER_MST'|translate}}</th>
                     <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
