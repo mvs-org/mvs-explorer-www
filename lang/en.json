@@ -285,6 +285,8 @@
     "EXPLORER.NUMBER_CERT": "Number of certificates",
     "EXPLORER.NUMBER_TXS_24H": "Transactions during last 24h",
 
-    "GENERAL_INFORMATION": "Information"
+    "GENERAL_INFORMATION": "Information",
+    "TOP_MENU_NEWS": "News",
+    "NEWS.HEADLINE": "News"
 
 }

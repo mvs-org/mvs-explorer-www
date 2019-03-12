@@ -4,6 +4,7 @@
     angular
         .module('app')
         .controller('StartpageController', StartpageController)
+        .controller('NewsPreviewController', NewsPreviewController)
         .controller('BlockListController', BlockListController)
         .controller('TransactionListController', TransactionListController)
         .controller('PriceController', PriceController);
@@ -163,6 +164,25 @@
             });
         }
 
+    }
+
+    function NewsPreviewController($scope, MetaverseService) {
+        $scope.news = [];
+        $scope.announcements = [];
+        $scope.loadinng = true
+        Promise.all([
+            MetaverseService.News(1).then(res => res.data.results),
+            MetaverseService.Announcements(1).then(res => res.data.results),
+        ])
+            .then(([news, announcements]) => {
+                $scope.news = news
+                $scope.announcements = announcements
+                $scope.loading = false
+            })
+            .catch(error=>{
+                console.error(error)
+                $scope.loading = false
+            })
     }
 
 

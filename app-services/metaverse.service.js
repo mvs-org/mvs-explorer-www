@@ -104,6 +104,10 @@
 
         service.GetEthSwapRate = () => _send('bridge/rate/ETHETP');
 
+        service.News = (limit, page) => _send('content/news?limit=' + limit + ((page) ? '&page=' + page : ''));
+
+        service.Announcements = (limit, page) => _send('content/announcements?limit=' + limit + ((page) ? '&page=' + page : ''));
+
         service.Broadcast = (raw_transaction) => _post('tx', '{"tx":"' + raw_transaction + '"}');
 
         return service;
