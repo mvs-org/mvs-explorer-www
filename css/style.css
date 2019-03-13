@@ -1720,6 +1720,28 @@ Main components
   margin-left: 8px;
 }
 
+.news-link {
+  text-align: right;
+}
+
+.news-text {
+  min-height: 50px;
+}
+
 .news-date {
-  float: right;
+  text-align: right;
+  padding-bottom: 20px;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  background-color: #6dc6f9;
+  border-color: #6dc6f9;
+}
+
+.pagination>li>a, .pagination>li>span {
+  color: #6dc6f9;
+}
+
+.news .infobox {
+  min-height: 150px;
 }
