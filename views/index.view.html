@@ -119,23 +119,76 @@
     <ui-view></ui-view>
 </div>
 
-<footer>
-    <div class="center-text footer-icons">
-				<a href="http://github.com/mvs-org" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-				<a href="https://www.facebook.com/mvsofficial/" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
-				<a href="https://twitter.com/mvs_org" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
-				<a href="https://www.youtube.com/channel/UCdDGnCLtG2Fb6McCaDcAiBw" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
-				<a href="https://t.me/Metaverse_Blockchain" target="_blank"><i class="fab fa-telegram fa-2x"></i></a>
-				<a href="https://www.reddit.com/r/Metaverse_Blockchain/" target="_blank"><i class="fab fa-reddit fa-2x"></i></a>
-				<a href="https://discordapp.com/invite/ubgMRts" target="_blank"><i class="fab fa-discord fa-2x"></i></a>
-				<a href="http://weibo.com/6356057248/profile?topnav=1&wvr=6" target="_blank"><i class="fab fa-weibo fa-2x"></i></a>
-				<a href="http://bbs.viewfin.com/" target="_blank"><i class="fas fa-rss-square fa-2x"></i></a>
-				<a href="http://blog.mvs.org/" target="_blank"><i class="fas fa-bold fa-2x"></i></a>
-    </div>
-    <div class="center-text" id="copyright">
-        {{"COPYRIGHT_TEXT"|translate}} {{"DONATION_TEXT"|translate:'{address: "MDZREnssXgg67hVjzVPu8QKrGgCEKZrwaK"}'}}
-    </div>
+<!-- Footer -->
+<footer class="page-footer font-small blue pt-4">
+
+	<!-- Footer Links -->
+	<div class="container-fluid text-center text-md-left">
+		<div class="row">
+			<div class="col-md-4">
+				<h5 class="text-uppercase">{{'FOOTER.INTERNAL_LINKS' | translate}}</h5>
+				<ul class="list-unstyled">
+					<li>
+						<a href="/news">{{'FOOTER.LINK_NEWS' | translate}}</a>
+					</li>
+					<li>
+						<a href="/api">{{'FOOTER.LINK_API' | translate}}</a>
+					</li>
+				</ul>
+			</div>
+
+			<div class="col-md-4">
+				<h5 class="text-uppercase">{{'FOOTER.EXTERNAL_LINKS' | translate}}</h5>
+				<ul class="list-unstyled">
+						<li>
+							<a href="http://mvs.org" target="_blank">{{'FOOTER.LINK_OFFICIAL_WEBSITE' | translate}}</a>
+						</li>
+						<li>
+							<a href="http://myetpwallet.com" target="_blank">{{'FOOTER.LINK_LIGHTWALLET' | translate}}</a>
+						</li>
+						<li>
+							<a href="http://mymvs.info/" target="_blank">{{'FOOTER.LINK_THIRD_PARTY_EXPLORER' | translate}}</a>
+						</li>
+				</ul>
+			</div>
+
+			<div class="col-md-4">
+				<h5 class="text-uppercase">{{'FOOTER.INFO_LINKS' | translate}}</h5>
+				<ul class="list-unstyled">
+					<li>
+						<a href="#!">{{'FOOTER.METAVERSE_LOGO' | translate}}</a>
+					</li>
+					<li>
+						<a href="#!">{{'FOOTER.MST_LOGO' | translate}}</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+	</div>
+	<!-- Footer Links -->
+
+	<div class="row center-text footer-icons">
+		<a href="http://github.com/mvs-org" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+		<a href="https://www.facebook.com/mvsofficial/" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+		<a href="https://twitter.com/mvs_org" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+		<a href="https://www.youtube.com/channel/UCdDGnCLtG2Fb6McCaDcAiBw" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+		<a href="https://t.me/Metaverse_Blockchain" target="_blank"><i class="fab fa-telegram fa-2x"></i></a>
+		<a href="https://www.reddit.com/r/Metaverse_Blockchain/" target="_blank"><i class="fab fa-reddit fa-2x"></i></a>
+		<a href="https://discordapp.com/invite/ubgMRts" target="_blank"><i class="fab fa-discord fa-2x"></i></a>
+		<a href="http://weibo.com/6356057248/profile?topnav=1&wvr=6" target="_blank"><i class="fab fa-weibo fa-2x"></i></a>
+		<a href="http://bbs.viewfin.com/" target="_blank"><i class="fas fa-rss-square fa-2x"></i></a>
+		<a href="http://blog.mvs.org/" target="_blank"><i class="fas fa-bold fa-2x"></i></a>
+	</div>
+
+	<!-- Copyright -->
+	<div class="footer-copyright text-center" id="copyright">
+		{{"COPYRIGHT_TEXT"|translate}} {{"DONATION_TEXT"|translate:'{address: "MDZREnssXgg67hVjzVPu8QKrGgCEKZrwaK"}'}}
+	</div>
+	<!-- Copyright -->
+
 </footer>
+<!-- Footer -->
 
 
 <script>

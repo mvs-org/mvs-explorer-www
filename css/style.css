@@ -1158,8 +1158,12 @@ ul, li{
   margin-bottom: 20px;
 }
 
-.footer-icons a:hover, .footer-icons a:focus {
+footer a:hover, footer a:focus {
   color: white;
+}
+
+.footer-icons {
+  margin-top: 20px;
 }
 
 .searchedAddress {

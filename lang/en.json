@@ -289,6 +289,17 @@
     "TOP_MENU_NEWS": "News",
     "NEWS.HEADLINE": "News",
     "RECENT_UPDATES": "Recent updates",
-    "NEWS.LINK": "Link"
+    "NEWS.LINK": "Link",
+
+    "FOOTER.INTERNAL_LINKS": "About us",
+    "FOOTER.EXTERNAL_LINKS": "External links",
+    "FOOTER.INFO_LINKS": "Info",
+    "FOOTER.LINK_OFFICIAL_WEBSITE": "Official website",
+    "FOOTER.LINK_LIGHTWALLET": "Official lightwallet",
+    "FOOTER.LINK_THIRD_PARTY_EXPLORER": "Third party explorer",
+    "FOOTER.LINK_NEWS": "News",
+    "FOOTER.LINK_API": "API",
+    "FOOTER.METAVERSE_LOGO": "Official logos",
+    "FOOTER.MST_LOGO": "MST logos"
 
 }
