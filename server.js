@@ -4,6 +4,7 @@ const express = require('express'),
 
 const botUserAgents = [
     'googlebot',
+    'duckduckgo',
     'Baiduspider',
     'bingbot',
     'Embedly',
