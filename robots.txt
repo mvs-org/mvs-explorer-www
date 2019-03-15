@@ -2,5 +2,6 @@ User-Agent: *
 Disallow: /tx/*
 Disallow: /block/*
 Disallow: /mit/*
+Disallow: /api/*
 
 Sitemap: https://explorer.mvs.org/sitemap.xml
