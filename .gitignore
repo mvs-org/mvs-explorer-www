@@ -1,3 +1,7 @@
+dist
+min
+min-safe
+
 # Logs
 logs
 *.log

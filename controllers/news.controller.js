@@ -6,7 +6,7 @@
         .controller('AnnouncementsController', AnnouncementsController)
         .controller('NewsController', NewsController);
 
-    const NUMBER_OF_NEWS = 3
+    const NUMBER_OF_NEWS = 10
     const NUMBER_OF_ANNOUNCEMENTS = 5
 
     function AnnouncementsController($scope, MetaverseService) {
