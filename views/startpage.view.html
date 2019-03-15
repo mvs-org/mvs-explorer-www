@@ -65,15 +65,20 @@
         <div class="col-md-6 infobox-specific-height">
             <div class="panel infobox">
                 <h3>{{announcements[0].title}}</h3>
-                <div ng-bind-html="announcements[0].content"></div>
+                <div class="news-text" ng-bind-html="announcements[0].content"></div>
+                <a class="col-xs-12 col-md-12 news-link" ng-href="{{news[0].link.url}}" target="_blank">{{ 'NEWS.LINK' | translate }}>></a>
             </div>
         </div>
 
         <div class="col-md-6 infobox-specific-height">
             <div class="panel infobox">
                 <h3>{{news[0].title}}</h3>
-                <div ng-bind-html="news[0].content"></div>
+                <div class="news-text" ng-bind-html="news[0].content"></div>
+                <a class="col-xs-12 col-md-12 news-link" ng-href="{{news[0].link.url}}" target="_blank">{{ 'NEWS.LINK' | translate }}>></a>
             </div>
+        </div>
+        <div class="col-md-12 right">
+            <md-button class="md-secondary md-raised broadcast-btn" href="news">{{ 'NEWS.SEE_MORE' | translate}}</md-button>
         </div>
     </div>
 </div>
@@ -88,23 +93,23 @@
         <div class="col-md-12 col-sm-12">
             <!--Header-->
             <div class="hidden-xs hidden-sm row panel list-item nga-default nga-stagger nga-fade">
-                    <div class="col-md-7 col-sm-12"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}</div>
-                    <div class="col-md-2 col-sm-12"><span class="list-item-label">{{ 'TX.BLOCK' | translate }}</div>
+                <div class="col-md-7 col-sm-12"><span class="list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}</div>
+                <div class="col-md-2 col-sm-12"><span class="list-item-label">{{ 'TX.BLOCK' | translate }}</div>
             </div>
             <!--List of txs-->
             <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="tx in txList | orderBy:'confirmed_at':true">
-                    <div class="col-md-7 col-sm-12 overflow"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}: </span><a class="hash-mono" href="tx/{{tx.hash}}">{{tx.hash}}</a></div>
-                    <div class="col-md-2 col-sm-12" ng-show="tx.height"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'TX.BLOCK' | translate }}: </span><a href="blk/{{tx.height}}">{{tx.height}}</a></div>
-                    <div class="col-md-2 col-sm-12" ng-show="!tx.height"><span>{{ 'EXPLORER.UNCONFIRMED' | translate }}</span></div>
-                    <div class="col-md-3 col-sm-12 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) >= 0">
-                        <span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 3600000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 60000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
-                    </div>
-                    <div class="col-md-3 col-sm-12 right" ng-show="!tx.confirmed_at">
-                        <span ng-show="currentTimeStamp - (tx.received_at * 1000) > 3600000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (tx.received_at * 1000) > 60000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.received_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
-                    </div>
-                    <div class="col-md-3 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) < 0">
-                        <span>Block in </span><span ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 3600000">{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 60000">{{(tx.confirmed_at * 1000) - currentTimeStamp | date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
-                    </div>
+                <div class="col-md-7 col-sm-12 overflow"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.TRANSACTION_HASH' | translate }}: </span><a class="hash-mono" href="tx/{{tx.hash}}">{{tx.hash}}</a></div>
+                <div class="col-md-2 col-sm-12" ng-show="tx.height"><span class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'TX.BLOCK' | translate }}: </span><a href="blk/{{tx.height}}">{{tx.height}}</a></div>
+                <div class="col-md-2 col-sm-12" ng-show="!tx.height"><span>{{ 'EXPLORER.UNCONFIRMED' | translate }}</span></div>
+                <div class="col-md-3 col-sm-12 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) >= 0">
+                    <span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 3600000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 60000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
+                </div>
+                <div class="col-md-3 col-sm-12 right" ng-show="!tx.confirmed_at">
+                    <span ng-show="currentTimeStamp - (tx.received_at * 1000) > 3600000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="currentTimeStamp - (tx.received_at * 1000) > 60000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.received_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
+                </div>
+                <div class="col-md-3 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) < 0">
+                    <span>Block in </span><span ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 3600000">{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 60000">{{(tx.confirmed_at * 1000) - currentTimeStamp | date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
+                </div>
             </div>
         </div>
     </div>
