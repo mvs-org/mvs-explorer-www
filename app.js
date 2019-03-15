@@ -55,11 +55,10 @@
         .service('MetadataService', ['$window', function ($window) {
             var self = this;
             self.setMetaTags = function (tagData) {
-                $window.document.getElementsByName('title')[0].content = tagData.title || "Metaverse Blockchain Explorer";
-                $window.document.getElementsByTagName('title')[0].innerHTML = tagData.title || "Metaverse Blockchain Explorer";
-                $window.document.getElementsByTagName('title')[0].innerHTML = tagData.title || "Metaverse Blockchain Explorer";
-                $window.document.getElementsByName('description')[0].content = tagData.description || "Metaverse Blockchain Explorer is a web tool that provides detailed information about Metaverse Smart Assets, Blocks, Addresses, and Transactions.";
-                $window.document.getElementsByName('keywords')[0].content = tagData.keywords || "metaverse, explorer, blockchain, digital identity, asset";
+                $window.document.getElementsByName('title')[0].content = "Testnet " + (tagData.title || "Metaverse Blockchain Explorer");
+                $window.document.getElementsByTagName('title')[0].innerHTML = "Testnet " + (tagData.title || "Metaverse Blockchain Explorer");
+                $window.document.getElementsByName('description')[0].content = "Testnet " + (tagData.description || "Metaverse Blockchain Explorer is a web tool that provides detailed information about Metaverse Smart Assets, Blocks, Addresses, and Transactions.");
+                $window.document.getElementsByName('keywords')[0].content = 'testnet, ' + (tagData.keywords || "metaverse, explorer, blockchain, digital identity, asset");
             };
         }])
         .filter('assetformat', function () {
