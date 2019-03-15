@@ -4,12 +4,8 @@
 		<div class="headerbox">
 			<div class="">
 				<div class="tb-logo fl">
-					<a href="">
-						<h1 class="dis-tablecell height50">
-							<a href="/">
-								<img src="./img/metaverselogo.png" alt="metaverse" title="metaverse">
-							</a>
-						</h1>
+					<a href="/">
+						<img src="./img/metaverselogo.png" alt="metaverse" title="metaverse">
 					</a>
 				</div>
 
@@ -23,9 +19,9 @@
 						<li><a href="/txs" ng-class="{selectedMenu: selectedMenu.main==='txs'}" class="cool-line">{{'TOP_MENU_TXS'|translate}}</a></li>
 						<li><a href="/blocks" ng-class="{selectedMenu: selectedMenu.main==='blocks'}" class="cool-line">{{'TOP_MENU_BLOCKS'|translate}}</a></li>
 						<li><a href="/mining" ng-class="{selectedMenu: selectedMenu.main==='mining'}" class="cool-line">{{'TOP_MENU_MINING'|translate}}</a></li>
-            <li><a href="/dev/api" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='api'}">{{'TOP_MENU_API'|translate}}</a></li>
-            <li><a href="http://mymvs.info" class="cool-line" target="_blank">{{'THIRD_PARTY_EXPLORER'|translate}}</a></li>
-          </ul>
+						<li><a href="/dev/api" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='api'}">{{'TOP_MENU_API'|translate}}</a></li>
+						<li><a href="/news" class="cool-line" ng-class="{selectedMenu: selectedMenu.main==='news'}">{{'TOP_MENU_NEWS'|translate}}</a></li>
+					</ul>
 					<div class="sl-language">
 						<a ng-click="changeLang('zh')" ng-class="{active: ('LANG_CODE' | translate) == 'zh'}" class="cool-line" lang="zh">CN</a>
             <span class="line-lg">/</span>
@@ -119,23 +115,73 @@
     <ui-view></ui-view>
 </div>
 
-<footer>
-    <div class="center-text footer-icons">
-				<a href="http://github.com/mvs-org" target="_blank"><i class="fab fa-github fa-2x"></i></a>
-				<a href="https://www.facebook.com/mvsofficial/" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
-				<a href="https://twitter.com/mvs_org" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
-				<a href="https://www.youtube.com/channel/UCdDGnCLtG2Fb6McCaDcAiBw" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
-				<a href="https://t.me/Metaverse_Blockchain" target="_blank"><i class="fab fa-telegram fa-2x"></i></a>
-				<a href="https://www.reddit.com/r/Metaverse_Blockchain/" target="_blank"><i class="fab fa-reddit fa-2x"></i></a>
-				<a href="https://discordapp.com/invite/ubgMRts" target="_blank"><i class="fab fa-discord fa-2x"></i></a>
-				<a href="http://weibo.com/6356057248/profile?topnav=1&wvr=6" target="_blank"><i class="fab fa-weibo fa-2x"></i></a>
-				<a href="http://bbs.viewfin.com/" target="_blank"><i class="fas fa-rss-square fa-2x"></i></a>
-				<a href="http://blog.mvs.org/" target="_blank"><i class="fas fa-bold fa-2x"></i></a>
-    </div>
-    <div class="center-text" id="copyright">
-        {{"COPYRIGHT_TEXT"|translate}} {{"DONATION_TEXT"|translate:'{address: "MDZREnssXgg67hVjzVPu8QKrGgCEKZrwaK"}'}}
-    </div>
+<!-- Footer -->
+<footer class="page-footer font-small blue pt-4">
+
+	<!-- Footer Links -->
+	<div class="container-fluid text-md-left">
+		<div class="row">
+			<div class="col-sm-12 col-md-6 footer-column text-center">
+				<div class="footer-logo">
+					<a href="/">
+						<img src="./img/metaverselogo_light.png" alt="metaverse" title="metaverse">
+					</a>
+				</div>
+			</div>
+			<div class="col-xs-offset-2 col-sm-12 col-sm-offset-2 col-md-3 col-md-offset-0 footer-column">
+				<h5 class="text-uppercase">{{'FOOTER.INTERNAL_LINKS' | translate}}</h5>
+				<ul class="list-unstyled">
+					<li>
+						<a href="/news">{{'FOOTER.LINK_NEWS' | translate}}</a>
+					</li>
+					<li>
+						<a href="/dev/api">{{'FOOTER.LINK_API' | translate}}</a>
+					</li>
+				</p>
+				</ul>
+			</div>
+
+			<div class="col-xs-offset-2 col-sm-12 col-sm-offset-2 col-md-3 col-md-offset-0 footer-column">
+				<h5 class="text-uppercase">{{'FOOTER.EXTERNAL_LINKS' | translate}}</h5>
+				<ul class="list-unstyled">
+					<li>
+						<a href="http://mvs.org" target="_blank">{{'FOOTER.LINK_OFFICIAL_WEBSITE' | translate}}</a>
+					</li>
+					<li>
+						<a href="http://myetpwallet.com" target="_blank">{{'FOOTER.LINK_LIGHTWALLET' | translate}}</a>
+					</li>
+					<li>
+						<a href="http://mymvs.info/" target="_blank">{{'FOOTER.LINK_THIRD_PARTY_EXPLORER' | translate}}</a>
+					</li>
+				</ul>
+			</div>
+
+		</div>
+
+	</div>
+	<!-- Footer Links -->
+
+	<div class="row center-text footer-icons">
+		<a href="http://github.com/mvs-org" target="_blank"><i class="fab fa-github fa-2x"></i></a>
+		<a href="https://www.facebook.com/mvsofficial/" target="_blank"><i class="fab fa-facebook fa-2x"></i></a>
+		<a href="https://twitter.com/mvs_org" target="_blank"><i class="fab fa-twitter fa-2x"></i></a>
+		<a href="https://www.youtube.com/channel/UCdDGnCLtG2Fb6McCaDcAiBw" target="_blank"><i class="fab fa-youtube fa-2x"></i></a>
+		<a href="https://t.me/Metaverse_Blockchain" target="_blank"><i class="fab fa-telegram fa-2x"></i></a>
+		<a href="https://www.reddit.com/r/Metaverse_Blockchain/" target="_blank"><i class="fab fa-reddit fa-2x"></i></a>
+		<a href="https://discordapp.com/invite/ubgMRts" target="_blank"><i class="fab fa-discord fa-2x"></i></a>
+		<a href="http://weibo.com/6356057248/profile?topnav=1&wvr=6" target="_blank"><i class="fab fa-weibo fa-2x"></i></a>
+		<a href="http://bbs.viewfin.com/" target="_blank"><i class="fas fa-rss-square fa-2x"></i></a>
+		<a href="http://blog.mvs.org/" target="_blank"><i class="fas fa-bold fa-2x"></i></a>
+	</div>
+
+	<!-- Copyright -->
+	<div class="footer-copyright text-center" id="copyright">
+		{{"COPYRIGHT_TEXT"|translate}} {{"DONATION_TEXT"|translate:'{address: "MDZREnssXgg67hVjzVPu8QKrGgCEKZrwaK"}'}}
+	</div>
+	<!-- Copyright -->
+
 </footer>
+<!-- Footer -->
 
 
 <script>

@@ -9,7 +9,13 @@ body{
     font-family: 'Roboto', sans-serif;
 }
 .container{
-    padding-bottom: 200px;
+    padding-bottom: 270px;
+}
+
+@media (max-width: 992px) {
+  .container{
+    padding-bottom: 605px;
+  }
 }
 .center{
     margin-left: auto;
@@ -91,7 +97,7 @@ footer{
     bottom: 0;
     width: 100%;
 }
-footer a{
+footer .footer-icons a {
     margin: 10px;
     width: 100px;
 }
@@ -1158,8 +1164,12 @@ ul, li{
   margin-bottom: 20px;
 }
 
-.footer-icons a:hover, .footer-icons a:focus {
+footer a:hover, footer a:focus {
   color: white;
+}
+
+.footer-icons {
+  margin-top: 20px;
 }
 
 .searchedAddress {
@@ -1718,4 +1728,43 @@ Main components
   position: absolute;
   margin-top: 5px;
   margin-left: 8px;
+}
+
+.news-link {
+  text-align: right;
+  top: -10px;
+}
+
+.news-text {
+  padding-bottom: 10px;
+}
+
+.news-date {
+  text-align: right;
+  padding-bottom: 20px;
+}
+
+.pagination>.active>a, .pagination>.active>a:focus, .pagination>.active>a:hover, .pagination>.active>span, .pagination>.active>span:focus, .pagination>.active>span:hover {
+  background-color: #6dc6f9;
+  border-color: #6dc6f9;
+}
+
+.pagination>li>a, .pagination>li>span {
+  color: #6dc6f9;
+}
+
+.news .infobox {
+  min-height: 150px;
+}
+
+.footer-logo img {
+  width: 300px;
+}
+
+.footer-column {
+  padding: 20px;
+}
+
+footer h5 {
+  color: white;
 }
