@@ -90,7 +90,7 @@
                 meta: {
                     title: 'Metaverse ETP Blockchain Explorer',
                     description: 'The Metaverse Blockchain Explorer provides insights into digital identity, ETP, smart assets, transactions and mining.',
-                    keywords: "metaverse, blockchain, explorer, etpr"
+                    keywords: "metaverse, blockchain, explorer, etp, mvs"
                 },
                 templateUrl: "views/startpage.view.html",
                 controller: 'StartpageController'
@@ -178,7 +178,7 @@
                 url: "/msts",
                 meta: {
                     title: 'Metaverse Smart Token - MST',
-                    description: 'Register of the Metaverse Blockchain MST. Create your own smart asset.',
+                    description: 'Registry of the Metaverse Blockchain MST. Create your own smart asset.',
                     keywords: "metaverse, blockchain, mst, smart, asset"
                 },
                 templateUrl: "views/assetslist.view.html",
@@ -186,6 +186,11 @@
             })
             .state('explorer.certs', {
                 url: "/certs",
+                meta: {
+                    title: 'Metaverse Smart Token - Certificates',
+                    description: 'Registry of the Metaverse Blockchain MST certificates. Certificates grant rights to issue Metaverse Smart Tokens (MST).',
+                    keywords: "metaverse, blockchain, mst, certificate"
+                },
                 templateUrl: "views/certs.view.html",
                 controller: 'CertsController'
             })
@@ -214,7 +219,7 @@
                 meta: {
                     title: 'Metaverse Blockchain News - ETP, Smart Assets and Digital Identity',
                     description: 'Latest news and information about ETP and the Metaverse Blockchain Ecosystem.',
-                    keywords: "metaverse, blockchain, news, etp"
+                    keywords: "metaverse, blockchain, news, etp, mvs"
                 },
                 templateUrl: "views/news.view.html",
                 controller: 'NewsController'
