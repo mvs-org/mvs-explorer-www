@@ -60,6 +60,29 @@
     </div>
 </div>
 
+<div class="content" ng-controller="NewsPreviewController">
+    <h2 class="headline"><em></em> {{"RECENT_UPDATES" | translate}}</h2>
+
+    <div ng-show="loading">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <div ng-hide="loading" class="row">
+        <div class="col-md-6 infobox-specific-height">
+            <div class="panel infobox">
+                <h3>{{announcements[0].title}}</h3>
+                <div ng-bind-html="announcements[0].content"></div>
+            </div>
+        </div>
+
+        <div class="col-md-6 infobox-specific-height">
+            <div class="panel infobox">
+                <h3>{{news[0].title}}</h3>
+                <div ng-bind-html="news[0].content"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="content" ng-controller="TransactionListController">
     <h2 class="headline"><em></em> {{"LATEST_TRANSACTIONS" | translate}}</h2>
 

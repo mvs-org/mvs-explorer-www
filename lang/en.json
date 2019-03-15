@@ -285,6 +285,23 @@
     "EXPLORER.NUMBER_CERT": "Number of certificates",
     "EXPLORER.NUMBER_TXS_24H": "Transactions during last 24h",
 
-    "GENERAL_INFORMATION": "Information"
+    "GENERAL_INFORMATION": "Information",
+    "TOP_MENU_NEWS": "News",
+    "NEWS.HEADLINE": "News",
+    "RECENT_UPDATES": "Recent updates",
+    "NEWS.LINK": "Link",
+
+    "FOOTER.INTERNAL_LINKS": "About us",
+    "FOOTER.EXTERNAL_LINKS": "External links",
+    "FOOTER.INFO_LINKS": "Info",
+    "FOOTER.LINK_OFFICIAL_WEBSITE": "Official website",
+    "FOOTER.LINK_LIGHTWALLET": "Official lightwallet",
+    "FOOTER.LINK_THIRD_PARTY_EXPLORER": "Third party explorer",
+    "FOOTER.LINK_NEWS": "News",
+    "FOOTER.LINK_API": "API",
+    "FOOTER.METAVERSE_LOGO": "Official logos",
+    "FOOTER.MST_LOGO": "MST logos",
+
+    "ANNOUNCEMENT.HEADLINE": "Announcements"
 
 }

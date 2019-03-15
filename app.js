@@ -163,6 +163,11 @@
                 url: "/mit/:symbol",
                 templateUrl: "views/mit.view.html",
                 controller: 'MitController'
+            })
+            .state('explorer.news', {
+                url: "/news",
+                templateUrl: "views/news.view.html",
+                controller: 'NewsController'
             });
         $urlRouterProvider.otherwise("/");
         $locationProvider.html5Mode(true);
