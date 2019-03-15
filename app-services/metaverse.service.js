@@ -15,7 +15,7 @@
 
         var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
         //var SERVER = "http://localhost";
-        SERVER = "https://explorer.mvs.org/api";
+        //SERVER = "https://explorer.mvs.org/api";
         //var SERVER = "https://explorer-testnet.mvs.org/api";
 
         var MAINNET = "https://explorer.mvs.org/api";
