@@ -1736,10 +1736,11 @@ Main components
 
 .news-link {
   text-align: right;
+  top: -10px;
 }
 
 .news-text {
-  min-height: 50px;
+  padding-bottom: 10px;
 }
 
 .news-date {
