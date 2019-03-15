@@ -1,0 +1,6 @@
+User-Agent: *
+Disallow: /tx/*
+Disallow: /block/*
+Disallow: /mit/*
+
+Sitemap: https://explorer.mvs.org/sitemap.xml

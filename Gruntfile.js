@@ -111,11 +111,15 @@ module.exports = function(grunt) {
             }
         },
         copy: {
-            nodemapMarkers:{
+            sitemap: {
                 expand: true,
-                cwd: './node_modules/leaflet/dist/images/',
-                src: '*',
-                dest: 'dist/min/images/'
+                src: 'sitemap.xml',
+                dest: 'dist'
+            },
+            robots: {
+                expand: true,
+                src: 'robots.txt',
+                dest: 'dist'
             },
             img: {
                 expand: true,
