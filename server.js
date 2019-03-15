@@ -33,7 +33,8 @@ app.use(function (req, res, next) {
 if (process.env.RENDERTRON_PROXY) {
     app.use(rendertron.makeMiddleware({
         proxyUrl: process.env.RENDERTRON_PROXY,
-        userAgentPattern: new RegExp(botUserAgents.join('|'), 'i'),
+        userAgentPattern: new RegExp(process.env.RENDERTRON_AGENTS_MATCHER || botUserAgents.join('|'), 'i'),
+        timeout: process.env.RENDERTRON_TIMEOUT || 5000,
     }))
 }
 
