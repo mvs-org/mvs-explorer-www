@@ -29,9 +29,9 @@
             }
         }).config(function ($wampProvider) {
             $wampProvider.init({
-                url: 'wss://explorer.mvs.org/ws',
+                //url: 'wss://explorer.mvs.org/ws',
                 //url: 'ws://explorer-dev.mvs.org/ws',
-                //url: 'wss://explorer-testnet.mvs.org/ws',
+                url: 'wss://explorer-testnet.mvs.org/ws',
                 //url: 'ws://localhost:80/ws',
                 // url: ((window.location.protocol == 'https:') ? 'wss:' : 'ws:') + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/ws",
                 realm: 'realm1'
