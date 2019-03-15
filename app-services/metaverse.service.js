@@ -11,14 +11,17 @@
     MetaverseService.$inject = ['$http', 'localStorageService'];
 
     function MetaverseService($http, localStorageService) {
-      var service = {};
+        var service = {};
 
-      var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-      //var SERVER = "http://localhost";
-      //var SERVER = "https://explorer.mvs.org/api";
-      //var SERVER = "https://explorer-testnet.mvs.org/api";
+        var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
+        //var SERVER = "http://localhost";
+        //var SERVER = "https://explorer.mvs.org/api";
+        //var SERVER = "https://explorer-testnet.mvs.org/api";
 
-      service.SERVER = SERVER;
+        var MAINNET = "https://explorer.mvs.org/api";
+
+        service.SERVER = SERVER;
+        service.MAINNET = SERVER;
         /**
          * @api {post} /rpc Get blockchain height
          * @apiName Get blockchain height
@@ -104,9 +107,9 @@
 
         service.GetEthSwapRate = () => _send('bridge/rate/ETHETP');
 
-        service.News = (limit, page) => _send('content/news?limit=' + limit + ((page) ? '&page=' + page : ''));
+        service.News = (limit, page) => _sendMainnet('content/news?limit=' + limit + ((page) ? '&page=' + page : ''));
 
-        service.Announcements = (limit, page) => _send('content/announcements?limit=' + limit + ((page) ? '&page=' + page : ''));
+        service.Announcements = (limit, page) => _sendMainnet('content/announcements?limit=' + limit + ((page) ? '&page=' + page : ''));
 
         service.Broadcast = (raw_transaction) => _post('tx', '{"tx":"' + raw_transaction + '"}');
 
@@ -114,6 +117,14 @@
 
         function _send(query) {
             return $http.get(SERVER + "/" + query, {
+                    headers: {}
+                })
+                .then((res) => handleSuccess(res))
+                .catch((res) => handleError(res));
+        }
+
+        function _sendMainnet(query) {
+            return $http.get(MAINNET + "/" + query, {
                     headers: {}
                 })
                 .then((res) => handleSuccess(res))

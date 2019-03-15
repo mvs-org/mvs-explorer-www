@@ -300,6 +300,8 @@
     "FOOTER.LINK_NEWS": "News",
     "FOOTER.LINK_API": "API",
     "FOOTER.METAVERSE_LOGO": "Official logos",
-    "FOOTER.MST_LOGO": "MST logos"
+    "FOOTER.MST_LOGO": "MST logos",
+
+    "ANNOUNCEMENT.HEADLINE": "Announcements"
 
 }

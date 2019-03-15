@@ -6,21 +6,17 @@
         .controller('AnnouncementsController', AnnouncementsController)
         .controller('NewsController', NewsController);
 
-    const NUMBER_OF_ITEMS = 5
+    const NUMBER_OF_NEWS = 3
+    const NUMBER_OF_ANNOUNCEMENTS = 5
 
-    function AnnouncementsController($scope, $location, MetaverseService) {
-        $scope.articles = [];
-        $scope.total_pages = 0
-        $scope.location = $location;
-        $scope.$watch('location.search()', function () {
-            $scope.page = ($location.search()).page || 1;
-            MetaverseService.Annoucnements(NUMBER_OF_ITEMS, $scope.page)
-                .then(res => {
-                    $scope.articles = res.data.results
-                    $scope.total_pages = res.data.total_pages
-                })
-        }, true);
-        $scope.range = () => new Array($scope.total_pages)
+    function AnnouncementsController($scope, MetaverseService) {
+        $scope.announcements = [];
+        $scope.loading_announcements = true;
+        MetaverseService.Announcements(NUMBER_OF_ANNOUNCEMENTS, $scope.announcements_page)
+            .then(res => {
+                $scope.announcements = res.data.results
+                $scope.loading_announcements = false;
+            })
     }
 
     function NewsController($scope, $location, MetaverseService) {
@@ -31,7 +27,8 @@
             $scope.loading_news = true;
             $scope.articles = [];
             $scope.page = ($location.search()).page || 1;
-            MetaverseService.News(NUMBER_OF_ITEMS, $scope.page)
+            $scope.announcements_page = ($location.search()).announcements_page || 1;
+            MetaverseService.News(NUMBER_OF_NEWS, $scope.page)
                 .then(news => {
                     $scope.articles = news.data.results
                     $scope.total_pages = news.data.total_pages
