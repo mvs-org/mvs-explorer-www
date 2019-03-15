@@ -12,16 +12,10 @@ module.exports = function(grunt) {
                 files: { // if not work add rest of css
                     './min/app.css': [
                         './node_modules/bootstrap/dist/css/bootstrap.min.css',
-                        './css/nga.css',
-                        './node_modules/angular-toastr/dist/angular-toastr.min.css',
                         './node_modules/nprogress/nprogress.css',
                         './node_modules/nvd3/build/nv.d3.css',
                         './node_modules/angular-swagger-ui/dist/css/swagger-ui.css',
                         './css/font.css',
-                        './node_modules/leaflet/dist/leaflet.css',
-                        './node_modules/leaflet.markercluster/example/screen.css',
-                        './node_modules/leaflet.markercluster/dist/MarkerCluster.css',
-                        './node_modules/leaflet.markercluster/dist/MarkerCluster.Default.css',
                         './node_modules/angular-material/angular-material.css',
                         './css/style.css'
                     ]
@@ -60,13 +54,9 @@ module.exports = function(grunt) {
                     './node_modules/d3/d3.min.js',
                     './node_modules/nvd3/build/nv.d3.min.js',
                     './node_modules/nprogress/nprogress.js',
-                    './node_modules/leaflet/dist/leaflet.js',
-                    './node_modules/leaflet.markercluster/dist/leaflet.markercluster.js',
-                    './node_modules/leaflet-ajax/dist/leaflet.ajax.min.js',
                     './node_modules/autobahn-js-built/autobahn.min.js',
                     './node_modules/clipboard/dist/clipboard.min.js',
-                    './node_modules/bootstrap/dist/js/bootstrap.min.js',
-                    './js/fontawesome-all.min.js'
+                    './node_modules/bootstrap/dist/js/bootstrap.min.js'
                 ],
                 dest: './min/libs.min.js'
             },
