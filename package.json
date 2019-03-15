@@ -1,11 +1,7 @@
 {
   "name": "MVS_explorer",
   "description": "Explorer for Metaverse.",
-<<<<<<< HEAD
-  "version": "0.5.2",
-=======
   "version": "0.5.3",
->>>>>>> dev
   "repository": {
     "type": "git",
     "url": "https://github.com/ViewBTC/mvs-explorer.git"
