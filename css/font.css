@@ -1,22 +1,26 @@
 @font-face {
   font-family: 'Roboto';
+  font-display: auto;
   src:  url('../fonts/Roboto-Regular.ttf');
 }
 
 @font-face {
   font-family: 'Roboto';
+  font-display: auto;
   src:  url('../fonts/Roboto-Bold.ttf');
   font-weight: bold;
 }
 
 @font-face {
   font-family: 'Roboto';
+  font-display: auto;
   src:  url('../fonts/Roboto-Italic.ttf');
   font-style: italic;
 }
 
 @font-face {
   font-family: 'Roboto';
+  font-display: auto;
   src:  url('../fonts/Roboto-BoldItalic.ttf');
   font-weight: bold;
   font-style: italic;
@@ -24,17 +28,20 @@
 
 @font-face {
   font-family: 'Roboto Mono';
+  font-display: auto;
   src:  url('../fonts/RobotoMono-Regular.ttf');
 }
 
 @font-face {
   font-family: 'Roboto Mono';
+  font-display: auto;
   src:  url('../fonts/RobotoMono-Bold.ttf');
   font-weight: bold;
 }
 
 @font-face {
   font-family: 'icomoon';
+  font-display: auto;
   src:  url('../fonts/font.eot?hmx0kr');
   src:  url('../fonts/font.eot?hmx0kr#iefix') format('embedded-opentype'),
     url('../fonts/font.ttf?hmx0kr') format('truetype'),
