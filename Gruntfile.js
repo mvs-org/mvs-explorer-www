@@ -47,16 +47,21 @@ module.exports = function(grunt) {
             }
         },
         concat: {
-            libs: {
+            optlibs: {
                 src: [
                     './node_modules/jquery/dist/jquery.min.js',
                     './node_modules/qrcode/build/qrcode.min.js',
+                    './node_modules/bootstrap/dist/js/bootstrap.min.js'
+                ],
+                dest: './min/optlibs.min.js'
+            },
+            libs: {
+                src: [
                     './node_modules/d3/d3.min.js',
                     './node_modules/nvd3/build/nv.d3.min.js',
                     './node_modules/nprogress/nprogress.js',
                     './node_modules/autobahn-js-built/autobahn.min.js',
                     './node_modules/clipboard/dist/clipboard.min.js',
-                    './node_modules/bootstrap/dist/js/bootstrap.min.js'
                 ],
                 dest: './min/libs.min.js'
             },
