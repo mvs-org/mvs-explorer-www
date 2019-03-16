@@ -25,12 +25,6 @@ const botUserAgents = [
 
 const app = express()
 
-app.use(function (req, res, next) {
-    res.set('Cache-Control', 'public, max-age=300, s-max-age=3600')
-    res.set('Vary', 'User-Agent')
-    next()
-})
-
 if (process.env.RENDERTRON_PROXY) {
     app.use(rendertron.makeMiddleware({
         proxyUrl: process.env.RENDERTRON_PROXY,
@@ -39,10 +33,22 @@ if (process.env.RENDERTRON_PROXY) {
     }))
 }
 
-app.use(express.static(__dirname + '/dist'));
+app.use(express.static(__dirname + '/dist', {
+    setHeaders: (res, path) => {
+        if (/.*\.min\..+\.js$/.test(path)) {
+            res.set('Cache-Control', 'public, max-age=31536000')
+        } else if (/min\/.+\.css$/.test(path)) {
+            res.set('Cache-Control', 'public, max-age=31536000')
+        } else if (/\.ttf$/.test(path)) {
+            res.set('Cache-Control', 'public, max-age=31536000')
+        } else if (/\.png$/.test(path)) {
+            res.set('Cache-Control', 'public, max-age=31536000')
+        }
+    }
+}));
 
 app.get('*', function (request, response) {
-    response.sendFile(path.resolve(__dirname + '/dist', 'index.html'));
+    response.sendFile(path.resolve(__dirname + '/dist', 'index.html'))
 });
 
 app.listen(80)
