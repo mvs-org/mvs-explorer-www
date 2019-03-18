@@ -47,6 +47,12 @@ module.exports = function(grunt) {
             }
         },
         concat: {
+            jquery: {
+                src: [
+                    './node_modules/jquery/dist/jquery.min.js',
+                ],
+                dest: './min/jquery.min.js'
+            },
             optlibs: {
                 src: [
                     './node_modules/jquery/dist/jquery.min.js',
