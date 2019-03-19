@@ -303,6 +303,10 @@
     "FOOTER.MST_LOGO": "MST logos",
 
     "ANNOUNCEMENT.HEADLINE": "Announcements",
-    "NEWS.SEE_MORE": "See more news"
+    "NEWS.SEE_MORE": "See more news",
+
+    "POS_MINERS.TOTAL_VOTES": "Votes",
+    "POS_MINERS.INTERVAL_INFO": "List of top miners ranked by the number of mined blocks within the last {{interval}} PoS blocks.",
+    "EXPLORER.TOTAL_VOTES": "Total number of votes"
     
 }
