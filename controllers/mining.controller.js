@@ -19,9 +19,9 @@
 
         var h = 600;
         var r = h / 2;
-        var powInterval = 3000;
-        var posInterval = 1000;
-        var posTop = 25;
+        $scope.powInterval = 3000;
+        $scope.posInterval = 1000;
+        $scope.posTop = 20;
 
         $scope.block_type_data = [];
         $scope.interval = 1000;
@@ -300,10 +300,10 @@
 
 
         //PoW mining pools
-        MetaverseService.Chart(powInterval)
+        MetaverseService.Chart($scope.powInterval)
             .then((res) => {
                 $scope.powdata = res.data.result;
-                let rest_part = powInterval;
+                let rest_part = $scope.powInterval;
                 $scope.powdata.forEach((miner) => {
                     rest_part -= miner.counter;
                     if ($scope.locations[miner.origin] == undefined)
@@ -326,7 +326,7 @@
                             return "<b>" + d.name + "</b><br>" + d.url;
                         })
                         .y(function(d) {
-                            return d.counter / powInterval * 100;
+                            return d.counter / $scope.powInterval * 100;
                         })
                         .color($scope.colors)
                         .showLabels(true)
@@ -353,23 +353,36 @@
             });
 
         //PoS mining pools
-        MetaverseService.PosVotes(posInterval)
+        MetaverseService.PosVotes($scope.posInterval)
             .then((res) => {
                 $scope.posminers = res.data.result.miners;
                 $scope.posVotesInfo = res.data.result.info;
-                let rest_part = posInterval;
+                let limit = Math.min($scope.posTop, $scope.posminers.length)
                 $scope.posminers.forEach((miner) => {
                     let avatarInfo = {}
-                    rest_part -= miner.recentBlocks;
                     avatarInfo.symbol = miner.avatar;
+                    avatarInfo.recentBlocks = miner.recentBlocks;
                     avatarInfo.totalVotes = miner.totalVotes;
                     $scope.avatars.push(avatarInfo);
                 });
+                
+                $scope.avatars.sort((a, b) => b.recentBlocks - a.recentBlocks);
+                $scope.avatars = $scope.avatars.slice(0, limit)
+
                 $scope.posminers.sort((a, b) => a.recentBlocks - b.recentBlocks);
-                $scope.posminers = [{
+                let otherMiners = $scope.posminers.slice(0, $scope.posminers.length - limit);
+                let others = {
                     avatar: 'others',
-                    recentBlocks: rest_part
-                }].concat($scope.posminers);
+                    recentBlocks: 0,
+                    totalVotes: 0,
+                    pendingVotes: 0
+                }
+                otherMiners.forEach((otherMiner) => {
+                    others.recentBlocks += otherMiner.recentBlocks;
+                    others.totalVotes += otherMiner.totalVotes;
+                    others.pendingVotes += otherMiner.pendingVotes;
+                });
+                $scope.posminers = [others].concat($scope.posminers.slice($scope.posminers.length - limit));
             }).then(() => {
 
                 nv.addGraph(function() {
@@ -378,7 +391,7 @@
                             return "<b>"+d.avatar+"</b><br>Blocks found: "+d.recentBlocks+"<br>Votes: "+d.totalVotes+"<br>Pending votes: "+d.pendingVotes;
                         })
                         .y(function(d) {
-                            return d.recentBlocks / posInterval * 100;
+                            return d.recentBlocks / $scope.posInterval * 100;
                         })
                         .color($scope.colors)
                         .showLabels(true)
