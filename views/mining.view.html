@@ -32,7 +32,7 @@
         </div>
     </div>
     <div class="col-md-8">
-        <div class="col-md-12 panel infobox infobox-specific-height" ng-controller="ChartController">
+        <div class="col-md-12 panel infobox infobox-specific-height">
             <div class="row">
                 <div class="col-md-4">
                     <h3>{{'MINING_POOL_INFORMATION'|translate}}</h3>
@@ -86,6 +86,11 @@
                     <td ng-show="!loading_pos_mining_info">{{pos_mining_info.difficulty/pos_mining_info.difficulty_simplify.divisor | number}} {{pos_mining_info.difficulty_simplify.letter}}</td>
                 </tr>
                 <tr>
+                    <th>{{'EXPLORER.TOTAL_VOTES'|translate}}</th>
+                    <td ng-show="!posVotesInfo"><img src="../images/spinner.gif"></td>
+                    <td ng-show="posVotesInfo">{{posVotesInfo.totalVotes}}</td>
+                </tr>
+                <tr>
                     <th>{{'EXPLORER.LAST_POS'|translate}}</th>
                     <td ng-show="loading_pos_mining_info"><img src="../images/spinner.gif"></td>
                     <td ng-show="!loading_pos_mining_info"><a href="blk/{{pos_mining_info.last}}">{{pos_mining_info.height - pos_mining_info.last}}{{"EXPLORER.BLOCKS_AGO"|translate}}</a></td>
@@ -94,12 +99,13 @@
         </div>
     </div>
     <div class="col-md-8">
-        <div class="col-md-12 panel infobox infobox-specific-height" ng-controller="ChartController">
+        <div class="col-md-12 panel infobox infobox-specific-height">
+            <h3>{{'POS_MINERS_INFORMATION'|translate}}</h3>
+            <p translate="POS_MINERS.INTERVAL_INFO" translate-values="{'interval': posVotesInfo.recentBlocksInterval}"></p>
             <div class="row">
                 <div class="col-md-4">
-                    <h3>{{'POS_MINERS_INFORMATION'|translate}}</h3>
                     <div ng-repeat="avatar in avatars">
-                        <a href="avatar/{{avatar}}">{{$index+1}}: {{avatar}}</a>
+                        <a href="avatar/{{avatar.symbol}}">{{$index+1}}: {{avatar.symbol}} ({{'POS_MINERS.TOTAL_VOTES'|translate}}: {{avatar.totalVotes}}) {{recentBlocks}}</a>
                     </div>
                 </div>
                 <div class="col-md-8">
