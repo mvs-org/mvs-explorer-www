@@ -105,7 +105,7 @@
             <div class="row">
                 <div class="col-md-4">
                     <div ng-repeat="avatar in avatars">
-                        <a href="avatar/{{avatar.symbol}}">{{$index+1}}: {{avatar.symbol}} ({{'POS_MINERS.TOTAL_VOTES'|translate}}: {{avatar.totalVotes}})</a>
+                        <a href="avatar/{{avatar.symbol}}">{{$index+1}}: {{avatar.symbol}} ({{'POS_MINERS.TOTAL_VOTES'|translate}}: {{avatar.totalVotes}}) {{recentBlocks}}</a>
                     </div>
                 </div>
                 <div class="col-md-8">
