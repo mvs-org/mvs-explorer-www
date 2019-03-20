@@ -57,7 +57,7 @@
             self.setMetaTags = function (tagData) {
                 $window.document.getElementsByName('title')[0].content = tagData.title || "Metaverse Blockchain Explorer";
                 $window.document.getElementsByTagName('title')[0].innerHTML = tagData.title || "Metaverse Blockchain Explorer";
-                $window.document.getElementsByTagName('title')[0].innerHTML = tagData.title || "Metaverse Blockchain Explorer";
+                $window.document.getElementsByTagName('robots')[0].content = tagData.robots || "noindex, follow";
                 $window.document.getElementsByName('description')[0].content = tagData.description || "Metaverse Blockchain Explorer is a web tool that provides detailed information about Metaverse Smart Assets, Blocks, Addresses, and Transactions.";
                 $window.document.getElementsByName('keywords')[0].content = tagData.keywords || "metaverse, explorer, blockchain, digital identity, asset";
             };
@@ -90,7 +90,8 @@
                 meta: {
                     title: 'Metaverse ETP Blockchain Explorer',
                     description: 'The Metaverse Blockchain Explorer provides insights into digital identity, ETP, smart assets, transactions and mining.',
-                    keywords: "metaverse, blockchain, explorer, etp, mvs"
+                    keywords: "metaverse, blockchain, explorer, etp, mvs",
+                    robots: "index, follow",
                 },
                 templateUrl: "views/startpage.view.html",
                 controller: 'StartpageController'
@@ -100,21 +101,27 @@
                 meta: {
                     title: 'Metaverse Explorer API',
                     description: 'API documentation of the Metaverse Blockchain Explorer. Join our developer community and create your own project today.',
-                    keywords: "metaverse, blockchain, api, developer"
+                    keywords: "metaverse, blockchain, api, developer",
+                    robots: "index, nofollow",
                 },
                 templateUrl: "views/api/api.html"
             })
             .state('explorer.transaction', {
                 url: "/tx/:hash",
                 templateUrl: "views/transaction.view.html",
-                controller: 'TransactionController'
+                controller: 'TransactionController',
+                meta: {
+                    keywords: "metaverse, blockchain, transaction, tx, etp",
+                    robots: "noindex, nofollow",
+                },
             })
             .state('explorer.blocks', {
                 url: "/blocks",
                 meta: {
                     title: 'Metaverse Blocks',
                     description: 'List all blocks of the Metaverse Blockchain.',
-                    keywords: "metaverse, blockchain, block"
+                    keywords: "metaverse, blockchain, block",
+                    robots: "index, nofollow",
                 },
                 templateUrl: "views/blocks.view.html",
                 controller: 'BlocksController'
@@ -124,7 +131,8 @@
                 meta: {
                     title: 'Metaverse Transactions',
                     description: 'List all transactions of the Metaverse Blockchain.',
-                    keywords: "metaverse, blockchain, transactions"
+                    keywords: "metaverse, blockchain, transactions",
+                    robots: "index, nofollow",
                 },
                 templateUrl: "views/txs.view.html",
                 controller: 'TransactionsController'
@@ -134,7 +142,8 @@
                 meta: {
                     title: 'Metaverse Mining',
                     description: 'Minning statistics and information of the Metaverse Blockchain. POW and POS mining.',
-                    keywords: "metaverse, blockchain, mining, pow, pos, stake"
+                    keywords: "metaverse, blockchain, mining, pow, pos, stake",
+                    robots: "index, follow",
                 },
                 templateUrl: "views/mining.view.html",
                 controller: 'MiningController'
@@ -142,11 +151,19 @@
             .state('explorer.block', {
                 url: "/blk/:number",
                 templateUrl: "views/block.view.html",
+                meta: {
+                    keywords: "metaverse, blockchain, block, etp",
+                    robots: "noindex, nofollow",
+                },
                 controller: 'BlockController'
             })
             .state('explorer.address', {
                 url: "/adr/:address",
                 templateUrl: "views/address.view.html",
+                meta: {
+                    keywords: "metaverse, blockchain, address, etp",
+                    robots: "index, nofollow",
+                },
                 controller: 'AddressController'
             })
             .state('explorer.asset', {
@@ -159,6 +176,7 @@
                 meta: {
                     title: 'Metaverse Digital Identity - Avatars',
                     description: 'Register of the Metaverse Blockchain Avatars. Create your own digital identity.',
+                    robots: "index, follow",
                     keywords: "metaverse, blockchain, digital, identity, avatar"
                 },
                 templateUrl: "views/avatars.view.html",
@@ -167,6 +185,12 @@
             .state('explorer.avatar', {
                 url: "/avatar/:symbol",
                 templateUrl: "views/avatar.view.html",
+                meta: {
+                    title: 'Metaverse Digital Identity - Avatar',
+                    description: 'Metaverse Avatars are a digital identity register on the Blockchain.',
+                    robots: "index, follow",
+                    keywords: "metaverse, blockchain, digital, identity, avatar"
+                },
                 controller: 'AvatarController'
             })
             .state('explorer.assetslist', {
@@ -179,7 +203,8 @@
                 meta: {
                     title: 'Metaverse Smart Token - MST',
                     description: 'Registry of the Metaverse Blockchain MST. Create your own smart asset.',
-                    keywords: "metaverse, blockchain, mst, smart, asset"
+                    keywords: "metaverse, blockchain, mst, smart, asset",
+                    robots: "index, follow",
                 },
                 templateUrl: "views/assetslist.view.html",
                 controller: 'AssetsListController'
@@ -189,7 +214,8 @@
                 meta: {
                     title: 'Metaverse Smart Token - Certificates',
                     description: 'Registry of the Metaverse Blockchain MST certificates. Certificates grant rights to issue Metaverse Smart Tokens (MST).',
-                    keywords: "metaverse, blockchain, mst, certificate"
+                    keywords: "metaverse, blockchain, mst, certificate",
+                    robots: "index, nofollow",
                 },
                 templateUrl: "views/certs.view.html",
                 controller: 'CertsController'
@@ -197,20 +223,33 @@
             .state('explorer.broadcast', {
                 url: "/broadcast",
                 templateUrl: "views/broadcast.view.html",
-                controller: 'BroadcastTransactionController'
+                meta: {
+                    title: 'Metaverse Transaction Broadcast - ETP',
+                    description: 'Broadcast raw transactions on the Metaverse Blockchain.',
+                    keywords: "metaverse, blockchain, transaction, broadcast",
+                    robots: "index, nofollow",
+                },
+                controller: 'BroadcastTransactionController',
             })
             .state('explorer.mits', {
                 url: "/mits",
                 meta: {
                     title: 'Metaverse Identifiable Token - MIT',
                     description: 'Register of the Metaverse Blockchain MIT. Create your own unique identifiable token.',
-                    keywords: "metaverse, blockchain, mit, smart, asset"
+                    keywords: "metaverse, blockchain, mit, smart, asset",
+                    robots: "index, follow",
                 },
                 templateUrl: "views/mits.view.html",
                 controller: 'MitsController'
             })
             .state('explorer.mit', {
                 url: "/mit/:symbol",
+                meta: {
+                    title: 'Metaverse Identifiable Token - MIT',
+                    description: 'Register of the Metaverse Blockchain MIT. Create your own unique identifiable token.',
+                    keywords: "metaverse, blockchain, mit, smart, asset",
+                    robots: "index, follow",
+                },
                 templateUrl: "views/mit.view.html",
                 controller: 'MitController'
             })
@@ -219,7 +258,8 @@
                 meta: {
                     title: 'Metaverse Blockchain News - ETP, Smart Assets and Digital Identity',
                     description: 'Latest news and information about ETP and the Metaverse Blockchain Ecosystem.',
-                    keywords: "metaverse, blockchain, news, etp, mvs"
+                    keywords: "metaverse, blockchain, news, etp, mvs",
+                    robots: "index, follow",
                 },
                 templateUrl: "views/news.view.html",
                 controller: 'NewsController'
