@@ -168,6 +168,12 @@
             })
             .state('explorer.asset', {
                 url: "/asset/:symbol",
+                meta: {
+                    title: 'Metaverse Smart Token - MST',
+                    description: 'Registry of the Metaverse Blockchain MST. Create your own smart asset.',
+                    keywords: "metaverse, blockchain, asset, etp",
+                    robots: "noindex, nofollow",
+                },
                 templateUrl: "views/asset.view.html",
                 controller: 'AssetController'
             })
