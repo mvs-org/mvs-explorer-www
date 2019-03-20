@@ -286,27 +286,27 @@
     "EXPLORER.NUMBER_TXS_24H": "最近 24 小时的交易数量",
 
     "GENERAL_INFORMATION": "信息",
-    "TOP_MENU_NEWS": "News",
-    "NEWS.HEADLINE": "News",
-    "RECENT_UPDATES": "Recent updates",
-    "NEWS.LINK": "Link",
+    "TOP_MENU_NEWS": "新闻",
+    "NEWS.HEADLINE": "新闻",
+    "RECENT_UPDATES": "最新更新",
+    "NEWS.LINK": "链接",
 
-    "FOOTER.INTERNAL_LINKS": "About us",
-    "FOOTER.EXTERNAL_LINKS": "External links",
-    "FOOTER.INFO_LINKS": "Info",
-    "FOOTER.LINK_OFFICIAL_WEBSITE": "Official website",
-    "FOOTER.LINK_LIGHTWALLET": "Official lightwallet",
-    "FOOTER.LINK_THIRD_PARTY_EXPLORER": "Third party explorer",
-    "FOOTER.LINK_NEWS": "News",
+    "FOOTER.INTERNAL_LINKS": "关于我们",
+    "FOOTER.EXTERNAL_LINKS": "外链",
+    "FOOTER.INFO_LINKS": "信息",
+    "FOOTER.LINK_OFFICIAL_WEBSITE": "官方主页",
+    "FOOTER.LINK_LIGHTWALLET": "官方轻钱包",
+    "FOOTER.LINK_THIRD_PARTY_EXPLORER": "第三方浏览器",
+    "FOOTER.LINK_NEWS": "新闻",
     "FOOTER.LINK_API": "API",
-    "FOOTER.METAVERSE_LOGO": "Official logos",
-    "FOOTER.MST_LOGO": "MST logos",
+    "FOOTER.METAVERSE_LOGO": "官方Logo",
+    "FOOTER.MST_LOGO": "MST资产的Logo",
 
-    "ANNOUNCEMENT.HEADLINE": "Announcements",
-    "NEWS.SEE_MORE": "See more news",
+    "ANNOUNCEMENT.HEADLINE": "公告",
+    "NEWS.SEE_MORE": "查看更多新闻",
 
-    "POS_MINERS.TOTAL_VOTES": "Votes",
-    "POS_MINERS.INTERVAL_INFO": "List of top miners ranked by the number of mined blocks within the last {{interval}} PoS blocks.",
-    "EXPLORER.TOTAL_VOTES": "Total number of votes"
+    "POS_MINERS.TOTAL_VOTES": "投票",
+    "POS_MINERS.INTERVAL_INFO": "过去的{{interval}}个PoS区块中，根据矿工所挖区块数量多少排列的矿工列表。",
+    "EXPLORER.TOTAL_VOTES": "投票总数"
     
 }
