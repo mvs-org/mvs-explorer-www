@@ -357,7 +357,8 @@
             .then((res) => {
                 $scope.posminers = res.data.result.miners;
                 $scope.posVotesInfo = res.data.result.info;
-                let limit = Math.min($scope.posTop, $scope.posminers.length)
+                $scope.nbrPosMiners = $scope.posminers.length;
+                let limit = Math.min($scope.posTop, $scope.nbrPosMiners)
                 $scope.posminers.forEach((miner) => {
                     let avatarInfo = {}
                     avatarInfo.symbol = miner.avatar;
@@ -370,7 +371,7 @@
                 $scope.avatars = $scope.avatars.slice(0, limit)
 
                 $scope.posminers.sort((a, b) => a.recentBlocks - b.recentBlocks);
-                let otherMiners = $scope.posminers.slice(0, $scope.posminers.length - limit);
+                let otherMiners = $scope.posminers.slice(0, $scope.nbrPosMiners - limit);
                 let others = {
                     avatar: 'others',
                     recentBlocks: 0,

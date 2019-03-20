@@ -307,6 +307,8 @@
 
     "POS_MINERS.TOTAL_VOTES": "投票",
     "POS_MINERS.INTERVAL_INFO": "过去的{{interval}}个PoS区块中，根据矿工所挖区块数量多少排列的矿工列表。",
-    "EXPLORER.TOTAL_VOTES": "投票总数"
+    "EXPLORER.TOTAL_VOTES": "投票总数",
+
+    "EXPLORER.TOTAL_POS_MINERS": "Total number of active miners"
     
 }
