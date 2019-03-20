@@ -103,6 +103,8 @@
 
         service.PosChart = (interval, top) => _send('posstats' + ((interval) ? '?interval=' + interval + ((top) ? '&top=' + top : '') : ((top) ? '?top=' + top : '')));
 
+        service.PosVotes = (interval) => _send('posvotes' + ((interval) ? '?interval=' + interval : ''));
+
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 
         service.GetEthSwapRate = () => _send('bridge/rate/ETHETP');

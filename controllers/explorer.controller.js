@@ -19,7 +19,6 @@
         .controller('ExplorerController', ExplorerController)
         .controller('SearchController', SearchController)
         .controller('NodeMapController', NodeMapController)
-        .controller('ChartController', ChartController)
         .directive('checkImage', function() {
             return {
                 link: function(scope, element, attrs) {
@@ -55,130 +54,6 @@
         $rootScope.$on("$locationChangeStart", function(event, next, current) {
             setMenu();
         });
-    }
-
-    function ChartController($scope, MetaverseService) {
-        var h = 600;
-        var r = h / 2;
-        var interval = 3000;
-        var posInterval = 1000;
-        var posTop = 25;
-
-        $scope.data = [];
-        $scope.posdata = [];
-        $scope.locations = {}; 
-        $scope.avatars = [];     
-
-        $scope.colors = [
-            "#006599", // dark blue
-            "#0099CB", // blue
-            '#fe6700', // orange
-            '#ffd21c', // yellow
-            "#fe0000" // red
-        ];
-
-
-        //PoW mining pools
-        MetaverseService.Chart(interval)
-            .then((res) => {
-                $scope.data = res.data.result;
-                let rest_part = interval;
-                $scope.data.forEach((miner) => {
-                    rest_part -= miner.counter;
-                    if ($scope.locations[miner.origin] == undefined)
-                        $scope.locations[miner.origin] = [];
-                    $scope.locations[miner.origin].push(miner);
-                });
-                $scope.data.sort((a, b) => a.counter - b.counter);
-                $scope.data = [{
-                    name: 'others',
-                    url: "",
-                    counter: rest_part
-                }].concat($scope.data);
-                $scope.locationsmap = Object.keys($scope.locations);
-
-            }).then(() => {
-
-                nv.addGraph(function() {
-                    var chart = nv.models.pieChart()
-                        .x(function(d) {
-                            return "<b>" + d.name + "</b><br>" + d.url;
-                        })
-                        .y(function(d) {
-                            return d.counter / interval * 100;
-                        })
-                        .color($scope.colors)
-                        .showLabels(true)
-                        .showLegend(false)
-                        .labelType("percent");
-
-                    d3.select("#chart svg")
-                        .datum($scope.data)
-                        .transition().duration(1200)
-                        .call(chart);
-
-                    var positionX = 210;
-                    var positionY = 30;
-                    var verticalOffset = 25;
-
-                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
-                        positionY += verticalOffset;
-                        d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
-                    });
-
-                    return chart;
-                });
-
-            });
-
-        //PoS mining pools
-        MetaverseService.PosChart(posInterval, posTop)
-            .then((res) => {
-                $scope.posdata = res.data.result;
-                let rest_part = posInterval;
-                $scope.posdata.forEach((miner) => {
-                    rest_part -= miner.counter;
-                    $scope.avatars.push(miner.avatar);
-                });
-                $scope.posdata.sort((a, b) => a.counter - b.counter);
-                $scope.posdata = [{
-                    avatar: 'others',
-                    counter: rest_part
-                }].concat($scope.posdata);
-            }).then(() => {
-
-                nv.addGraph(function() {
-                    var poschart = nv.models.pieChart()
-                        .x(function(d) {
-                            return d.avatar;
-                        })
-                        .y(function(d) {
-                            return d.counter / posInterval * 100;
-                        })
-                        .color($scope.colors)
-                        .showLabels(true)
-                        .showLegend(false)
-                        .labelType("percent");
-
-                    d3.select("#poschart svg")
-                        .datum($scope.posdata)
-                        .transition().duration(1200)
-                        .call(poschart);
-
-                    var positionX = 210;
-                    var positionY = 30;
-                    var verticalOffset = 25;
-
-                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
-                        positionY += verticalOffset;
-                        d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
-                    });
-
-                    return poschart;
-                });
-
-            });
-
     }
 
     function ExplorerController($translate, localStorageService, $scope, FlashService) {

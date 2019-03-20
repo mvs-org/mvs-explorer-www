@@ -19,9 +19,18 @@
 
         var h = 600;
         var r = h / 2;
+        $scope.powInterval = 3000;
+        $scope.posInterval = 1000;
+        $scope.posTop = 20;
 
         $scope.block_type_data = [];
         $scope.interval = 1000;
+
+        $scope.powdata = [];
+        $scope.posminers = [];
+        $scope.posVotesInfo = {};
+        $scope.locations = {}; 
+        $scope.avatars = [];  
 
         $scope.colors = [
             "#006599", // dark blue
@@ -285,6 +294,125 @@
                     });
 
                     return blockstypechart;
+                });
+
+            });
+
+
+        //PoW mining pools
+        MetaverseService.Chart($scope.powInterval)
+            .then((res) => {
+                $scope.powdata = res.data.result;
+                let rest_part = $scope.powInterval;
+                $scope.powdata.forEach((miner) => {
+                    rest_part -= miner.counter;
+                    if ($scope.locations[miner.origin] == undefined)
+                        $scope.locations[miner.origin] = [];
+                    $scope.locations[miner.origin].push(miner);
+                });
+                $scope.powdata.sort((a, b) => a.counter - b.counter);
+                $scope.powdata = [{
+                    name: 'others',
+                    url: "",
+                    counter: rest_part
+                }].concat($scope.powdata);
+                $scope.locationsmap = Object.keys($scope.locations);
+
+            }).then(() => {
+
+                nv.addGraph(function() {
+                    var chart = nv.models.pieChart()
+                        .x(function(d) {
+                            return "<b>" + d.name + "</b><br>" + d.url;
+                        })
+                        .y(function(d) {
+                            return d.counter / $scope.powInterval * 100;
+                        })
+                        .color($scope.colors)
+                        .showLabels(true)
+                        .showLegend(false)
+                        .labelType("percent");
+
+                    d3.select("#chart svg")
+                        .datum($scope.powdata)
+                        .transition().duration(1200)
+                        .call(chart);
+
+                    var positionX = 210;
+                    var positionY = 30;
+                    var verticalOffset = 25;
+
+                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                        positionY += verticalOffset;
+                        d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
+                    });
+
+                    return chart;
+                });
+
+            });
+
+        //PoS mining pools
+        MetaverseService.PosVotes($scope.posInterval)
+            .then((res) => {
+                $scope.posminers = res.data.result.miners;
+                $scope.posVotesInfo = res.data.result.info;
+                let limit = Math.min($scope.posTop, $scope.posminers.length)
+                $scope.posminers.forEach((miner) => {
+                    let avatarInfo = {}
+                    avatarInfo.symbol = miner.avatar;
+                    avatarInfo.recentBlocks = miner.recentBlocks;
+                    avatarInfo.totalVotes = miner.totalVotes;
+                    $scope.avatars.push(avatarInfo);
+                });
+                
+                $scope.avatars.sort((a, b) => b.recentBlocks - a.recentBlocks);
+                $scope.avatars = $scope.avatars.slice(0, limit)
+
+                $scope.posminers.sort((a, b) => a.recentBlocks - b.recentBlocks);
+                let otherMiners = $scope.posminers.slice(0, $scope.posminers.length - limit);
+                let others = {
+                    avatar: 'others',
+                    recentBlocks: 0,
+                    totalVotes: 0,
+                    pendingVotes: 0
+                }
+                otherMiners.forEach((otherMiner) => {
+                    others.recentBlocks += otherMiner.recentBlocks;
+                    others.totalVotes += otherMiner.totalVotes;
+                    others.pendingVotes += otherMiner.pendingVotes;
+                });
+                $scope.posminers = [others].concat($scope.posminers.slice($scope.posminers.length - limit));
+            }).then(() => {
+
+                nv.addGraph(function() {
+                    var poschart = nv.models.pieChart()
+                        .x(function(d) {
+                            return "<b>"+d.avatar+"</b><br>Blocks found: "+d.recentBlocks+"<br>Votes: "+d.totalVotes+"<br>Pending votes: "+d.pendingVotes;
+                        })
+                        .y(function(d) {
+                            return d.recentBlocks / $scope.posInterval * 100;
+                        })
+                        .color($scope.colors)
+                        .showLabels(true)
+                        .showLegend(false)
+                        .labelType("percent");
+
+                    d3.select("#poschart svg")
+                        .datum($scope.posminers)
+                        .transition().duration(1200)
+                        .call(poschart);
+
+                    var positionX = 210;
+                    var positionY = 30;
+                    var verticalOffset = 25;
+
+                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                        positionY += verticalOffset;
+                        d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
+                    });
+
+                    return poschart;
                 });
 
             });
