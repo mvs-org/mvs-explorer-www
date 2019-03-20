@@ -57,6 +57,7 @@ module.exports = function(grunt) {
                 src: [
                     './node_modules/jquery/dist/jquery.min.js',
                     './node_modules/qrcode/build/qrcode.min.js',
+                    './js/fontawesome-all.min.js',
                     './node_modules/bootstrap/dist/js/bootstrap.min.js'
                 ],
                 dest: './min/optlibs.min.js'
@@ -212,5 +213,5 @@ module.exports = function(grunt) {
 
 
     //register grunt default task
-    grunt.registerTask('default', ['ngAnnotate', 'concat', 'babel', 'uglify', 'cssmin', 'copy', 'revPackage', 'string-replace']);
+    grunt.registerTask('default', ['clean', 'ngAnnotate', 'concat', 'babel', 'uglify', 'cssmin', 'copy', 'revPackage', 'string-replace']);
 };
