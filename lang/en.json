@@ -319,6 +319,8 @@
     "AVATAR_POS_MINING.TOTAL_VOTES": "Total number of votes",
     "AVATAR_POS_MINING.PENDING_VOTES": "Number of pending votes",
     "AVATAR_POS_MINING.MST_MINING": "MST currently mining",
-    "AVATAR_POS_MINING.MST_MINING_NONE": "Not mining any MST"
+    "AVATAR_POS_MINING.MST_MINING_NONE": "Not mining any MST",
+
+    "ASSET.MINED_SUPPLY": "Distributed via mining"
 
 }
