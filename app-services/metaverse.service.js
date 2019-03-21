@@ -14,9 +14,9 @@
         var service = {};
 
         var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-        //var SERVER = "http://localhost";
+        //SERVER = "http://localhost";
         //SERVER = "https://explorer.mvs.org/api";
-        //var SERVER = "https://explorer-testnet.mvs.org/api";
+        //SERVER = "https://explorer-testnet.mvs.org/api";
 
         var MAINNET = "https://explorer.mvs.org/api";
 
@@ -104,6 +104,8 @@
         service.PosChart = (interval, top) => _send('posstats' + ((interval) ? '?interval=' + interval + ((top) ? '&top=' + top : '') : ((top) ? '?top=' + top : '')));
 
         service.PosVotes = (interval) => _send('posvotes' + ((interval) ? '?interval=' + interval : ''));
+
+        service.MinerVotes = (avatar, interval) => _send('posvotes/' + avatar + ((interval) ? '?interval=' + interval : ''));
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 
