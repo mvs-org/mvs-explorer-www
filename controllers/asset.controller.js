@@ -94,7 +94,7 @@
                 .then((response) => {
                     $scope.loading_asset = false;
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $scope.asset = response.data.result[0];
+                        $scope.asset = response.data.result;
                         $scope.asset.icon = ($scope.icons.indexOf($scope.symbol) > -1) ? $scope.symbol : 'default_mst';
                     }
                 })
@@ -159,13 +159,13 @@
                             address: stake.a,
                             row_quantity: stake.q,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
+                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity) * 100).toFixed(3))
                         };
                     });
 
                     let rest = {
                         share: 100,
-                        quantity: $scope.asset.quantity / Math.pow(10, -$scope.asset.decimals)
+                        quantity: ($scope.asset.quantity + $scope.asset.minedQuantity) / Math.pow(10, -$scope.asset.decimals)
                     };
                     $scope.stakelist.forEach((stake) => {
                         rest.share -= stake.share;

@@ -364,6 +364,7 @@
                     avatarInfo.symbol = miner.avatar;
                     avatarInfo.recentBlocks = miner.recentBlocks;
                     avatarInfo.totalVotes = miner.totalVotes;
+                    miner.mstMining = miner.mstMining ? miner.mstMining : "None";
                     $scope.avatars.push(avatarInfo);
                 });
                 
@@ -389,7 +390,7 @@
                 nv.addGraph(function() {
                     var poschart = nv.models.pieChart()
                         .x(function(d) {
-                            return "<b>"+d.avatar+"</b><br>Blocks found: "+d.recentBlocks+"<br>Votes: "+d.totalVotes+"<br>Pending votes: "+d.pendingVotes;
+                            return "<b>"+d.avatar+"</b><br>Blocks found: "+d.recentBlocks+"<br>Votes: "+d.totalVotes+"<br>Pending votes: "+d.pendingVotes+"<br>MST mining: "+d.mstMining;
                         })
                         .y(function(d) {
                             return d.recentBlocks / $scope.posInterval * 100;
