@@ -86,6 +86,11 @@
                     <td ng-show="!loading_pos_mining_info">{{pos_mining_info.difficulty/pos_mining_info.difficulty_simplify.divisor | number}} {{pos_mining_info.difficulty_simplify.letter}}</td>
                 </tr>
                 <tr>
+                    <th>{{'EXPLORER.TOTAL_POS_MINERS'|translate}}</th>
+                    <td ng-show="!nbrPosMiners"><img src="../images/spinner.gif"></td>
+                    <td ng-show="nbrPosMiners">{{nbrPosMiners}}</td>
+                </tr>
+                <tr>
                     <th>{{'EXPLORER.TOTAL_VOTES'|translate}}</th>
                     <td ng-show="!posVotesInfo"><img src="../images/spinner.gif"></td>
                     <td ng-show="posVotesInfo">{{posVotesInfo.totalVotes}}</td>

@@ -307,6 +307,16 @@
 
     "POS_MINERS.TOTAL_VOTES": "Votes",
     "POS_MINERS.INTERVAL_INFO": "List of top miners ranked by the number of mined blocks within the last {{interval}} PoS blocks.",
-    "EXPLORER.TOTAL_VOTES": "Total number of votes"
+    "EXPLORER.TOTAL_VOTES": "Total number of votes",
+
+    "EXPLORER.TOTAL_POS_MINERS": "Total number of active miners",
+
+    "AVATAR_POS_MINING.HEADLINE": "PoS mining info",
+    "AVATAR_POS_MINING.RECENT_BLOCKS": "Number of blocks found recently",
+    "AVATAR_POS_MINING.RECENT_BLOCKS_SHARE": "Percentage of blocks found recently",
+    "AVATAR_POS_MINING.LAST_BLOCK": "Last block found",
+    "AVATAR_POS_MINING.LAST_BLOCK_TIME": "Last block found time",
+    "AVATAR_POS_MINING.TOTAL_VOTES": "Total number of votes",
+    "AVATAR_POS_MINING.PENDING_VOTES": "Number of pending votes"
 
 }
