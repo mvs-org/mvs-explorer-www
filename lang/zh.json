@@ -317,7 +317,9 @@
     "AVATAR_POS_MINING.LAST_BLOCK": "Last block found",
     "AVATAR_POS_MINING.LAST_BLOCK_TIME": "Last block found time",
     "AVATAR_POS_MINING.TOTAL_VOTES": "Total number of votes",
-    "AVATAR_POS_MINING.PENDING_VOTES": "Number of pending votes"
+    "AVATAR_POS_MINING.PENDING_VOTES": "Number of pending votes",
+    "AVATAR_POS_MINING.MST_MINING": "MST currently mining",
+    "AVATAR_POS_MINING.MST_MINING_NONE": "Not mining any MST"
 
     
 }
