@@ -73,6 +73,10 @@
                 <div class="col-md-8 list-item-value">{{ posMining.totalVotes }}</div>
             </div>
             <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.AVAILABLE_VOTES' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ posMining.totalVotes-posMining.pendingVotes }}</div>
+            </div>
+            <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.PENDING_VOTES' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{ posMining.pendingVotes }}</div>
             </div>

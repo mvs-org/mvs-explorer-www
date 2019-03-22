@@ -390,7 +390,7 @@
                 nv.addGraph(function() {
                     var poschart = nv.models.pieChart()
                         .x(function(d) {
-                            return "<b>"+d.avatar+"</b><br>Blocks found: "+d.recentBlocks+"<br>Votes: "+d.totalVotes+"<br>Pending votes: "+d.pendingVotes+"<br>MST mining: "+d.mstMining;
+                            return "<b>"+d.avatar+"</b><br>Recent blocks: "+d.recentBlocks+"<br>Total votes: "+d.totalVotes+"<br>Available votes: "+(d.totalVotes-d.pendingVotes)+"<br>Pending votes: "+d.pendingVotes+"<br>MST mining: "+d.mstMining;
                         })
                         .y(function(d) {
                             return d.recentBlocks / $scope.posInterval * 100;
