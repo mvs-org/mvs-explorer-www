@@ -6,7 +6,7 @@
         .controller('AvatarController', AvatarController)
         .controller('AvatarsController', AvatarsController);
 
-    function AvatarController($scope, MetaverseService, $stateParams, Assets) {
+    function AvatarController($scope, MetaverseService, $stateParams, Assets, $interval) {
 
         $scope.loading_balances = true;
         $scope.loading_avatar = true;
@@ -22,6 +22,8 @@
         $scope.last_known = '';
         $scope.loading_txs = false;
         $scope.txs_fully_loaded = false;
+        $scope.currentTimeStamp = Math.floor(Date.now());
+        $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
         MetaverseService.FetchAvatar($stateParams.symbol)
             .then((response) => {
@@ -40,6 +42,15 @@
             .then((response) => {
                 $scope.certs = response.data.result;
                 $scope.loading_certs = false;
+            })
+            .catch((error) => {
+                $scope.loading_certs = false;
+                console.error(error);
+            });
+
+        MetaverseService.MinerVotes($stateParams.symbol, 1000)
+            .then((response) => {
+                $scope.posMining = response.data.result
             })
             .catch((error) => {
                 $scope.loading_certs = false;

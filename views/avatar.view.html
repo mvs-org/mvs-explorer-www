@@ -42,6 +42,52 @@
         </div>
     </div>
 
+    <h2 class="headline" ng-show="posMining"><em></em>{{ 'AVATAR_POS_MINING.HEADLINE' | translate }}</h2>
+    <div class="row panel nga-default nga-stagger nga-fade" ng-show="posMining">
+        <div class="col-md-12 panel-body">
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.RECENT_BLOCKS' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ posMining.recentBlocks }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.RECENT_BLOCKS_SHARE' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ posMining.recentBlocks / posMining.recentBlocksInterval * 100 * 10 | numberFormat:1}}%</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.LAST_BLOCK' | translate }}</div>
+                <div class="col-md-8 list-item-value"><a href="blk/{{posMining.lastBlockHeight}}">{{ posMining.lastBlockHeight }}</a></div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.LAST_BLOCK_TIME' | translate }}</div>
+                <div class="col-md-8 list-item-value">
+                    <a href="blk/{{posMining.lastBlockHeight}}">
+                        <span ng-show="currentTimeStamp - (posMining.lastBlockTime * 1000) > 3600000">{{currentTimeStamp - (posMining.lastBlockTime * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span>
+                        <span ng-show="currentTimeStamp - (posMining.lastBlockTime * 1000) > 60000">{{currentTimeStamp - (posMining.lastBlockTime * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span>
+                        <span>{{currentTimeStamp - (posMining.lastBlockTime * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
+                        <span>{{ 'AGO' | translate }}</span>
+                    </a>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.TOTAL_VOTES' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ posMining.totalVotes }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.AVAILABLE_VOTES' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ posMining.totalVotes-posMining.pendingVotes }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.PENDING_VOTES' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{ posMining.pendingVotes }}</div>
+            </div>
+            <div class="row">
+                <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.MST_MINING' | translate }}</div>
+                <div ng-show="posMining.mstMining" class="col-md-8 list-item-value">{{ posMining.mstMining }}</div>
+                <div ng-show="!posMining.mstMining" class="col-md-8 list-item-value">{{ 'AVATAR_POS_MINING.MST_MINING_NONE' | translate }}</div>
+            </div>
+        </div>
+    </div>
+
     <h2 class="headline"><em></em>{{ 'AVATAR.CERTIFICATES' | translate }}</h2>
     <div ng-show="loading_certs">
         <div class="mini-loader">Loading...</div>
@@ -71,7 +117,6 @@
             </div>
         </div>
     </div>
-
 
     <h2 class="headline"><em></em>{{ 'AVATAR.INFO' | translate }}</h2>
     <div ng-show="loading_avatar">
