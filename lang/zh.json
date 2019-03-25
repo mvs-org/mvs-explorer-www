@@ -322,7 +322,11 @@
     "AVATAR_POS_MINING.MST_MINING": "MST currently mining",
     "AVATAR_POS_MINING.MST_MINING_NONE": "Not mining any MST",
 
-    "ASSET.MINED_SUPPLY": "Distributed via mining"
+    "ASSET.MINED_SUPPLY": "Distributed via mining",
 
-    
+    "MST_MINING_INFORMATION": "Top MST mining",
+    "MST_MINING.FULL_LIST": "MST mining full list",
+    "MST_MINING.NOT_MINING_MST": "Not mining any MST",
+    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time."
+
 }

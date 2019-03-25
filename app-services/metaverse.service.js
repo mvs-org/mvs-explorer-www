@@ -106,6 +106,10 @@
         service.PosVotes = (interval) => _send('posvotes' + ((interval) ? '?interval=' + interval : ''));
 
         service.MinerVotes = (avatar, interval) => _send('posvotes/' + avatar + ((interval) ? '?interval=' + interval : ''));
+        
+        service.MstMining = (interval) => _send('mstmining' + ((interval) ? '?interval=' + interval : ''));
+
+        service.MstMiningList = () => _send('mstmininglist');
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 
