@@ -44,7 +44,6 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-
                     <div>
                         <!-- <nvd3 options="options" data="data"></nvd3> -->
                         <div id="chart">
@@ -114,11 +113,8 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-
-                    <div>
-                        <div id="poschart">
-                            <svg></svg>
-                        </div>
+                    <div id="poschart">
+                        <svg></svg>
                     </div>
                 </div>
             </div>
@@ -193,6 +189,39 @@
                         <div id="blockstypechart">
                             <svg></svg>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-md-12 panel infobox infobox-specific-height mining-box">
+            <h3>{{'MST_MINING.FULL_LIST'|translate}}</h3>
+            <table>
+                <tr ng-repeat="mst in mstMiningList">
+                    <th><a href="asset/{{mst}}">{{mst}}</a></th>
+                </tr>
+            </table>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="col-md-12 panel infobox infobox-specific-height">
+            <h3>{{'MST_MINING_INFORMATION'|translate}}</h3>
+            <p translate="MST_MINING.GRAPH_DESCRIPTION" translate-values="{'interval': posVotesInfo.recentBlocksInterval}"></p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div ng-repeat="mst in mstMined">
+                        <a ng-show="mst.mst" href="asset/{{mst.mst}}">{{$index+1}}: {{mst.mst}} ({{mst.share}}%)</a>
+                        <span ng-hide="mst.mst">{{$index+1}}: {{'MST_MINING.NOT_MINING_MST'|translate}} ({{mst.share}}%)</a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div id="mstminingchart">
+                        <svg></svg>
                     </div>
                 </div>
             </div>

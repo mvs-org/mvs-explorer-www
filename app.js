@@ -141,12 +141,23 @@
                 url: "/mining",
                 meta: {
                     title: 'Metaverse Mining',
-                    description: 'Minning statistics and information of the Metaverse Blockchain. POW and POS mining.',
+                    description: 'Mining statistics and information of the Metaverse Blockchain. POW and POS mining.',
                     keywords: "metaverse, blockchain, mining, pow, pos, stake",
                     robots: "index, follow",
                 },
                 templateUrl: "views/mining.view.html",
                 controller: 'MiningController'
+            })
+            .state('explorer.stats', {
+                url: "/stats",
+                meta: {
+                    title: 'Metaverse Statistics',
+                    description: 'General statistics and information of the Metaverse Blockchain. Blocktime and transactions per day.',
+                    keywords: "metaverse, blockchain, statistics, transactions, day",
+                    robots: "index, follow",
+                },
+                templateUrl: "views/stats.view.html",
+                controller: 'StatsController'
             })
             .state('explorer.block', {
                 url: "/blk/:number",

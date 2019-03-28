@@ -317,11 +317,21 @@
     "AVATAR_POS_MINING.LAST_BLOCK": "Last block found",
     "AVATAR_POS_MINING.LAST_BLOCK_TIME": "Last block found time",
     "AVATAR_POS_MINING.TOTAL_VOTES": "Total number of votes",
+    "AVATAR_POS_MINING.AVAILABLE_VOTES": "Number of available votes",
     "AVATAR_POS_MINING.PENDING_VOTES": "Number of pending votes",
     "AVATAR_POS_MINING.MST_MINING": "MST currently mining",
     "AVATAR_POS_MINING.MST_MINING_NONE": "Not mining any MST",
 
-    "ASSET.MINED_SUPPLY": "Distributed via mining"
+    "ASSET.MINED_SUPPLY": "Distributed via mining",
 
-    
+    "MST_MINING_INFORMATION": "Top MST mining",
+    "MST_MINING.FULL_LIST": "MST mining full list",
+    "MST_MINING.NOT_MINING_MST": "Not mining any MST",
+    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time.",
+
+    "TOP_MENU_STATS" : "Statistics",
+    "STATS.HEADLINE": "Transactions and blocks statistics",
+    "STATS.NBR_TRANSACTIONS": "Number of transactions",
+    "STATS.DATE": "Date",
+    "STATS.TX_PER_DAY": "Number of transactions per day"
 }

@@ -31,7 +31,7 @@
                         <th>{{'MARKET_CAP'|translate}}</th>
                         <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
                         <td ng-hide="loading_pricing||loading_circulation">
-                            <span data-format-marketcap data-format-value="{{ricing.ETP.USD.price*circulation}}">
+                            <span data-format-marketcap data-format-value="{{pricing.ETP.USD.price*circulation}}">
                                 {{pricing.ETP.USD.price*circulation | currency}}
                             </span>
                         </td>
@@ -131,19 +131,16 @@
                 <div class="col-md-2 col-sm-12" ng-show="!tx.height">
                     <span>{{ 'EXPLORER.UNCONFIRMED' | translate }}</span></div>
                 <div class="col-md-3 col-sm-12 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) >= 0">
-                    <span
-                        ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 3600000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span
-                        ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 60000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
+                    <span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 3600000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span>
+                    <span ng-show="currentTimeStamp - (tx.confirmed_at * 1000) > 60000">{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.confirmed_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
                 </div>
                 <div class="col-md-3 col-sm-12 right" ng-show="!tx.confirmed_at">
-                    <span
-                        ng-show="currentTimeStamp - (tx.received_at * 1000) > 3600000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span
-                        ng-show="currentTimeStamp - (tx.received_at * 1000) > 60000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.received_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
+                    <span ng-show="currentTimeStamp - (tx.received_at * 1000) > 3600000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span>
+                    <span ng-show="currentTimeStamp - (tx.received_at * 1000) > 60000">{{currentTimeStamp - (tx.received_at * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (tx.received_at * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
                 </div>
                 <div class="col-md-3 right" ng-show="(currentTimeStamp - (tx.confirmed_at * 1000)) < 0">
-                    <span>Block in </span><span
-                        ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 3600000">{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span
-                        ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 60000">{{(tx.confirmed_at * 1000) - currentTimeStamp | date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
+                    <span>Block in </span><span ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 3600000">{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span>
+                    <span ng-show="(tx.confirmed_at * 1000) - currentTimeStamp > 60000">{{(tx.confirmed_at * 1000) - currentTimeStamp | date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{(tx.confirmed_at * 1000) - currentTimeStamp| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
                 </div>
             </div>
         </div>

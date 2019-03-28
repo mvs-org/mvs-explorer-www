@@ -57,7 +57,7 @@
                     <img ng-src="../img/assets/{{asset.icon}}.png">
                 </div>
                 <div class="col-md-2">{{asset.issuer}}</div>
-                <div class="col-md-2">{{asset.quantity | numberFormat : asset.decimals}}</div>
+                <div class="col-md-2">{{asset.quantity + asset.minedQuantity | numberFormat : asset.decimals}}</div>
                 <div class="col-md-4">{{asset.description}}</div>
             </div>
         </div>

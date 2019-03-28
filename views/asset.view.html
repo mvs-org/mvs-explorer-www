@@ -38,7 +38,7 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
+            <div ng-show="asset.symbol != 'ETP'" class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MINED_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.minedQuantity | numberFormat : asset.decimals}}</div>
             </div>
