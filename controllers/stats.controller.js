@@ -24,6 +24,8 @@
                             y: point[1]
                         });
                     });
+                    //Remove the first day since it was not a full day
+                    txPerDay.pop();
                     drawTxCount(txPerDay, maxTxPerDayY);
                     $scope.loading_txcount = false;
                 });
