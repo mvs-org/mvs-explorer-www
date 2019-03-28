@@ -327,6 +327,11 @@
     "MST_MINING_INFORMATION": "Top MST mining",
     "MST_MINING.FULL_LIST": "MST mining full list",
     "MST_MINING.NOT_MINING_MST": "Not mining any MST",
-    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time."
+    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time.",
 
+    "TOP_MENU_STATS" : "Statistics",
+    "STATS.HEADLINE": "Transactions and blocks statistics",
+    "STATS.NBR_TRANSACTIONS": "Number of transactions",
+    "STATS.DATE": "Date",
+    "STATS.TX_PER_DAY": "Number of transactions per day"
 }

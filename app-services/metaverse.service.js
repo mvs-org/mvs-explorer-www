@@ -43,6 +43,8 @@
 
         service.BlockStats = (type, downscale) => _send('stats/block?type=' + type + ((downscale) ? '&downscale=' + downscale : ''));
 
+        service.BlockStatsByDate = (type) => _send('stats/date' +((type) ? '?type=' + type : ''));
+
         service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.FetchAddress = (address) => _send('address/info/' + address);

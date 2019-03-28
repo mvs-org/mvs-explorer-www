@@ -102,7 +102,7 @@
     "SUGGESTION.TYPE_BLOCK_HEIGHT": "Block Height",
     "SUGGESTION.TYPE_BLOCK_HASH": "Block Hash",
     "SUGGESTION.TYPE_ADDRESS": "Address",
-    "TOP_MENU_MINING" : "Mining Info",
+    "TOP_MENU_MINING" : "Mining",
     "BLOCKTIME" : "Blocktime",
     "MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND": "Could not find transactions for this block hash.",
     "SUGGESTION.SHOW_ALL_BLOCKS": "Show all the blocks",
@@ -327,6 +327,12 @@
     "MST_MINING_INFORMATION": "Top MST mining",
     "MST_MINING.FULL_LIST": "MST mining full list",
     "MST_MINING.NOT_MINING_MST": "Not mining any MST",
-    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time."
+    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time.",
+
+    "TOP_MENU_STATS" : "Statistics",
+    "STATS.HEADLINE": "Transactions and blocks statistics",
+    "STATS.NBR_TRANSACTIONS": "Number of transactions",
+    "STATS.DATE": "Date",
+    "STATS.TX_PER_DAY": "Number of transactions per day"
 
 }

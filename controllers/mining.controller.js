@@ -10,12 +10,9 @@
         $scope.loading_mining_info = true;
         $scope.loading_pow_mining_info = true;
         $scope.loading_pos_mining_info = true;
-        $scope.loading_circulation = true;
-        $scope.loading_pricing = true;
         $scope.loading_blocktimes = true;
         $scope.loading_difficulty = true;
         $scope.loading_pos_difficulty = true;
-        $scope.loading_eth_swap = true;
 
         var h = 600;
         var r = h / 2;
@@ -63,31 +60,6 @@
                 if (response.data.status && response.data.status.success)
                     $scope.pos_mining_info = response.data.result;
                     $scope.pos_mining_info.difficulty_simplify = simplify($scope.pos_mining_info.difficulty);
-            }, console.error);
-        }
-
-        function getCirculation() {
-            return MetaverseService.Circulation(1).then((response) => {
-                $scope.loading_circulation = false;
-                if (response.data.status && response.data.status.success) {
-                    $scope.circulation = parseFloat(response.data.result).toFixed(0);
-                }
-            }, console.error);
-        }
-
-        function getPricing() {
-            return MetaverseService.Pricing().then((response) => {
-                $scope.loading_pricing = false;
-                if (response.data.status && response.data.status.success)
-                    $scope.pricing = response.data.result;
-            }, console.error);
-        }
-
-        function getEthSwapRate() {
-            return MetaverseService.GetEthSwapRate().then((response) => {
-                $scope.loading_eth_swap = false;
-                if (response.data.status && response.data.status.success)
-                    $scope.eth_swap_rate = response.data.result;
             }, console.error);
         }
 
@@ -178,7 +150,6 @@
                                     axisLabel: translations['HEIGHT']
                                 },
                                 yAxis: {
-                                    axisLabelDistance: -65,
                                     axisLabel: translations[text]
                                 },
                                 yDomain: [0, maxY]
@@ -213,7 +184,6 @@
                                     axisLabel: translations['HEIGHT']
                                 },
                                 yAxis: {
-                                    axisLabelDistance: -65,
                                     axisLabel: translations[text]
                                 },
                                 yDomain: [0, maxY]
@@ -263,8 +233,6 @@
                 if (response.data.status && response.data.status.success) {
                     $scope.mining_info = response.data.result;
                     $scope.block_type_data = $scope.mining_info.stats.reverse();
-                    console.log($scope.block_type_data)
-                    //$scope.block_type_data.sort((a, b) => a.counter - b.counter);
                 }
             }).then(() => {
 
@@ -472,14 +440,10 @@
         MetaverseService.MstMiningList().then((response) => {
             if (response.data.status && response.data.status.success)
                 $scope.mstMiningList = response.data.result;
-                console.log($scope.mstMiningList)
         }, console.error);
 
-        getCirculation();
         getStatistics();
         getPosStatistics();
-        getPricing();
-        getEthSwapRate();
         getPowMiningInfo();
         getPosMiningInfo();
         //getInfo();
