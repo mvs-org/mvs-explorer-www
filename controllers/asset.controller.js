@@ -31,6 +31,7 @@
                         $scope.special_assets.forEach(function(asset) {
                             asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
                             asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
+                            asset.max_supply = Math.round((asset.quantity + asset.minedQuantity)*Math.pow(10, -asset.decimals));
                         });
                     }
                     NProgress.done();
@@ -49,6 +50,7 @@
                             additionnal_assets.forEach(function(asset) {
                                 asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
                                 asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
+                                asset.max_supply = Math.round((asset.quantity + asset.minedQuantity)*Math.pow(10, -asset.decimals));
                             });
                             $scope.assets = $scope.assets.concat(additionnal_assets);
                             $scope.last_known = $scope.assets[$scope.assets.length-1].symbol;
@@ -71,6 +73,13 @@
                 $scope.loading_count = false;
                 console.error(error);
             });
+
+        MetaverseService.Circulation().then((response) => {
+            $scope.loading_circulation = false;
+            if (response.data.status && response.data.status.success) {
+                $scope.circulation = parseFloat(response.data.result).toFixed(0);
+            }
+        }, console.error);
 
     }
 
@@ -173,8 +182,6 @@
                     });
                     $scope.stakelist.sort((a, b) => a.quantity - b.quantity);
                     $scope.stakelist = [rest].concat($scope.stakelist);
-                    console.log($scope.stakelist);
-                    //$scope.stakelist.push(rest);
 
                     var h = 800;
                     var r = h / 2;
