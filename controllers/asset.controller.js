@@ -173,8 +173,6 @@
                     });
                     $scope.stakelist.sort((a, b) => a.quantity - b.quantity);
                     $scope.stakelist = [rest].concat($scope.stakelist);
-                    console.log($scope.stakelist);
-                    //$scope.stakelist.push(rest);
 
                     var h = 800;
                     var r = h / 2;
