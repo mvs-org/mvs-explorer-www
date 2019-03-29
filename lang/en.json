@@ -333,6 +333,8 @@
     "STATS.HEADLINE": "Transactions and blocks statistics",
     "STATS.NBR_TRANSACTIONS": "Number of transactions",
     "STATS.DATE": "Date",
-    "STATS.TX_PER_DAY": "Number of transactions per day"
+    "STATS.TX_PER_DAY": "Number of transactions per day",
+
+    "ASSETS.TOTAL_SUPPLY": "Total supply"
 
 }

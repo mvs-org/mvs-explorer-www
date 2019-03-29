@@ -1,4 +1,4 @@
-﻿﻿{
+﻿﻿﻿﻿{
     "EXPLORER.TRANSACTION_HASH": "哈希",
     "EXPLORER.TRANSACTION_INPUTS": "输入",
     "EXPLORER.TRANSACTION_OUTPUTS": "输出",
@@ -309,29 +309,32 @@
     "POS_MINERS.INTERVAL_INFO": "过去的{{interval}}个PoS区块中，根据矿工所挖区块数量多少排列的矿工列表。",
     "EXPLORER.TOTAL_VOTES": "投票总数",
 
-    "EXPLORER.TOTAL_POS_MINERS": "Total number of active miners",
+    "EXPLORER.TOTAL_POS_MINERS": "活跃矿工总数",
 
-    "AVATAR_POS_MINING.HEADLINE": "PoS mining info",
-    "AVATAR_POS_MINING.RECENT_BLOCKS": "Number of blocks found recently",
-    "AVATAR_POS_MINING.RECENT_BLOCKS_SHARE": "Percentage of blocks found recently",
-    "AVATAR_POS_MINING.LAST_BLOCK": "Last block found",
-    "AVATAR_POS_MINING.LAST_BLOCK_TIME": "Last block found time",
-    "AVATAR_POS_MINING.TOTAL_VOTES": "Total number of votes",
-    "AVATAR_POS_MINING.AVAILABLE_VOTES": "Number of available votes",
-    "AVATAR_POS_MINING.PENDING_VOTES": "Number of pending votes",
-    "AVATAR_POS_MINING.MST_MINING": "MST currently mining",
-    "AVATAR_POS_MINING.MST_MINING_NONE": "Not mining any MST",
+    "AVATAR_POS_MINING.HEADLINE": "PoS挖矿信息",
+    "AVATAR_POS_MINING.RECENT_BLOCKS": "近期发现的区块数",
+    "AVATAR_POS_MINING.RECENT_BLOCKS_SHARE": "近期发现的区块数占比",
+    "AVATAR_POS_MINING.LAST_BLOCK": "最近发现的区块",
+    "AVATAR_POS_MINING.LAST_BLOCK_TIME": "最近的区块发现时间",
+    "AVATAR_POS_MINING.TOTAL_VOTES": "投票总数",
+    "AVATAR_POS_MINING.AVAILABLE_VOTES": "可用投票数",
+    "AVATAR_POS_MINING.PENDING_VOTES": "待定投票数",
+    "AVATAR_POS_MINING.MST_MINING": "MST资产挖矿",
+    "AVATAR_POS_MINING.MST_MINING_NONE": "没有进行MST资产挖矿",
 
-    "ASSET.MINED_SUPPLY": "Distributed via mining",
+    "ASSET.MINED_SUPPLY": "通过挖矿分配",
 
-    "MST_MINING_INFORMATION": "Top MST mining",
-    "MST_MINING.FULL_LIST": "MST mining full list",
-    "MST_MINING.NOT_MINING_MST": "Not mining any MST",
-    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time.",
+    "MST_MINING_INFORMATION": "热门MST挖矿",
+    "MST_MINING.FULL_LIST": "MST挖矿全列表",
+    "MST_MINING.NOT_MINING_MST": "没有进行MST资产挖矿",
+    "MST_MINING.GRAPH_DESCRIPTION": "列出挖的最多的MST资产。每个矿工一次仅能挖一种MST.",
 
-    "TOP_MENU_STATS" : "Statistics",
-    "STATS.HEADLINE": "Transactions and blocks statistics",
-    "STATS.NBR_TRANSACTIONS": "Number of transactions",
-    "STATS.DATE": "Date",
-    "STATS.TX_PER_DAY": "Number of transactions per day"
+    "TOP_MENU_STATS" : "数据",
+    "STATS.HEADLINE": "交易及区块数据",
+    "STATS.NBR_TRANSACTIONS": "交易量",
+    "STATS.DATE": "日期",
+    "STATS.TX_PER_DAY": "每日交易量",
+
+    "ASSETS.TOTAL_SUPPLY": "总供给量"
+
 }
