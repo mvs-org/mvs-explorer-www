@@ -292,7 +292,7 @@ em{
     margin-top: 15px;
 }
 
-#chart svg, #poschart svg, #blockstypechart svg {
+#chart svg, #poschart svg, #blockstypechart, #mstminingchart svg {
     height: 400px;
     margin-top: -40px;
     margin-bottom: -40px;
@@ -1767,4 +1767,10 @@ Main components
 
 footer h5 {
   color: white;
+}
+
+.mining-icon {
+  float: right;
+  position: absolute;
+  right: 15px;
 }

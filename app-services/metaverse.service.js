@@ -43,6 +43,8 @@
 
         service.BlockStats = (type, downscale) => _send('stats/block?type=' + type + ((downscale) ? '&downscale=' + downscale : ''));
 
+        service.BlockStatsByDate = (type) => _send('stats/date' +((type) ? '?type=' + type : ''));
+
         service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
         service.FetchAddress = (address) => _send('address/info/' + address);
@@ -106,6 +108,10 @@
         service.PosVotes = (interval) => _send('posvotes' + ((interval) ? '?interval=' + interval : ''));
 
         service.MinerVotes = (avatar, interval) => _send('posvotes/' + avatar + ((interval) ? '?interval=' + interval : ''));
+        
+        service.MstMining = (interval) => _send('mstmining' + ((interval) ? '?interval=' + interval : ''));
+
+        service.MstMiningList = () => _send('mstmininglist');
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 

@@ -1,0 +1,103 @@
+<div class="content" ng-controller="PriceController">
+    <div class="row">
+        <div class="col-md-6 infobox-specific-height">
+            <div class="panel infobox">
+                <h3>{{'MARKET_CAP'|translate}}</h3>
+                <table>
+                    <tr>
+                        <th>{{ 'NUMBER_OF_COINS' |translate }}</th>
+                        <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_circulation">
+                            <span data-format-circulation data-format-value="{{circulation}}">
+                                {{circulation | number}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>{{'PRICE'|translate}}</th>
+                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                        <td ng-hide="loading_pricing">
+                            <span data-format-price data-format-value="{{pricing.ETP.USD.price}}">
+                                {{pricing.ETP.USD.price | currency}}
+                            </span>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>{{'MARKET_CAP'|translate}}</th>
+                        <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_pricing||loading_circulation">
+                            <span data-format-marketcap data-format-value="{{pricing.ETP.USD.price*circulation}}">
+                                {{pricing.ETP.USD.price*circulation | currency}}
+                            </span>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="col-md-6 infobox-specific-height">
+            <div class="panel infobox">
+                <h3>{{'GENERAL_INFORMATION'|translate}}</h3>
+                <table>
+                    <tr>
+                        <th>{{'HEIGHT'|translate}}</th>
+                        <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                        <td ng-show="!loading_mining_info"><a href="blk/{{pos_mining_info.height}}">{{mining_info.height | number}}</a></td>
+                    </tr>
+                    <tr>
+                        <th>{{'BLOCKTIME'|translate}}</th>
+                        <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
+                        <td ng-show="!loading_mining_info">{{mining_info.blocktime | number}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'EXPLORER.NUMBER_MST'|translate}}</th>
+                        <td ng-show="!assetCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="assetCount">{{assetCount}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'EXPLORER.NUMBER_MIT'|translate}}</th>
+                        <td ng-show="!mitCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="mitCount">{{mitCount}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'EXPLORER.NUMBER_AVATAR'|translate}}</th>
+                        <td ng-show="!avatarCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="avatarCount">{{avatarCount}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'EXPLORER.NUMBER_CERT'|translate}}</th>
+                        <td ng-show="!certCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="certCount">{{certCount}}</td>
+                    </tr>
+                    <tr>
+                        <th>{{'EXPLORER.NUMBER_TXS_24H'|translate}}</th>
+                        <td ng-show="!lastTxPerDay"><img src="../images/spinner.gif"></td>
+                        <td ng-show="lastTxPerDay">{{lastTxPerDay}}</td>
+                    </tr>
+                    {{txPerDay}}
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--Daily stats-->
+<div class="row col-md-12">
+    <h2 class="headline"><em></em>{{ 'STATS.HEADLINE' | translate }}</h2>
+</div>
+
+<div class="col-md-12 panel infobox infobox-specific-height">
+    <h3>{{'STATS.TX_PER_DAY'|translate}}</h3>
+    <div ng-show="loading_txcount">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <nvd3 options="txcountChart.options" data="txcountChart.data" class="with-3d-shadow with-transitions"></nvd3>
+</div>
+
+<div class="col-md-12 panel infobox infobox-specific-height">
+    <h3>{{'BLOCKTIME'|translate}}</h3>
+    <div ng-show="loading_blocktimes">
+        <div class="mini-loader">Loading...</div>
+    </div>
+    <nvd3 options="blocktimeChart.options" data="blocktimeChart.data" class="with-3d-shadow with-transitions"></nvd3>
+</div>

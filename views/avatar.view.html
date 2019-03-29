@@ -82,7 +82,7 @@
             </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.MST_MINING' | translate }}</div>
-                <div ng-show="posMining.mstMining" class="col-md-8 list-item-value">{{ posMining.mstMining }}</div>
+                <div ng-show="posMining.mstMining" class="col-md-8 list-item-value"><a href="asset/{{posMining.mstMining}}">{{ posMining.mstMining }}</a></div>
                 <div ng-show="!posMining.mstMining" class="col-md-8 list-item-value">{{ 'AVATAR_POS_MINING.MST_MINING_NONE' | translate }}</div>
             </div>
         </div>
