@@ -49,31 +49,32 @@
                         <td ng-show="loading_mining_info"><img src="../images/spinner.gif"></td>
                         <td ng-show="!loading_mining_info">{{mining_info.blocktime | number}}</td>
                     </tr>
-                    <!--tr>
+                    <tr>
                         <th>{{'EXPLORER.NUMBER_MST'|translate}}</th>
-                        <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
-                        <td ng-show="!loading_info">{{info.counter.mst}}</td>
+                        <td ng-show="!assetCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="assetCount">{{assetCount}}</td>
                     </tr>
                     <tr>
                         <th>{{'EXPLORER.NUMBER_MIT'|translate}}</th>
-                        <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
-                        <td ng-show="!loading_info">{{info.counter.mit}}</td>
+                        <td ng-show="!mitCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="mitCount">{{mitCount}}</td>
                     </tr>
                     <tr>
                         <th>{{'EXPLORER.NUMBER_AVATAR'|translate}}</th>
-                        <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
-                        <td ng-show="!loading_info">{{info.counter.avatar}}</td>
+                        <td ng-show="!avatarCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="avatarCount">{{avatarCount}}</td>
                     </tr>
                     <tr>
                         <th>{{'EXPLORER.NUMBER_CERT'|translate}}</th>
-                        <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
-                        <td ng-show="!loading_info">{{info.counter.cert}}</td>
+                        <td ng-show="!certCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="certCount">{{certCount}}</td>
                     </tr>
                     <tr>
                         <th>{{'EXPLORER.NUMBER_TXS_24H'|translate}}</th>
-                        <td ng-show="loading_info"><img src="../images/spinner.gif"></td>
-                        <td ng-show="!loading_info">{{info.counter.transactions_24h}}</td>
-                    </tr-->
+                        <td ng-show="!lastTxPerDay"><img src="../images/spinner.gif"></td>
+                        <td ng-show="lastTxPerDay">{{lastTxPerDay}}</td>
+                    </tr>
+                    {{txPerDay}}
                 </table>
             </div>
         </div>
