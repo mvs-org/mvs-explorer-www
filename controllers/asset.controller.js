@@ -105,6 +105,13 @@
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
                         $scope.asset = response.data.result;
                         $scope.asset.icon = ($scope.icons.indexOf($scope.symbol) > -1) ? $scope.symbol : 'default_mst';
+                        if($scope.asset.mining_model) {
+                            $scope.asset.miningModel = {};
+                            let miningModel = $scope.asset.mining_model.match(/^initial:(.+),interval:(.+),base:(.+)$/);
+                            $scope.asset.miningModel.initial = miningModel[1];
+                            $scope.asset.miningModel.interval = miningModel[2];
+                            $scope.asset.miningModel.base = Math.round((1-miningModel[3])*100);
+                        }
                     }
                 })
                 .then(() => loadStakelist())
@@ -124,6 +131,10 @@
             $scope.asset.height = 0;
             $scope.asset.description = "MVS Official Token";
             $scope.asset.icon = "ETP";
+            $scope.asset.miningModel = {};
+            $scope.asset.miningModel.initial = 300000000;
+            $scope.asset.miningModel.interval = 500000;
+            $scope.asset.miningModel.base = 5;
             getCirculation()
                 .then(() => loadStakelist())
                 .then(() => NProgress.done())
