@@ -24,6 +24,7 @@
                             y: point[1]
                         });
                     });
+                    $scope.lastTxPerDay = response.data.result[0][1];
                     //Remove the first day since it was not a full day
                     txPerDay.pop();
                     drawTxCount(txPerDay, maxTxPerDayY);
@@ -121,6 +122,42 @@
                     $scope.mining_info = response.data.result;
                     $scope.block_type_data = $scope.mining_info.stats.reverse();
                 }
+            });
+
+        MetaverseService.AvatarsCount()
+            .then((response) => {
+                $scope.avatarCount = response.data.result.count;
+            })
+            .catch((error) => {
+                $scope.avatarCount = ' ';
+                console.error(error);
+            });
+
+        MetaverseService.AssetsCount()
+            .then((response) => {
+                $scope.assetCount = response.data.result.count;
+            })
+            .catch((error) => {
+                $scope.assetCount = '';
+                console.error(error);
+            });
+
+        MetaverseService.CertsCount()
+            .then((response) => {
+                $scope.certCount = response.data.result.count;
+            })
+            .catch((error) => {
+                $scope.certCount = '';
+                console.error(error);
+            });
+
+        MetaverseService.MitsCount()
+            .then((response) => {
+                $scope.mitCount = response.data.result.count;
+            })
+            .catch((error) => {
+                $scope.mitCount = '';
+                console.error(error);
             });
 
         getStatisticsByDate();
