@@ -338,6 +338,9 @@
     "ASSETS.TOTAL_SUPPLY": "总供给量",
     "ASSET.MINING_MODEL_INITIAL": "Mining initial reward per block",
     "ASSET.MINING_MODEL_INTERVAL": "Mining reward decrease interval",
-    "ASSET.MINING_MODEL_BASE": "Mining reward decrease per interval"
+    "ASSET.MINING_MODEL_BASE": "Mining reward decrease per interval",
+    "ASSET.MINING_CURRENT_REWARD": "Current mining reward per block",
+    "ASSET.MINING_CURRENT_REWARD_POW": "Current PoW mining reward per block",
+    "ASSET.MINING_CURRENT_REWARD_POS": "Current PoS mining reward per block"
 
 }

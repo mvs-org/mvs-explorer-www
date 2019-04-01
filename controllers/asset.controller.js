@@ -110,7 +110,9 @@
                             let miningModel = $scope.asset.mining_model.match(/^initial:(.+),interval:(.+),base:(.+)$/);
                             $scope.asset.miningModel.initial = miningModel[1];
                             $scope.asset.miningModel.interval = miningModel[2];
-                            $scope.asset.miningModel.base = Math.round((1-miningModel[3])*100);
+                            $scope.asset.miningModel.base = miningModel[3];
+                            $scope.asset.miningModel.basePercent = Math.round((1-miningModel[3])*100);
+                            getCurrentMiningReward();
                         }
                     }
                 })
@@ -134,13 +136,24 @@
             $scope.asset.miningModel = {};
             $scope.asset.miningModel.initial = 300000000;
             $scope.asset.miningModel.interval = 500000;
-            $scope.asset.miningModel.base = 5;
+            $scope.asset.miningModel.base = 0.95;
+            $scope.asset.miningModel.basePercent = 5;
             getCirculation()
                 .then(() => loadStakelist())
                 .then(() => NProgress.done())
+                .then(() => getCurrentMiningReward())
                 .then(() => getDepositSum())
                 .then(() => getDepositRewards());
 
+        }
+
+        function getCurrentMiningReward() {
+            return MetaverseService.FetchHeight().then((height) => {
+                let current_height = height.data.result;
+                $scope.asset.currentReward = Math.round($scope.asset.miningModel.initial * Math.pow(parseFloat($scope.asset.miningModel.base), Math.floor( (current_height - $scope.asset.height) / $scope.asset.miningModel.interval )))
+                if($scope.symbol == "ETP")
+                    $scope.asset.currentRewardPos = Math.floor ($scope.asset.currentReward/10)
+            });
         }
 
         function getCirculation() {
