@@ -6,8 +6,7 @@
                 <table>
                     <tr>
                         <th>{{ 'ASSETS.MAX_SUPPLY' |translate }}</th>
-                        <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_circulation">
+                        <td>
                             <span data-format-circulation data-format-value="{{circulation}}">
                                 {{100000000 | number}}
                             </span>
@@ -15,9 +14,9 @@
                     </tr>
                     <tr>
                         <th>{{ 'ASSETS.TOTAL_SUPPLY' |translate }}</th>
-                        <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_circulation">
-                            <span data-format-circulation data-format-value="{{circulation}}">
+                        <td ng-show="loading_total_supply"><img src="../images/spinner.gif"> </td>
+                        <td ng-hide="loading_total_supply">
+                            <span data-format-circulation data-format-value="{{totalSupply}}">
                                 {{totalSupply | number}}
                             </span>
                         </td>
