@@ -17,7 +17,7 @@
                 <div class="col-md-4">{{ 'ASSETS.SYMBOL' | translate }}</div>
                 <div class="col-md-2">{{ 'ASSETS.ISSUER' | translate }}</div>
                 <div class="col-md-4">{{ 'ASSETS.DESCRIPTION' | translate }}</div>
-                <div class="col-md-2">{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</div>
+                <div class="col-md-2 right">{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</div>
             </div>
 
             <!--ETP-->
@@ -33,7 +33,7 @@
                 <div class="col-md-2 right">
                     <span ng-show="!circulation"><img src="../images/spinner.gif"></span>
                     <span ng-show="circulation">
-                        <img class="mining-icon" ng-src="../images/mining.jpg">
+                        <img class="mining-icon-small" ng-src="../images/mining.jpg">
                         {{circulation | numberFormat:0}}
                     </span>
                 </div>
@@ -51,7 +51,7 @@
                 <div class="col-md-2">{{asset.issuer}}</div>
                 <div class="col-md-4">{{asset.description}}</div>
                 <div class="col-md-2 right">
-                    <img ng-show="asset.mining_model" class="mining-icon" ng-src="../images/mining.jpg">
+                    <img ng-show="asset.mining_model" class="mining-icon-small" ng-src="../images/mining.jpg">
                     {{asset.max_supply | numberFormat:0}}
                 </div>
             </div>
@@ -68,7 +68,7 @@
                 <div class="col-md-2">{{asset.issuer}}</div>
                 <div class="col-md-4">{{asset.description}}</div>
                 <div class="col-md-2 right">
-                    <img ng-show="asset.mining_model" class="mining-icon" ng-src="../images/mining.jpg">
+                    <img ng-show="asset.mining_model" class="mining-icon-small" ng-src="../images/mining.jpg">
                     {{asset.max_supply | numberFormat:0}}
                 </div>
             </div>
