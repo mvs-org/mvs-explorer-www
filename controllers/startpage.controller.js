@@ -25,6 +25,7 @@
     function PriceController(MetaverseService, $scope, $translate) {
 
         $scope.loading_circulation = true;
+        $scope.loading_total_supply = true;
         $scope.loading_pricing = true;
         $scope.loading_eth_swap = true;
         $scope.loading_etp_relayer_pool = true;
@@ -59,6 +60,15 @@
             }, console.error);
         }
 
+        function getTotalSupply() {
+            return MetaverseService.Circulation().then((response) => {
+                $scope.loading_total_supply = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.totalSupply = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
         function getPricing() {
             return MetaverseService.Pricing().then((response) => {
                 $scope.loading_pricing = false;
@@ -76,6 +86,7 @@
         }
 
         getCirculation();
+        getTotalSupply();
         getPricing();
         getEthSwapRate();
         getAvatar();

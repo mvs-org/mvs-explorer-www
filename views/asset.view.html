@@ -19,12 +19,26 @@
                 <div class="col-md-4 list-item-label">{{ 'ASSET.SYMBOL' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{ asset.symbol }}</div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="asset.symbol == 'ETP' || (!asset.miningModel && asset.secondaryissue_threshold == 0)">
+                <div class="col-md-4 list-item-label">{{ 'ASSETS.MAX_SUPPLY' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{asset.quantity | numberFormat : asset.decimals}}</div>
+            </div>
+            <div class="row" ng-show="asset.symbol != 'ETP' && (asset.miningModel || asset.secondaryissue_threshold != 0)">
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.quantity + asset.minedQuantity | numberFormat : asset.decimals}}</div>
             </div>
- 
-            <div class="row" ng-show="asset.original_quantity != asset.quantity || asset.minedQuantity != 0">
+            <div class="row" ng-show="asset.symbol == 'ETP'">
+                <div class="col-md-4 list-item-label">{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</div>
+                <div ng-show="loading_total_supply" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_total_supply" class="col-md-8 list-item-value">{{totalSupply | numberFormat : 0}}</div>
+            </div>
+            <div class="row" ng-show="asset.symbol == 'ETP'">
+                <div class="col-md-4 list-item-label">{{ 'ASSETS.CIRCULATION_SUPPLY' | translate }}</div>
+                <div ng-show="loading_circulation" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_circulation" class="col-md-8 list-item-value">{{circulation | numberFormat : 0}}</div>
+            </div>
+
+            <div class="row" ng-show="asset.symbol != 'ETP' && (asset.original_quantity != asset.quantity || asset.minedQuantity != 0)">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.INITIAL_MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.original_quantity | numberFormat : asset.decimals}}</div>
             </div>
@@ -38,11 +52,6 @@
                     </div>
                 </div>
             </div>
-            <div class="row" ng-show="asset.symbol == 'ETP'">
-                <div class="col-md-4 list-item-label">{{ 'NUMBER_OF_COINS' | translate }}</div>
-                <div ng-show="loading_circulation" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_circulation" class="col-md-8 list-item-value">{{circulation | numberFormat : 0}}</div>
-            </div>
             <div ng-show="asset.symbol != 'ETP' && asset.minedQuantity" class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MINED_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.minedQuantity | numberFormat : asset.decimals}}</div>
@@ -52,12 +61,23 @@
                 <div class="col-md-8 list-item-value">{{asset.miningModel.initial | numberFormat : asset.decimals}}</div>
             </div>
             <div ng-show="asset.miningModel" class="row">
+                <div ng-hide="asset.symbol == 'ETP'" class="col-md-4 list-item-label">{{ 'ASSET.MINING_CURRENT_REWARD' | translate }}</div>
+                <div ng-show="asset.symbol == 'ETP'" class="col-md-4 list-item-label">{{ 'ASSET.MINING_CURRENT_REWARD_POW' | translate }}</div>
+                <div ng-show="!asset.currentReward" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-show="asset.currentReward" class="col-md-8 list-item-value">{{asset.currentReward | numberFormat : asset.decimals}}</div>
+            </div>
+            <div ng-show="asset.miningModel && asset.symbol == 'ETP'" class="row">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.MINING_CURRENT_REWARD_POS' | translate }}</div>
+                <div ng-show="!asset.currentRewardPos" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-show="asset.currentRewardPos" class="col-md-8 list-item-value">{{asset.currentRewardPos | numberFormat : asset.decimals}}</div>
+            </div>
+            <div ng-show="asset.miningModel" class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MINING_MODEL_INTERVAL' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.miningModel.interval | numberFormat : 0}} {{ 'blocks' | translate }}</div>
             </div>
             <div ng-show="asset.miningModel" class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MINING_MODEL_BASE' | translate }}</div>
-                <div class="col-md-8 list-item-value">{{asset.miningModel.base | numberFormat : 0}}%</div>
+                <div class="col-md-8 list-item-value">{{asset.miningModel.basePercent | numberFormat : 0}}%</div>
             </div>
             <div class="row" ng-show="showSecondaryHistory && update.is_secondaryissue" ng-repeat="update in asset.updates">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.SECONDARY_ISSUE_PAST' | translate }}{{$index+1}}</div>
