@@ -1769,8 +1769,8 @@ footer h5 {
   color: white;
 }
 
-.mining-icon {
-  float: right;
-  position: absolute;
-  right: 15px;
+.mining-icon-small {
+  height: 18px;
+  top: -2px;
+  position: relative;
 }

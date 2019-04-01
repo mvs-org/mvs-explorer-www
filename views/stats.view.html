@@ -1,39 +1,56 @@
 <div class="content" ng-controller="PriceController">
     <div class="row">
-        <div class="col-md-6 infobox-specific-height">
-            <div class="panel infobox">
-                <h3>{{'MARKET_CAP'|translate}}</h3>
-                <table>
-                    <tr>
-                        <th>{{ 'NUMBER_OF_COINS' |translate }}</th>
-                        <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_circulation">
-                            <span data-format-circulation data-format-value="{{circulation}}">
-                                {{circulation | number}}
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>{{'PRICE'|translate}}</th>
-                        <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
-                        <td ng-hide="loading_pricing">
-                            <span data-format-price data-format-value="{{pricing.ETP.USD.price}}">
-                                {{pricing.ETP.USD.price | currency}}
-                            </span>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th>{{'MARKET_CAP'|translate}}</th>
-                        <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_pricing||loading_circulation">
-                            <span data-format-marketcap data-format-value="{{pricing.ETP.USD.price*circulation}}">
-                                {{pricing.ETP.USD.price*circulation | currency}}
-                            </span>
-                        </td>
-                    </tr>
-                </table>
+            <div class="col-md-6 infobox-specific-height">
+                <div class="panel infobox">
+                    <h3>{{'MARKET_CAP'|translate}}</h3>
+                    <table>
+                        <tr>
+                            <th>{{ 'ASSETS.MAX_SUPPLY' |translate }}</th>
+                            <td>
+                                <span data-format-circulation data-format-value="{{circulation}}">
+                                    {{100000000 | number}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'ASSETS.TOTAL_SUPPLY' |translate }}</th>
+                            <td ng-show="loading_total_supply"><img src="../images/spinner.gif"> </td>
+                            <td ng-hide="loading_total_supply">
+                                <span data-format-circulation data-format-value="{{totalSupply}}">
+                                    {{totalSupply | number}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{ 'ASSETS.CIRCULATION_SUPPLY' |translate }}</th>
+                            <td ng-show="loading_circulation"><img src="../images/spinner.gif"> </td>
+                            <td ng-hide="loading_circulation">
+                                <span data-format-circulation data-format-value="{{circulation}}">
+                                    {{circulation | number}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{'PRICE'|translate}}</th>
+                            <td ng-show="loading_pricing"><img src="../images/spinner.gif"></td>
+                            <td ng-hide="loading_pricing">
+                                <span data-format-price data-format-value="{{pricing.ETP.USD.price}}">
+                                    {{pricing.ETP.USD.price | currency}}
+                                </span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>{{'MARKET_CAP'|translate}}</th>
+                            <td ng-show="loading_pricing||loading_circulation"><img src="../images/spinner.gif"> </td>
+                            <td ng-hide="loading_pricing||loading_circulation">
+                                <span data-format-marketcap data-format-value="{{pricing.ETP.USD.price*circulation}}">
+                                    {{pricing.ETP.USD.price*circulation | currency}}
+                                </span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
             </div>
-        </div>
 
         <div class="col-md-6 infobox-specific-height">
             <div class="panel infobox">
