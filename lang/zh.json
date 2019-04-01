@@ -336,6 +336,7 @@
     "STATS.TX_PER_DAY": "每日交易量",
 
     "ASSETS.TOTAL_SUPPLY": "总供给量",
+    "ASSETS.CIRCULATION_SUPPLY": "流通供给量",
     "ASSET.MINING_MODEL_INITIAL": "Mining initial reward per block",
     "ASSET.MINING_MODEL_INTERVAL": "Mining reward decrease interval",
     "ASSET.MINING_MODEL_BASE": "Mining reward decrease per interval",

@@ -153,7 +153,7 @@
     "ASSET.SECONDARY_ISSUE": "Secondary issue model",
     "ASSET.SECONDARY_ISSUE_UNLIMITED": "No stacking restriction",
     "ASSET.SECONDARY_ISSUE_DISABLED": "Secondary issue impossible",
-    "ASSET.INITIAL_MAX_SUPPLY": "Initial max supply",
+    "ASSET.INITIAL_MAX_SUPPLY": "Initial supply",
     "ASSET.ADDED_VIA_SECONDARY_ISSUE": "Added via secondary issue",
     "AVATAR.ADDRESS_FROM_HEIGHT": "From height ",
     "CERTS.HEADLINE": "Certificates",
@@ -336,6 +336,7 @@
     "STATS.TX_PER_DAY": "Number of transactions per day",
 
     "ASSETS.TOTAL_SUPPLY": "Total supply",
+    "ASSETS.CIRCULATION_SUPPLY": "Circulation supply",
     "ASSET.MINING_MODEL_INITIAL": "Initial mining reward per block",
     "ASSET.MINING_MODEL_INTERVAL": "Mining reward decrease interval",
     "ASSET.MINING_MODEL_BASE": "Mining reward decrease per interval",

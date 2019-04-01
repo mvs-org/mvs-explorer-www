@@ -90,8 +90,10 @@
         $scope.loading_asset = true;
         $scope.loading_depositsum = true;
         $scope.loading_circulation = true;
+        $scope.loading_total_supply = true;
         $scope.loading_depositrewards = true;
         $scope.getCirculation = getCirculation;
+        $scope.getTotalSupply = getTotalSupply;
         $scope.getDepositSum = getDepositSum;
         $scope.getDepositRewards = getDepositRewards;
         $scope.icons = Assets.hasIcon;
@@ -139,6 +141,7 @@
             $scope.asset.miningModel.base = 0.95;
             $scope.asset.miningModel.basePercent = 5;
             getCirculation()
+                .then(() => getTotalSupply())
                 .then(() => loadStakelist())
                 .then(() => NProgress.done())
                 .then(() => getCurrentMiningReward())
@@ -157,10 +160,19 @@
         }
 
         function getCirculation() {
-            return MetaverseService.Circulation().then((response) => {
+            return MetaverseService.Circulation(1).then((response) => {
                 $scope.loading_circulation = false;
                 if (response.data.status && response.data.status.success) {
                     $scope.circulation = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function getTotalSupply() {
+            return MetaverseService.Circulation().then((response) => {
+                $scope.loading_total_supply = false;
+                if (response.data.status && response.data.status.success) {
+                    $scope.totalSupply = parseFloat(response.data.result).toFixed(0);
                 }
             }, console.error);
         }
