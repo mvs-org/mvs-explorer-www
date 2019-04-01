@@ -1,7 +1,7 @@
 {
   "name": "MVS_explorer",
   "description": "Explorer for Metaverse.",
-  "version": "0.5.19",
+  "version": "0.5.20",
   "jshintConfig" : {
     "esversion" : "6",
     "asi": true
