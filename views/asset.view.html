@@ -121,21 +121,6 @@
                 <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold == 127">{{ 'ASSET.SECONDARY_ISSUE_UNLIMITED' | translate }}</div>
                 <div class="col-md-8 list-item-value" ng-show="asset.secondaryissue_threshold != 0 && asset.secondaryissue_threshold != 127">{{asset.secondaryissue_threshold}}%</div>
             </div>
-            <div class="row" ng-show="asset.symbol == 'ETP'">
-                <div class="col-md-4 list-item-label">{{ 'ASSET.DEPOSIT_SUM' | translate }}</div>
-                <div ng-show="loading_depositsum" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_depositsum" class="col-md-8 list-item-value">{{depositsum | assetformat : 8 | currency:'':0}}</div>
-            </div>
-            <div class="row" ng-show="asset.symbol == 'ETP'">
-                <div class="col-md-4 list-item-label">{{ 'ASSET.DEPOSIT_REWARDS_LOCKED' | translate }}</div>
-                <div ng-show="loading_depositrewards" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_depositrewards" class="col-md-8 list-item-value">{{deposit_rewards_locked | assetformat : 8 | currency:'':0}}</div>
-            </div>
-            <div class="row" ng-show="asset.symbol == 'ETP'">
-                <div class="col-md-4 list-item-label">{{ 'ASSET.DEPOSIT_REWARDS_UNLOCKED' | translate }}</div>
-                <div ng-show="loading_depositrewards" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_depositrewards" class="col-md-8 list-item-value">{{deposit_rewards_unlocked | assetformat : 8 | currency:'':0}}</div>
-            </div>
             <div class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.DECIMALS' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{ asset.decimals }}</div>
