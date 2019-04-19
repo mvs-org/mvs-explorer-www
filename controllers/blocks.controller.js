@@ -77,7 +77,7 @@
                     .then((response) => {
                         $scope.loading_txs = false;
                         if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                            $scope.txs = response.data.result.result;
+                            $scope.txs = response.data.result;
                             $scope.total_count = response.data.result.count;
                         } else {
                             $translate('MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND')
