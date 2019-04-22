@@ -1,13 +1,13 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('app')
-        .directive('ngEnter', function() {
-            return function(scope, element, attrs) {
-                element.bind("keydown keypress", function(event) {
+        .directive('ngEnter', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
                     if (event.which === 13) {
-                        scope.$apply(function() {
+                        scope.$apply(function () {
                             scope.$eval(attrs.ngEnter);
                         });
                         event.preventDefault();
@@ -19,20 +19,20 @@
         .controller('ExplorerController', ExplorerController)
         .controller('SearchController', SearchController)
         .controller('NodeMapController', NodeMapController)
-        .directive('checkImage', function() {
+        .directive('checkImage', function () {
             return {
-                link: function(scope, element, attrs) {
-                    element.bind('error', function() {
+                link: function (scope, element, attrs) {
+                    element.bind('error', function () {
                         element.attr('src', 'img/assets/default_mst.png'); // set default image
                     });
                 }
             };
         })
-        .directive('mdHideAutocompleteOnEnter', function() {
-            return function(scope, element, attrs) {
-                element.bind("keydown keypress", function(event) {
+        .directive('mdHideAutocompleteOnEnter', function () {
+            return function (scope, element, attrs) {
+                element.bind("keydown keypress", function (event) {
                     if (event.which === 13) {
-                        scope.$apply(function() {
+                        scope.$apply(function () {
                             scope.$$childHead.$mdAutocompleteCtrl.hidden = true;
                         });
                         event.preventDefault();
@@ -51,7 +51,7 @@
             };
         }
         setMenu();
-        $rootScope.$on("$locationChangeStart", function(event, next, current) {
+        $rootScope.$on("$locationChangeStart", function (event, next, current) {
             setMenu();
         });
     }
@@ -69,7 +69,7 @@
         };
 
         $scope.ClickCloseFlashMessage = () => {
-          FlashService.CloseFlashMessage();
+            FlashService.CloseFlashMessage();
         }
 
     }
@@ -97,7 +97,7 @@
         });
 
         var polygon;
-        markers.on('clustermouseover', function(a) {
+        markers.on('clustermouseover', function (a) {
             if (polygon) {
                 map.removeLayer(polygon);
             }
@@ -105,14 +105,14 @@
             map.addLayer(polygon);
         });
 
-        markers.on('clustermouseout', function(a) {
+        markers.on('clustermouseout', function (a) {
             if (polygon) {
                 map.removeLayer(polygon);
                 polygon = null;
             }
         });
 
-        map.on('zoomend', function() {
+        map.on('zoomend', function () {
             if (polygon) {
                 map.removeLayer(polygon);
                 polygon = null;
@@ -120,7 +120,7 @@
         });
 
         var geojsonAjax = new L.GeoJSON.AJAX(MetaverseService.SERVER + "/locations");
-        geojsonAjax.on('data:loaded', function() {
+        geojsonAjax.on('data:loaded', function () {
             // Clustering disabled for chen hao
             // markers.addLayer(geojsonAjax);
             // map.addLayer(markers);
@@ -131,7 +131,7 @@
         map.addLayer(markers);
     }
 
-    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter, Assets) {
+    function SearchController($scope, MetaverseService, $translate, $location, FlashService, $filter, Assets, $rootScope) {
 
         $scope.presEnterSearch = presEnterSearch;
 
@@ -145,7 +145,14 @@
         $scope.init = init;
         $scope.icons = Assets.hasIcon;
 
+        $translate.onReady(() => init())
+        $rootScope.$on('$translateChangeSuccess', function (event, current, previous) {
+            // Language has changed
+            init()
+        });
+
         function init() {
+            $scope.initialSuggestion = []
             $translate(['SUGGESTION.SHOW_ALL_TX', 'SUGGESTION.SHOW_ALL_BLOCKS', 'SUGGESTION.SHOW_ALL_ASSETS', 'SUGGESTION.SHOW_ALL_AVATARS', 'SUGGESTION.SHOW_ALL_MITS'])
                 .then((translations) => {
                     $scope.initialSuggestion.push({
@@ -178,8 +185,6 @@
                     });
                 });
         }
-
-        init();
 
         function querySearch(query) {
             return (query && query.length >= 3) ? search(query) : $scope.initialSuggestion;
@@ -267,24 +272,24 @@
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
                         $location.path('/asset/' + $filter('uppercase')(search_field));
                     } else {
-                      MetaverseService.FetchAvatar(search_field)
-                          .then((response) => {
-                              if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
-                                  $location.path('/avatar/' + search_field);
-                              } else {
-                                  MetaverseService.MitInfo(search_field)
-                                      .then((response) => {
-                                          if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
-                                              $location.path('/mit/' + search_field);
-                                          } else {
-                                              $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
-                                                  .then((data) => FlashService.Error(data));
-                                          }
-                                          NProgress.done();
-                                      });
-                              }
-                              NProgress.done();
-                          });
+                        MetaverseService.FetchAvatar(search_field)
+                            .then((response) => {
+                                if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                                    $location.path('/avatar/' + search_field);
+                                } else {
+                                    MetaverseService.MitInfo(search_field)
+                                        .then((response) => {
+                                            if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined && response.data.result.length != 0) {
+                                                $location.path('/mit/' + search_field);
+                                            } else {
+                                                $translate('MESSAGES.ERROR_SEARCH_NOT_FOUND')
+                                                    .then((data) => FlashService.Error(data));
+                                            }
+                                            NProgress.done();
+                                        });
+                                }
+                                NProgress.done();
+                            });
                     }
                     NProgress.done();
                 });
