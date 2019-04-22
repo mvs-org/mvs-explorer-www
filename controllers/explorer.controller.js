@@ -179,7 +179,9 @@
                 });
         }
 
-        init();
+        $(document).ready(function () {
+            init();
+        });
 
         function querySearch(query) {
             return (query && query.length >= 3) ? search(query) : $scope.initialSuggestion;

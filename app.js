@@ -60,6 +60,7 @@
                 $window.document.getElementsByName('description')[0].content = "Testnet " + (tagData.description || "Metaverse Blockchain Explorer is a web tool that provides detailed information about Metaverse Smart Assets, Blocks, Addresses, and Transactions.");
                 $window.document.getElementsByName('robots')[0].content = tagData.robots || "noindex, follow";
                 $window.document.getElementsByName('keywords')[0].content = 'testnet, ' + (tagData.keywords || "metaverse, explorer, blockchain, digital identity, asset");
+                return tagData;
             };
         }])
         .filter('assetformat', function () {
@@ -87,66 +88,92 @@
             })
             .state('explorer.startpage', {
                 url: '/',
-                meta: {
-                    title: 'Metaverse ETP Blockchain Explorer',
-                    description: 'The Metaverse Blockchain Explorer provides insights into digital identity, ETP, smart assets, transactions and mining.',
-                    keywords: "metaverse, blockchain, explorer, etp, mvs",
-                    robots: "index, follow",
-                },
                 templateUrl: "views/startpage.view.html",
-                controller: 'StartpageController'
+                controller: 'StartpageController',
+                resolve: {
+                    meta: ['MetadataService', function (MetadataService) {
+                        return MetadataService.setMetaTags({
+                            title: 'Metaverse ETP Blockchain Explorer',
+                            description: 'The Metaverse Blockchain Explorer provides insights into digital identity, ETP, smart assets, transactions and mining.',
+                            keywords: "metaverse, blockchain, explorer, etp, mvs",
+                            robots: "index, follow",
+                        })
+                    }]
+                },
             })
             .state('explorer.api', {
                 url: "/dev/api",
-                meta: {
-                    title: 'Metaverse Explorer API',
-                    description: 'API documentation of the Metaverse Blockchain Explorer. Join our developer community and create your own project today.',
-                    keywords: "metaverse, blockchain, api, developer",
-                    robots: "index, nofollow",
+                templateUrl: "views/api/api.html",
+                resolve: {
+                    meta: ['MetadataService', function (MetadataService) {
+                        return MetadataService.setMetaTags({
+                            title: 'Metaverse Explorer API',
+                            description: 'API documentation of the Metaverse Blockchain Explorer. Join our developer community and create your own project today.',
+                            keywords: "metaverse, blockchain, api, developer",
+                            robots: "index, nofollow",
+                        })
+                    }]
                 },
-                templateUrl: "views/api/api.html"
             })
             .state('explorer.transaction', {
                 url: "/tx/:hash",
                 templateUrl: "views/transaction.view.html",
                 controller: 'TransactionController',
-                meta: {
-                    keywords: "metaverse, blockchain, transaction, tx, etp",
-                    robots: "noindex, nofollow",
+                resolve: {
+                    meta: ['$stateParams', 'MetadataService', function ($stateParams, MetadataService) {
+                        return MetadataService.setMetaTags({
+                            title: 'Metaverse transaction ' + $stateParams.hash,
+                            description: 'Transaction details for txid ' + $stateParams.hash + ' of the Metaverse Blockchain.',
+                            keywords: "metaverse, blockchain, transaction, tx, etp, " + $stateParams.hash,
+                            robots: "index, nofollow",
+                        })
+                    }]
                 },
             })
             .state('explorer.blocks', {
                 url: "/blocks",
-                meta: {
-                    title: 'Metaverse Blocks',
-                    description: 'List all blocks of the Metaverse Blockchain.',
-                    keywords: "metaverse, blockchain, block",
-                    robots: "index, nofollow",
-                },
                 templateUrl: "views/blocks.view.html",
-                controller: 'BlocksController'
+                controller: 'BlocksController',
+                resolve: {
+                    meta: ['MetadataService', function (MetadataService) {
+                        return MetadataService.setMetaTags({
+                            title: 'Metaverse Blocks',
+                            description: 'List all blocks of the Metaverse Blockchain.',
+                            keywords: "metaverse, blockchain, block",
+                            robots: "index, follow",
+                        })
+                    }]
+                },
             })
             .state('explorer.txs', {
                 url: "/txs",
-                meta: {
-                    title: 'Metaverse Transactions',
-                    description: 'List all transactions of the Metaverse Blockchain.',
-                    keywords: "metaverse, blockchain, transactions",
-                    robots: "index, nofollow",
-                },
                 templateUrl: "views/txs.view.html",
-                controller: 'TransactionsController'
+                controller: 'TransactionsController',
+                resolve: {
+                    meta: ['MetadataService', function (MetadataService) {
+                        return MetadataService.setMetaTags({
+                            title: 'Metaverse Transactions',
+                            description: 'List all transactions of the Metaverse Blockchain.',
+                            keywords: "metaverse, blockchain, transactions",
+                            robots: "index, nofollow",
+                        })
+                    }]
+                },
             })
             .state('explorer.mining', {
                 url: "/mining",
-                meta: {
-                    title: 'Metaverse Mining',
-                    description: 'Mining statistics and information of the Metaverse Blockchain. POW and POS mining.',
-                    keywords: "metaverse, blockchain, mining, pow, pos, stake",
-                    robots: "index, follow",
-                },
                 templateUrl: "views/mining.view.html",
-                controller: 'MiningController'
+                controller: 'MiningController',
+                resolve: {
+                    meta: ['MetadataService', function (MetadataService) {
+                        MetadataService.setMetaTags({
+                            title: 'Metaverse Mining',
+                            description: 'Minning statistics and information of the Metaverse Blockchain. POW proof of work and POS proof of stake mining.',
+                            keywords: "metaverse, blockchain, mining, pow, pos, stake",
+                            robots: "index, follow",
+                        })
+                    }]
+                },
             })
             .state('explorer.stats', {
                 url: "/stats",
@@ -162,53 +189,77 @@
             .state('explorer.block', {
                 url: "/blk/:number",
                 templateUrl: "views/block.view.html",
-                meta: {
-                    keywords: "metaverse, blockchain, block, etp",
-                    robots: "noindex, nofollow",
+                controller: 'BlockController',
+                resolve: {
+                    meta: ['$stateParams', 'MetadataService', function ($stateParams, MetadataService) {
+                        MetadataService.setMetaTags({
+                            title: "Metaverse Block " + $stateParams.number,
+                            description: "See information and transactions of block number " + $stateParams.number + "of the Metaverse Blockchain.",
+                            keywords: "metaverse, blockchain, block, etp, " + $stateParams.number,
+                            robots: "index, nofollow",
+                        })
+                    }]
                 },
-                controller: 'BlockController'
             })
             .state('explorer.address', {
                 url: "/adr/:address",
                 templateUrl: "views/address.view.html",
-                meta: {
-                    keywords: "metaverse, blockchain, address, etp",
-                    robots: "index, nofollow",
+                controller: 'AddressController',
+                resolve: {
+                    meta: ['$stateParams', 'MetadataService', function ($stateParams, MetadataService) {
+                        MetadataService.setMetaTags({
+                            title: "Metaverse Address " + $stateParams.address,
+                            description: "See balances and transaction history for the Metaverse Address " + $stateParams.address,
+                            keywords: "metaverse, blockchain, address, etp, " + $stateParams.address,
+                            robots: "index, nofollow",
+                        })
+                    }]
                 },
-                controller: 'AddressController'
             })
             .state('explorer.asset', {
                 url: "/asset/:symbol",
-                meta: {
-                    title: 'Metaverse Smart Token - MST',
-                    description: 'Registry of the Metaverse Blockchain MST. Create your own smart asset.',
-                    keywords: "metaverse, blockchain, asset, etp",
-                    robots: "noindex, nofollow",
-                },
                 templateUrl: "views/asset.view.html",
-                controller: 'AssetController'
+                controller: 'AssetController',
+                resolve: {
+                    meta: ['$stateParams', 'MetadataService', function ($stateParams, MetadataService) {
+                        MetadataService.setMetaTags({
+                            title: $stateParams.symbol.toString().toLowerCase() == 'etp' ? "Metaverse ETP" : "Metaverse Smart Token MST " + $stateParams.symbol,
+                            description: "See information about the Metaverse Asset " + $stateParams.symbol,
+                            keywords: "metaverse, blockchain, asset, " + $stateParams.symbol,
+                            robots: "index, follow",
+                        })
+                    }]
+                },
             })
             .state('explorer.avatars', {
                 url: "/avatars",
-                meta: {
-                    title: 'Metaverse Digital Identity - Avatars',
-                    description: 'Register of the Metaverse Blockchain Avatars. Create your own digital identity.',
-                    robots: "index, follow",
-                    keywords: "metaverse, blockchain, digital, identity, avatar"
-                },
                 templateUrl: "views/avatars.view.html",
-                controller: 'AvatarsController'
+                controller: 'AvatarsController',
+                resolve: {
+                    meta: ['MetadataService', function (MetadataService) {
+                        MetadataService.setMetaTags({
+                            title: 'Metaverse Digital Identity - Avatars',
+                            description: 'Register of the Metaverse Blockchain Avatars. Create your own digital identity.',
+                            robots: "index, follow",
+                            keywords: "metaverse, blockchain, digital, identity, avatar"
+                        })
+                    }]
+                },
             })
             .state('explorer.avatar', {
                 url: "/avatar/:symbol",
                 templateUrl: "views/avatar.view.html",
-                meta: {
-                    title: 'Metaverse Digital Identity - Avatar',
-                    description: 'Metaverse Avatars are a digital identity register on the Blockchain.',
-                    robots: "index, follow",
-                    keywords: "metaverse, blockchain, digital, identity, avatar"
+                controller: 'AvatarController',
+                resolve: {
+                    meta: ['$stateParams', 'MetadataService', function ($stateParams, MetadataService) {
+                        MetadataService.setMetaTags({
+                            title: "Metaverse Avatar " + $stateParams.symbol + " - Digital Identity on the Blockchain",
+                            description: "See digital identity information of the Metaverse Avatar " + $stateParams.symbol,
+                            keywords: "metaverse, blockchain, digital identity, avatar, " + $stateParams.symbol,
+                            robots: "index, follow",
+                        })
+                    }]
                 },
-                controller: 'AvatarController'
             })
             .state('explorer.assetslist', {
                 url: "/assets",
@@ -217,14 +268,18 @@
             })
             .state('explorer.mstlist', {
                 url: "/msts",
-                meta: {
-                    title: 'Metaverse Smart Token - MST',
-                    description: 'Registry of the Metaverse Blockchain MST. Create your own smart asset.',
-                    keywords: "metaverse, blockchain, mst, smart, asset",
-                    robots: "index, follow",
-                },
                 templateUrl: "views/assetslist.view.html",
-                controller: 'AssetsListController'
+                controller: 'AssetsListController',
+                resolve: {
+                    meta: ['MetadataService', function (MetadataService) {
+                        return MetadataService.setMetaTags({
+                            title: 'Metaverse Smart Token - MST',
+                            description: 'Registry of the Metaverse Blockchain MST. Create your own smart asset.',
+                            keywords: "metaverse, blockchain, mst, smart, asset",
+                            robots: "index, follow",
+                        })
+                    }]
+                },
             })
             .state('explorer.certs', {
                 url: "/certs",
@@ -286,15 +341,14 @@
 
     };
 
-    run.$inject = ['$rootScope', '$location', 'localStorageService', '$translate', '$wamp', '$state', 'MetadataService'];
+    run.$inject = ['$rootScope', '$location', 'localStorageService', '$translate', '$wamp', '$state'];
 
-    function run($rootScope, $location, $localStorageService, $translate, $wamp, $state, MetadataService) {
+    function run($rootScope, $location, $localStorageService, $translate, $wamp, $state) {
 
         $wamp.open();
 
         $rootScope.$on('$stateChangeSuccess', () => {
             $(this).scrollTop(0)
-            MetadataService.setMetaTags($state.current.meta || {})
         });
 
 
