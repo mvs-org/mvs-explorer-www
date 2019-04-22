@@ -292,7 +292,7 @@ em{
     margin-top: 15px;
 }
 
-#chart svg, #poschart svg, #blockstypechart svg {
+#chart svg, #poschart svg, #blockstypechart, #mstminingchart svg {
     height: 400px;
     margin-top: -40px;
     margin-bottom: -40px;
@@ -469,17 +469,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 
 .tb-logo{
 	font-size: 0;
-	margin: 0;
-	width: 187px;
-}
-
-@media only screen and (min-width: 1100px) and (max-width: 1240px) {
-  .tb-logo{
-    width: 130px;
-  }
-  .tb-logo img{
-    width: 130px !important;
-  }
+  margin: 5px;
 }
 
 
@@ -504,7 +494,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	float:left;
 	text-align:left;
 	display:block;
-	width: 187px;
+	width: 100px;
 }
 
 #toggle,.menu ul ul,.toggle{
@@ -526,7 +516,7 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	line-height:25px
 }
 .cn-menu.menu{
-	margin-left: 20px;
+	margin-left: 40px;
 }
 .mbmenu-hide{
 	display: none;
@@ -739,7 +729,6 @@ a,a i,a i:hover,a:hover,button,button:hover,input[type=submit],input[type=submit
 	/*nav menu*/
 	.menu {
 		font-size: 14px;
-		margin-left: 0 !important;
 	}
 	.menu ul li {
 		margin-right: 10px !important;
@@ -1101,9 +1090,6 @@ a:hover{
 	.menu ul li a {
 		padding: 3px 6px;
 	}
-	.cn-menu.menu{
-		margin-left: 20px !important;
-	}
 	/*ETP*/
 	.etp-box .mvs-logoimg {
 		max-width: 400px !important;
@@ -1117,10 +1103,6 @@ a:hover{
 	.menu ul li a {
 		padding: 3px 8px;
 	}
-	.cn-menu.menu{
-		margin-left: 20px !important;
-	}
-
 }
 
 /*nav*/
@@ -1758,7 +1740,7 @@ Main components
 }
 
 .footer-logo img {
-  width: 300px;
+  width: 200px;
 }
 
 .footer-column {
@@ -1767,4 +1749,10 @@ Main components
 
 footer h5 {
   color: white;
+}
+
+.mining-icon-small {
+  height: 18px;
+  top: -2px;
+  position: relative;
 }

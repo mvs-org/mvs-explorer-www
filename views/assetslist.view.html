@@ -16,8 +16,8 @@
             <div class="row panel list-item nga-default nga-stagger nga-fade">
                 <div class="col-md-4">{{ 'ASSETS.SYMBOL' | translate }}</div>
                 <div class="col-md-2">{{ 'ASSETS.ISSUER' | translate }}</div>
-                <div class="col-md-2">{{ 'ASSETS.MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-4">{{ 'ASSETS.DESCRIPTION' | translate }}</div>
+                <div class="col-md-2 right">{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</div>
             </div>
 
             <!--ETP-->
@@ -29,8 +29,14 @@
                     <img check-image ng-src="../img/assets/ETP.png">
                 </div>
                 <div class="col-md-2">mvs.org</div>
-                <div class="col-md-2">{{100000000 | numberFormat:'':0}}</div>
                 <div class="col-md-4">MVS Official Token</div>
+                <div class="col-md-2 right">
+                    <span ng-show="!circulation"><img src="../images/spinner.gif"></span>
+                    <span ng-show="circulation">
+                        <img class="mining-icon-small" ng-src="../images/mining.jpg">
+                        {{circulation | numberFormat:0}}
+                    </span>
+                </div>
             </div>
 
             <!--Special assets on top-->
@@ -43,8 +49,11 @@
                     <img ng-src="../img/assets/{{asset.icon}}.png">
                 </div>
                 <div class="col-md-2">{{asset.issuer}}</div>
-                <div class="col-md-2">{{asset.quantity | numberFormat : asset.decimals}}</div>
                 <div class="col-md-4">{{asset.description}}</div>
+                <div class="col-md-2 right">
+                    <img ng-show="asset.mining_model" class="mining-icon-small" ng-src="../images/mining.jpg">
+                    {{asset.max_supply | numberFormat:0}}
+                </div>
             </div>
 
             <!--Others assets-->
@@ -57,8 +66,11 @@
                     <img ng-src="../img/assets/{{asset.icon}}.png">
                 </div>
                 <div class="col-md-2">{{asset.issuer}}</div>
-                <div class="col-md-2">{{asset.quantity | numberFormat : asset.decimals}}</div>
                 <div class="col-md-4">{{asset.description}}</div>
+                <div class="col-md-2 right">
+                    <img ng-show="asset.mining_model" class="mining-icon-small" ng-src="../images/mining.jpg">
+                    {{asset.max_supply | numberFormat:0}}
+                </div>
             </div>
         </div>
 
@@ -75,8 +87,14 @@
                     <td>mvs.org</td>
                 </tr>
                 <tr>
-                    <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
-                    <td>{{100000000 | numberFormat:0}}</td>
+                    <th>{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</th>
+                    <td>
+                        <span ng-show="!circulation"><img src="../images/spinner.gif"></span>
+                        <span ng-show="circulation">
+                            <img ng-show="asset.mining_model" class="mining-icon-small" ng-src="../images/mining.jpg">
+                            {{circulation | numberFormat:0}}
+                        </span>
+                    </td>
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>
@@ -97,8 +115,11 @@
                     <td>{{asset.issuer}}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
-                    <td>{{asset.quantity | numberFormat : asset.decimals}}</td>
+                    <th>{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</th>
+                    <td>
+                        <img ng-show="asset.mining_model" class="mining-icon-small" ng-src="../images/mining.jpg">
+                        {{asset.max_supply | numberFormat : 0}}
+                    </td>
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>
@@ -119,8 +140,11 @@
                     <td>{{asset.issuer}}</td>
                 </tr>
                 <tr>
-                    <th>{{ 'ASSETS.MAX_SUPPLY' | translate }}</th>
-                    <td>{{asset.quantity | numberFormat : asset.decimals}}</td>
+                    <th>{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</th>
+                    <td>
+                        <img ng-show="asset.mining_model" class="mining-icon-small" ng-src="../images/mining.jpg">
+                        {{asset.max_supply | numberFormat : 0}}
+                    </td>
                 </tr>
                 <tr>
                     <th>{{ 'ASSETS.DESCRIPTION' | translate }}</th>

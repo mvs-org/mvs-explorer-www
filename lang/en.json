@@ -102,7 +102,7 @@
     "SUGGESTION.TYPE_BLOCK_HEIGHT": "Block Height",
     "SUGGESTION.TYPE_BLOCK_HASH": "Block Hash",
     "SUGGESTION.TYPE_ADDRESS": "Address",
-    "TOP_MENU_MINING" : "Mining Info",
+    "TOP_MENU_MINING" : "Mining",
     "BLOCKTIME" : "Blocktime",
     "MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND": "Could not find transactions for this block hash.",
     "SUGGESTION.SHOW_ALL_BLOCKS": "Show all the blocks",
@@ -153,7 +153,7 @@
     "ASSET.SECONDARY_ISSUE": "Secondary issue model",
     "ASSET.SECONDARY_ISSUE_UNLIMITED": "No stacking restriction",
     "ASSET.SECONDARY_ISSUE_DISABLED": "Secondary issue impossible",
-    "ASSET.INITIAL_MAX_SUPPLY": "Initial max supply",
+    "ASSET.INITIAL_MAX_SUPPLY": "Initial supply",
     "ASSET.ADDED_VIA_SECONDARY_ISSUE": "Added via secondary issue",
     "AVATAR.ADDRESS_FROM_HEIGHT": "From height ",
     "CERTS.HEADLINE": "Certificates",
@@ -307,6 +307,41 @@
 
     "POS_MINERS.TOTAL_VOTES": "Votes",
     "POS_MINERS.INTERVAL_INFO": "List of top miners ranked by the number of mined blocks within the last {{interval}} PoS blocks.",
-    "EXPLORER.TOTAL_VOTES": "Total number of votes"
+    "EXPLORER.TOTAL_VOTES": "Total number of votes",
+
+    "EXPLORER.TOTAL_POS_MINERS": "Total number of active miners",
+
+    "AVATAR_POS_MINING.HEADLINE": "PoS mining info",
+    "AVATAR_POS_MINING.RECENT_BLOCKS": "Number of blocks found recently",
+    "AVATAR_POS_MINING.RECENT_BLOCKS_SHARE": "Percentage of blocks found recently",
+    "AVATAR_POS_MINING.LAST_BLOCK": "Last block found",
+    "AVATAR_POS_MINING.LAST_BLOCK_TIME": "Last block found time",
+    "AVATAR_POS_MINING.TOTAL_VOTES": "Total number of votes",
+    "AVATAR_POS_MINING.AVAILABLE_VOTES": "Number of available votes",
+    "AVATAR_POS_MINING.PENDING_VOTES": "Number of pending votes",
+    "AVATAR_POS_MINING.MST_MINING": "MST currently mining",
+    "AVATAR_POS_MINING.MST_MINING_NONE": "Not mining any MST",
+
+    "ASSET.MINED_SUPPLY": "Distributed via mining",
+
+    "MST_MINING_INFORMATION": "Top MST mining",
+    "MST_MINING.FULL_LIST": "List of minable MST",
+    "MST_MINING.NOT_MINING_MST": "Not mining any MST",
+    "MST_MINING.GRAPH_DESCRIPTION": "List the MST that are the most mined. Each miner can only mine 1 MST at a time.",
+
+    "TOP_MENU_STATS" : "Statistics",
+    "STATS.HEADLINE": "Transactions and blocks statistics",
+    "STATS.NBR_TRANSACTIONS": "Number of transactions",
+    "STATS.DATE": "Date",
+    "STATS.TX_PER_DAY": "Number of transactions per day",
+
+    "ASSETS.TOTAL_SUPPLY": "Total supply",
+    "ASSETS.CIRCULATION_SUPPLY": "Circulation supply",
+    "ASSET.MINING_MODEL_INITIAL": "Initial mining reward per block",
+    "ASSET.MINING_MODEL_INTERVAL": "Mining reward decrease interval",
+    "ASSET.MINING_MODEL_BASE": "Mining reward decrease per interval",
+    "ASSET.MINING_CURRENT_REWARD": "Current mining reward per block",
+    "ASSET.MINING_CURRENT_REWARD_POW": "Current PoW mining reward per block",
+    "ASSET.MINING_CURRENT_REWARD_POS": "Current PoS mining reward per block"
 
 }

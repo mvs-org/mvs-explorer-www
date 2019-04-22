@@ -14,9 +14,9 @@
         var service = {};
 
         var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
-        //var SERVER = "http://localhost";
+        //SERVER = "http://localhost";
         //SERVER = "https://explorer.mvs.org/api";
-        //var SERVER = "https://explorer-testnet.mvs.org/api";
+        //SERVER = "https://explorer-testnet.mvs.org/api";
 
         var MAINNET = "https://explorer.mvs.org/api";
 
@@ -42,6 +42,8 @@
         service.ListBlocks = (last_known) => _send('v2/blocks' +((last_known) ? '?last_known=' + last_known : ''));
 
         service.BlockStats = (type, downscale) => _send('stats/block?type=' + type + ((downscale) ? '&downscale=' + downscale : ''));
+
+        service.BlockStatsByDate = (type) => _send('stats/date' +((type) ? '?type=' + type : ''));
 
         service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 
@@ -104,6 +106,12 @@
         service.PosChart = (interval, top) => _send('posstats' + ((interval) ? '?interval=' + interval + ((top) ? '&top=' + top : '') : ((top) ? '?top=' + top : '')));
 
         service.PosVotes = (interval) => _send('posvotes' + ((interval) ? '?interval=' + interval : ''));
+
+        service.MinerVotes = (avatar, interval) => _send('posvotes/' + avatar + ((interval) ? '?interval=' + interval : ''));
+        
+        service.MstMining = (interval) => _send('mstmining' + ((interval) ? '?interval=' + interval : ''));
+
+        service.MstMiningList = () => _send('mstmininglist');
 
         service.SearchAll = (search, limit) => _send('suggest/all/' + search + '?limit=' + limit);
 

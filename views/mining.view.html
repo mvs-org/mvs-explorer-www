@@ -44,7 +44,6 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-
                     <div>
                         <!-- <nvd3 options="options" data="data"></nvd3> -->
                         <div id="chart">
@@ -86,6 +85,11 @@
                     <td ng-show="!loading_pos_mining_info">{{pos_mining_info.difficulty/pos_mining_info.difficulty_simplify.divisor | number}} {{pos_mining_info.difficulty_simplify.letter}}</td>
                 </tr>
                 <tr>
+                    <th>{{'EXPLORER.TOTAL_POS_MINERS'|translate}}</th>
+                    <td ng-show="!nbrPosMiners"><img src="../images/spinner.gif"></td>
+                    <td ng-show="nbrPosMiners">{{nbrPosMiners}}</td>
+                </tr>
+                <tr>
                     <th>{{'EXPLORER.TOTAL_VOTES'|translate}}</th>
                     <td ng-show="!posVotesInfo"><img src="../images/spinner.gif"></td>
                     <td ng-show="posVotesInfo">{{posVotesInfo.totalVotes}}</td>
@@ -109,11 +113,8 @@
                     </div>
                 </div>
                 <div class="col-md-8">
-
-                    <div>
-                        <div id="poschart">
-                            <svg></svg>
-                        </div>
+                    <div id="poschart">
+                        <svg></svg>
                     </div>
                 </div>
             </div>
@@ -195,11 +196,36 @@
     </div>
 </div>
 
-<div class="col-md-12 panel infobox infobox-specific-height">
-    <h3>{{'BLOCKTIME'|translate}}</h3>
-    <div ng-show="loading_blocktimes">
-        <div class="mini-loader">Loading...</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="col-md-12 panel infobox infobox-specific-height mining-box">
+            <h3>{{'MST_MINING.FULL_LIST'|translate}}</h3>
+            <table>
+                <tr ng-repeat="mst in mstMiningList">
+                    <th><a href="asset/{{mst}}">{{mst}}</a></th>
+                </tr>
+            </table>
+        </div>
     </div>
-    <nvd3 options="blocktimeChart.options" data="blocktimeChart.data" class="with-3d-shadow with-transitions"></nvd3>
+    <div class="col-md-8">
+        <div class="col-md-12 panel infobox infobox-specific-height">
+            <h3>{{'MST_MINING_INFORMATION'|translate}}</h3>
+            <p translate="MST_MINING.GRAPH_DESCRIPTION" translate-values="{'interval': posVotesInfo.recentBlocksInterval}"></p>
+            <div class="row">
+                <div class="col-md-4">
+                    <div ng-repeat="mst in mstMined">
+                        <a ng-show="mst.mst" href="asset/{{mst.mst}}">{{$index+1}}: {{mst.mst}} ({{mst.share}}%)</a>
+                        <span ng-hide="mst.mst">{{$index+1}}: {{'MST_MINING.NOT_MINING_MST'|translate}} ({{mst.share}}%)</a>
+                    </div>
+                </div>
+                <div class="col-md-8">
+                    <div id="mstminingchart">
+                        <svg></svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

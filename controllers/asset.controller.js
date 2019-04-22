@@ -31,6 +31,7 @@
                         $scope.special_assets.forEach(function(asset) {
                             asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
                             asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
+                            asset.max_supply = Math.round((asset.quantity + asset.minedQuantity)*Math.pow(10, -asset.decimals));
                         });
                     }
                     NProgress.done();
@@ -49,6 +50,7 @@
                             additionnal_assets.forEach(function(asset) {
                                 asset.priority = (typeof $scope.priority[asset.symbol] != 'undefined') ? $scope.priority[asset.symbol] : 1000;
                                 asset.icon = ($scope.icons.indexOf(asset.symbol) > -1) ? asset.symbol : 'default_mst';
+                                asset.max_supply = Math.round((asset.quantity + asset.minedQuantity)*Math.pow(10, -asset.decimals));
                             });
                             $scope.assets = $scope.assets.concat(additionnal_assets);
                             $scope.last_known = $scope.assets[$scope.assets.length-1].symbol;
@@ -72,6 +74,13 @@
                 console.error(error);
             });
 
+        MetaverseService.Circulation().then((response) => {
+            $scope.loading_circulation = false;
+            if (response.data.status && response.data.status.success) {
+                $scope.circulation = parseFloat(response.data.result).toFixed(0);
+            }
+        }, console.error);
+
     }
 
 
@@ -79,12 +88,10 @@
 
         $scope.symbol = $stateParams.symbol;
         $scope.loading_asset = true;
-        $scope.loading_depositsum = true;
         $scope.loading_circulation = true;
-        $scope.loading_depositrewards = true;
+        $scope.loading_total_supply = true;
         $scope.getCirculation = getCirculation;
-        $scope.getDepositSum = getDepositSum;
-        $scope.getDepositRewards = getDepositRewards;
+        $scope.getTotalSupply = getTotalSupply;
         $scope.icons = Assets.hasIcon;
         $scope.showSecondaryHistory = false;
 
@@ -94,8 +101,17 @@
                 .then((response) => {
                     $scope.loading_asset = false;
                     if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $scope.asset = response.data.result[0];
+                        $scope.asset = response.data.result;
                         $scope.asset.icon = ($scope.icons.indexOf($scope.symbol) > -1) ? $scope.symbol : 'default_mst';
+                        if($scope.asset.mining_model) {
+                            $scope.asset.miningModel = {};
+                            let miningModel = $scope.asset.mining_model.match(/^initial:(.+),interval:(.+),base:(.+)$/);
+                            $scope.asset.miningModel.initial = miningModel[1];
+                            $scope.asset.miningModel.interval = miningModel[2];
+                            $scope.asset.miningModel.base = miningModel[3];
+                            $scope.asset.miningModel.basePercent = Math.round((1-miningModel[3])*100);
+                            getCurrentMiningReward();
+                        }
                     }
                 })
                 .then(() => loadStakelist())
@@ -115,16 +131,30 @@
             $scope.asset.height = 0;
             $scope.asset.description = "MVS Official Token";
             $scope.asset.icon = "ETP";
+            $scope.asset.miningModel = {};
+            $scope.asset.miningModel.initial = 300000000;
+            $scope.asset.miningModel.interval = 500000;
+            $scope.asset.miningModel.base = 0.95;
+            $scope.asset.miningModel.basePercent = 5;
             getCirculation()
+                .then(() => getTotalSupply())
                 .then(() => loadStakelist())
                 .then(() => NProgress.done())
-                .then(() => getDepositSum())
-                .then(() => getDepositRewards());
+                .then(() => getCurrentMiningReward());
 
         }
 
+        function getCurrentMiningReward() {
+            return MetaverseService.FetchHeight().then((height) => {
+                let current_height = height.data.result;
+                $scope.asset.currentReward = Math.round($scope.asset.miningModel.initial * Math.pow(parseFloat($scope.asset.miningModel.base), Math.floor( (current_height - $scope.asset.height) / $scope.asset.miningModel.interval )))
+                if($scope.symbol == "ETP")
+                    $scope.asset.currentRewardPos = Math.floor ($scope.asset.currentReward/10)
+            });
+        }
+
         function getCirculation() {
-            return MetaverseService.Circulation().then((response) => {
+            return MetaverseService.Circulation(1).then((response) => {
                 $scope.loading_circulation = false;
                 if (response.data.status && response.data.status.success) {
                     $scope.circulation = parseFloat(response.data.result).toFixed(0);
@@ -132,21 +162,11 @@
             }, console.error);
         }
 
-        function getDepositSum() {
-            return MetaverseService.DepositSum().then((response) => {
-                $scope.loading_depositsum = false;
+        function getTotalSupply() {
+            return MetaverseService.Circulation().then((response) => {
+                $scope.loading_total_supply = false;
                 if (response.data.status && response.data.status.success) {
-                    $scope.depositsum = parseFloat(response.data.result).toFixed(0);
-                }
-            }, console.error);
-        }
-
-        function getDepositRewards() {
-            return MetaverseService.DepositRewards().then((response) => {
-                $scope.loading_depositrewards = false;
-                if (response.data.status && response.data.status.success) {
-                    $scope.deposit_rewards_locked = parseFloat(response.data.result.locked).toFixed(0);
-                    $scope.deposit_rewards_unlocked = parseFloat(response.data.result.unlocked).toFixed(0);
+                    $scope.totalSupply = parseFloat(response.data.result).toFixed(0);
                 }
             }, console.error);
         }
@@ -159,13 +179,13 @@
                             address: stake.a,
                             row_quantity: stake.q,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / $scope.asset.quantity * 100).toFixed(3))
+                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity) * 100).toFixed(3))
                         };
                     });
 
                     let rest = {
                         share: 100,
-                        quantity: $scope.asset.quantity / Math.pow(10, -$scope.asset.decimals)
+                        quantity: ($scope.asset.quantity + $scope.asset.minedQuantity) / Math.pow(10, -$scope.asset.decimals)
                     };
                     $scope.stakelist.forEach((stake) => {
                         rest.share -= stake.share;
@@ -173,8 +193,6 @@
                     });
                     $scope.stakelist.sort((a, b) => a.quantity - b.quantity);
                     $scope.stakelist = [rest].concat($scope.stakelist);
-                    console.log($scope.stakelist);
-                    //$scope.stakelist.push(rest);
 
                     var h = 800;
                     var r = h / 2;

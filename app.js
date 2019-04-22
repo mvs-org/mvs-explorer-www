@@ -176,6 +176,17 @@
                     }]
                 },
             })
+            .state('explorer.stats', {
+                url: "/stats",
+                meta: {
+                    title: 'Metaverse Statistics',
+                    description: 'General statistics and information of the Metaverse Blockchain. Blocktime and transactions per day.',
+                    keywords: "metaverse, blockchain, statistics, transactions, day",
+                    robots: "index, follow",
+                },
+                templateUrl: "views/stats.view.html",
+                controller: 'StatsController'
+            })
             .state('explorer.block', {
                 url: "/blk/:number",
                 templateUrl: "views/block.view.html",
