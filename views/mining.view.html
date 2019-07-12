@@ -33,7 +33,10 @@
     </div>
     <div class="col-md-8">
         <div class="col-md-12 panel infobox infobox-specific-height">
-            <div class="row">
+            <div ng-show="!locationsmap || !locations">
+                <div class="mini-loader">Loading...</div>
+            </div>
+            <div class="row" ng-show="locationsmap && locations">
                 <div class="col-md-4">
                     <h3>{{'MINING_POOL_INFORMATION'|translate}}</h3>
                     <div ng-repeat="location in locationsmap">
@@ -91,7 +94,7 @@
                 </tr>
                 <tr>
                     <th>{{'EXPLORER.TOTAL_VOTES'|translate}}</th>
-                    <td ng-show="!posVotesInfo"><img src="../images/spinner.gif"></td>
+                    <td ng-show="!posVotesInfo || !posVotesInfo.totalVotes"><img src="../images/spinner.gif"></td>
                     <td ng-show="posVotesInfo">{{posVotesInfo.totalVotes}}</td>
                 </tr>
                 <tr>
@@ -106,7 +109,10 @@
         <div class="col-md-12 panel infobox infobox-specific-height">
             <h3>{{'POS_MINERS_INFORMATION'|translate}}</h3>
             <p translate="POS_MINERS.INTERVAL_INFO" translate-values="{'interval': posVotesInfo.recentBlocksInterval}"></p>
-            <div class="row">
+            <div ng-show="loading_miners_info">
+                <div class="mini-loader">Loading...</div>
+            </div>
+            <div class="row" ng-show="!loading_miners_info">
                 <div class="col-md-4">
                     <div ng-repeat="avatar in avatars">
                         <a href="avatar/{{avatar.symbol}}">{{$index+1}}: {{avatar.symbol}} ({{'POS_MINERS.TOTAL_VOTES'|translate}}: {{avatar.totalVotes}}) {{recentBlocks}}</a>
@@ -180,7 +186,10 @@
     </div>
     <div class="col-md-8">
         <div class="col-md-12 panel infobox infobox-specific-height">
-            <div class="row">
+            <div ng-show="loading_mining_info">
+                <div class="mini-loader">Loading...</div>
+            </div>
+            <div class="row" ng-show="!loading_mining_info">
                 <div class="col-md-4">
                     <h3>{{'BLOCKS_TYPE_INFORMATION'|translate}}</h3>
                 </div>
@@ -212,7 +221,10 @@
         <div class="col-md-12 panel infobox infobox-specific-height">
             <h3>{{'MST_MINING_INFORMATION'|translate}}</h3>
             <p translate="MST_MINING.GRAPH_DESCRIPTION" translate-values="{'interval': posVotesInfo.recentBlocksInterval}"></p>
-            <div class="row">
+            <div ng-show="!mstMined">
+                <div class="mini-loader">Loading...</div>
+            </div>
+            <div class="row" ng-show="mstMined">
                 <div class="col-md-4">
                     <div ng-repeat="mst in mstMined">
                         <a ng-show="mst.mst" href="asset/{{mst.mst}}">{{$index+1}}: {{mst.mst}} ({{mst.share}}%)</a>
