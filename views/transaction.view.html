@@ -116,6 +116,7 @@
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
                             </div>
                         </div>
                         <div class="row" ng-if="output.value != 0 || output.attachment.symbol == 'ETP'">

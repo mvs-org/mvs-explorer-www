@@ -24,7 +24,7 @@
             $scope.max = max_date;
             $scope.load();
         };
-       
+
         $scope.load = function() {
             if(!$scope.loading_txs && !$scope.txs_fully_loaded) {
                 $scope.loading_txs = true;
@@ -73,8 +73,11 @@
                                 if (output.attachment.type == "message") {
                                     $scope.messages.push(output.attachment.content);
                                 }
-                                if (output.locked_height_range)
+                                if (output.locked_height_range) {
                                     output.unlock_block = $scope.transaction.height + output.locked_height_range;
+                                } else if (output.attenuation_model_param) {
+                                    output.unlock_block = $scope.transaction.height + output.attenuation_model_param.lock_period;
+                                }
                             });
                         }
                         if ($scope.transaction.inputs.length) {
