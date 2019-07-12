@@ -13,6 +13,7 @@
         $scope.loading_blocktimes = true;
         $scope.loading_difficulty = true;
         $scope.loading_pos_difficulty = true;
+        $scope.loading_miners_info = true;
 
         var h = 600;
         var r = h / 2;
@@ -355,6 +356,7 @@
                     others.pendingVotes += otherMiner.pendingVotes;
                 });
                 $scope.posminers = [others].concat($scope.posminers.slice($scope.posminers.length - limit));
+                $scope.loading_miners_info = false;
             }).then(() => {
 
                 nv.addGraph(function() {

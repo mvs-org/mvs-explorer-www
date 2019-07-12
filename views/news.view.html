@@ -5,13 +5,13 @@
             <div class="news" ng-repeat="article in announcements">
                 <div class="panel infobox">
                     <div class="row">
-                    <div class="col-md-9">
-                        <a ng-href="{{article.link.url}}" target="_blank"><h3>{{article.title}}</h3></a>
+                        <div class="col-md-9">
+                            <a ng-href="{{article.link.url}}" target="_blank"><h3>{{article.title}}</h3></a>
+                        </div>
+                        <div class="col-md-3 news-date">{{article.date}}</div>
+                        <div class="col-md-12 news-text" ng-bind-html="article.content"></div>
+                        <a class="col-xs-12 col-md-12 news-link" ng-href="{{article.link.url}}" target="_blank">{{ 'NEWS.LINK' | translate }}>></a>
                     </div>
-                    <div class="col-md-3 news-date">{{article.date}}</div>
-                    <div class="col-md-12 news-text" ng-bind-html="article.content"></div>
-                    <a class="col-xs-12 col-md-12 news-link" ng-href="{{article.link.url}}" target="_blank">{{ 'NEWS.LINK' | translate }}>></a>
-</div>
                 </div>
             </div>
         </div>
