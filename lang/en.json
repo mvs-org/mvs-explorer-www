@@ -79,6 +79,7 @@
     "TX": {
       "FROZEN_UNTIL_BLOCK": "frozen until block"
     },
+    "DAY": " day ",
     "HOUR": " hour ",
     "TOP_MENU_HOME": "Home",
     "TX.MEMO": "There is data attached to this transaction:",
@@ -342,6 +343,9 @@
     "ASSET.MINING_MODEL_BASE": "Mining reward decrease per interval",
     "ASSET.MINING_CURRENT_REWARD": "Current mining reward per block",
     "ASSET.MINING_CURRENT_REWARD_POW": "Current PoW mining reward per block",
-    "ASSET.MINING_CURRENT_REWARD_POS": "Current PoS mining reward per block"
+    "ASSET.MINING_CURRENT_REWARD_POS": "Current PoS mining reward per block",
+
+    "EXPLORER.DAILY_POS_REWARD_PER_VOTE": "Est. daily reward per vote",
+    "EXPLORER.DAILY_POS_REWARD_PER_VOTE_EXPLANATION": "The first 1000 ETP have to be locked and do not provide any reward. Each additional available 1000 ETP can give you one vote."
 
 }

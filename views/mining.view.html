@@ -98,6 +98,14 @@
                     <td ng-show="posVotesInfo">{{posVotesInfo.totalVotes}}</td>
                 </tr>
                 <tr>
+                    <th>
+                        {{'EXPLORER.DAILY_POS_REWARD_PER_VOTE'|translate}}
+                        <span class="fa fa-question-circle help-tooltip" bs-tooltip data-placement="top" title="{{ 'EXPLORER.DAILY_POS_REWARD_PER_VOTE_EXPLANATION' | translate }}"></span>
+                    </th>
+                    <td ng-show="!posVotesInfo || !posVotesInfo.totalVotes || loading_pos_mining_info"><img src="../images/spinner.gif"></td>
+                    <td ng-show="posVotesInfo && !loading_pos_mining_info">{{0.233*((60*60*24)/pos_mining_info.pos_blocktime)/posVotesInfo.totalVotes | number}} ETP</td>
+                </tr>
+                <tr>
                     <th>{{'EXPLORER.LAST_POS'|translate}}</th>
                     <td ng-show="loading_pos_mining_info"><img src="../images/spinner.gif"></td>
                     <td ng-show="!loading_pos_mining_info"><a href="blk/{{pos_mining_info.last}}">{{pos_mining_info.height - pos_mining_info.last}}{{"EXPLORER.BLOCKS_AGO"|translate}}</a></td>
