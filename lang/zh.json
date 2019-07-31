@@ -79,6 +79,7 @@
     "TX": {
         "FROZEN_UNTIL_BLOCK": "一直冻结到块高"
     },
+    "DAY": "天",
     "HOUR": "小时",
     "TOP_MENU_HOME": "首页",
     "TX.MEMO": "交易数据信息:",
