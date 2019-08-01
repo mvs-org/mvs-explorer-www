@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
                 <div class="col-md-9 list-item-value block-mem-pool" ng-show="!loading_confirmation && (transaction.orphan == -1)">{{ 'EXPLORER.UNCONFIRMED' | translate}}</div>
-                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan > 0)">{{ 'TX.ORPHAN' | translate}}</div>
+                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan != -1 && transaction.orphan != 0)">{{ 'TX.ORPHAN' | translate}}</div>
                 <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations > 100">{{ 'TX.CONFIRMED' | translate}}</div>
                 <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations <= 100">{{ confirmations }}</div>
                 <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>
@@ -116,6 +116,7 @@
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                <div ng-if="output.unlock_block" class="io-script">{{'TX.FROZEN_UNTIL_BLOCK'|translate}} {{output.unlock_block}}</div>
                             </div>
                         </div>
                         <div class="row" ng-if="output.value != 0 || output.attachment.symbol == 'ETP'">

@@ -61,7 +61,8 @@
                 <div class="col-md-4 list-item-label">{{ 'AVATAR_POS_MINING.LAST_BLOCK_TIME' | translate }}</div>
                 <div class="col-md-8 list-item-value">
                     <a href="blk/{{posMining.lastBlockHeight}}">
-                        <span ng-show="currentTimeStamp - (posMining.lastBlockTime * 1000) > 3600000">{{currentTimeStamp - (posMining.lastBlockTime * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span>
+                        <span ng-show="currentTimeStamp - (posMining.lastBlockTime * 1000) > 86400000">{{currentTimeStamp - (posMining.lastBlockTime * 1000) - 86400000| date: 'dd': 'UTC'}}{{ 'DAY' | translate }}</span>
+                        <span ng-show="currentTimeStamp - (posMining.lastBlockTime * 1000) > 3600000">{{currentTimeStamp - (posMining.lastBlockTime * 1000)| date: 'HH': 'UTC'}}{{ 'HOUR' | translate }}</span>
                         <span ng-show="currentTimeStamp - (posMining.lastBlockTime * 1000) > 60000">{{currentTimeStamp - (posMining.lastBlockTime * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span>
                         <span>{{currentTimeStamp - (posMining.lastBlockTime * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
                         <span>{{ 'AGO' | translate }}</span>

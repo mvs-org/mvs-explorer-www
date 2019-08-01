@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -13,6 +13,7 @@
         $scope.loading_blocktimes = true;
         $scope.loading_difficulty = true;
         $scope.loading_pos_difficulty = true;
+        $scope.loading_miners_info = true;
 
         var h = 600;
         var r = h / 2;
@@ -26,8 +27,8 @@
         $scope.powdata = [];
         $scope.posminers = [];
         $scope.posVotesInfo = {};
-        $scope.locations = {}; 
-        $scope.avatars = [];  
+        $scope.locations = {};
+        $scope.avatars = [];
 
         $scope.colors = [
             "#006599", // dark blue
@@ -36,6 +37,10 @@
             '#ffd21c', // yellow
             "#fe0000" // red
         ];
+
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
 
         function getInfo() {
             return MetaverseService.Info().then((response) => {
@@ -50,7 +55,7 @@
                 $scope.loading_pow_mining_info = false;
                 if (response.data.status && response.data.status.success)
                     $scope.pow_mining_info = response.data.result;
-                    $scope.pow_mining_info.difficulty_simplify = simplify($scope.pow_mining_info.difficulty);
+                $scope.pow_mining_info.difficulty_simplify = simplify($scope.pow_mining_info.difficulty);
             }, console.error);
         }
 
@@ -59,7 +64,7 @@
                 $scope.loading_pos_mining_info = false;
                 if (response.data.status && response.data.status.success)
                     $scope.pos_mining_info = response.data.result;
-                    $scope.pos_mining_info.difficulty_simplify = simplify($scope.pos_mining_info.difficulty);
+                $scope.pos_mining_info.difficulty_simplify = simplify($scope.pos_mining_info.difficulty);
             }, console.error);
         }
 
@@ -71,17 +76,17 @@
                     let maxDifficultyY = 0;
                     let result_simplify = simplify(response.data.result[0][2]);
                     response.data.result.forEach((point) => {
-                        maxDifficultyY = Math.max(maxDifficultyY, point[2]/result_simplify.divisor);
+                        maxDifficultyY = Math.max(maxDifficultyY, point[2] / result_simplify.divisor);
                         blocktimes.push({
                             x: point[0],
                             y: point[1]
                         });
                         difficulties.push({
                             x: point[0],
-                            y: point[2]/result_simplify.divisor
+                            y: point[2] / result_simplify.divisor
                         });
                     });
-                    maxDifficultyY = Math.floor(maxDifficultyY+1);
+                    maxDifficultyY = Math.floor(maxDifficultyY + 1);
                     drawBlocktimes(blocktimes);
                     drawDifficulties(difficulties, maxDifficultyY, result_simplify.text);
                     $scope.loading_blocktimes = false;
@@ -93,7 +98,7 @@
             var result = {};
             result.divisor = 1;
             result.text = "GRAPH.DIFFICULTY";
-            if(difficulty > 1000000000000) {
+            if (difficulty > 1000000000000) {
                 result.text = "GRAPH.DIFFICULTY_TERA";
                 result.divisor = 1000000000000;
                 result.letter = 'T';
@@ -116,13 +121,13 @@
                     let maxY = 0;
                     let result_simplify = simplify(response.data.result[0][2]);
                     response.data.result.forEach((point) => {
-                        maxY = Math.max(maxY, point[2]/result_simplify.divisor);
+                        maxY = Math.max(maxY, point[2] / result_simplify.divisor);
                         difficulties.push({
                             x: point[0],
-                            y: point[2]/result_simplify.divisor
+                            y: point[2] / result_simplify.divisor
                         });
                     });
-                    maxY = Math.floor(maxY+1);
+                    maxY = Math.floor(maxY + 1);
                     drawPosDifficulties(difficulties, maxY, result_simplify.text);
                     $scope.loading_pos_difficulty = false;
                 });
@@ -142,7 +147,7 @@
                                     bottom: 40,
                                     left: 95
                                 },
-                                y: function(d) {
+                                y: function (d) {
                                     return d.y;
                                 },
                                 showLegend: false,
@@ -176,7 +181,7 @@
                                     bottom: 40,
                                     left: 95
                                 },
-                                y: function(d) {
+                                y: function (d) {
                                     return d.y;
                                 },
                                 showLegend: false,
@@ -224,7 +229,7 @@
                         }]
                     };
                 });
-        }       
+        }
 
         //Mining info
         MetaverseService.MiningInfo($scope.interval)
@@ -236,12 +241,12 @@
                 }
             }).then(() => {
 
-                nv.addGraph(function() {
+                nv.addGraph(function () {
                     var blockstypechart = nv.models.pieChart()
-                        .x(function(d) {
+                        .x(function (d) {
                             return d.type;
                         })
-                        .y(function(d) {
+                        .y(function (d) {
                             return d.counter / $scope.interval * 100;
                         })
                         .color($scope.colors)
@@ -258,7 +263,7 @@
                     var positionY = 30;
                     var verticalOffset = 25;
 
-                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function (d) {
                         positionY += verticalOffset;
                         d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
                     });
@@ -290,12 +295,12 @@
 
             }).then(() => {
 
-                nv.addGraph(function() {
+                nv.addGraph(function () {
                     var chart = nv.models.pieChart()
-                        .x(function(d) {
+                        .x(function (d) {
                             return "<b>" + d.name + "</b><br>" + d.url;
                         })
-                        .y(function(d) {
+                        .y(function (d) {
                             return d.counter / $scope.powInterval * 100;
                         })
                         .color($scope.colors)
@@ -312,7 +317,7 @@
                     var positionY = 30;
                     var verticalOffset = 25;
 
-                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function (d) {
                         positionY += verticalOffset;
                         d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
                     });
@@ -337,7 +342,7 @@
                     miner.mstMining = miner.mstMining ? miner.mstMining : "None";
                     $scope.avatars.push(avatarInfo);
                 });
-                
+
                 $scope.avatars.sort((a, b) => b.recentBlocks - a.recentBlocks);
                 $scope.avatars = $scope.avatars.slice(0, limit)
 
@@ -355,14 +360,15 @@
                     others.pendingVotes += otherMiner.pendingVotes;
                 });
                 $scope.posminers = [others].concat($scope.posminers.slice($scope.posminers.length - limit));
+                $scope.loading_miners_info = false;
             }).then(() => {
 
-                nv.addGraph(function() {
+                nv.addGraph(function () {
                     var poschart = nv.models.pieChart()
-                        .x(function(d) {
-                            return "<b>"+d.avatar+"</b><br>Recent blocks: "+d.recentBlocks+"<br>Total votes: "+d.totalVotes+"<br>Available votes: "+(d.totalVotes-d.pendingVotes)+"<br>Pending votes: "+d.pendingVotes+"<br>MST mining: "+d.mstMining;
+                        .x(function (d) {
+                            return "<b>" + d.avatar + "</b><br>Recent blocks: " + d.recentBlocks + "<br>Total votes: " + d.totalVotes + "<br>Available votes: " + (d.totalVotes - d.pendingVotes) + "<br>Pending votes: " + d.pendingVotes + "<br>MST mining: " + d.mstMining;
                         })
-                        .y(function(d) {
+                        .y(function (d) {
                             return d.recentBlocks / $scope.posInterval * 100;
                         })
                         .color($scope.colors)
@@ -379,7 +385,7 @@
                     var positionY = 30;
                     var verticalOffset = 25;
 
-                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function (d) {
                         positionY += verticalOffset;
                         d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
                     });
@@ -398,18 +404,18 @@
                 $scope.mstMining.counters.forEach((miner) => {
                     let mstInfo = {}
                     mstInfo.mst = miner.mst;
-                    mstInfo.share = Math.round(miner.blocks / $scope.mstMining.interval * 100 * 100)/100
+                    mstInfo.share = Math.round(miner.blocks / $scope.mstMining.interval * 100 * 100) / 100
                     $scope.mstMined.push(mstInfo);
                 });
                 $scope.mstMined.sort((a, b) => b.share - a.share);
             }).then(() => {
 
-                nv.addGraph(function() {
+                nv.addGraph(function () {
                     var poschart = nv.models.pieChart()
-                        .x(function(d) {
-                            return "<b>"+(d.mst?d.mst:"Not mining any MST")+"</b>";
+                        .x(function (d) {
+                            return "<b>" + (d.mst ? d.mst : "Not mining any MST") + "</b>";
                         })
-                        .y(function(d) {
+                        .y(function (d) {
                             return d.blocks / $scope.mstMining.interval * 100;
                         })
                         .color($scope.colors)
@@ -426,7 +432,7 @@
                     var positionY = 30;
                     var verticalOffset = 25;
 
-                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function(d) {
+                    d3.selectAll('.nv-legend .nv-series')[0].forEach(function (d) {
                         positionY += verticalOffset;
                         d3.select(d).attr('transform', 'translate(' + positionX + ',' + positionY + ')');
                     });
