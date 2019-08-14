@@ -9,15 +9,14 @@
     function Assets() {
         var service = {};
 
-        service.hasIcon = ['ETP', 'MVS.ZGC', 'MVS.ZDC', 'CSD.CSD', 'PARCELX.GPX', 'PARCELX.TEST', 'SDG', 'META', 'MVS.HUG', 'RIGHTBTC.RT', 'TIPLR.TPC', 'PANDO', 'VALOTY', 'KOALA.KT'];
+        service.hasIcon = ['ETP', 'MVS.ZGC', 'MVS.ZDC', 'CSD.CSD', 'PARCELX.GPX', 'PARCELX.TEST', 'SDG', 'META', 'MVS.HUG', 'RIGHTBTC.RT', 'TIPLR.TPC', 'PANDO', 'VALOTY', 'KOALA.KT', 'DNA'];
 
         setPriority();
 
         function setPriority() {
             service.priority = [];
             service.priority["ETP"] = 1;
-            service.priority["PARCELX.GPX"] = 10;
-            service.priority["RIGHTBTC.RT"] = 20;
+            service.priority["DNA"] = 10;
             service.priority["MVS.ZGC"] = 100;
             service.priority["MVS.ZDC"] = 110;
         };
