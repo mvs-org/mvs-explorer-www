@@ -15,6 +15,7 @@
 
         var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
         //SERVER = "http://localhost";
+        //SERVER = "http://localhost:8081";
         //SERVER = "https://explorer.mvs.org/api";
         //SERVER = "https://explorer-testnet.mvs.org/api";
 
