@@ -3,10 +3,11 @@
     <div class="date-input">
         <md-datepicker ng-model="min_date" md-placeholder="{{'FROM_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
         <md-datepicker ng-model="max_date" md-placeholder="{{'TO_DATE'|translate}}" md-min-date="minDate" md-max-date="maxDate"></md-datepicker>
-        <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters(min_date, max_date)"><i class="fas fa-search"></i></md-button>
+        <md-button class="md-secondary md-raised search-button" aria-label="search" ng-click="applyFilters(min_date, max_date)"><i
+                class="fas fa-search"></i></md-button>
     </div>
     <div class="row right">
-      <md-button class="md-secondary md-raised broadcast-btn" href="broadcast">{{ 'TX.BROADCAST_BTN' | translate}}</md-button>
+        <md-button class="md-secondary md-raised broadcast-btn" href="broadcast">{{ 'TX.BROADCAST_BTN' | translate}}</md-button>
     </div>
 
     <div infinite-scroll="load()">
@@ -17,7 +18,8 @@
                         <a class="hash-mono" href="tx/{{tx.hash}}">{{ tx.hash }}</a>
                     </div>
                     <div class="col-md-3 col-sm-12">
-                        <div class="right">{{tx.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate ) }}</div>
+                        <div class="right">{{tx.confirmed_at * 1000 | date: ( 'GENERAL.DATE_FORMAT_MEDIUM' | translate
+                            ) }}</div>
                     </div>
                 </div>
                 <div class="row">
@@ -25,13 +27,16 @@
                         <div><b>{{'INPUTS'|translate}}:</b></div>
                         <div class="row" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
                             <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
-                                <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{ input.address }}</a>
+                                <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{
+                                    input.address }}</a>
                                 <br>
-                                <span ng-if="input.address && $index < 5">{{input.attachment.quantity | numberFormat:input.attachment.decimals}} {{input.attachment.symbol}}</span>
+                                <span ng-if="input.address && $index < 5">{{input.attachment.quantity |
+                                    numberFormat:input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
-                                <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{ input.address }}</a>
+                                <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{
+                                    input.address }}</a>
                                 <br>
                                 <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8}} ETP</span>
                             </div>
@@ -45,11 +50,13 @@
                     </div>
                     <div class="col-md-6">
                         <div class="right"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'" ng-class="{searchedAddress: output.address==address}">
+                        <div class="row" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'"
+                            ng-class="{searchedAddress: output.address==address}">
                             <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
                                 <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
                                 <div class="right">
-                                    {{output.attachment.quantity | numberFormat:output.attachment.decimals}} {{output.attachment.symbol}}
+                                    {{output.attachment.quantity | numberFormat:output.attachment.decimals}}
+                                    {{output.attachment.symbol}}
                                 </div>
                             </div>
                             <div ng-if="output.value != 0" class="col-md-12 right break">
@@ -64,7 +71,7 @@
             </div>
         </div>
     </div>
-    
+
     <div ng-show="loading_txs">
         <div class="mini-loader">Loading...</div>
     </div>

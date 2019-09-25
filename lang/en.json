@@ -349,6 +349,7 @@
     "EXPLORER.DAILY_POS_REWARD_PER_VOTE_EXPLANATION": "The first 1000 ETP have to be locked and do not provide any reward. Each additional available 1000 ETP can give you one vote.",
 
     "AVATAR.MITS": "MITs",
-    "AVATAR.NO_MITS": "This Avatar does not have any MIT"
+    "AVATAR.NO_MITS": "This Avatar does not have any MIT",
+    "AVATAR.LOAD_MORE_MITS": "Load more MITs"
 
 }

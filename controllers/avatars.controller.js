@@ -26,6 +26,7 @@
         $scope.mit_last_known = '';
         $scope.loading_mits = false;
         $scope.mits_fully_loaded = false;
+        $scope.load_mits_nbr = 30;
         $scope.currentTimeStamp = Math.floor(Date.now());
         $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
@@ -61,16 +62,16 @@
                 console.error(error);
             });
 
-        function loadMits() {
+        $scope.loadMits = function (limit) {
             if (!$scope.loading_mits && !$scope.mits_fully_loaded) {
                 $scope.loading_mits = true;
-                return MetaverseService.ListAvatarMits($stateParams.symbol, $scope.mit_last_known)
+                return MetaverseService.ListAvatarMits($stateParams.symbol, limit, $scope.mit_last_known)
                     .then((response) => {
                         $scope.mits = $scope.mits.concat(response.data.result);
                         if ($scope.mits[$scope.mits.length - 1])
                             $scope.mit_last_known = $scope.mits[$scope.mits.length - 1]._id;
                         $scope.loading_mits = false;
-                        if (response.data.result.length == 0)
+                        if (response.data.result.length == 0 || response.data.result.length < limit)
                             $scope.mits_fully_loaded = true;
                     })
                     .catch((error) => {
@@ -80,7 +81,7 @@
             }
         }
 
-        loadMits()
+        $scope.loadMits(6)
 
 
         function fetchAddress(address) {

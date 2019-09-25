@@ -68,7 +68,7 @@
 
         service.ListCerts = (last_known) => _send('v2/certs' + ((last_known) ? '?last_known=' + last_known : ''));
 
-        service.ListAvatarMits = (avatar, last_known) => _send('v2/mits?avatar=' + avatar + ((last_known) ? '&last_known=' + last_known : ''));
+        service.ListAvatarMits = (avatar, limit, last_known) => _send('v2/mits?avatar=' + avatar + ((limit) ? '&limit=' + limit : '') + ((last_known) ? '&last_known=' + last_known : ''));
 
         service.CertsCount = () => _send('v2/info/cert');
 
