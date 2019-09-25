@@ -78,7 +78,7 @@
 
         service.FetchAvatar = (symbol) => _send('avatar/' + symbol);
 
-        service.FetchCerts = (symbol, show_invalidated) => _send('certs/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
+        service.ListAvatarCerts = (avatar, limit, last_known) => _send('v2/certs?avatar=' + avatar + ((limit) ? '&limit=' + limit : '') + ((last_known) ? '&last_known=' + last_known : ''));
 
         service.FetchMit = (symbol, show_invalidated) => _send('mits/' + symbol + ((show_invalidated) ? '?show_invalidated=' + show_invalidated : ''));
 

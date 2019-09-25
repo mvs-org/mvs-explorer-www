@@ -110,13 +110,15 @@
                 <div>
                     {{mit.attachment.content}}
                 </div>
-                <div class="panel-link">
+                <br>
+                <div class="panel-link mit-timestamp">
                     <a class="align-right" href="tx/{{mit.tx}}">{{mit.confirmed_at * 1000| date}}</a>
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-sm-12" ng-hide="loading_mits || mits == [] || mits_fully_loaded">
-            <md-button class="md-secondary md-raised broadcast-btn" ng-click="loadMits(load_mits_nbr)">{{ 'AVATAR.LOAD_MORE_MITS' | translate}}</md-button>
+        <div class="col-xs-12" ng-hide="loading_mits || mits == [] || mits_fully_loaded">
+            <md-button class="md-secondary md-raised broadcast-btn" ng-click="loadMits(load_mits_nbr)">{{
+                'AVATAR.LOAD_MORE_MITS' | translate}}</md-button>
         </div>
     </div>
     <div class="row" ng-show="loading_mits">
@@ -125,43 +127,45 @@
 
     <div class="row">
         <h2 class="headline col-sm-12"><em></em>{{ 'AVATAR.CERTIFICATES' | translate }}</h2>
-        <div ng-show="loading_certs">
-            <div class="mini-loader">Loading...</div>
-        </div>
         <div ng-show="!loading_certs && certs.length == 0" class="col-sm-12">{{ 'AVATAR.NO_CERTIFICATES' | translate }}</div>
-        <div ng-show="certs.length != 0">
-            <div class="certificate panel nga-default nga-stagger nga-fade distrib-overview col-xs-12 col-sm-6 col-md-3 col-lg-2"
-                ng-class="{certDomain: cert.attachment.cert == 'domain', certIssue: cert.attachment.cert == 'issue', certNaming: cert.attachment.cert == 'naming', certMining: cert.attachment.cert == 'mining', certWitness: cert.attachment.cert == 'witness', certExpired: cert.spent_tx != 0}"
-                ng-repeat="cert in certs | orderBy:['spent_tx','height']">
-                <div ng-show="cert.spent_tx != 0" class="conditionnal-tooltip" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_SPENT' | translate }}"></div>
-                <div class="panel-link" ng-class="{certExpiredOpacity: cert.spent_tx != 0}">
-                    <h4 class="text-center cert-title">{{cert.attachment.symbol}}</h4>
-                    <div>{{ 'CERT.TYPE' | translate }}:
-                        <span ng-show="cert.attachment.cert == 'issue'" class="align-right" bs-tooltip data-placement="top"
-                            title="{{ 'HELP.CERT_TYPE_ISSUE' | translate }}">{{ 'CERT_ISSUE' | translate }}</span>
-                        <span ng-show="cert.attachment.cert == 'domain'" class="align-right" bs-tooltip data-placement="top"
-                            title="{{ 'HELP.CERT_TYPE_DOMAIN' | translate }}">{{ 'CERT_DOMAIN' | translate }}</span>
-                        <span ng-show="cert.attachment.cert == 'naming'" class="align-right" bs-tooltip data-placement="top"
-                            title="{{ 'HELP.CERT_TYPE_NAMING' | translate }}">{{ 'CERT_NAMING' | translate }}</span>
-                        <span ng-show="cert.attachment.cert == 'mining'" class="align-right" bs-tooltip data-placement="top"
-                            title="{{ 'HELP.CERT_TYPE_MINING' | translate }}">{{ 'CERT_MINING' | translate }}</span>
-                        <span ng-show="cert.attachment.cert == 'witness'" class="align-right" bs-tooltip data-placement="top"
-                            title="{{ 'HELP.CERT_TYPE_WITNESS' | translate }}">{{ 'CERT_WITNESS' | translate }}</span>
-                        <span ng-show="cert.attachment.cert != 'issue' && cert.attachment.cert != 'domain' && cert.attachment.cert != 'naming' && cert.attachment.cert != 'mining' && cert.attachment.cert != 'witness'"
-                            class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE' | translate }}">{{cert.attachment.cert}}</span>
-                    </div>
-                    <div>{{ 'CERT.CURRENT_OWNER' | translate }}: <span class="break-all align-right">{{cert.attachment.owner}}</span></div>
-                    <div>{{ 'TX.BLOCK' | translate }}: <a class="align-right" href="blk/{{cert.height}}">{{cert.height}}</a></div>
-                    <div>{{ 'CERT.CREATION' | translate }}: <a class="align-right" href="tx/{{cert.tx}}">{{cert.confirmed_at
-                            * 1000| date}}</a></div>
-                    <br />
-                    <h4 class="text-center" ng-if="cert.spent_tx!=0">
-                        <a href="tx/{{cert.spent_tx}}">{{ 'CERT.INVALIDATED' | translate }}</a>
-                    </h4>
-                    <img class="cert-stamp" check-image ng-src="../img/assets/ETP.png">
+        <div class="certificate panel nga-default nga-stagger nga-fade distrib-overview col-xs-12 col-sm-6 col-md-3 col-lg-2"
+            ng-class="{certDomain: cert.attachment.cert == 'domain', certIssue: cert.attachment.cert == 'issue', certNaming: cert.attachment.cert == 'naming', certMining: cert.attachment.cert == 'mining', certWitness: cert.attachment.cert == 'witness', certExpired: cert.spent_tx != 0}"
+            ng-repeat="cert in certs | orderBy:['spent_tx!==0','-height']">
+            <div ng-show="cert.spent_tx != 0" class="conditionnal-tooltip" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_SPENT' | translate }}"></div>
+            <div class="panel-link" ng-class="{certExpiredOpacity: cert.spent_tx != 0}">
+                <h4 class="text-center cert-title">{{cert.attachment.symbol}}</h4>
+                <div>{{ 'CERT.TYPE' | translate }}:
+                    <span ng-show="cert.attachment.cert == 'issue'" class="align-right" bs-tooltip data-placement="top"
+                        title="{{ 'HELP.CERT_TYPE_ISSUE' | translate }}">{{ 'CERT_ISSUE' | translate }}</span>
+                    <span ng-show="cert.attachment.cert == 'domain'" class="align-right" bs-tooltip data-placement="top"
+                        title="{{ 'HELP.CERT_TYPE_DOMAIN' | translate }}">{{ 'CERT_DOMAIN' | translate }}</span>
+                    <span ng-show="cert.attachment.cert == 'naming'" class="align-right" bs-tooltip data-placement="top"
+                        title="{{ 'HELP.CERT_TYPE_NAMING' | translate }}">{{ 'CERT_NAMING' | translate }}</span>
+                    <span ng-show="cert.attachment.cert == 'mining'" class="align-right" bs-tooltip data-placement="top"
+                        title="{{ 'HELP.CERT_TYPE_MINING' | translate }}">{{ 'CERT_MINING' | translate }}</span>
+                    <span ng-show="cert.attachment.cert == 'witness'" class="align-right" bs-tooltip data-placement="top"
+                        title="{{ 'HELP.CERT_TYPE_WITNESS' | translate }}">{{ 'CERT_WITNESS' | translate }}</span>
+                    <span ng-show="cert.attachment.cert != 'issue' && cert.attachment.cert != 'domain' && cert.attachment.cert != 'naming' && cert.attachment.cert != 'mining' && cert.attachment.cert != 'witness'"
+                        class="align-right" bs-tooltip data-placement="top" title="{{ 'HELP.CERT_TYPE' | translate }}">{{cert.attachment.cert}}</span>
                 </div>
+                <div>{{ 'CERT.CURRENT_OWNER' | translate }}: <span class="break-all align-right">{{cert.attachment.owner}}</span></div>
+                <div>{{ 'TX.BLOCK' | translate }}: <a class="align-right" href="blk/{{cert.height}}">{{cert.height}}</a></div>
+                <div>{{ 'CERT.CREATION' | translate }}: <a class="align-right" href="tx/{{cert.tx}}">{{cert.confirmed_at
+                        * 1000| date}}</a></div>
+                <br />
+                <h4 class="text-center" ng-if="cert.spent_tx!=0">
+                    <a href="tx/{{cert.spent_tx}}">{{ 'CERT.INVALIDATED' | translate }}</a>
+                </h4>
+                <img class="cert-stamp" check-image ng-src="../img/assets/ETP.png">
             </div>
         </div>
+        <div class="col-xs-12" ng-hide="loading_certs || certs == [] || certs_fully_loaded">
+            <md-button class="md-secondary md-raised broadcast-btn" ng-click="loadCerts(load_certs_nbr)">{{
+                'AVATAR.LOAD_MORE_CERTS' | translate}}</md-button>
+        </div>
+    </div>
+    <div class="row" ng-show="loading_certs">
+        <div class="mini-loader">Loading...</div>
     </div>
 
     <h2 class="headline"><em></em>{{ 'AVATAR.INFO' | translate }}</h2>

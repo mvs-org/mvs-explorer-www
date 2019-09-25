@@ -18,15 +18,24 @@
         $scope.items_per_page = 10;
         $scope.minDate = new Date(2017, 2 - 1, 11);
         $scope.maxDate = new Date();
+
         $scope.transactions = [];
         $scope.last_known = '';
         $scope.loading_txs = false;
         $scope.txs_fully_loaded = false;
+
         $scope.mits = [];
         $scope.mit_last_known = '';
         $scope.loading_mits = false;
         $scope.mits_fully_loaded = false;
         $scope.load_mits_nbr = 30;
+
+        $scope.certs = [];
+        $scope.cert_last_known = '';
+        $scope.loading_certs = false;
+        $scope.certs_fully_loaded = false;
+        $scope.load_certs_nbr = 10;
+
         $scope.currentTimeStamp = Math.floor(Date.now());
         $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
@@ -39,17 +48,6 @@
             })
             .catch((error) => {
                 $scope.loading_avatar = false;
-                console.error(error);
-            });
-
-
-        MetaverseService.FetchCerts($stateParams.symbol, 1)
-            .then((response) => {
-                $scope.certs = response.data.result;
-                $scope.loading_certs = false;
-            })
-            .catch((error) => {
-                $scope.loading_certs = false;
                 console.error(error);
             });
 
@@ -82,6 +80,27 @@
         }
 
         $scope.loadMits(6)
+
+        $scope.loadCerts = function (limit) {
+            if (!$scope.loading_certs && !$scope.certs_fully_loaded) {
+                $scope.loading_certs = true;
+                return MetaverseService.ListAvatarCerts($stateParams.symbol, limit, $scope.cert_last_known)
+                    .then((response) => {
+                        $scope.certs = $scope.certs.concat(response.data.result);
+                        if ($scope.certs[$scope.certs.length - 1])
+                            $scope.cert_last_known = $scope.certs[$scope.certs.length - 1]._id;
+                        $scope.loading_certs = false;
+                        if (response.data.result.length == 0 || response.data.result.length < limit)
+                            $scope.certs_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_certs = false;
+                        console.error(error);
+                    });
+            }
+        }
+
+        $scope.loadCerts($scope.load_certs_nbr)
 
 
         function fetchAddress(address) {
