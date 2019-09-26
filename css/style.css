@@ -1622,7 +1622,7 @@ Main components
     margin-left: 0;
     padding: 1.6em;
     width: calc(50% - 30px);
-    margin: 0 5%;
+    margin: 0;
     overflow: hidden;
     margin-left: 0;
   }
@@ -1755,4 +1755,10 @@ footer h5 {
   height: 18px;
   top: -2px;
   position: relative;
+}
+
+.mit-timestamp {
+  position: absolute;
+  bottom: 14px;
+  right: 20px;
 }
