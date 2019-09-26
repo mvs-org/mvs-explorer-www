@@ -212,6 +212,7 @@
     "MIT.NUMBER_OF": "Number of MITs on the Metaverse blockchain",
     "CERT.CURRENT_OWNER": "Owner",
     "CERT.CREATION": "Creation",
+    "CERT.RECEIVED": "Received",
     "TX.SCRIPT": "Script",
     "TX.SHOW_HASH": "Show scripts",
     "TX.HIDE_HASH": "Hide scripts",
