@@ -150,6 +150,7 @@
                 $scope.asset.currentReward = Math.round($scope.asset.miningModel.initial * Math.pow(parseFloat($scope.asset.miningModel.base), Math.floor( (current_height - $scope.asset.height) / $scope.asset.miningModel.interval )))
                 if($scope.symbol == "ETP")
                     $scope.asset.currentRewardPos = Math.floor ($scope.asset.currentReward/10)
+                    $scope.asset.currentReward = Math.round(250000000 * Math.pow(parseFloat($scope.asset.miningModel.base), Math.floor( (current_height - $scope.asset.height) / $scope.asset.miningModel.interval )))
             });
         }
 

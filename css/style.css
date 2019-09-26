@@ -1760,3 +1760,9 @@ footer h5 {
   top: -2px;
   position: relative;
 }
+
+.mit-timestamp {
+  position: absolute;
+  bottom: 14px;
+  right: 20px;
+}

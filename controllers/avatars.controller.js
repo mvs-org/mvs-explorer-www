@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -18,10 +18,24 @@
         $scope.items_per_page = 10;
         $scope.minDate = new Date(2017, 2 - 1, 11);
         $scope.maxDate = new Date();
+
         $scope.transactions = [];
         $scope.last_known = '';
         $scope.loading_txs = false;
         $scope.txs_fully_loaded = false;
+
+        $scope.mits = [];
+        $scope.mit_last_known = '';
+        $scope.loading_mits = false;
+        $scope.mits_fully_loaded = false;
+        $scope.load_mits_nbr = 30;
+
+        $scope.certs = [];
+        $scope.cert_last_known = '';
+        $scope.loading_certs = false;
+        $scope.certs_fully_loaded = false;
+        $scope.load_certs_nbr = 10;
+
         $scope.currentTimeStamp = Math.floor(Date.now());
         $interval(() => $scope.currentTimeStamp = Math.floor(Date.now()), 1000);
 
@@ -37,17 +51,6 @@
                 console.error(error);
             });
 
-
-        MetaverseService.FetchCerts($stateParams.symbol, 1)
-            .then((response) => {
-                $scope.certs = response.data.result;
-                $scope.loading_certs = false;
-            })
-            .catch((error) => {
-                $scope.loading_certs = false;
-                console.error(error);
-            });
-
         MetaverseService.MinerVotes($stateParams.symbol, 1000)
             .then((response) => {
                 $scope.posMining = response.data.result
@@ -56,6 +59,48 @@
                 $scope.loading_certs = false;
                 console.error(error);
             });
+
+        $scope.loadMits = function (limit) {
+            if (!$scope.loading_mits && !$scope.mits_fully_loaded) {
+                $scope.loading_mits = true;
+                return MetaverseService.ListAvatarMits($stateParams.symbol, limit, $scope.mit_last_known)
+                    .then((response) => {
+                        $scope.mits = $scope.mits.concat(response.data.result);
+                        if ($scope.mits[$scope.mits.length - 1])
+                            $scope.mit_last_known = $scope.mits[$scope.mits.length - 1]._id;
+                        $scope.loading_mits = false;
+                        if (response.data.result.length == 0 || response.data.result.length < limit)
+                            $scope.mits_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_mits = false;
+                        console.error(error);
+                    });
+            }
+        }
+
+        $scope.loadMits(6)
+
+        $scope.loadCerts = function (limit) {
+            if (!$scope.loading_certs && !$scope.certs_fully_loaded) {
+                $scope.loading_certs = true;
+                return MetaverseService.ListAvatarCerts($stateParams.symbol, limit, $scope.cert_last_known)
+                    .then((response) => {
+                        $scope.certs = $scope.certs.concat(response.data.result);
+                        if ($scope.certs[$scope.certs.length - 1])
+                            $scope.cert_last_known = $scope.certs[$scope.certs.length - 1]._id;
+                        $scope.loading_certs = false;
+                        if (response.data.result.length == 0 || response.data.result.length < limit)
+                            $scope.certs_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_certs = false;
+                        console.error(error);
+                    });
+            }
+        }
+
+        $scope.loadCerts($scope.load_certs_nbr)
 
 
         function fetchAddress(address) {
@@ -106,17 +151,17 @@
             $scope.max = max_date;
             $scope.loadTransactions();
         };
-       
-        $scope.loadTransactions = function() {
-            if(!$scope.loading_txs && $scope.avatar && $scope.avatar.address && !$scope.txs_fully_loaded) {
+
+        $scope.loadTransactions = function () {
+            if (!$scope.loading_txs && $scope.avatar && $scope.avatar.address && !$scope.txs_fully_loaded) {
                 $scope.loading_txs = true;
                 return MetaverseService.ListTxs($scope.last_known, $scope.avatar.address, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.transactions = $scope.transactions.concat(response.data.result);
-                        if($scope.transactions[$scope.transactions.length-1])
-                            $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
+                        if ($scope.transactions[$scope.transactions.length - 1])
+                            $scope.last_known = $scope.transactions[$scope.transactions.length - 1]._id;
                         $scope.loading_txs = false;
-                        if(response.data.result.length == 0)
+                        if (response.data.result.length == 0)
                             $scope.txs_fully_loaded = true;
                     })
                     .catch((error) => {
@@ -136,15 +181,15 @@
         $scope.avatars_fully_loaded = false;
         $scope.loading_count = true;
 
-        $scope.load = function() {
-            if(!$scope.loading_avatars && !$scope.avatars_fully_loaded) {
+        $scope.load = function () {
+            if (!$scope.loading_avatars && !$scope.avatars_fully_loaded) {
                 $scope.loading_avatars = true;
                 return MetaverseService.ListAvatars($scope.last_known)
                     .then((response) => {
                         $scope.avatars = $scope.avatars.concat(response.data.result);
-                        $scope.last_known = $scope.avatars[$scope.avatars.length-1]._id;
+                        $scope.last_known = $scope.avatars[$scope.avatars.length - 1]._id;
                         $scope.loading_avatars = false;
-                        if(response.data.result.length == 0)
+                        if (response.data.result.length == 0)
                             $scope.avatars_fully_loaded = true;
                     })
                     .catch((error) => {
