@@ -140,7 +140,7 @@
                                 <div ng-show="output.attachment.type != 'message' || output.value != 0">{{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a></div>
                             </div>
                         </div>
-                        <div ng-if="tx.outputs.length>4">
+                        <div ng-if="tx.outputs.length>5">
                             <a href="tx/{{tx.hash}}">...</a>
                         </div>
                     </div>
