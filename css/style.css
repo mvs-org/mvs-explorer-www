@@ -1762,3 +1762,11 @@ footer h5 {
   bottom: 14px;
   right: 20px;
 }
+
+.loadMoreStakes {
+  height: 50px;
+}
+
+.loadMoreStakes div {
+  padding-top: 10px;
+}

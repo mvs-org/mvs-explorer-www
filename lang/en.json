@@ -352,6 +352,7 @@
     "AVATAR.MITS": "MITs",
     "AVATAR.NO_MITS": "This Avatar does not have any MIT",
     "AVATAR.LOAD_MORE_MITS": "Load more MITs",
-    "AVATAR.LOAD_MORE_CERTS": "Load more certificates"
+    "AVATAR.LOAD_MORE_CERTS": "Load more certificates",
+    "ASSET.LOAD_MORE_STAKES": "Load more"
 
 }

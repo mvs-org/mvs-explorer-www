@@ -165,6 +165,10 @@
                 <span class="col-xs-3 right right-overflow">{{stake.quantity | numberFormat : 0}}</span>
                 <span class="col-xs-2 right right-overflow">{{stake.share}}%</span>
             </div>
+            <div class="col-xs-12 loadMoreStakes" ng-show="!stake_list_fully_loaded">
+                <md-button ng-show="!loading_stake_list" class="md-secondary md-raised broadcast-btn" ng-click="loadMoreStakeList()">{{'ASSET.LOAD_MORE_STAKES' | translate}}</md-button>
+                <div ng-show="loading_stake_list"><img src="../images/spinner.gif"></div>
+            </div>
         </div>
         <div class="col-md-5 col-xs-12 asset-chart">
             <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{circulation | numberFormat : 0}} {{asset.symbol}}</div>
