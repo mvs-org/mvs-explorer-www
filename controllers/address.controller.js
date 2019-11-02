@@ -1,4 +1,4 @@
-(function() {
+(function () {
     'use strict';
 
     angular
@@ -32,7 +32,7 @@
                 light: '#0000'
             },
             scale: 4
-        }, function(error) {
+        }, function (error) {
             if (error)
                 console.error(error);
         });
@@ -103,17 +103,17 @@
             $scope.max = max_date;
             $scope.loadTransactions();
         };
-       
-        $scope.loadTransactions = function() {
-            if(!$scope.loading_txs && !$scope.txs_fully_loaded) {
+
+        $scope.loadTransactions = function () {
+            if (!$scope.loading_txs && !$scope.txs_fully_loaded) {
                 $scope.loading_txs = true;
                 return MetaverseService.ListTxs($scope.last_known, address, ($scope.min) ? $scope.min.getTime() / 1000 : null, ($scope.max) ? ($scope.max).getTime() / 1000 + 86400 : null)
                     .then((response) => {
                         $scope.transactions = $scope.transactions.concat(response.data.result);
-                        if($scope.transactions[$scope.transactions.length-1])
-                            $scope.last_known = $scope.transactions[$scope.transactions.length-1]._id;
+                        if ($scope.transactions[$scope.transactions.length - 1])
+                            $scope.last_known = $scope.transactions[$scope.transactions.length - 1]._id;
                         $scope.loading_txs = false;
-                        if(response.data.result.length == 0)
+                        if (response.data.result.length == 0)
                             $scope.txs_fully_loaded = true;
                     })
                     .catch((error) => {

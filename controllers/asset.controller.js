@@ -116,6 +116,12 @@
                             $scope.asset.miningModel.basePercent = Math.round((1-miningModel[3])*100);
                             getCurrentMiningReward();
                         }
+                    } else {
+                        $translate('MESSAGES.ERROR_MST_NOT_FOUND')
+                        .then((data) => {
+                            $location.path('/');
+                            FlashService.Error(data, true);
+                        });
                     }
                 })
                 .then(() => loadStakelist())
