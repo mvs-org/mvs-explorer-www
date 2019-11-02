@@ -1626,7 +1626,7 @@ Main components
     margin-left: 0;
     padding: 1.6em;
     width: calc(50% - 30px);
-    margin: 0 5%;
+    margin: 0;
     overflow: hidden;
     margin-left: 0;
   }
@@ -1765,4 +1765,12 @@ footer h5 {
   position: absolute;
   bottom: 14px;
   right: 20px;
+}
+
+.loadMoreStakes {
+  height: 50px;
+}
+
+.loadMoreStakes div {
+  padding-top: 10px;
 }

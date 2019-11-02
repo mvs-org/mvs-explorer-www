@@ -94,6 +94,10 @@
         $scope.getTotalSupply = getTotalSupply;
         $scope.icons = Assets.hasIcon;
         $scope.showSecondaryHistory = false;
+        $scope.stakeListLimit = 20;
+        $scope.loading_stake_list = false;
+        $scope.stake_list_fully_loaded = false;
+        $scope.last_address_known = undefined;
 
         if ($scope.symbol != undefined && $scope.symbol != "ETP") {
             NProgress.start();
@@ -173,8 +177,12 @@
         }
 
         function loadStakelist() {
-            return MetaverseService.AssetStakes($scope.symbol)
+            $scope.loading_stake_list = true;
+            return MetaverseService.AssetStakes($scope.symbol, $scope.stakeListLimit, undefined)
                 .then((stakes) => {
+                    if(stakes.data.result.length < $scope.stakeListLimit) {
+                        $scope.stake_list_fully_loaded = true;
+                    }
                     $scope.stakelist = stakes.data.result.map((stake) => {
                         return {
                             address: stake.a,
@@ -193,7 +201,10 @@
                         rest.quantity -= stake.quantity;
                     });
                     $scope.stakelist.sort((a, b) => a.quantity - b.quantity);
+                    $scope.last_address_known = $scope.stakelist[0].address;
+
                     $scope.stakelist = [rest].concat($scope.stakelist);
+                    $scope.loading_stake_list = false;
 
                     var h = 800;
                     var r = h / 2;
@@ -242,6 +253,34 @@
                     });
 
                 });
+        }
+
+        $scope.loadMoreStakeList = function() {
+            if(!$scope.loading_stake_list && !$scope.stake_list_fully_loaded) {
+                $scope.loading_stake_list = true;
+                return MetaverseService.AssetStakes($scope.symbol, $scope.stakeListLimit, $scope.last_address_known)
+                    .then((response) => {
+                        if(response.data.result.length < $scope.stakeListLimit) {
+                            $scope.stake_list_fully_loaded = true;
+                        } else {
+                            let additionnal_stake_addresses = response.data.result.map((stake) => {
+                                return {
+                                    address: stake.a,
+                                    row_quantity: stake.q,
+                                    quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
+                                    share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity) * 100).toFixed(3))
+                                };
+                            });
+                            $scope.stakelist = $scope.stakelist.concat(additionnal_stake_addresses);
+                            $scope.last_address_known = $scope.stakelist[$scope.stakelist.length-1].address;
+                        }
+                        $scope.loading_stake_list = false;
+                    })
+                    .catch((error) => {
+                        $scope.loading_stake_list = false;
+                        console.error(error);
+                    });
+            }
         }
     }
 

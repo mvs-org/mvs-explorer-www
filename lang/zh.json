@@ -212,6 +212,7 @@
     "MIT.NUMBER_OF": "元界MIT资产的数量",
     "CERT.CURRENT_OWNER": "所有者",
     "CERT.CREATION": "创建者",
+    "CERT.RECEIVED": "收入",
     "TX.SCRIPT": "脚本",
     "TX.SHOW_HASH": "显示脚本",
     "TX.HIDE_HASH": "隐藏脚本",
@@ -351,6 +352,7 @@
     "AVATAR.MITS": "MITs",
     "AVATAR.NO_MITS": "This Avatar does not have any MIT",
     "AVATAR.LOAD_MORE_MITS": "Load more MITs",
-    "AVATAR.LOAD_MORE_CERTS": "Load more certificates"
+    "AVATAR.LOAD_MORE_CERTS": "Load more certificates",
+    "ASSET.LOAD_MORE_STAKES": "Load more"
 
 }
