@@ -15,7 +15,7 @@
 
         var SERVER = window.location.protocol + "//" + window.location.hostname + ((window.location.port) ? ":" + window.location.port : "") + "/api";
         //SERVER = "http://localhost";
-        //SERVER = "http://localhost:8081";
+        //SERVER = "http://localhost:8087";
         //SERVER = "https://explorer.mvs.org/api";
         //SERVER = "https://explorer-testnet.mvs.org/api";
 
@@ -86,7 +86,7 @@
 
         service.MitInfo = (symbol) => _send('mits/' + symbol);
 
-        service.AssetStakes = (symbol) => _send('stakes/' + symbol);
+        service.AssetStakes = (symbol, limit, last_address_known) => _send('v2/msts/stakes?symbol=' + symbol + ((limit) ? '&limit=' + limit : '') + ((last_address_known) ? '&lastAddress=' + last_address_known : ''));
 
         service.Info = () => _send('info');
 
