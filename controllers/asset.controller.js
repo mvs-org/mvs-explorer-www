@@ -256,7 +256,6 @@
         }
 
         $scope.loadMoreStakeList = function() {
-            console.log($scope.last_address_known)
             if(!$scope.loading_stake_list && !$scope.stake_list_fully_loaded) {
                 $scope.loading_stake_list = true;
                 return MetaverseService.AssetStakes($scope.symbol, $scope.stakeListLimit, $scope.last_address_known)
