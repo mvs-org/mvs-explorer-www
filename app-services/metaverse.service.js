@@ -50,6 +50,8 @@
 
         service.FetchAddress = (address) => _send('address/info/' + address);
 
+        service.AddressBalance = (symbol, address) => _send('address/balance/' + symbol + '/' + address);
+
         service.Block = (number) => _send('block/' + number);
 
         service.BlockTxs = (blockhash, page, items_per_page) => _send('block/txs/' + blockhash + ((page) ? '?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : '') : ''));
