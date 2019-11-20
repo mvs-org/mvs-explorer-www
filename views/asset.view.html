@@ -23,6 +23,8 @@
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.quantity | numberFormat : asset.decimals}}</div>
             </div>
+
+            <!--Total supply-->
             <div class="row" ng-show="asset.symbol != 'ETP' && (asset.miningModel || asset.secondaryissue_threshold != 0)">
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.TOTAL_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.quantity + asset.minedQuantity | numberFormat : asset.decimals}}</div>
@@ -32,10 +34,27 @@
                 <div ng-show="loading_total_supply" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
                 <div ng-hide="loading_total_supply" class="col-md-8 list-item-value">{{totalSupply | numberFormat : 0}}</div>
             </div>
+
+            <!--Burned quantity-->
+            <div class="row" ng-show="asset.symbol == 'ETP'">
+                <div class="col-md-4 list-item-label">{{ 'ASSETS.BURNED_QUANTITY' | translate }}</div>
+                <div ng-show="asset.etpBurnedQuantity == undefined" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-show="asset.etpBurnedQuantity !== undefined" class="col-md-8 list-item-value">{{asset.etpBurnedQuantity | numberFormat : 0}}</div>
+            </div>
+            <div class="row" ng-show="asset.symbol !== 'ETP' && asset.burnedQuantity">
+                <div class="col-md-4 list-item-label">{{ 'ASSETS.BURNED_QUANTITY' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{asset.burnedQuantity | numberFormat : asset.decimals}}</div>
+            </div>
+
+            <!--Circulation-->
             <div class="row" ng-show="asset.symbol == 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.CIRCULATION_SUPPLY' | translate }}</div>
-                <div ng-show="loading_circulation" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_circulation" class="col-md-8 list-item-value">{{circulation | numberFormat : 0}}</div>
+                <div ng-show="loading_circulation || !asset.etpBurnedQuantity" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_circulation || !asset.etpBurnedQuantity" class="col-md-8 list-item-value">{{circulation - asset.etpBurnedQuantity | numberFormat : 0}}</div>
+            </div>
+            <div class="row" ng-show="asset.symbol !== 'ETP' && asset.burnedQuantity">
+                <div class="col-md-4 list-item-label">{{ 'ASSETS.CIRCULATION_SUPPLY' | translate }}</div>
+                <div class="col-md-8 list-item-value">{{asset.quantity + asset.minedQuantity - asset.burnedQuantity | numberFormat : asset.decimals}}</div>
             </div>
 
             <div class="row" ng-show="asset.symbol != 'ETP' && (asset.original_quantity != asset.quantity || asset.minedQuantity != 0)">
@@ -171,8 +190,8 @@
             </div>
         </div>
         <div class="col-md-5 col-xs-12 asset-chart">
-            <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{circulation | numberFormat : 0}} {{asset.symbol}}</div>
-            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'NUMBER_OF_COINS' |translate }}: {{asset.quantity + asset.minedQuantity | numberFormat : asset.decimals}} {{asset.symbol}}</div>
+            <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'ASSETS.TOTAL_SUPPLY' |translate }}: {{circulation - (asset.etpBurnedQuantity || 0) | numberFormat : 0}} {{asset.symbol}}</div>
+            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'ASSETS.TOTAL_SUPPLY' |translate }}: {{asset.quantity + asset.minedQuantity | numberFormat : asset.decimals}} {{asset.symbol}}</div>
             <div id="chart">
                 <svg></svg>
             </div>

@@ -354,6 +354,8 @@
     "AVATAR.LOAD_MORE_MITS": "Load more MITs",
     "AVATAR.LOAD_MORE_CERTS": "Load more certificates",
     "ASSET.LOAD_MORE_STAKES": "Load more",
-    "MESSAGES.ERROR_MST_NOT_FOUND": "Could not find this MST."
+    "MESSAGES.ERROR_MST_NOT_FOUND": "Could not find this MST.",
+
+    "ASSETS.BURNED_QUANTITY": "Burned quantity"
 
 }

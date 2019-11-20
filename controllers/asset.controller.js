@@ -146,12 +146,16 @@
             $scope.asset.miningModel.interval = 500000;
             $scope.asset.miningModel.base = 0.95;
             $scope.asset.miningModel.basePercent = 5;
-            getCirculation()
-                .then(() => getTotalSupply())
-                .then(() => loadStakelist())
-                .then(() => NProgress.done())
-                .then(() => getCurrentMiningReward());
-
+            Promise.all([
+                getCirculation(),
+                getTotalSupply(),
+                etpBurnedBalance(),
+            ])
+            .then(() => Promise.all([
+                loadStakelist(),
+                getCurrentMiningReward(),
+            ]))
+            .then(() => NProgress.done())
         }
 
         function getCurrentMiningReward() {
@@ -178,6 +182,14 @@
                 $scope.loading_total_supply = false;
                 if (response.data.status && response.data.status.success) {
                     $scope.totalSupply = parseFloat(response.data.result).toFixed(0);
+                }
+            }, console.error);
+        }
+
+        function etpBurnedBalance() {
+            return MetaverseService.AddressBalance('ETP', '1111111111111111111114oLvT2').then((response) => {
+                if (response.data.status && response.data.status.success) {
+                    $scope.asset.etpBurnedQuantity = parseFloat(response.data.result);
                 }
             }, console.error);
         }
