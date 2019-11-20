@@ -49,8 +49,8 @@
             <!--Circulation-->
             <div class="row" ng-show="asset.symbol == 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.CIRCULATION_SUPPLY' | translate }}</div>
-                <div ng-show="loading_circulation || !asset.etpBurnedQuantity" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_circulation || !asset.etpBurnedQuantity" class="col-md-8 list-item-value">{{circulation - asset.etpBurnedQuantity | numberFormat : 0}}</div>
+                <div ng-show="loading_circulation || asset.etpBurnedQuantity == undefined" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-hide="loading_circulation || asset.etpBurnedQuantity == undefined" class="col-md-8 list-item-value">{{circulation - asset.etpBurnedQuantity | numberFormat : 0}}</div>
             </div>
             <div class="row" ng-show="asset.symbol !== 'ETP' && asset.burnedQuantity">
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.CIRCULATION_SUPPLY' | translate }}</div>
