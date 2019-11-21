@@ -116,6 +116,12 @@
                             $scope.asset.miningModel.basePercent = Math.round((1-miningModel[3])*100);
                             getCurrentMiningReward();
                         }
+                    } else {
+                        $translate('MESSAGES.ERROR_MST_NOT_FOUND')
+                        .then((data) => {
+                            $location.path('/');
+                            FlashService.Error(data, true);
+                        });
                     }
                 })
                 .then(() => loadStakelist())
@@ -140,12 +146,16 @@
             $scope.asset.miningModel.interval = 500000;
             $scope.asset.miningModel.base = 0.95;
             $scope.asset.miningModel.basePercent = 5;
-            getCirculation()
-                .then(() => getTotalSupply())
-                .then(() => loadStakelist())
-                .then(() => NProgress.done())
-                .then(() => getCurrentMiningReward());
-
+            Promise.all([
+                getCirculation(),
+                getTotalSupply(),
+                etpBurnedBalance(),
+            ])
+            .then(() => Promise.all([
+                loadStakelist(),
+                getCurrentMiningReward(),
+            ]))
+            .then(() => NProgress.done())
         }
 
         function getCurrentMiningReward() {
@@ -176,6 +186,14 @@
             }, console.error);
         }
 
+        function etpBurnedBalance() {
+            return MetaverseService.AddressBalance('ETP', '1111111111111111111114oLvT2').then((response) => {
+                if (response.data.status && response.data.status.success) {
+                    $scope.asset.etpBurnedQuantity = parseFloat(response.data.result);
+                }
+            }, console.error);
+        }
+
         function loadStakelist() {
             $scope.loading_stake_list = true;
             return MetaverseService.AssetStakes($scope.symbol, $scope.stakeListLimit, undefined)
@@ -188,7 +206,7 @@
                             address: stake.a,
                             row_quantity: stake.q,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity) * 100).toFixed(3))
+                            share: ($scope.symbol == "ETP" ? (stake.q / ($scope.circulation - $scope.asset.etpBurnedQuantity) / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity - $scope.asset.burnedQuantity) * 100).toFixed(3))
                         };
                     });
 
@@ -268,7 +286,7 @@
                                     address: stake.a,
                                     row_quantity: stake.q,
                                     quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                                    share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity) * 100).toFixed(3))
+                                    share: ($scope.symbol == "ETP" ? (stake.q / ($scope.circulation - $scope.asset.etpBurnedQuantity) / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity - $scope.asset.burnedQuantity) * 100).toFixed(3))
                                 };
                             });
                             $scope.stakelist = $scope.stakelist.concat(additionnal_stake_addresses);
