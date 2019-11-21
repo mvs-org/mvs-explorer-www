@@ -76,6 +76,9 @@
             parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             return parts.join(".");
         })
+        .filter('floor', () => function (number) {
+            return number.toString().split(".")[0];
+        })
         .constant('appName', 'MetaverseExplorer')
         .run(run);
 

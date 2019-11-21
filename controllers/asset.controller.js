@@ -206,7 +206,7 @@
                             address: stake.a,
                             row_quantity: stake.q,
                             quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                            share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity) * 100).toFixed(3))
+                            share: ($scope.symbol == "ETP" ? (stake.q / ($scope.circulation - $scope.asset.etpBurnedQuantity) / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity - $scope.asset.burnedQuantity) * 100).toFixed(3))
                         };
                     });
 
@@ -286,7 +286,7 @@
                                     address: stake.a,
                                     row_quantity: stake.q,
                                     quantity: (stake.q * Math.pow(10, -$scope.asset.decimals)).toFixed(($scope.asset.quantity > 100 ? 0 : $scope.asset.decimals)),
-                                    share: ($scope.symbol == "ETP" ? (stake.q / $scope.circulation / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity) * 100).toFixed(3))
+                                    share: ($scope.symbol == "ETP" ? (stake.q / ($scope.circulation - $scope.asset.etpBurnedQuantity) / 100000000 * 100).toFixed(3) : (stake.q / ($scope.asset.quantity + $scope.asset.minedQuantity - $scope.asset.burnedQuantity) * 100).toFixed(3))
                                 };
                             });
                             $scope.stakelist = $scope.stakelist.concat(additionnal_stake_addresses);
