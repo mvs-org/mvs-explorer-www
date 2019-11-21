@@ -50,11 +50,11 @@
             <div class="row" ng-show="asset.symbol == 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.CIRCULATION_SUPPLY' | translate }}</div>
                 <div ng-show="loading_circulation || asset.etpBurnedQuantity == undefined" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-hide="loading_circulation || asset.etpBurnedQuantity == undefined" class="col-md-8 list-item-value">{{circulation - asset.etpBurnedQuantity | numberFormat : 0}}</div>
+                <div ng-hide="loading_circulation || asset.etpBurnedQuantity == undefined" class="col-md-8 list-item-value">{{circulation - asset.etpBurnedQuantity | numberFormat : 0 | floor}}</div>
             </div>
             <div class="row" ng-show="asset.symbol !== 'ETP' && asset.burnedQuantity">
                 <div class="col-md-4 list-item-label">{{ 'ASSETS.CIRCULATION_SUPPLY' | translate }}</div>
-                <div class="col-md-8 list-item-value">{{asset.quantity + asset.minedQuantity - asset.burnedQuantity | numberFormat : asset.decimals}}</div>
+                <div class="col-md-8 list-item-value">{{asset.quantity + asset.minedQuantity - asset.burnedQuantity | numberFormat : asset.decimals | floor}}</div>
             </div>
 
             <div class="row" ng-show="asset.symbol != 'ETP' && (asset.original_quantity != asset.quantity || asset.minedQuantity != 0)">
@@ -190,8 +190,8 @@
             </div>
         </div>
         <div class="col-md-5 col-xs-12 asset-chart">
-            <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'ASSETS.TOTAL_SUPPLY' |translate }}: {{circulation - (asset.etpBurnedQuantity || 0) | numberFormat : 0}} {{asset.symbol}}</div>
-            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'ASSETS.TOTAL_SUPPLY' |translate }}: {{asset.quantity + asset.minedQuantity | numberFormat : asset.decimals}} {{asset.symbol}}</div>
+            <div class="asset-circulation" ng-show="asset.symbol == 'ETP'">{{ 'ASSETS.CIRCULATION_SUPPLY' |translate }}: {{circulation - (asset.etpBurnedQuantity || 0) | numberFormat : 0 | floor}} {{asset.symbol}}</div>
+            <div class="asset-circulation" ng-hide="asset.symbol == 'ETP'">{{ 'ASSETS.CIRCULATION_SUPPLY' |translate }}: {{asset.quantity + asset.minedQuantity - asset.burnedQuantity | numberFormat : asset.decimals | floor}} {{asset.symbol}}</div>
             <div id="chart">
                 <svg></svg>
             </div>
