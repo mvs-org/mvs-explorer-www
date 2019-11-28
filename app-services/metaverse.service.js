@@ -54,7 +54,7 @@
 
         service.Block = (number) => _send('block/' + number);
 
-        service.BlockTxs = (blockhash, page, items_per_page) => _send('block/txs/' + blockhash + ((page) ? '?page=' + page + ((items_per_page) ? '&items_per_page=' + items_per_page : '') : ''));
+        service.BlockTxs = (blockhash, last_known, limit) => _send('v2/block/txs?hash=' + blockhash + ((last_known) ? '&last_known=' + last_known : '') + ((limit) ? '&limit=' + limit : ''));
 
         service.ListTxs = (last_known, address, min_time, max_time) => _send('v2/txs?last_known=' + last_known + ((address) ? '&address=' + address : '') + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
 

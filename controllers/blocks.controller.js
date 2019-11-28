@@ -39,24 +39,18 @@
         var number = $stateParams.number;
         $rootScope.nosplash = true;
         $scope.loading_block = true;
-        $scope.loading_txs = true;
         $scope.loading_confirmation = true;
-        $scope.items_per_page = 10;
         $scope.buttonCopyToClipboard = new ClipboardJS('.btn');
 
-        $scope.switchPage = (page) => {
-            $scope.current_page = page;
-            return load();
-        };
-
-        $scope.applyFilters = () => {
-            $scope.current_page = 1;
-            return load();
-        };
+        $scope.loading_txs = false;
+        $scope.last_known = '';
+        $scope.limit = 20;
+        $scope.txs = [];
+        $scope.txs_fully_loaded = false;
 
         $scope.format = (value, decimals) => value / Math.pow(10, decimals);
 
-        var load = () => {
+        function init() {
             if (number != undefined) {
                 NProgress.start();
                 MetaverseService.Block(number)
@@ -73,32 +67,43 @@
                         }
                         NProgress.done();
                     })
-                    .then(() => MetaverseService.BlockTxs($scope.block.hash, $scope.current_page - 1, $scope.items_per_page))
-                    .then((response) => {
-                        $scope.loading_txs = false;
-                        if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                            $scope.txs = response.data.result;
-                            $scope.total_count = response.data.result.count;
-                        } else {
-                            $translate('MESSAGES.ERROR_BLOCK_TXS_NOT_FOUND')
-                                .then((data) => {
-                                    $location.path('/');
-                                    FlashService.Error(data, true);
-                                });
-                        }
-                    })
-                    .then(() => MetaverseService.FetchHeight())
-                    .then((response) => {
-                        if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
-                            $scope.height = response.data.result;
-                            $scope.confirmations = $scope.height - $scope.block.number + 1;
-                            $scope.loading_confirmation = false;
-                        }
-                    });
-              }
+                    .then(() => Promise.all([$scope.load(), getConfirmations()]))
+            } else {
+                $location.path('/');
+            }
         }
 
-        $scope.switchPage(1);
+        $scope.load = function() {
+            if(!$scope.loading_txs && !$scope.txs_fully_loaded && $scope.block) {
+                $scope.loading_txs = true;
+                return MetaverseService.BlockTxs($scope.block.hash, $scope.last_known, $scope.limit)
+                    .then((response) => {
+                        $scope.txs = $scope.txs.concat(response.data.result);
+                        if($scope.txs[$scope.txs.length-1])
+                            $scope.last_known = $scope.txs[$scope.txs.length-1]._id;
+                        $scope.loading_txs = false;
+                        if(response.data.result.length < $scope.limit)
+                            $scope.txs_fully_loaded = true;
+                    })
+                    .catch((error) => {
+                        $scope.loading_txs = false;
+                        console.error(error);
+                    });
+            }
+        }
+
+        function getConfirmations() {
+            return MetaverseService.FetchHeight()
+                .then((response) => {
+                    if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {
+                        $scope.height = response.data.result;
+                        $scope.confirmations = $scope.height - $scope.block.number + 1;
+                        $scope.loading_confirmation = false;
+                    }
+                });
+        }
+
+        init();
     }
 
 })();
