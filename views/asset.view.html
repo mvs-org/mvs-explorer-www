@@ -82,8 +82,8 @@
             <div ng-show="asset.miningModel" class="row">
                 <div ng-hide="asset.symbol == 'ETP'" class="col-md-4 list-item-label">{{ 'ASSET.MINING_CURRENT_REWARD' | translate }}</div>
                 <div ng-show="asset.symbol == 'ETP'" class="col-md-4 list-item-label">{{ 'ASSET.MINING_CURRENT_REWARD_POW' | translate }}</div>
-                <div ng-show="!asset.currentReward" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
-                <div ng-show="asset.currentReward" class="col-md-8 list-item-value">{{asset.currentReward | numberFormat : asset.decimals}}</div>
+                <div ng-show="asset.currentReward == undefined" class="col-md-8 list-item-value"><img src="../images/spinner.gif"></div>
+                <div ng-show="asset.currentReward != undefined" class="col-md-8 list-item-value">{{asset.currentReward | numberFormat : asset.decimals}}</div>
             </div>
             <div ng-show="asset.miningModel && asset.symbol == 'ETP'" class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MINING_CURRENT_REWARD_POS' | translate }}</div>
