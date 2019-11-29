@@ -87,6 +87,11 @@
                         <td ng-show="certCount">{{certCount}}</td>
                     </tr>
                     <tr>
+                        <th>{{'EXPLORER.NUMBER_ADDRESSES'|translate}}</th>
+                        <td ng-show="!addressCount"><img src="../images/spinner.gif"></td>
+                        <td ng-show="addressCount">{{addressCount}}</td>
+                    </tr>
+                    <tr>
                         <th>{{'EXPLORER.NUMBER_TXS_24H'|translate}}</th>
                         <td ng-show="!lastTxPerDay"><img src="../images/spinner.gif"></td>
                         <td ng-show="lastTxPerDay">{{lastTxPerDay}}</td>

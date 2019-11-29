@@ -356,6 +356,7 @@
     "ASSET.LOAD_MORE_STAKES": "Load more",
     "MESSAGES.ERROR_MST_NOT_FOUND": "Could not find this MST.",
 
-    "ASSETS.BURNED_QUANTITY": "Burned quantity"
+    "ASSETS.BURNED_QUANTITY": "Burned quantity",
+    "EXPLORER.NUMBER_ADDRESSES": "Number of addresses"
 
 }
