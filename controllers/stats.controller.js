@@ -160,6 +160,15 @@
                 console.error(error);
             });
 
+        MetaverseService.AddressesCount()
+            .then((response) => {
+                $scope.addressCount = response.data.result;
+            })
+            .catch((error) => {
+                $scope.addressCount = '';
+                console.error(error);
+            });
+
         getStatisticsByDate();
         getBlocktime();
     }
