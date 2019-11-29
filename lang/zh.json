@@ -357,6 +357,7 @@
     "MESSAGES.ERROR_MST_NOT_FOUND": "Could not find this MST.",
 
     "ASSETS.BURNED_QUANTITY": "Burned quantity",
-    "EXPLORER.NUMBER_ADDRESSES": "Number of addresses"
+    "EXPLORER.NUMBER_ADDRESSES": "Number of addresses",
+    "TESTNET_DNA": "To get free testnet DNA, please visit: "
 
 }
