@@ -52,6 +52,8 @@
 
         service.AddressBalance = (symbol, address) => _send('address/balance/' + symbol + '/' + address);
 
+        service.AddressesCount = () => _send('addresses/count');
+        
         service.Block = (number) => _send('block/' + number);
 
         service.BlockTxs = (blockhash, last_known, limit) => _send('v2/block/txs?hash=' + blockhash + ((last_known) ? '&last_known=' + last_known : '') + ((limit) ? '&limit=' + limit : ''));
