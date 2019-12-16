@@ -1774,3 +1774,9 @@ footer h5 {
 .loadMoreStakes div {
   padding-top: 10px;
 }
+
+.listTxLine {
+  margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: solid 1px #eee;
+}
