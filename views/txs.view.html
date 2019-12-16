@@ -25,15 +25,15 @@
                 <div class="row">
                     <div class="col-md-5">
                         <div><b>{{'INPUTS'|translate}}:</b></div>
-                        <div class="row" ng-repeat="input in tx.inputs" ng-class="{searchedAddress: input.address==address}">
-                            <div ng-if="input.attachment.symbol != 'ETP'" class="col-md-12 break">
+                        <div class="col-md-12" ng-repeat="input in tx.inputs">
+                            <div ng-if="input.attachment.symbol != 'ETP'" class="row break listTxLine">
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{
                                     input.address }}</a>
                                 <br>
                                 <span ng-if="input.address && $index < 5">{{input.attachment.quantity |
                                     numberFormat:input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
-                            <div ng-if="input.value != 0 || input.address == ''" class="col-md-12 break">
+                            <div ng-if="input.value != 0 || input.address == ''" class="row break listTxLine">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
                                 <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{
                                     input.address }}</a>
@@ -50,19 +50,35 @@
                     </div>
                     <div class="col-md-6">
                         <div class="right"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="row" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'"
-                            ng-class="{searchedAddress: output.address==address}">
-                            <div ng-if="output.attachment.symbol != 'ETP'" class="col-md-12 right break">
-                                <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
+                        <div class="col-md-12" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'">
+                            <div class="row right break listTxLine" ng-if="output.attachment.symbol != 'ETP'">
+                                <div class="right ouputColor">
+                                    <div ng-show="output.attachment.to_did" class="break"><a href="avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
+                                    <div ng-hide="output.attachment.to_did"><a class="address-mono" href="adr/{{output.address}}">{{output.address}}</a></div>
+                                </div>
                                 <div class="right">
-                                    {{output.attachment.quantity | numberFormat:output.attachment.decimals}}
-                                    {{output.attachment.symbol}}
+                                    <div ng-show="output.attachment.type == 'did-register'"><div class="txType">{{'TX.TYPE_DID_ISSUE'|translate}}: </div><a href="avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.type == 'did-transfer'"><div class="txType">{{'TX.TYPE_DID_TRANSFER'|translate}}: </div><a href="avatar/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.type == 'asset-issue' && !output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.type == 'asset-issue' && output.attachment.is_secondaryissue"><div class="txType">{{'TX.TYPE_ASSET_SECONDARY_ISSUE'|translate}}: </div>{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.cert == 'issue'"><div class="txType">{{'TX.TYPE_ASSET_CERT_ISSUE'|translate}}: </div><a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.cert == 'domain'"><div class="txType">{{'TX.TYPE_ASSET_CERT_DOMAIN'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                    <div ng-show="output.attachment.cert == 'naming'"><div class="txType">{{'TX.TYPE_ASSET_CERT_NAMING'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                    <div ng-show="output.attachment.cert == 'mining'"><div class="txType">{{'TX.TYPE_ASSET_CERT_MINING'|translate}}: </div><a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.cert == 'witness'"><div class="txType">{{'TX.TYPE_ASSET_CERT_WITNESS'|translate}}: </div>{{output.attachment.symbol}}</div>
+                                    <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'registered'"><div class="txType">{{'TX.TYPE_MIT_CREATION'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.type == 'mit' && output.attachment.status == 'transfered'"><div class="txType">{{'TX.TYPE_MIT_TRANSFER'|translate}}: </div><a href="mit/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
+                                    <div ng-show="output.attachment.type == 'asset-transfer'">{{output.attachment.quantity| numberFormat:output.attachment.decimals}} <a href="asset/{{output.attachment.symbol}}">{{output.attachment.symbol}}</a></div>
                                 </div>
                             </div>
-                            <div ng-if="output.value != 0" class="col-md-12 right break">
-                                <a class="address-mono" href="adr/{{output.address}}">{{ output.address }}</a>
+                            <div class="row right break listTxLine" ng-if="output.value != 0 || output.attachment.symbol == 'ETP'">
+                                <div class="right ouputColor">
+                                    <div ng-show="output.attachment.to_did" class="break"><a href="avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
+                                    <div ng-hide="output.attachment.to_did"><a class="address-mono" href="adr/{{output.address}}">{{output.address}}</a></div>
+                                </div>
                                 <div class="right">
-                                    {{output.value | numberFormat:8}} ETP
+                                    <div ng-show="output.attachment.type == 'message'" class="txType">{{'TX.TYPE_MESSAGE'|translate}}</div>
+                                    <div ng-show="output.attachment.type != 'message' || output.value != 0">{{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a></div>
                                 </div>
                             </div>
                         </div>
