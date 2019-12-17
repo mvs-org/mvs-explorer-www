@@ -26,19 +26,19 @@
                     <div class="col-md-5">
                         <div><b>{{'INPUTS'|translate}}:</b></div>
                         <div class="col-md-12" ng-repeat="input in tx.inputs">
-                            <div ng-if="input.attachment.symbol != 'ETP'" class="row break listTxLine">
-                                <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{
+                            <div ng-if="input.attachment.symbol != 'ETP' && $index < 5" class="row break listTxLine">
+                                <a class="address-mono" ng-if="input.address" href="adr/{{input.address}}">{{
                                     input.address }}</a>
                                 <br>
-                                <span ng-if="input.address && $index < 5">{{input.attachment.quantity |
+                                <span ng-if="input.address">{{input.attachment.quantity |
                                     numberFormat:input.attachment.decimals}} {{input.attachment.symbol}}</span>
                             </div>
                             <div ng-if="input.value != 0 || input.address == ''" class="row break listTxLine">
                                 <span ng-if="input.address == ''">{{'TX.INPUT_COINBASE'|translate}}</span>
-                                <a class="address-mono" ng-if="input.address && $index < 5" href="adr/{{input.address}}">{{
+                                <a class="address-mono" ng-if="input.address" href="adr/{{input.address}}">{{
                                     input.address }}</a>
                                 <br>
-                                <span ng-if="input.address && $index < 5">{{input.value | numberFormat:8}} ETP</span>
+                                <span ng-if="input.address">{{input.value | numberFormat:8}} ETP</span>
                             </div>
                         </div>
                         <div ng-if="tx.inputs.length>4">
@@ -50,7 +50,7 @@
                     </div>
                     <div class="col-md-6">
                         <div class="right"><b>{{'OUTPUTS'|translate}}:</b></div>
-                        <div class="col-md-12" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake'">
+                        <div class="col-md-12" ng-repeat="output in tx.outputs" ng-if="output.attachment.type != 'coinstake' && $index < 5">
                             <div class="row right break listTxLine" ng-if="output.attachment.symbol != 'ETP'">
                                 <div class="right ouputColor">
                                     <div ng-show="output.attachment.to_did" class="break"><a href="avatar/{{output.attachment.to_did}}">{{output.attachment.to_did}}</a></div>
@@ -81,6 +81,9 @@
                                     <div ng-show="output.attachment.type != 'message' || output.value != 0">{{output.value | numberFormat:8}} <a href="asset/ETP">ETP</a></div>
                                 </div>
                             </div>
+                        </div>
+                        <div class="right" ng-if="tx.outputs.length>4">
+                            <a href="tx/{{tx.hash}}">...</a>
                         </div>
                     </div>
                 </div>
