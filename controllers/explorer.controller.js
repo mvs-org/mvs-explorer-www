@@ -215,17 +215,7 @@
         }
 
         function show_address(search_field) {
-            NProgress.start();
-            MetaverseService.FetchHistory(search_field)
-                .then((response) => {
-                    if (typeof response.success !== 'undefined' && response.success && response.data.result != undefined) {
-                        $location.path('/adr/' + search_field);
-                    } else {
-                        $translate('MESSAGES.ERROR_ADDRESS_NOT_FOUND')
-                            .then((data) => FlashService.Error(data));
-                    }
-                    NProgress.done();
-                });
+            $location.path('/adr/' + search_field);
         }
 
         function show_block(search_field) {
