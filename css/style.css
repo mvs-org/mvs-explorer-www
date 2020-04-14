@@ -85,6 +85,11 @@ a{
     }
 }
 
+.latest-block{
+  overflow: visible;
+  white-space: nowrap;
+}
+
 .right-overflow{
     direction: rtl;
 }

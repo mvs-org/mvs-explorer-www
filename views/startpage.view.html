@@ -174,12 +174,12 @@
                 <div class="col-md-2"><span
                         class="list-item-label">{{ 'EXPLORER.TRANSACTION_COUNT' | translate }}</span></div>
                 <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_TYPE' | translate }}</span></div>
-                <div class="col-md-4"><span class="list-item-label">{{ 'EXPLORER.BLOCK_MINER' | translate }}</span>
+                <div class="col-md-2"><span class="list-item-label">{{ 'EXPLORER.BLOCK_MINER' | translate }}</span>
                 </div>
-                <div class="col-md-2 right"></div>
+                <div class="col-md-4 right"></div>
             </div>
             <!--List of blocks-->
-            <div class="row panel list-item nga-default nga-stagger nga-fade" ng-repeat="block in blockList">
+            <div class="row panel list-item latest-block nga-default nga-stagger nga-fade" ng-repeat="block in blockList">
                 <div class="col-md-2"><span
                         class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.BLOCK_NUMBER' | translate }}:
                     </span><a href="blk/{{block.number}}">{{block.number}}</a></div>
@@ -194,7 +194,7 @@
                     <span ng-if="block.version == 3">{{ 'EXPLORER.BLOCK_TYPE_DPOS' | translate }}</span>
                     <span ng-if="block.version < 1 || block.version > 3">{{block.version}}</span>
                 </div>
-                <div class="col-md-4 no-padding-right overflow"><span
+                <div class="col-md-2 no-padding-right"><span
                         class="hidden-md hidden-lg hidden-xl list-item-label">{{ 'EXPLORER.BLOCK_MINER' | translate }}:
                     </span>
                     <span ng-show="block.miner && block.version == 1"><a
@@ -204,12 +204,12 @@
                     <span ng-hide="block.miner" class="address-mono"><a
                             href="adr/{{block.miner_address}}">{{block.miner_address}}</a></span>
                 </div>
-                <div class="col-md-2 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) >= 0">
+                <div class="col-md-4 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) >= 0">
                     <span
                         ng-show="currentTimeStamp - (block.time_stamp * 1000) > 3600000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span
                         ng-show="currentTimeStamp - (block.time_stamp * 1000) > 60000">{{currentTimeStamp - (block.time_stamp * 1000)| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{currentTimeStamp - (block.time_stamp * 1000)| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span><span>{{ 'AGO' | translate }}</span>
                 </div>
-                <div class="col-md-2 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) < 0">
+                <div class="col-md-4 right" ng-show="(currentTimeStamp - (block.time_stamp * 1000)) < 0">
                     <span>Block in </span><span
                         ng-show="(block.time_stamp * 1000) - currentTimeStamp > 3600000">{{(block.time_stamp * 1000) - currentTimeStamp| date: 'hh': 'UTC'}}{{ 'HOUR' | translate }}</span><span
                         ng-show="(block.time_stamp * 1000) - currentTimeStamp > 60000">{{(block.time_stamp * 1000) - currentTimeStamp| date: 'mm': 'UTC'}}{{ 'MINUTES' | translate }}</span><span>{{(block.time_stamp * 1000) - currentTimeStamp| date: 'ss': 'UTC'}}{{ 'SECONDS' | translate }}</span>
