@@ -36,7 +36,7 @@
          **/
         service.FetchHeight = () => _send('height', []);
 
-        service.FetchTx = (hash) => _send('tx/' + hash);
+        service.FetchTx = (hash) => _send('v2/tx/' + hash);
 
         service.FetchTxOutputs = (hash) => _send('tx/outputs/' + hash);
 
