@@ -61,16 +61,6 @@
                 <div class="col-md-4 list-item-label">{{ 'ASSET.INITIAL_MAX_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.original_quantity | numberFormat : asset.decimals}}</div>
             </div>
-            <div class="row" ng-show="asset.original_quantity != asset.quantity">
-                <div class="col-md-4 list-item-label">{{ 'ASSET.ADDED_VIA_SECONDARY_ISSUE' | translate }}</div>
-                <div class="col-md-8 list-item-value">
-                    {{asset.quantity - asset.original_quantity | numberFormat : asset.decimals}}
-                    <div class="inline">
-                        <a ng-show="asset.original_quantity != asset.quantity && !showSecondaryHistory" ng-click="showSecondaryHistory = true"><i class="fas fa-plus-circle"></i></a>
-                        <a ng-show="asset.original_quantity != asset.quantity && showSecondaryHistory" ng-click="showSecondaryHistory = false"><i class="fas fa-minus-circle"></i></a>
-                    </div>
-                </div>
-            </div>
             <div ng-show="asset.symbol != 'ETP' && asset.minedQuantity" class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MINED_SUPPLY' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.minedQuantity | numberFormat : asset.decimals}}</div>
@@ -97,6 +87,16 @@
             <div ng-show="asset.miningModel" class="row">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.MINING_MODEL_BASE' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{asset.miningModel.basePercent | numberFormat : 0}}%</div>
+            </div>
+            <div class="row" ng-show="asset.original_quantity != asset.quantity">
+                <div class="col-md-4 list-item-label">{{ 'ASSET.ADDED_VIA_SECONDARY_ISSUE' | translate }}</div>
+                <div class="col-md-8 list-item-value">
+                    {{asset.quantity - asset.original_quantity | numberFormat : asset.decimals}}
+                    <div class="inline">
+                        <a ng-show="asset.original_quantity != asset.quantity && !showSecondaryHistory" ng-click="showSecondaryHistory = true"><i class="fas fa-plus-circle"></i></a>
+                        <a ng-show="asset.original_quantity != asset.quantity && showSecondaryHistory" ng-click="showSecondaryHistory = false"><i class="fas fa-minus-circle"></i></a>
+                    </div>
+                </div>
             </div>
             <div class="row" ng-show="showSecondaryHistory && update.is_secondaryissue" ng-repeat="update in asset.updates">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.SECONDARY_ISSUE_PAST' | translate }}{{$index+1}}</div>

@@ -61,7 +61,7 @@
 
         if (typeof transaction_hash !== 'undefined') {
             NProgress.start();
-            MetaverseService.FetchTx(transaction_hash)
+            MetaverseService.FetchTx(transaction_hash, true)
                 .then((response) => {
                     $scope.loading_tx = false;
                     if (typeof response.success !== 'undefined' && response.success && typeof response.data.result !== 'undefined') {

@@ -27,10 +27,10 @@
             </div>
             <div class="row">
                 <div class="col-md-3 list-item-label">{{ 'CONFIRMATIONS' | translate }}</div>
-                <div class="col-md-9 list-item-value block-mem-pool" ng-show="!loading_confirmation && (transaction.orphan == -1)">{{ 'EXPLORER.UNCONFIRMED' | translate}}</div>
-                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.orphan != -1 && transaction.orphan != 0)">{{ 'TX.ORPHAN' | translate}}</div>
-                <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations > 100">{{ 'TX.CONFIRMED' | translate}}</div>
-                <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (transaction.orphan == 0) && confirmations <= 100">{{ confirmations }}</div>
+                <div class="col-md-9 list-item-value block-mem-pool" ng-show="!loading_confirmation && (transaction.status == -1)">{{ 'EXPLORER.UNCONFIRMED' | translate}}</div>
+                <div class="col-md-9 list-item-value block-orphan" ng-show="!loading_confirmation && (transaction.status != -1 && transaction.status != 0)">{{ 'TX.ORPHAN' | translate}}</div>
+                <div class="col-md-9 list-item-value block-confirmed" ng-show="!loading_confirmation && (transaction.status == 0) && confirmations > 100">{{ 'TX.CONFIRMED' | translate}}</div>
+                <div class="col-md-9 list-item-value block-pending-confirmation" ng-show="!loading_confirmation && (transaction.status == 0) && confirmations <= 100">{{ confirmations }}</div>
                 <div class="col-md-9 list-item-value" ng-show="loading_confirmation"><img src="../images/spinner.gif"></div>
             </div>
             <div class="row">
