@@ -20,7 +20,7 @@
     "@angular/cdk": "^5.2.5",
     "@angular/material": "^5.2.5",
     "@fortawesome/fontawesome-free-webfonts": "^1.0.9",
-    "angular": "^1.7.8",
+    "angular": "^1.8.0",
     "angular-animate": "^1.7.8",
     "angular-aria": "^1.7.8",
     "angular-cookies": "^1.7.8",
