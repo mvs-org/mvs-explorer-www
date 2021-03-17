@@ -356,6 +356,11 @@
     "MESSAGES.ERROR_MST_NOT_FOUND": "Could not find this MST.",
 
     "ASSETS.BURNED_QUANTITY": "Burned quantity",
-    "EXPLORER.NUMBER_ADDRESSES": "Number of addresses"
+    "EXPLORER.NUMBER_ADDRESSES": "Number of addresses",
+
+    "AVATAR.VM_ADDRESS": "MVM address",
+
+    "MIGRATION_INFO.TITLE": "UTXO -> MVM Migration",
+    "MIGRATION_INFO.COMING_SOON": "Coming soon"
 
 }
