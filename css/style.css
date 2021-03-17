@@ -85,6 +85,11 @@ a{
     }
 }
 
+.latest-block{
+  overflow: visible;
+  white-space: nowrap;
+}
+
 .right-overflow{
     direction: rtl;
 }
@@ -123,6 +128,9 @@ em{
 }
 .infobox table{
     width: 100%;
+}
+.infobox .center-vertical{
+    line-height: 130px;
 }
 .infobox td{
     text-align: right;

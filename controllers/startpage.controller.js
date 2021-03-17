@@ -29,27 +29,15 @@
         $scope.loading_pricing = true;
         $scope.loading_eth_swap = true;
         $scope.loading_etp_relayer_pool = true;
-        $scope.etp_relayer_avatar = 'droplet'
-        $scope.etp_relayer_pool = ''
-        $scope.etp_relayer_address = '0xc1e5fd24fa2b4a3581335fc3f2850f717dd09c86';
-        $scope.eth_relayer_pool = ''
 
-        function getAvatar() {
-            return MetaverseService.FetchAvatar($scope.etp_relayer_avatar).then((response) => {
-                if (response.data.status && response.data.status.success) {
-                    getEtpRelayerPool(response.data.result.address);
-                }
-            }, console.error);
-        }
-
-        function getEtpRelayerPool(address) {
+        /*function getEtpRelayerPool(address) {
             return MetaverseService.FetchAddress(address).then((response) => {
                 $scope.loading_etp_relayer_pool = false;
                 if (response.data.status && response.data.status.success) {
                     $scope.etp_relayer_pool = response.data.result.info.ETP;
                 }
             }, console.error);
-        }
+        }*/
 
         function getCirculation() {
             return MetaverseService.Circulation(1).then((response) => {
@@ -89,7 +77,6 @@
         getTotalSupply();
         getPricing();
         getEthSwapRate();
-        getAvatar();
 
     }
 

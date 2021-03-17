@@ -1,9 +1,9 @@
 {
   "name": "MVS_explorer",
   "description": "Explorer for Metaverse.",
-  "version": "0.5.50",
-  "jshintConfig" : {
-    "esversion" : "6",
+  "version": "0.5.55",
+  "jshintConfig": {
+    "esversion": "6",
     "asi": true
   },
   "repository": {
@@ -11,6 +11,7 @@
     "url": "https://github.com/ViewBTC/mvs-explorer.git"
   },
   "dependencies": {
+    "angular-chart.js": "^1.1.1",
     "express": "^4.16.4",
     "rendertron-middleware": "^0.1.5"
   },

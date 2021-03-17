@@ -36,7 +36,7 @@
          **/
         service.FetchHeight = () => _send('height', []);
 
-        service.FetchTx = (hash) => _send('tx/' + hash);
+        service.FetchTx = (hash, json) => _send('v2/tx/' + hash +((json != undefined) ? '?json=' + json : ''));
 
         service.FetchTxOutputs = (hash) => _send('tx/outputs/' + hash);
 
@@ -46,14 +46,12 @@
 
         service.BlockStatsByDate = (type) => _send('stats/date' + ((type) ? '?type=' + type : ''));
 
-        service.FetchHistory = (address, page, min_time, max_time) => _send('address/txs/' + address + '?page=' + page + ((min_time) ? '&min_time=' + min_time : '') + ((max_time) ? '&max_time=' + max_time : ''));
-
         service.FetchAddress = (address) => _send('address/info/' + address);
 
         service.AddressBalance = (symbol, address) => _send('address/balance/' + symbol + '/' + address);
 
         service.AddressesCount = () => _send('addresses/count');
-        
+
         service.Block = (number) => _send('block/' + number);
 
         service.BlockTxs = (blockhash, last_known, limit) => _send('v2/block/txs?hash=' + blockhash + ((last_known) ? '&last_known=' + last_known : '') + ((limit) ? '&limit=' + limit : ''));

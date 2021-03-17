@@ -60,7 +60,6 @@
     "OUTPUTS": "Outputs",
     "INPUTS": "Inputs",
     "MINING_POOL_INFORMATION": "Mining Pools",
-    "THIRD_PARTY_EXPLORER": "Third Party Explorer",
     "BALANCES.HEADLINE": "Asset Balances",
     "TIME": "Time",
     "LATEST_TRANSACTIONS": "Latest Transactions",
@@ -358,6 +357,11 @@
 
     "ASSETS.BURNED_QUANTITY": "Burned quantity",
     "EXPLORER.NUMBER_ADDRESSES": "Number of addresses",
-    "TESTNET_DNA": "To get free testnet DNA, please visit: "
+    "TESTNET_DNA": "To get free testnet DNA, please visit: ",
+
+    "AVATAR.VM_ADDRESS": "MVM address",
+
+    "MIGRATION_INFO.TITLE": "UTXO -> MVM Migration",
+    "MIGRATION_INFO.COMING_SOON": "Coming soon"
 
 }
