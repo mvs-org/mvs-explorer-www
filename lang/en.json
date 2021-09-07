@@ -356,6 +356,12 @@
     "MESSAGES.ERROR_MST_NOT_FOUND": "Could not find this MST.",
 
     "ASSETS.BURNED_QUANTITY": "Burned quantity",
-    "EXPLORER.NUMBER_ADDRESSES": "Number of addresses"
+    "EXPLORER.NUMBER_ADDRESSES": "Number of addresses",
+
+    "AVATAR.VM_ADDRESS": "MVM address",
+
+    "MIGRATION_INFO.TITLE": "MetaverseVM",
+    "MIGRATION_INFO.COMING_SOON": "Coming soon",
+    "MIGRATION_INFO.ACCESS_VM_EXPLORER": "Access the Metaverse Virtual Machine explorer by clicking here"
 
 }
