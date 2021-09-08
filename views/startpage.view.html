@@ -64,38 +64,12 @@
         </div>
 
         <div class="col-md-6 infobox-specific-height">
-            <a ng-href="https://vm-explorer.mvs.org/" target="_blank">
-                <div class="panel infobox">
-                    <h3>{{'MIGRATION_INFO.TITLE'|translate}}</h3>
-                    <div>{{'MIGRATION_INFO.ACCESS_VM_EXPLORER'|translate}}</div>
-                    <!--table class="infobox-table">
-                    <tr>
-                        <th>{{'ETH_SWAP_PRICE'|translate}}</th>
-                        <td ng-show="loading_eth_swap"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_eth_swap">{{eth_swap_rate | number}}</td>
-                    </tr>
-                    <tr>
-                        <th>{{'TOKEN_DROPLET.ETP_RELAYER_NAME'|translate}}</th>
-                        <td><a href="/avatar/{{etp_relayer_avatar}}">{{etp_relayer_avatar}}</a></td>
-                    </tr>
-                    <tr>
-                        <th>{{'TOKEN_DROPLET.ETP_RELAYER_POOL'|translate}}</th>
-                        <td ng-show="loading_etp_relayer_pool"><img src="../images/spinner.gif"> </td>
-                        <td ng-hide="loading_etp_relayer_pool">{{etp_relayer_pool | numberFormat:8}} ETP</td>
-                    </tr>
-                    <tr>
-                        <th>{{'TOKEN_DROPLET.ETH_RELAYER_NAME'|translate}}</th>
-                        <td><a href="https://etherscan.io/address/{{etp_relayer_address}}"
-                                target="_blank">{{etp_relayer_address}}</a></td>
-                    </tr>
-                    <tr>
-                        <th></th>
-                        <td class="powered-by"><a href="https://www.rightbtc.com/"
-                                target="_blank">{{'TOKEN_DROPLET.POWERED_BY'|translate}}</a></td>
-                    </tr>
-                </table-->
-                </div>
-            </a>
+            <div class="panel infobox">
+                <h3>{{'MIGRATION_INFO.TITLE'|translate}}</h3>
+                <div class="news-text">{{'MIGRATION_INFO.ACCESS_VM_EXPLORER'|translate}}</div>
+                <a ng-href="https://vm-explorer.mvs.org/" target="_blank" class="col-xs-12 col-md-12 news-link">{{
+                    'NEWS.LINK' | translate }}>></a>
+            </div>
         </div>
     </div>
 </div>
