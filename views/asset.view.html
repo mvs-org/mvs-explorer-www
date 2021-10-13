@@ -148,11 +148,11 @@
                 <div class="col-md-4 list-item-label">{{ 'ASSET.ISSUER' | translate }}</div>
                 <div class="col-md-8 list-item-value">{{ asset.issuer }}</div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="asset.symbol != 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.ADDRESS' | translate }}</div>
                 <div class="col-md-8 list-item-value address-mono"><a href="adr/{{ asset.address }}">{{ asset.address }}</a></div>
             </div>
-            <div class="row">
+            <div class="row" ng-show="asset.symbol != 'ETP'">
                 <div class="col-md-4 list-item-label">{{ 'ASSET.HASH' | translate }}</div>
                 <div class="col-md-8 list-item-value hash-mono"><a href="tx/{{ asset.issue_tx }}">{{ asset.issue_tx }}</a></div>
             </div>
