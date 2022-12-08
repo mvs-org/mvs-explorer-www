@@ -12,7 +12,7 @@
   },
   "dependencies": {
     "angular-chart.js": "^1.1.1",
-    "express": "^4.16.4",
+    "express": "^4.18.2",
     "rendertron-middleware": "^0.1.5"
   },
   "devDependencies": {
